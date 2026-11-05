@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cifrAmem: repertório, cifras e folhetos para a liturgia</title>
+<meta name="description" content="Programa gratuito para as pastorais de música: organize as cifras, monte a missa pela data e gere o folheto em PDF.">
+<meta property="og:title" content="cifrAmem">
+<meta property="og:description" content="Programa gratuito para as pastorais de música: organize as cifras, monte a missa pela data e gere o folheto em PDF.">
+<meta property="og:image" content="https://www.ciframem.com.br/img/cifra.png">
+<meta property="og:url" content="https://www.ciframem.com.br/">
+<meta property="og:locale" content="pt_BR">
+<link rel="canonical" href="https://www.ciframem.com.br/">
+<link rel="icon" type="image/png" href="img/icone.png">
+<style>
+@font-face {
+  font-family: 'Source Serif';
+  src: url('fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');
+  font-weight: 200 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Same palette as the app (src/renderer/src/styles/index.css) */
+:root {
+  color-scheme: light dark;
+  --bg: #f6f4ef;
+  --surface: #fdfcfa;
+  --subtle: #efece5;
+  --line: #e6e2d9;
+  --line-strong: #d5cfc3;
+  --fg: #1f1d1a;
+  --muted: #69645b;
+  --accent: #3d6b4f;
+  --accent-hover: #325a42;
+  --accent-fg: #ffffff;
+  --accent-soft: #e5eee7;
+  --shadow: 0 1px 2px rgb(40 35 25 / .06), 0 18px 44px -14px rgb(40 35 25 / .24);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131211;
+    --surface: #1a1918;
+    --subtle: #22201e;
+    --line: #2c2a27;
+    --line-strong: #3a3733;
+    --fg: #ece9e3;
+    --muted: #a5a095;
+    --accent: #84b393;
+    --accent-hover: #98c2a5;
+    --accent-fg: #0f1510;
+    --accent-soft: #1e2a22;
+    --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 18px 44px -14px rgb(0 0 0 / .7);
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 17px/1.6 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--accent-hover); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+h1, h2, h3 { font-family: 'Source Serif', Georgia, serif; font-weight: 600; letter-spacing: -.012em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.1; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; }
+h3 { font-size: 1.14rem; line-height: 1.3; }
+p { margin: 0; text-wrap: pretty; }
+
+.wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
+
+/* Header */
+.top { padding-block: 22px; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 600 1.25rem 'Source Serif', Georgia, serif; color: var(--fg); text-decoration: none; }
+.brand img { width: 36px; height: 36px; border-radius: 50%; }
+.top nav a { color: var(--muted); font-size: .94rem; text-decoration: none; }
+.top nav a:hover { color: var(--fg); }
+
+/* Hero */
+.hero { padding-block: 40px 76px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+.lede { margin-top: 20px; font-size: 1.14rem; color: var(--muted); max-width: 30em; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 52px; padding: 12px 24px; border-radius: 10px;
+  background: var(--accent); color: var(--accent-fg);
+  font-weight: 600; text-decoration: none;
+  transition: background-color .15s;
+}
+.btn:hover { background: var(--accent-hover); color: var(--accent-fg); }
+.btn svg { flex: none; }
+.get { margin-top: 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.meta { font-size: .88rem; color: var(--muted); }
+
+.shot {
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+}
+
+/* Features */
+.band { padding-block: 76px; background: var(--surface); border-block: 1px solid var(--line); }
+.feature { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: center; }
+.feature p { margin-top: 14px; color: var(--muted); }
+.more { margin-top: 68px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 40px; border-top: 1px solid var(--line); padding-top: 44px; }
+.more p { margin-top: 6px; font-size: .95rem; color: var(--muted); }
+
+/* Install */
+.install { padding-block: 76px; }
+.install > .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; }
+.install .intro { margin-top: 14px; color: var(--muted); }
+.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 22px 48px; }
+.steps li:last-child { padding-bottom: 0; }
+.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: -1px;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent);
+  font-weight: 600; font-size: .9rem;
+}
+.steps span { color: var(--muted); display: block; font-size: .95rem; }
+.note {
+  margin-top: 26px; padding: 16px 20px; border-radius: 10px;
+  background: var(--subtle); font-size: .95rem; color: var(--muted);
+}
+.note strong { color: var(--fg); font-weight: 600; }
+
+/* Rights */
+.rights { padding-block: 60px; background: var(--surface); border-top: 1px solid var(--line); }
+.rights .wrap > div { max-width: 46em; }
+.rights p { margin-top: 12px; font-size: .95rem; color: var(--muted); }
+
+footer { padding-block: 26px; border-top: 1px solid var(--line); font-size: .86rem; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+@media (max-width: 860px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 20px 56px; }
+  .hero .wrap, .feature, .install > .wrap { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .feature .shot { order: 2; }
+  .band, .install { padding-block: 56px; }
+  .more { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 24px; margin-top: 52px; }
+}
+@media (max-width: 520px) {
+  .wrap { width: calc(100% - 36px); }
+  .more { grid-template-columns: minmax(0, 1fr); }
+  .btn { width: 100%; justify-content: center; }
+  .get { align-items: stretch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><img src="img/icone.png" alt="" width="36" height="36">cifrAmem</a>
+    <nav><a href="#instalar">Como instalar</a></nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>O repertório da sua pastoral, pronto para a missa</h1>
+        <p class="lede">Cifras no tom certo, rolagem automática para tocar e folhetos de missa prontos para imprimir. Gratuito e sem cadastro.</p>
+        <div class="get">
+          <a class="btn" href="https://github.com/marceloratto/cifrAmem/releases/latest/download/cifrAmem-Setup.exe">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
+            Baixar para Windows
+          </a>
+          <span class="meta">Versão 1.0.10 · cerca de 134 MB · Windows 10 ou 11, 64 bits</span>
+        </div>
+      </div>
+      <div class="shot">
+        <img src="img/cifra.png" width="1920" height="1140" alt="Tela do cifrAmem com a cifra de Bendita e Louvada Seja aberta e os controles de tom e rolagem na parte de baixo.">
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="feature">
+        <div class="shot">
+          <img src="img/missa.png" width="1420" height="1140" loading="lazy" alt="Tela de montagem da missa do 32º Domingo do Tempo Comum, com a cor litúrgica, as partes da missa e os momentos em lista.">
+        </div>
+        <div>
+          <h2>Escolha a data, e a missa começa montada</h2>
+          <p>O título, o tempo litúrgico, a cor do dia e as leituras vêm da data. Ato Penitencial, Glória, Sequência e Pai-Nosso já aparecem marcados conforme o dia, e você muda o que for diferente na sua comunidade.</p>
+          <p>Depois é só escolher as músicas de cada momento. Para outra data, duplique a missa e aproveite o que já escolheu.</p>
+        </div>
+      </div>
+
+      <div class="more">
+        <div>
+          <h3>Tocar sem virar página</h3>
+          <p>Mude o tom, ajuste a rolagem automática e o tamanho da letra, ou use o modo apresentação.</p>
+        </div>
+        <div>
+          <h3>Folheto em PDF</h3>
+          <p>Veja o folheto antes de gerar, ajuste o texto e a aparência, e coloque o nome e a imagem da paróquia.</p>
+        </div>
+        <div>
+          <h3>Cifras pelo WhatsApp</h3>
+          <p>Gere um único arquivo com as cifras da missa. Ele abre no celular, no tablet ou no computador, mesmo sem internet.</p>
+        </div>
+        <div>
+          <h3>Busca no repertório</h3>
+          <p>Encontre por título, autor ou letra, e filtre por momento, tempo litúrgico, gênero e nota.</p>
+        </div>
+        <div>
+          <h3>Momentos</h3>
+          <p>Velório, adoração, animação e outras ocasiões têm seu próprio espaço, com folheto e cifras.</p>
+        </div>
+        <div>
+          <h3>Suas músicas</h3>
+          <p>O programa traz 19 músicas para começar. Importe suas cifras ou digite novas, que ficam guardadas no seu computador.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="install" id="instalar">
+    <div class="wrap">
+      <div>
+        <h2>Como instalar</h2>
+        <p class="intro">Leva poucos minutos, e o programa não pede conta nem senha.</p>
+      </div>
+      <div>
+        <ol class="steps">
+          <li>Baixe o instalador<span>Use o botão “Baixar para Windows” no alto da página.</span></li>
+          <li>Abra o arquivo baixado<span>Ele se chama cifrAmem-Setup.exe e costuma ficar na pasta Downloads.</span></li>
+          <li>Siga o instalador<span>Ao final, o cifrAmem ganha um atalho na área de trabalho.</span></li>
+        </ol>
+        <p class="note"><strong>Se o Windows mostrar “O Windows protegeu o computador”:</strong> clique em “Mais informações” e depois em “Executar assim mesmo”. O aviso aparece porque o instalador ainda não tem assinatura digital, um certificado pago.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rights" id="direitos">
+    <div class="wrap">
+      <div>
+        <h2>Uso e direitos autorais</h2>
+        <p>O cifrAmem é um programa de distribuição gratuita e sem fins lucrativos, criado para auxiliar os agentes das pastorais de música na preparação da liturgia. Seu criador não recebe nenhum valor pelo programa nem pelos materiais gerados com ele.</p>
+        <p>Letras, melodias e cifras pertencem a seus autores, compositores e editoras, que mantêm todos os direitos sobre as obras. Os folhetos e arquivos de cifras destinam-se apenas ao apoio às celebrações e não podem ser vendidos. Cabe a cada comunidade observar as autorizações exigidas para o uso das obras.</p>
+        <p>As músicas que você importa ou digita são de sua responsabilidade. Letras, melodias e cifras costumam ser protegidas por direitos autorais, e cada site tem seus próprios termos de uso. Antes de importar, verifique se você pode usá-las. O cifrAmem não fornece essas obras nem autoriza o seu uso.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>cifrAmem</span>
+    <span>Programa gratuito para as pastorais de música</span>
+  </div>
+</footer>
+
+</body>
+</html>
