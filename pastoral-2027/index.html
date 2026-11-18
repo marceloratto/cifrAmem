@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendário 2027 – Pastoral Familiar Regional Leste 1</title>
+<style>
+  :root{
+    --bg:#f6f3ee; --card:#fff; --ink:#1d2433; --muted:#6b7280; --line:#e6e0d6;
+    --blue:#1f3b73; --reun:#c62828; --form:#1f5fae; --nac:#b7791f; --lit:#2f7d4f; --dat:#7a4fa3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:96px}
+  header{background:var(--blue);color:#fff;padding:18px 16px 14px;text-align:center}
+  header .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+  header h1{margin:4px 0 0;font-size:21px;font-weight:700;line-height:1.25}
+  .wrap{max-width:760px;margin:0 auto;padding:0 12px}
+  .months{display:flex;gap:6px;overflow-x:auto;padding:12px 2px 6px;scrollbar-width:none}
+  .months::-webkit-scrollbar{display:none}
+  .months button{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;position:relative}
+  .months button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .months button .n{display:inline-block;min-width:16px;margin-left:5px;font-size:11px;border-radius:8px;padding:0 4px;background:#eef1f7;color:var(--blue)}
+  .months button.on .n{background:rgba(255,255,255,.25);color:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;margin:8px 0}
+  .nav h2{margin:0;font-size:22px;text-transform:capitalize}
+  .nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:20px;cursor:pointer;color:var(--blue)}
+  .grid{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px;display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .dow{font-size:11px;color:var(--muted);text-align:center;padding:4px 0;font-weight:600}
+  .day{min-height:52px;border-radius:9px;padding:4px;font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid transparent}
+  .day.empty{cursor:default}
+  .day.has{background:#f7f5f1}
+  .day.sel{border-color:var(--blue);background:#eef1f7}
+  .day.sun .num{color:#b91c1c}
+  .day .num{font-weight:600}
+  .dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center}
+  .dot{width:7px;height:7px;border-radius:50%}
+  .c-reun{background:var(--reun)} .c-form{background:var(--form)} .c-nac{background:var(--nac)} .c-lit{background:var(--lit)} .c-dat{background:var(--dat)}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 14px;font-size:12px;color:var(--muted);margin:10px 2px}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .list{margin:14px 0 8px;display:flex;flex-direction:column;gap:10px}
+  .listhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+  .listhead button{border:0;background:none;color:var(--blue);font-size:13px;cursor:pointer;text-decoration:underline}
+  .ev{background:var(--card);border:1px solid var(--line);border-left:5px solid;border-radius:12px;padding:11px 12px}
+  .ev.reun{border-left-color:var(--reun)} .ev.form{border-left-color:var(--form)} .ev.nac{border-left-color:var(--nac)} .ev.lit{border-left-color:var(--lit)} .ev.dat{border-left-color:var(--dat)}
+  .ev .when{font-size:12px;color:var(--muted);font-weight:600}.ev .when::first-letter{text-transform:uppercase}
+  .ev .t{font-size:15px;margin:3px 0 8px;line-height:1.35}
+  .ev.reun .t{color:var(--reun);font-weight:600}
+  .ev.nac .t{font-weight:700}
+  .ev .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;padding:7px 11px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--blue);cursor:pointer;text-decoration:none;font-weight:600}
+  .btn.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .none{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--muted);font-size:14px}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+  .bar .wrap{display:flex;gap:8px;align-items:center}
+  .bar select{flex:1;min-width:0;font-size:14px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .bar .btn{padding:11px 14px;font-size:14px;white-space:nowrap}
+  .quote{text-align:center;font-family:Georgia,serif;font-size:17px;font-weight:700;margin:22px 8px 6px;line-height:1.35}
+  .quote small{font-weight:400;font-size:13px;color:var(--muted)}
+  .help{font-size:12px;color:var(--muted);text-align:center;margin:6px 8px 18px;line-height:1.5}
+  .embed .bar,.embed .ics{display:none!important}
+  .embed body{padding-bottom:24px}
+  .embedhelp{display:none}
+  .embed .embedhelp{display:block}
+  .embed .stdhelp{display:none}
+  .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="k">Pastoral Familiar · Regional Leste 1 CNBB</div>
+  <h1>Calendário de Atividades 2027</h1>
+</header>
+
+<div class="wrap">
+  <div class="months" id="months"></div>
+  <div class="nav">
+    <button id="prev" aria-label="Mês anterior">‹</button>
+    <h2 id="mtitle"></h2>
+    <button id="next" aria-label="Próximo mês">›</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="legend">
+    <span><i class="dot c-reun"></i>Reunião da Comissão</span>
+    <span><i class="dot c-form"></i>INAPAF / Formação</span>
+    <span><i class="dot c-nac"></i>Eventos nacionais</span>
+    <span><i class="dot c-lit"></i>Liturgia</span>
+    <span><i class="dot c-dat"></i>Datas comemorativas</span>
+  </div>
+  <div class="listhead"><span id="lhtitle"></span><button id="showall" hidden>ver o mês todo</button></div>
+  <div class="list" id="list"></div>
+
+  <p class="quote">“Fazê-Lo conhecido com nossa palavra e obras é a nossa alegria”. <small>(DocAp, 29)</small></p>
+  <p class="help embedhelp">Toque em <b>Google Agenda</b> para incluir um evento. Para incluir todas as atividades de uma vez no iPhone, abra o arquivo <b>pastoral-familiar-2027.ics</b> e toque em “Adicionar Todos”.</p>
+  <p class="help stdhelp">Toque em <b>Adicionar</b> num evento para incluí-lo no calendário do celular, ou use o botão abaixo para incluir vários de uma vez.<br>No iPhone abre o app Calendário (“Adicionar Todos”); no Android abre o Google Agenda ou o calendário padrão.<br>Ou <a href="webcal://www.ciframem.com.br/pastoral-2027/pastoral-familiar-2027.ics">assine o calendário</a> para receber atualizações automaticamente.</p>
+</div>
+
+<div class="bar"><div class="wrap">
+  <select id="scope">
+    <option value="all">Todas (38)</option>
+    <option value="pastoral">Só da Pastoral</option>
+    <option value="reun">Só reuniões</option>
+    <option value="month">Só este mês</option>
+  </select>
+  <button class="btn pri" id="addall">📅 Adicionar</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const EVENTS = [{"d": "2027-01-01", "t": "Maternidade Divina de Maria – Maria Mãe de Deus – Dia Mundial da Paz", "c": "lit"}, {"d": "2027-01-30", "t": "Formação para Multiplicadores do INAPAF – Diocese de Petrópolis", "c": "form"}, {"d": "2027-02-10", "t": "Cinzas – Abertura da Campanha da Fraternidade 2027: Fraternidade e o Cuidado das Crianças", "c": "lit"}, {"d": "2027-03-04", "t": "1ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (online)", "c": "reun", "h": "20:00"}, {"d": "2027-03-19", "t": "Dia de São José", "c": "lit"}, {"d": "2027-03-21", "t": "Domingo de Ramos – início da Semana Santa", "c": "lit"}, {"d": "2027-03-25", "t": "Quinta-feira Santa – Lava-Pés", "c": "lit"}, {"d": "2027-03-26", "t": "Sexta-feira da Paixão", "c": "lit"}, {"d": "2027-03-27", "t": "Sábado Santo – Vigília Pascal", "c": "lit"}, {"d": "2027-03-28", "t": "Domingo de Páscoa", "c": "lit"}, {"d": "2027-05-01", "e": "2027-05-02", "t": "INAPAF presencial Fase 1 – Diocese de Campos dos Goytacazes", "c": "form"}, {"d": "2027-05-09", "t": "Dia das Mães", "c": "dat"}, {"d": "2027-05-15", "t": "Dia Internacional da Família", "c": "dat"}, {"d": "2027-05-15", "e": "2027-05-16", "t": "INAPAF presencial Fase 1 – Arquidiocese de Niterói – Lagos", "c": "form"}, {"d": "2027-05-20", "t": "2ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (online)", "c": "reun", "h": "20:00"}, {"d": "2027-05-27", "t": "Corpus Christi", "c": "lit"}, {"d": "2027-05-29", "t": "17º Simpósio Nacional da Família – Aparecida", "c": "nac"}, {"d": "2027-05-30", "t": "17ª Peregrinação Nacional da Família à Aparecida", "c": "nac"}, {"d": "2027-06-12", "e": "2027-06-13", "t": "INAPAF presencial Fase 2 – Arquidiocese de Niterói – Lagos", "c": "form"}, {"d": "2027-06-26", "e": "2027-06-27", "t": "INAPAF presencial Fase 1 – Diocese de Nova Iguaçu", "c": "form"}, {"d": "2027-07-10", "e": "2027-07-11", "t": "INAPAF presencial Fase 3 – Arquidiocese de Niterói – Lagos", "c": "form"}, {"d": "2027-07-17", "e": "2027-07-18", "t": "INAPAF presencial Fase 2 – Diocese de Nova Iguaçu", "c": "form"}, {"d": "2027-07-26", "t": "Dia Mundial dos Avós e dos Idosos", "c": "dat"}, {"d": "2027-07-31", "e": "2027-08-01", "t": "INAPAF presencial Fase 2 – Diocese de Campos dos Goytacazes", "c": "form"}, {"d": "2027-08-08", "t": "Dia dos Pais", "c": "dat"}, {"d": "2027-08-08", "e": "2027-08-14", "t": "Semana Nacional da Família", "c": "nac"}, {"d": "2027-08-21", "e": "2027-08-22", "t": "INAPAF presencial Fase 3 – Diocese de Nova Iguaçu", "c": "form"}, {"d": "2027-08-26", "t": "3ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (online)", "c": "reun", "h": "20:00"}, {"d": "2027-08-28", "t": "Formação para Multiplicadores do INAPAF – Arquidiocese de Niterói – Lagos", "c": "form"}, {"d": "2027-09-25", "e": "2027-09-26", "t": "INAPAF presencial Fase 3 – Diocese de Campos dos Goytacazes", "c": "form"}, {"d": "2027-10-01", "e": "2027-10-07", "t": "Semana Nacional da Vida", "c": "nac"}, {"d": "2027-10-02", "t": "Formação para Multiplicadores do INAPAF – Diocese de Nova Iguaçu", "c": "form"}, {"d": "2027-10-08", "t": "Dia Nacional do Nascituro", "c": "nac"}, {"d": "2027-10-16", "t": "Formação para Multiplicadores do INAPAF – Diocese de Campos dos Goytacazes", "c": "form"}, {"d": "2027-11-25", "t": "4ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (online)", "c": "reun", "h": "20:00"}, {"d": "2027-12-08", "t": "Dia Nacional da Família (instituído pelo Governo Brasileiro – 1963)", "c": "dat"}, {"d": "2027-12-25", "t": "Natal do Senhor", "c": "lit"}, {"d": "2027-12-31", "t": "Festa da Sagrada Família", "c": "lit"}];
+const EMBED=(()=>{try{return window.self!==window.top;}catch(e){return true;}})();
+if(EMBED) document.documentElement.classList.add("embed");
+const MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const DOW=["D","S","T","Q","Q","S","S"];
+const DOWL=["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
+const YEAR=2027;
+EVENTS.forEach((e,i)=>{e.id=i;e.e=e.e||e.d;});
+
+const pd=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);};
+const ymd=dt=>dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const compact=s=>s.replace(/-/g,"");
+const addDays=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return ymd(d);};
+const covers=(e,s)=>e.d<=s&&s<=e.e;
+const inMonth=(e,m)=>{const a=pd(e.d),b=pd(e.e);const ms=new Date(YEAR,m,1),me=new Date(YEAR,m+1,0);return a<=me&&b>=ms;};
+
+let cur=(()=>{const t=new Date();return t.getFullYear()===YEAR?t.getMonth():0;})();
+let selDay=null;
+
+function whenText(e){
+  const a=pd(e.d),b=pd(e.e);
+  let s;
+  if(e.d===e.e) s=DOWL[a.getDay()]+", "+a.getDate()+" de "+MESES[a.getMonth()];
+  else if(a.getMonth()===b.getMonth()) s=a.getDate()+" a "+b.getDate()+" de "+MESES[a.getMonth()];
+  else s=a.getDate()+" de "+MESES[a.getMonth()]+" a "+b.getDate()+" de "+MESES[b.getMonth()];
+  if(e.h) s+=" · "+e.h+"h";
+  return s;
+}
+
+function renderMonths(){
+  const box=document.getElementById("months");box.innerHTML="";
+  MESES.forEach((m,i)=>{
+    const n=EVENTS.filter(e=>inMonth(e,i)).length;
+    const b=document.createElement("button");
+    b.className=i===cur?"on":"";
+    b.innerHTML=m.slice(0,3).replace(/^./,c=>c.toUpperCase())+(n?'<span class="n">'+n+'</span>':'');
+    b.onclick=()=>{cur=i;selDay=null;render();};
+    box.appendChild(b);
+    if(i===cur) setTimeout(()=>b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"}),0);
+  });
+}
+
+function renderGrid(){
+  const g=document.getElementById("grid");g.innerHTML="";
+  DOW.forEach(d=>{const x=document.createElement("div");x.className="dow";x.textContent=d;g.appendChild(x);});
+  const first=new Date(YEAR,cur,1).getDay(), days=new Date(YEAR,cur+1,0).getDate();
+  for(let i=0;i<first;i++){const x=document.createElement("div");x.className="day empty";g.appendChild(x);}
+  for(let d=1;d<=days;d++){
+    const s=ymd(new Date(YEAR,cur,d));
+    const evs=EVENTS.filter(e=>covers(e,s));
+    const x=document.createElement("div");
+    x.className="day"+(evs.length?" has":"")+(new Date(YEAR,cur,d).getDay()===0?" sun":"")+(selDay===s?" sel":"");
+    x.innerHTML='<span class="num">'+d+'</span><span class="dots">'+evs.map(e=>'<i class="dot c-'+e.c+'"></i>').join("")+'</span>';
+    if(evs.length) x.onclick=()=>{selDay=(selDay===s?null:s);render();};
+    g.appendChild(x);
+  }
+}
+
+function renderList(){
+  const l=document.getElementById("list");l.innerHTML="";
+  let evs=selDay?EVENTS.filter(e=>covers(e,selDay)):EVENTS.filter(e=>inMonth(e,cur));
+  evs.sort((a,b)=>a.d.localeCompare(b.d)||(a.e.localeCompare(b.e)));
+  document.getElementById("lhtitle").textContent=selDay?("Dia "+pd(selDay).getDate()+" de "+MESES[cur]):(evs.length+" atividade"+(evs.length===1?"":"s")+" em "+MESES[cur]);
+  document.getElementById("showall").hidden=!selDay;
+  if(!evs.length){l.innerHTML='<div class="none">Nenhuma atividade programada para este mês.</div>';return;}
+  evs.forEach(e=>{
+    const c=document.createElement("div");c.className="ev "+e.c;
+    c.innerHTML='<div class="when"></div><div class="t"></div><div class="acts"><button class="btn pri ics">📅 Adicionar</button><a class="btn gl" target="_blank" rel="noopener">Google Agenda</a></div>';
+    c.querySelector(".when").textContent=whenText(e);
+    c.querySelector(".t").textContent=e.t;
+    c.querySelector(".ics").onclick=()=>exportICS([e],"pastoral-"+e.d+".ics");
+    c.querySelector(".gl").href=googleLink(e);
+    l.appendChild(c);
+  });
+}
+
+function render(){
+  document.getElementById("mtitle").textContent=MESES[cur]+" "+YEAR;
+  renderMonths();renderGrid();renderList();
+}
+
+/* ---------- Calendário (.ics) ---------- */
+function esc(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");}
+function fold(line){
+  const enc=new TextEncoder();let out="",cur="",bytes=0;
+  for(const ch of line){const b=enc.encode(ch).length;if(bytes+b>73){out+=cur+"\r\n ";cur="";bytes=1;}cur+=ch;bytes+=b;}
+  return out+cur;
+}
+const ORG="Pastoral Familiar – Regional Leste 1 CNBB";
+function endTime(h){const[H,M]=h.split(":").map(Number);const t=H*60+M+90;return String(Math.floor(t/60)).padStart(2,"0")+String(t%60).padStart(2,"0")+"00";}
+function buildICS(list){
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+/,"");
+  const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Pastoral Familiar Leste 1//Calendario 2027//PT","CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:Pastoral Familiar 2027","X-WR-TIMEZONE:America/Sao_Paulo",
+    "BEGIN:VTIMEZONE","TZID:America/Sao_Paulo","BEGIN:STANDARD","DTSTART:19700101T000000","TZOFFSETFROM:-0300","TZOFFSETTO:-0300","TZNAME:-03","END:STANDARD","END:VTIMEZONE"];
+  list.forEach(e=>{
+    L.push("BEGIN:VEVENT","UID:pf-leste1-2027-"+compact(e.d)+"-"+e.id+"@pastoralfamiliar","DTSTAMP:"+stamp);
+    if(e.h){const hh=e.h.replace(":","")+"00";L.push("DTSTART;TZID=America/Sao_Paulo:"+compact(e.d)+"T"+hh,"DTEND;TZID=America/Sao_Paulo:"+compact(e.d)+"T"+endTime(e.h));}
+    else L.push("DTSTART;VALUE=DATE:"+compact(e.d),"DTEND;VALUE=DATE:"+compact(addDays(e.e,1)),"TRANSP:TRANSPARENT");
+    L.push("SUMMARY:"+esc(e.t),"DESCRIPTION:"+esc(ORG+" – Calendário de Atividades 2027"));
+    if(e.h) L.push("LOCATION:Online","BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc(e.t),"TRIGGER:-PT1H","END:VALARM");
+    L.push("END:VEVENT");
+  });
+  L.push("END:VCALENDAR");
+  return L.map(fold).join("\r\n")+"\r\n";
+}
+function googleLink(e){
+  const dates=e.h?compact(e.d)+"T"+e.h.replace(":","")+"00/"+compact(e.d)+"T"+endTime(e.h):compact(e.d)+"/"+compact(addDays(e.e,1));
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(e.t)+"&dates="+dates+"&ctz=America/Sao_Paulo&details="+encodeURIComponent(ORG)+(e.h?"&location=Online":"");
+}
+const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+function exportICS(list,name){
+  const ics=buildICS(list);
+  try{
+    if(isIOS){ location.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(ics); }
+    else{
+      const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar;charset=utf-8"}));
+      const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),4000);
+    }
+    toast(list.length===1?"Abrindo o calendário…":"Abrindo "+list.length+" eventos no calendário…");
+  }catch(err){toast("Não foi possível abrir o calendário neste navegador. Abra a página no Safari ou Chrome.");}
+}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);}
+
+document.getElementById("prev").onclick=()=>{cur=(cur+11)%12;selDay=null;render();};
+document.getElementById("next").onclick=()=>{cur=(cur+1)%12;selDay=null;render();};
+document.getElementById("showall").onclick=()=>{selDay=null;render();};
+document.getElementById("addall").onclick=()=>{
+  const v=document.getElementById("scope").value;
+  let list=EVENTS;
+  if(v==="pastoral") list=EVENTS.filter(e=>["reun","form","nac"].includes(e.c));
+  else if(v==="reun") list=EVENTS.filter(e=>e.c==="reun");
+  else if(v==="month") list=EVENTS.filter(e=>inMonth(e,cur));
+  if(!list.length){toast("Nenhuma atividade nesse filtro.");return;}
+  if(v==="all"&&!EMBED&&location.protocol.startsWith("http")){location.href="pastoral-familiar-2027.ics";toast("Abrindo "+list.length+" eventos no calendário…");return;}
+  exportICS(list,"pastoral-familiar-2027"+(v==="all"?"":"-"+v)+".ics");
+};
+let sx=null;const gr=document.getElementById("grid");
+gr.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;},{passive:true});
+gr.addEventListener("touchend",e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60){cur=(cur+(dx<0?1:11))%12;selDay=null;render();}sx=null;});
+render();
+</script>
+</body>
+</html>
