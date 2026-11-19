@@ -92,7 +92,7 @@
 
   <p class="quote">“Fazê-Lo conhecido com nossa palavra e obras é a nossa alegria”. <small>(DocAp, 29)</small></p>
   <p class="help embedhelp">Toque em <b>Google Agenda</b> para incluir um evento. Para incluir todas as atividades de uma vez no iPhone, abra o arquivo <b>pastoral-familiar-2027.ics</b> e toque em “Adicionar Todos”.</p>
-  <p class="help stdhelp">Toque em <b>Adicionar</b> num evento para incluí-lo no calendário do celular, ou use o botão abaixo para incluir vários de uma vez.<br>No iPhone abre o app Calendário (“Adicionar Todos”); no Android abre o Google Agenda ou o calendário padrão.<br>Ou <a href="webcal://www.ciframem.com.br/pastoral-2027/pastoral-familiar-2027.ics">assine o calendário</a> para receber atualizações automaticamente.</p>
+  <p class="help stdhelp">Toque em <b>Adicionar</b> num evento para incluí-lo no calendário do celular, ou use o botão abaixo para incluir vários de uma vez.<br>No iPhone abre o app Calendário (“Adicionar Todos”); no Android abre o Google Agenda ou o calendário padrão.<br>Ou <a href="webcal://www.ciframem.com.br/pastoral-2027/ics/todas.ics">assine o calendário</a> para receber atualizações automaticamente.</p>
 </div>
 
 <div class="bar"><div class="wrap">
@@ -102,7 +102,7 @@
     <option value="reun">Só reuniões</option>
     <option value="month">Só este mês</option>
   </select>
-  <button class="btn pri" id="addall">📅 Adicionar</button>
+  <a class="btn pri" id="addall" href="ics/todas.ics">📅 Adicionar</a>
 </div></div>
 <div class="toast" id="toast"></div>
 
@@ -174,16 +174,17 @@ function renderList(){
   if(!evs.length){l.innerHTML='<div class="none">Nenhuma atividade programada para este mês.</div>';return;}
   evs.forEach(e=>{
     const c=document.createElement("div");c.className="ev "+e.c;
-    c.innerHTML='<div class="when"></div><div class="t"></div><div class="acts"><button class="btn pri ics">📅 Adicionar</button><a class="btn gl" target="_blank" rel="noopener">Google Agenda</a></div>';
+    c.innerHTML='<div class="when"></div><div class="t"></div><div class="acts"><a class="btn pri ics">📅 Adicionar</a><a class="btn gl" target="_blank" rel="noopener">Google Agenda</a></div>';
     c.querySelector(".when").textContent=whenText(e);
     c.querySelector(".t").textContent=e.t;
-    c.querySelector(".ics").onclick=()=>exportICS([e],"pastoral-"+e.d+".ics");
+    c.querySelector(".ics").href="ics/evento-"+compact(e.d)+"-"+e.id+".ics";
     c.querySelector(".gl").href=googleLink(e);
     l.appendChild(c);
   });
 }
 
 function render(){
+  if(typeof updAll==='function')updAll();
   document.getElementById("mtitle").textContent=MESES[cur]+" "+YEAR;
   renderMonths();renderGrid();renderList();
 }
@@ -234,16 +235,8 @@ function toast(m){const t=document.getElementById("toast");t.textContent=m;t.cla
 document.getElementById("prev").onclick=()=>{cur=(cur+11)%12;selDay=null;render();};
 document.getElementById("next").onclick=()=>{cur=(cur+1)%12;selDay=null;render();};
 document.getElementById("showall").onclick=()=>{selDay=null;render();};
-document.getElementById("addall").onclick=()=>{
-  const v=document.getElementById("scope").value;
-  let list=EVENTS;
-  if(v==="pastoral") list=EVENTS.filter(e=>["reun","form","nac"].includes(e.c));
-  else if(v==="reun") list=EVENTS.filter(e=>e.c==="reun");
-  else if(v==="month") list=EVENTS.filter(e=>inMonth(e,cur));
-  if(!list.length){toast("Nenhuma atividade nesse filtro.");return;}
-  if(v==="all"&&!EMBED&&location.protocol.startsWith("http")){location.href="pastoral-familiar-2027.ics";toast("Abrindo "+list.length+" eventos no calendário…");return;}
-  exportICS(list,"pastoral-familiar-2027"+(v==="all"?"":"-"+v)+".ics");
-};
+function updAll(){const v=document.getElementById("scope").value;document.getElementById("addall").href="ics/"+(v==="month"?"mes-"+String(cur+1).padStart(2,"0"):v==="pastoral"?"pastoral":v==="reun"?"reunioes":"todas")+".ics";}
+document.getElementById("scope").onchange=updAll;
 let sx=null;const gr=document.getElementById("grid");
 gr.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;},{passive:true});
 gr.addEventListener("touchend",e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60){cur=(cur+(dx<0?1:11))%12;selDay=null;render();}sx=null;});

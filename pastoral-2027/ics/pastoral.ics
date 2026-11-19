@@ -1,0 +1,269 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Pastoral Familiar Leste 1//Calendario 2027//PT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Pastoral Familiar 2027
+X-WR-TIMEZONE:America/Sao_Paulo
+BEGIN:VTIMEZONE
+TZID:America/Sao_Paulo
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0300
+TZNAME:-03
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270130-1@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270130
+DTEND;VALUE=DATE:20270131
+TRANSP:TRANSPARENT
+SUMMARY:Formação para Multiplicadores do INAPAF – Diocese de Petrópo
+ lis
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270304-3@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;TZID=America/Sao_Paulo:20270304T200000
+DTEND;TZID=America/Sao_Paulo:20270304T213000
+SUMMARY:1ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (onl
+ ine)
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+LOCATION:Online
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:1ª Reunião Comissão Regional Leste 1 da Pastoral Familiar 
+ (online)
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270501-10@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270503
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 1 – Diocese de Campos dos Goytacazes
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270515-13@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270515
+DTEND;VALUE=DATE:20270517
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 1 – Arquidiocese de Niterói – Lagos
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270520-14@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;TZID=America/Sao_Paulo:20270520T200000
+DTEND;TZID=America/Sao_Paulo:20270520T213000
+SUMMARY:2ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (onl
+ ine)
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+LOCATION:Online
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:2ª Reunião Comissão Regional Leste 1 da Pastoral Familiar 
+ (online)
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270529-16@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270529
+DTEND;VALUE=DATE:20270530
+TRANSP:TRANSPARENT
+SUMMARY:17º Simpósio Nacional da Família – Aparecida
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270530-17@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+TRANSP:TRANSPARENT
+SUMMARY:17ª Peregrinação Nacional da Família à Aparecida
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270612-18@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270612
+DTEND;VALUE=DATE:20270614
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 2 – Arquidiocese de Niterói – Lagos
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270626-19@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270626
+DTEND;VALUE=DATE:20270628
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 1 – Diocese de Nova Iguaçu
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270710-20@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270710
+DTEND;VALUE=DATE:20270712
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 3 – Arquidiocese de Niterói – Lagos
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270717-21@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270717
+DTEND;VALUE=DATE:20270719
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 2 – Diocese de Nova Iguaçu
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270731-23@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270731
+DTEND;VALUE=DATE:20270802
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 2 – Diocese de Campos dos Goytacazes
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270808-25@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270808
+DTEND;VALUE=DATE:20270815
+TRANSP:TRANSPARENT
+SUMMARY:Semana Nacional da Família
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270821-26@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270823
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 3 – Diocese de Nova Iguaçu
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270826-27@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;TZID=America/Sao_Paulo:20270826T200000
+DTEND;TZID=America/Sao_Paulo:20270826T213000
+SUMMARY:3ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (onl
+ ine)
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+LOCATION:Online
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:3ª Reunião Comissão Regional Leste 1 da Pastoral Familiar 
+ (online)
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270828-28@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270828
+DTEND;VALUE=DATE:20270829
+TRANSP:TRANSPARENT
+SUMMARY:Formação para Multiplicadores do INAPAF – Arquidiocese de Nit
+ erói – Lagos
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20270925-29@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20270925
+DTEND;VALUE=DATE:20270927
+TRANSP:TRANSPARENT
+SUMMARY:INAPAF presencial Fase 3 – Diocese de Campos dos Goytacazes
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20271001-30@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20271001
+DTEND;VALUE=DATE:20271008
+TRANSP:TRANSPARENT
+SUMMARY:Semana Nacional da Vida
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20271002-31@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20271002
+DTEND;VALUE=DATE:20271003
+TRANSP:TRANSPARENT
+SUMMARY:Formação para Multiplicadores do INAPAF – Diocese de Nova Igu
+ açu
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20271008-32@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20271008
+DTEND;VALUE=DATE:20271009
+TRANSP:TRANSPARENT
+SUMMARY:Dia Nacional do Nascituro
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20271016-33@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;VALUE=DATE:20271016
+DTEND;VALUE=DATE:20271017
+TRANSP:TRANSPARENT
+SUMMARY:Formação para Multiplicadores do INAPAF – Diocese de Campos d
+ os Goytacazes
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+END:VEVENT
+BEGIN:VEVENT
+UID:pf-leste1-2027-20271125-34@pastoralfamiliar
+DTSTAMP:20261119T014611Z
+DTSTART;TZID=America/Sao_Paulo:20271125T200000
+DTEND;TZID=America/Sao_Paulo:20271125T213000
+SUMMARY:4ª Reunião Comissão Regional Leste 1 da Pastoral Familiar (onl
+ ine)
+DESCRIPTION:Pastoral Familiar – Regional Leste 1 CNBB – Calendário d
+ e Atividades 2027
+LOCATION:Online
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:4ª Reunião Comissão Regional Leste 1 da Pastoral Familiar 
+ (online)
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
