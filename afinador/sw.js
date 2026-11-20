@@ -1,6 +1,6 @@
 /* Accordatore (afinador do cifrAmem): funciona sem internet depois da primeira visita */
-var CACHE = 'afinador-v5';
-var FILES = ['./', 'index.html', 'pitch.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
+var CACHE = 'afinador-v6';
+var FILES = ['./', 'index.html', 'pitch.js?v=6', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
   'icone-accordatore.png', '../fonts/inter-latin-wght-normal.woff2', '../fonts/source-serif-4-latin-wght-normal.woff2'];
 
 self.addEventListener('install', function (e) {
@@ -14,7 +14,7 @@ self.addEventListener('activate', function (e) {
 // Rede primeiro (para receber atualizações); sem internet, usa a cópia guardada.
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
-  e.respondWith(fetch(e.request).then(function (res) {
+  e.respondWith(fetch(e.request, { cache: 'no-cache' }).then(function (res) {
     if (res && res.ok && new URL(e.request.url).origin === location.origin) {
       var copy = res.clone();
       caches.open(CACHE).then(function (c) { c.put(e.request, copy); });

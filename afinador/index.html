@@ -81,6 +81,7 @@ dialog.help::backdrop { background: rgb(20 18 15 / .45); }
 /* Tela de abertura */
 .splash { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; transition: opacity .45s ease, visibility .45s; }
 .splash.out { opacity: 0; visibility: hidden; }
+.splash[hidden] { display: none; }
 .splash .logo { width: 132px; height: 132px; border-radius: 50%; box-shadow: var(--shadow); animation: pop .6s cubic-bezier(.2,.9,.3,1.2) both; }
 .splash h1 { margin: 22px 0 0; font: 600 clamp(2.3rem, 10vw, 3.2rem)/1.05 'Source Serif', Georgia, serif; letter-spacing: -.015em; animation: rise .6s .15s both; }
 .splash .sub { margin-top: 8px; color: var(--muted); font-size: 1.02rem; animation: rise .6s .25s both; }
@@ -231,6 +232,8 @@ footer a { color: var(--accent); }
   </div>
   <div class="made"><span data-t="splashMade">Gratuito · sem cadastro · funciona sem internet</span><br><b>cifrAmem</b></div>
 </div>
+<script>setTimeout(function () { var s = document.getElementById('splash'); if (s && !s.hidden) { s.className += ' out'; setTimeout(function () { s.hidden = true; }, 500); } }, 3500);
+window.addEventListener('error', function (e) { var m = document.getElementById('startMsg'); if (m) m.innerHTML = '<span class="err">Erro / Errore:</span> <small>' + String(e.message).replace(/</g, '&lt;') + '</small>'; });</script>
 
 <header class="top">
   <div class="wrap">
@@ -421,7 +424,7 @@ footer a { color: var(--accent); }
   </div>
 </footer>
 
-<script src="pitch.js"></script>
+<script src="pitch.js?v=6"></script>
 <script>
 (function () {
 'use strict';
@@ -777,31 +780,45 @@ function analysisConfigChanged() {
 $('startBtn').addEventListener('click', start);
 function start() {
   var msg = $('startMsg');
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    msg.innerHTML = L().errApi;
-    return;
-  }
-  try {
-    var AC = window.AudioContext || window.webkitAudioContext;
-    ctx = ctx || new AC({ latencyHint: 'interactive' });
-  } catch (e) { msg.innerHTML = L().errAudio; return; }
-  ctx.resume && ctx.resume();
-  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } })
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.innerHTML = L().errApi; return; }
+  var AC = window.AudioContext || window.webkitAudioContext;
+  try { ctx = ctx || new AC({ latencyHint: 'interactive' }); } catch (e) { try { ctx = new AC(); } catch (e2) { msg.innerHTML = L().errAudio; return; } }
+  if (ctx.resume) ctx.resume();
+  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
     .then(function (s) {
       stream = s;
-      var src = ctx.createMediaStreamSource(s);
-      var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 22; hp.Q.value = 0.5;
-      analyser = ctx.createAnalyser(); analyser.smoothingTimeConstant = 0;
-      src.connect(hp); hp.connect(analyser);
-      analysisConfigChanged();
-      analyser.fftSize = cfg.N;
+      try { connectMic(s); }
+      catch (e) {
+        // Firefox: o microfone e o áudio precisam da mesma taxa de amostragem
+        try {
+          var rate = s.getAudioTracks()[0].getSettings().sampleRate;
+          try { ctx.close(); } catch (e3) {}
+          ctx = rate ? new AC({ sampleRate: rate, latencyHint: 'interactive' }) : new AC();
+          if (ctx.resume) ctx.resume();
+          connectMic(s);
+        } catch (e4) { showErr(e4); return; }
+      }
       $('start').hidden = true; $('card').setAttribute('aria-live', 'polite');
       running = true; applyWake();
-    })
-    .catch(function (err) {
-      var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError');
-      msg.innerHTML = denied ? L().errDenied : L().errNoMic;
+    }, function (err) {
+      var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError' || err.name === 'PermissionDeniedError');
+      msg.innerHTML = denied ? L().errDenied : L().errNoMic + ' <small>(' + (err && err.name || '') + ')</small>';
     });
+}
+function connectMic(s) {
+  var src = ctx.createMediaStreamSource(s);
+  var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 22; hp.Q.value = 0.5;
+  analyser = ctx.createAnalyser(); analyser.smoothingTimeConstant = 0;
+  src.connect(hp); hp.connect(analyser);
+  detector = null;
+  analysisConfigChanged();
+  analyser.fftSize = cfg.N;
+}
+// Mostra qualquer erro na tela, para poder ser informado
+function showErr(e) {
+  var el = $('startMsg'); if (!el) return;
+  $('start').hidden = false;
+  el.innerHTML = '<span class="err">' + (prefs.lang === 'it' ? 'Si è verificato un errore' : 'Ocorreu um erro') + ':</span> <small>' + String(e && (e.message || e)).replace(/</g, '&lt;') + '</small>';
 }
 
 /* Wake lock */
@@ -896,11 +913,11 @@ function analyse(now) {
   var lockM = currentTargetMidi();
   if (lockM !== null && (r.freq || r.score)) {
     // corda fixa: segue a nota mais próxima dela, mesmo com outras cordas soando
-    var tl = detector.track(targetFreq(lockM), 160);
+    var tl = detector.track ? detector.track(targetFreq(lockM), 160) : null;
     if (tl && (!r.freq || tl.s >= 0.2 * r.score)) r.freq = tl.freq;
   } else if (heldF && now - onsetAt > 140 && now - lastGood < 400) {
     // segura a corda que foi tocada por último enquanto ela ainda soa
-    var th = detector.track(heldF, 45);
+    var th = detector.track ? detector.track(heldF, 45) : null;
     if (th && th.s >= 0.25 * (r.score || 0)) r.freq = th.freq;
   }
   if (!r.freq) { if (now - lastGood > 300) { hist = []; pend = []; heldF = 0; } return; }
@@ -961,7 +978,7 @@ function renderIdleText() {
 }
 
 function frame(now) {
-  analyse(now);
+  try { analyse(now); } catch (e) { if (!frame.err) { frame.err = 1; console.error(e); } }
   var card = $('card');
   var fresh = haveReading && now - lastGood < 1200;
   var state = 'none';
@@ -1111,7 +1128,7 @@ applyLang(prefs.lang);
   var sp = $('splash'), shown = false;
   try { shown = sessionStorage.getItem('accordatore.splash') === '1'; sessionStorage.setItem('accordatore.splash', '1'); } catch (e) {}
   var hide = function () { sp.classList.add('out'); setTimeout(function () { sp.hidden = true; }, 500); };
-  if (shown) { sp.hidden = true; return; }
+  if (shown) { sp.classList.add('out'); sp.hidden = true; return; }
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   setTimeout(hide, reduce ? 900 : 2300);
   sp.addEventListener('click', hide);
