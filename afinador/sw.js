@@ -1,7 +1,7 @@
-/* Afinador cifrAmem: funciona sem internet depois da primeira visita */
-var CACHE = 'afinador-v1';
+/* Accordatore (afinador do cifrAmem): funciona sem internet depois da primeira visita */
+var CACHE = 'afinador-v2';
 var FILES = ['./', 'index.html', 'pitch.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
-  '../img/icone.png', '../fonts/inter-latin-wght-normal.woff2', '../fonts/source-serif-4-latin-wght-normal.woff2'];
+  'icone-accordatore.png', '../fonts/inter-latin-wght-normal.woff2', '../fonts/source-serif-4-latin-wght-normal.woff2'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));

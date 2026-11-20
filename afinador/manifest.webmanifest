@@ -1,6 +1,6 @@
 {
-  "name": "Afinador cifrAmem",
-  "short_name": "Afinador",
+  "name": "Accordatore – afinador do cifrAmem",
+  "short_name": "Accordatore",
   "description": "Afinador para violão, viola caipira, cavaquinho, ukulele, bandolim, baixo, violino, violoncelo, piano e afinação cromática.",
   "lang": "pt-BR",
   "start_url": "./",
