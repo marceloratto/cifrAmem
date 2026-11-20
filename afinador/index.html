@@ -78,6 +78,27 @@ dialog.help::backdrop { background: rgb(20 18 15 / .45); }
 .help .c-flat { color: var(--flat); font-weight: 600; } .help .c-sharp { color: var(--sharp); font-weight: 600; } .help .c-in { color: var(--accent); font-weight: 600; }
 .iconbtn[aria-expanded="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 
+/* Tela de abertura */
+.splash { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; transition: opacity .45s ease, visibility .45s; }
+.splash.out { opacity: 0; visibility: hidden; }
+.splash .logo { width: 132px; height: 132px; border-radius: 50%; box-shadow: var(--shadow); animation: pop .6s cubic-bezier(.2,.9,.3,1.2) both; }
+.splash h1 { margin: 22px 0 0; font: 600 clamp(2.3rem, 10vw, 3.2rem)/1.05 'Source Serif', Georgia, serif; letter-spacing: -.015em; animation: rise .6s .15s both; }
+.splash .sub { margin-top: 8px; color: var(--muted); font-size: 1.02rem; animation: rise .6s .25s both; }
+.splash svg.dial { display: block; width: 170px; height: auto; margin: 26px auto 0; animation: rise .6s .3s both; }
+.splash .dial .arc { stroke: var(--line-strong); }
+.splash .dial .tk { stroke: var(--muted); }
+.splash .dial .zone { stroke: var(--accent-soft); }
+.splash .dial .nd { stroke: var(--sharp); transform-origin: 85px 92px; animation: settle 1.5s .35s cubic-bezier(.3,.7,.2,1) both, ok .3s 1.6s forwards; }
+.splash .dial .hub { fill: var(--sharp); animation: okf .3s 1.6s forwards; }
+.splash .made { position: absolute; bottom: calc(22px + env(safe-area-inset-bottom)); left: 0; right: 0; font-size: .82rem; color: var(--muted); animation: rise .6s .45s both; }
+.splash .made b { font: 600 .95rem 'Source Serif', Georgia, serif; color: var(--fg); }
+@keyframes pop { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes settle { 0% { transform: rotate(-50deg); } 30% { transform: rotate(34deg); } 52% { transform: rotate(-16deg); } 70% { transform: rotate(7deg); } 85% { transform: rotate(-2deg); } 100% { transform: rotate(0deg); } }
+@keyframes ok { to { stroke: var(--accent); } }
+@keyframes okf { to { fill: var(--accent); } }
+@media (prefers-reduced-motion: reduce) { .splash * { animation: none !important; } .splash .dial .nd { stroke: var(--accent); } .splash .dial .hub { fill: var(--accent); } }
+
 /* Instrument chips */
 .chips { display: flex; gap: 6px; overflow-x: auto; padding: 8px 2px 10px; scrollbar-width: none; scroll-snap-type: x proximity; }
 .chips::-webkit-scrollbar { display: none; }
@@ -192,6 +213,24 @@ footer a { color: var(--accent); }
 </style>
 </head>
 <body>
+<div class="splash" id="splash" role="presentation">
+  <div>
+    <img class="logo" src="icon-512.png" alt="" width="132" height="132">
+    <h1>Accordatore</h1>
+    <div class="sub" data-t="splashSub">O afinador do cifrAmem</div>
+    <svg class="dial" viewBox="0 0 170 100" aria-hidden="true">
+      <path class="zone" d="M80.3 22.2 A70 70 0 0 1 89.7 22.2" fill="none" stroke-width="12"/>
+      <path class="arc" d="M24.5 57 A70 70 0 0 1 145.5 57" fill="none" stroke-width="1.6"/>
+      <g class="tk" stroke-width="2" stroke-linecap="round">
+        <path d="M24.5 57l7 4"/><path d="M40 37l5.5 5.8"/><path d="M61 25l3 7"/><path d="M109 25l-3 7"/><path d="M130 37l-5.5 5.8"/><path d="M145.5 57l-7 4"/>
+      </g>
+      <path d="M85 16v13" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+      <line class="nd" x1="85" y1="92" x2="85" y2="28" stroke-width="4" stroke-linecap="round"/>
+      <circle class="hub" cx="85" cy="92" r="6.5"/>
+    </svg>
+  </div>
+  <div class="made"><span data-t="splashMade">Gratuito · sem cadastro · funciona sem internet</span><br><b>cifrAmem</b></div>
+</div>
 
 <header class="top">
   <div class="wrap">
@@ -257,7 +296,7 @@ footer a { color: var(--accent); }
     <div class="alt" id="alt">&nbsp;</div>
     <canvas class="meter" id="meter" width="600" height="267" aria-hidden="true"></canvas>
     <div class="readout">
-      <span class="cents" id="cents">0,0 cents</span>
+      <span class="cents" id="cents">0,0 ¢</span>
       <span class="hz" id="hz">&nbsp;</span>
     </div>
     <canvas class="strobe" id="strobe" width="600" height="34" aria-hidden="true"></canvas>
@@ -307,7 +346,7 @@ footer a { color: var(--accent); }
         <li>A <b>letra grande</b> é a nota que a corda deve ter. Embaixo aparecem a corda, o nome em Dó Ré Mi e a frequência certa.</li>
         <li>Ponteiro à esquerda, em <span class="c-flat">laranja</span>: a corda está <b>baixa</b>, aperte a tarraxa. À direita, em <span class="c-sharp">vermelho</span>: está <b>alta</b>, afrouxe.</li>
         <li>No centro, em <span class="c-in">verde</span>: <b>afinado</b>. Depois de um instante o botão da corda ganha um ✓.</li>
-        <li>O número em <b>cents</b> mostra o quanto falta: 1 cent é a centésima parte de um semitom (de uma nota para a vizinha há 100 cents). Abaixo de 2 ou 3 cents o ouvido já não percebe diferença.</li>
+        <li>O número em <b>cents (¢)</b> mostra o quanto falta: 1 cent é a centésima parte de um semitom (de uma nota para a vizinha há 100 cents). Abaixo de 2 ou 3 cents o ouvido já não percebe diferença.</li>
         <li>A <b>faixa listrada</b> (estroboscópio) anda para a esquerda quando está baixo e para a direita quando está alto, e <b>para</b> quando está afinado. É o jeito mais preciso de fazer o ajuste fino.</li>
       </ul>
       <h3>Fixar uma corda</h3>
@@ -345,7 +384,7 @@ footer a { color: var(--accent); }
         <li>La <b>lettera grande</b> è la nota che deve avere la corda. Sotto compaiono la corda, il nome in Do Re Mi e la frequenza giusta.</li>
         <li>Lancetta a sinistra, in <span class="c-flat">arancione</span>: la corda è <b>calante</b>, tendila con la meccanica. A destra, in <span class="c-sharp">rosso</span>: è <b>crescente</b>, allentala.</li>
         <li>Al centro, in <span class="c-in">verde</span>: <b>accordata</b>. Dopo un istante il pulsante della corda mostra un ✓.</li>
-        <li>Il numero in <b>cent</b> indica quanto manca: 1 cent è la centesima parte di un semitono (da una nota alla vicina ci sono 100 cent). Sotto i 2 o 3 cent l’orecchio non sente più la differenza.</li>
+        <li>Il numero in <b>cent (¢)</b> indica quanto manca: 1 cent è la centesima parte di un semitono (da una nota alla vicina ci sono 100 cent). Sotto i 2 o 3 cent l’orecchio non sente più la differenza.</li>
         <li>La <b>fascia a righe</b> (stroboscopio) scorre a sinistra quando la nota è calante e a destra quando è crescente, e si <b>ferma</b> quando è accordata. È il modo più preciso per la regolazione fine.</li>
       </ul>
       <h3>Bloccare una corda</h3>
@@ -471,12 +510,13 @@ var T = {
     stretch: 'Afinação esticada do piano (curva de Railsback aproximada)', wake: 'Manter a tela ligada',
     start: 'Ativar o microfone', startMsg: 'O som é analisado só no seu aparelho. Nada é gravado nem enviado.',
     listen: 'Ouvir a nota', auto: 'Automático', fixed: 'Fixo (toque p/ automático)',
+    splashSub: 'O afinador do cifrAmem', splashMade: 'Gratuito · sem cadastro · funciona sem internet',
     foot1: 'Accordatore, o afinador do', foot2: 'Gratuito, sem cadastro e sem anúncios', helpTitle: 'Como usar o Accordatore',
     cents: 'cents', string: 'corda', octave: '(oitava)', withOctave: 'com oitava',
     chromEq: 'Cromático, temperamento igual', chromStretch: 'Cromático, com afinação esticada', chromAll: 'Todas as notas (cromático)',
     idleString: 'Toque uma corda', idleLocked: function (l) { return 'Toque a ' + l; }, idleKey: 'Toque uma tecla', idleChrom: 'Toque ou cante uma nota',
     inTune: 'Afinado ✓', lowFar: '↑ Bem abaixo: aperte', low: '↑ Um pouco abaixo: aperte', highFar: '↓ Bem acima: afrouxe', high: '↓ Um pouco acima: afrouxe',
-    below: '↑ Abaixo da nota', above: '↓ Acima da nota', over50: 'mais de 50 cents',
+    below: '↑ Abaixo da nota', above: '↓ Acima da nota', over50: 'mais de 50 ¢',
     errApi: '<span class="err">Este navegador não dá acesso ao microfone.</span> Abra a página pelo endereço https://www.ciframem.com.br/afinador no Chrome, Safari, Edge ou Firefox.',
     errAudio: '<span class="err">Não foi possível iniciar o áudio.</span>',
     errDenied: '<span class="err">O acesso ao microfone foi bloqueado.</span> Toque no cadeado ao lado do endereço da página, permita o microfone e tente de novo.',
@@ -492,12 +532,13 @@ var T = {
     stretch: 'Accordatura allargata del pianoforte (curva di Railsback approssimata)', wake: 'Tieni lo schermo acceso',
     start: 'Attiva il microfono', startMsg: 'Il suono viene analizzato solo sul tuo dispositivo. Niente viene registrato né inviato.',
     listen: 'Ascolta la nota', auto: 'Automatico', fixed: 'Fisso (tocca per automatico)',
+    splashSub: 'L’accordatore di cifrAmem', splashMade: 'Gratuito · senza registrazione · funziona senza internet',
     foot1: 'Accordatore, l’accordatore di', foot2: 'Gratuito, senza registrazione e senza pubblicità', helpTitle: 'Come si usa l’Accordatore',
     cents: 'cent', string: 'corda', octave: '(ottava)', withOctave: 'con ottava',
     chromEq: 'Cromatico, temperamento equabile', chromStretch: 'Cromatico, con accordatura allargata', chromAll: 'Tutte le note (cromatico)',
     idleString: 'Suona una corda', idleLocked: function (l) { return 'Suona la ' + l; }, idleKey: 'Suona un tasto', idleChrom: 'Suona o canta una nota',
     inTune: 'Accordato ✓', lowFar: '↑ Molto calante: tendi', low: '↑ Un po’ calante: tendi', highFar: '↓ Molto crescente: allenta', high: '↓ Un po’ crescente: allenta',
-    below: '↑ Sotto la nota', above: '↓ Sopra la nota', over50: 'oltre 50 cent',
+    below: '↑ Sotto la nota', above: '↓ Sopra la nota', over50: 'oltre 50 ¢',
     errApi: '<span class="err">Questo browser non permette l’accesso al microfono.</span> Apri la pagina all’indirizzo https://www.ciframem.com.br/afinador con Chrome, Safari, Edge o Firefox.',
     errAudio: '<span class="err">Impossibile avviare l’audio.</span>',
     errDenied: '<span class="err">L’accesso al microfono è stato bloccato.</span> Tocca il lucchetto accanto all’indirizzo della pagina, consenti il microfono e riprova.',
@@ -932,7 +973,7 @@ function frame(now) {
     else if (inst.tunings) txt = c < 0 ? (ac > 50 ? L().lowFar : L().low) : (ac > 50 ? L().highFar : L().high);
     else txt = c < 0 ? L().below : L().above;
     $('status').textContent = txt;
-    $('cents').textContent = (c > 0 ? '+' : c < 0 ? '−' : '') + fmt1(Math.abs(c)) + ' ' + L().cents;
+    $('cents').textContent = (c > 0 ? '+' : c < 0 ? '−' : '') + fmt1(Math.abs(c)) + ' ¢';
     $('hz').textContent = fmt2(dispFreq) + ' Hz';
     card.classList.remove('idle');
   } else {
@@ -1064,6 +1105,17 @@ helpDlg.addEventListener('click', function (e) { if (e.target === helpDlg && hel
 setA4(prefs.a4);
 selectInstrument(prefs.inst);
 applyLang(prefs.lang);
+
+// Tela de abertura: some sozinha (ou com um toque); só uma vez por sessão
+(function () {
+  var sp = $('splash'), shown = false;
+  try { shown = sessionStorage.getItem('accordatore.splash') === '1'; sessionStorage.setItem('accordatore.splash', '1'); } catch (e) {}
+  var hide = function () { sp.classList.add('out'); setTimeout(function () { sp.hidden = true; }, 500); };
+  if (shown) { sp.hidden = true; return; }
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(hide, reduce ? 900 : 2300);
+  sp.addEventListener('click', hide);
+})();
 requestAnimationFrame(frame);
 if (!window.isSecureContext && location.protocol !== 'file:') $('startMsg').innerHTML = L().errHttps;
 
