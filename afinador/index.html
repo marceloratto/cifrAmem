@@ -58,6 +58,24 @@ button { cursor: pointer; }
 .brand img { width: 30px; height: 30px; border-radius: 50%; }
 .brand span { color: var(--muted); font-weight: 500; }
 .iconbtn { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; }
+.hdr { display: flex; align-items: center; gap: 6px; }
+.flag { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; padding: 0; opacity: .5; transition: opacity .12s; }
+.flag svg { width: 24px; height: 17px; border-radius: 2px; box-shadow: 0 0 0 1px rgb(0 0 0 / .14); }
+.flag[aria-pressed="true"] { opacity: 1; border-color: var(--accent); background: var(--accent-soft); }
+.flag:hover { opacity: 1; }
+.qbtn { font: 700 1.1rem 'Source Serif', Georgia, serif; }
+@media (max-width: 440px) { .brand span { display: none; } .hdr { gap: 4px; } .flag, .iconbtn { width: 36px; height: 38px; } }
+dialog.help { width: min(640px, 100% - 24px); max-height: min(86vh, 900px); border: 1px solid var(--line); border-radius: 16px; padding: 0; background: var(--surface); color: var(--fg); box-shadow: var(--shadow); }
+dialog.help::backdrop { background: rgb(20 18 15 / .45); }
+.help .hhead { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.help .hhead h2 { margin: 0; font: 600 1.3rem 'Source Serif', Georgia, serif; }
+.help .hbody { padding: 6px 20px 22px; font-size: .94rem; }
+.help h3 { margin: 18px 0 6px; font: 600 1.02rem 'Source Serif', Georgia, serif; }
+.help p, .help li { color: var(--muted); }
+.help b { color: var(--fg); font-weight: 600; }
+.help ol, .help ul { margin: 0; padding-left: 1.25em; }
+.help li + li { margin-top: 4px; }
+.help .c-flat { color: var(--flat); font-weight: 600; } .help .c-sharp { color: var(--sharp); font-weight: 600; } .help .c-in { color: var(--accent); font-weight: 600; }
 .iconbtn[aria-expanded="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 
 /* Instrument chips */
@@ -178,40 +196,45 @@ footer a { color: var(--accent); }
 <header class="top">
   <div class="wrap">
     <a class="brand" href="../"><img src="icone-accordatore.png" alt="" width="30" height="30">Accordatore <span>· cifrAmem</span></a>
-    <button class="iconbtn" id="setBtn" aria-expanded="false" aria-controls="settings" aria-label="Ajustes">
+    <div class="hdr">
+    <button class="flag" data-lang="pt" aria-label="Português" title="Português"><svg viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" fill="#009c3b"/><path d="M14 2.3 25.5 10 14 17.7 2.5 10z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.7" fill="#002776"/><path d="M9.5 9.2c3-.6 6.3 0 9 1.7" stroke="#fff" stroke-width="1" fill="none"/></svg></button>
+    <button class="flag" data-lang="it" aria-label="Italiano" title="Italiano"><svg viewBox="0 0 3 2" aria-hidden="true" preserveAspectRatio="none"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce2b37"/></svg></button>
+    <button class="iconbtn qbtn" id="helpBtn" aria-haspopup="dialog" data-t-aria="help" aria-label="Como usar">?</button>
+    <button class="iconbtn" id="setBtn" aria-expanded="false" aria-controls="settings" data-t-aria="settings" aria-label="Ajustes">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
     </button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
-  <nav class="chips" id="chips" aria-label="Instrumento"></nav>
+  <nav class="chips" id="chips" data-t-aria="instrument" aria-label="Instrumento"></nav>
 
   <div class="row">
-    <div class="tuning" id="tuningBox"><select id="tuning" aria-label="Afinação"></select></div>
-    <button class="refpill" id="refPill" aria-label="Frequência de referência">Lá = <b id="refPillVal">440</b> Hz</button>
+    <div class="tuning" id="tuningBox"><select id="tuning" data-t-aria="tuning" aria-label="Afinação"></select></div>
+    <button class="refpill" id="refPill" data-t-aria="refFreq" aria-label="Frequência de referência"><span data-t="la">Lá</span> = <b id="refPillVal">440</b> Hz</button>
   </div>
 
-  <section class="settings" id="settings" hidden aria-label="Ajustes">
+  <section class="settings" id="settings" hidden data-t-aria="settings" aria-label="Ajustes">
     <div class="set">
-      <span class="lbl">Referência (Lá 4)</span>
+      <span class="lbl" data-t="refLbl">Referência (Lá 4)</span>
       <div class="stepper">
-        <button id="refDown" aria-label="Diminuir">−</button>
+        <button id="refDown" data-t-aria="less" aria-label="Diminuir">−</button>
         <output id="refVal">440,0 Hz</output>
-        <button id="refUp" aria-label="Aumentar">+</button>
+        <button id="refUp" data-t-aria="more" aria-label="Aumentar">+</button>
         <button id="refReset" style="width:auto;padding-inline:12px;font-size:.85rem">440</button>
       </div>
-      <span class="hint">Use 440 Hz no padrão. Ajuste para acompanhar um órgão ou piano que esteja um pouco diferente.</span>
+      <span class="hint" data-t="refHint">Use 440 Hz no padrão. Ajuste para acompanhar um órgão ou piano que esteja um pouco diferente.</span>
     </div>
     <div class="set">
-      <span class="lbl">Nomes das notas</span>
+      <span class="lbl" data-t="names">Nomes das notas</span>
       <div class="seg" id="namesSeg">
-        <button data-v="letters">C D E (cifra)</button>
-        <button data-v="solfege">Dó Ré Mi</button>
+        <button data-v="letters" data-t="namesLetters">C D E (cifra)</button>
+        <button data-v="solfege" data-t="namesSolf">Dó Ré Mi</button>
       </div>
     </div>
     <div class="set">
-      <span class="lbl">Tolerância para “afinado”</span>
+      <span class="lbl" data-t="tol">Tolerância para “afinado”</span>
       <div class="seg" id="tolSeg">
         <button data-v="1">±1 cent</button>
         <button data-v="2">±2</button>
@@ -220,12 +243,12 @@ footer a { color: var(--accent); }
       </div>
     </div>
     <div class="set">
-      <label for="sens">Sensibilidade do microfone</label>
+      <label for="sens" data-t="sens">Sensibilidade do microfone</label>
       <input type="range" id="sens" min="0" max="100" step="1">
-      <span class="hint">Aumente em lugares silenciosos; diminua se houver muito barulho em volta.</span>
+      <span class="hint" data-t="sensHint">Aumente em lugares silenciosos; diminua se houver muito barulho em volta.</span>
     </div>
-    <label class="switch" id="stretchRow">Afinação esticada do piano (curva de Railsback aproximada)<input type="checkbox" id="stretch"></label>
-    <label class="switch">Manter a tela ligada<input type="checkbox" id="wake"></label>
+    <label class="switch" id="stretchRow"><span data-t="stretch">Afinação esticada do piano (curva de Railsback aproximada)</span><input type="checkbox" id="stretch"></label>
+    <label class="switch"><span data-t="wake">Manter a tela ligada</span><input type="checkbox" id="wake"></label>
   </section>
 
   <section class="card idle" id="card" data-state="none" aria-live="off">
@@ -244,9 +267,9 @@ footer a { color: var(--accent); }
       <div>
         <button class="btn" id="startBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-          Ativar o microfone
+          <span data-t="start">Ativar o microfone</span>
         </button>
-        <p id="startMsg">O som é analisado só no seu aparelho. Nada é gravado nem enviado.</p>
+        <p id="startMsg" data-t="startMsg">O som é analisado só no seu aparelho. Nada é gravado nem enviado.</p>
       </div>
     </div>
   </section>
@@ -261,26 +284,101 @@ footer a { color: var(--accent); }
     </button>
     <button id="playBtn">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-      Ouvir a nota
+      <span data-t="listen">Ouvir a nota</span>
     </button>
   </div>
 
-  <details class="tips">
-    <summary>Dicas para afinar melhor</summary>
-    <ul>
-      <li>Toque uma corda de cada vez e deixe soar. O ponteiro fica mais firme alguns instantes depois do ataque.</li>
-      <li>Toque a corda para ver a nota; toque no botão da corda para fixar o afinador nela, e de novo para voltar ao automático.</li>
-      <li>Nas cordas duplas (viola caipira, bandolim, cavaquinho de 12), afine uma corda de cada vez, abafando a outra com o dedo.</li>
-      <li>“Aperte” quer dizer subir a nota (girar a tarraxa para esticar a corda); “afrouxe” quer dizer descer.</li>
-      <li>Para usar sem internet, abra esta página uma vez e, no celular, use “Adicionar à tela inicial”.</li>
-    </ul>
-  </details>
 </main>
+
+<dialog class="help" id="help" aria-labelledby="helpTitle">
+  <div class="hhead">
+    <h2 id="helpTitle" data-t="helpTitle">Como usar o Accordatore</h2>
+    <button class="iconbtn" id="helpClose" data-t-aria="close" aria-label="Fechar">✕</button>
+  </div>
+  <div class="hbody">
+    <div data-lang-block="pt">
+      <ol>
+        <li>Escolha o <b>instrumento</b> nos botões do alto e a <b>afinação</b> na lista.</li>
+        <li>Toque em <b>Ativar o microfone</b> e permita o acesso quando o navegador pedir.</li>
+        <li>Toque <b>uma corda solta de cada vez</b> e deixe soar. O Accordatore reconhece sozinho qual corda você tocou.</li>
+      </ol>
+      <h3>Como ler o mostrador</h3>
+      <ul>
+        <li>A <b>letra grande</b> é a nota que a corda deve ter. Embaixo aparecem a corda, o nome em Dó Ré Mi e a frequência certa.</li>
+        <li>Ponteiro à esquerda, em <span class="c-flat">laranja</span>: a corda está <b>baixa</b>, aperte a tarraxa. À direita, em <span class="c-sharp">vermelho</span>: está <b>alta</b>, afrouxe.</li>
+        <li>No centro, em <span class="c-in">verde</span>: <b>afinado</b>. Depois de um instante o botão da corda ganha um ✓.</li>
+        <li>O número em <b>cents (¢)</b> mostra o quanto falta: 100 cents são um semitom. Abaixo de 2 ou 3 cents o ouvido já não percebe diferença.</li>
+        <li>A <b>faixa listrada</b> (estroboscópio) anda para a esquerda quando está baixo e para a direita quando está alto, e <b>para</b> quando está afinado. É o jeito mais preciso de fazer o ajuste fino.</li>
+      </ul>
+      <h3>Fixar uma corda</h3>
+      <p>Toque no botão de uma corda para o afinador mirar só nela (útil quando a corda está muito longe da nota). Nas cordas duplas da viola caipira e do violão de 12, um segundo toque fixa a corda da oitava. <b>Automático</b> volta ao reconhecimento sozinho.</p>
+      <h3>Ouvir a nota</h3>
+      <p>Toca a nota certa da corda escolhida, para afinar também de ouvido.</p>
+      <h3>Piano e teclado</h3>
+      <p>Toque a tecla e mantenha pressionada. O teclado mostra a tecla reconhecida. Nos ajustes, a <b>afinação esticada</b> deixa os graves um pouco mais baixos e os agudos um pouco mais altos, como fazem os afinadores de piano.</p>
+      <h3>Ajustes (botão ao lado do ?)</h3>
+      <ul>
+        <li><b>Referência:</b> 440 Hz é o padrão. Mude só para acompanhar um órgão ou piano afinado diferente.</li>
+        <li><b>Nomes das notas:</b> cifra (C D E) ou Dó Ré Mi.</li>
+        <li><b>Tolerância:</b> o quanto perto precisa ficar para contar como afinado.</li>
+        <li><b>Sensibilidade:</b> aumente em lugar silencioso; diminua se houver barulho.</li>
+      </ul>
+      <h3>Dicas</h3>
+      <ul>
+        <li>Afine em lugar silencioso, com o celular perto do instrumento.</li>
+        <li>Em cordas duplas, afine uma de cada vez, abafando a outra com o dedo.</li>
+        <li>Se passar do ponto, desça um pouco abaixo da nota e suba de novo: a corda segura melhor a afinação.</li>
+      </ul>
+      <h3>Usar sem internet</h3>
+      <p>Abra esta página uma vez com internet. Depois, no Android, use o menu do Chrome e “Instalar app” ou “Adicionar à tela inicial”; no iPhone, toque em Compartilhar e “Adicionar à Tela de Início”.</p>
+      <h3>Privacidade</h3>
+      <p>O som é analisado só no seu aparelho. Nada é gravado nem enviado.</p>
+    </div>
+    <div data-lang-block="it" hidden>
+      <ol>
+        <li>Scegli lo <b>strumento</b> con i pulsanti in alto e l’<b>accordatura</b> nell’elenco.</li>
+        <li>Tocca <b>Attiva il microfono</b> e consenti l’accesso quando il browser lo chiede.</li>
+        <li>Suona <b>una corda a vuoto alla volta</b> e lasciala vibrare. L’Accordatore riconosce da solo quale corda hai suonato.</li>
+      </ol>
+      <h3>Come leggere il display</h3>
+      <ul>
+        <li>La <b>lettera grande</b> è la nota che deve avere la corda. Sotto compaiono la corda, il nome in Do Re Mi e la frequenza giusta.</li>
+        <li>Lancetta a sinistra, in <span class="c-flat">arancione</span>: la corda è <b>calante</b>, tendila con la meccanica. A destra, in <span class="c-sharp">rosso</span>: è <b>crescente</b>, allentala.</li>
+        <li>Al centro, in <span class="c-in">verde</span>: <b>accordata</b>. Dopo un istante il pulsante della corda mostra un ✓.</li>
+        <li>Il numero in <b>cent (¢)</b> indica quanto manca: 100 cent sono un semitono. Sotto i 2 o 3 cent l’orecchio non sente più la differenza.</li>
+        <li>La <b>fascia a righe</b> (stroboscopio) scorre a sinistra quando la nota è calante e a destra quando è crescente, e si <b>ferma</b> quando è accordata. È il modo più preciso per la regolazione fine.</li>
+      </ul>
+      <h3>Bloccare una corda</h3>
+      <p>Tocca il pulsante di una corda perché l’accordatore miri solo a quella (utile quando la corda è molto lontana dalla nota). Nelle corde doppie della viola caipira e della chitarra a 12 corde, un secondo tocco blocca la corda all’ottava. <b>Automatico</b> torna al riconoscimento da solo.</p>
+      <h3>Ascolta la nota</h3>
+      <p>Suona la nota giusta della corda scelta, per accordare anche a orecchio.</p>
+      <h3>Pianoforte e tastiera</h3>
+      <p>Premi il tasto e tienilo premuto. La tastiera mostra il tasto riconosciuto. Nelle impostazioni, l’<b>accordatura allargata</b> rende i bassi un po’ più bassi e gli acuti un po’ più alti, come fanno gli accordatori di pianoforte.</p>
+      <h3>Impostazioni (pulsante accanto al ?)</h3>
+      <ul>
+        <li><b>Riferimento:</b> 440 Hz è lo standard. Cambialo solo per suonare con un organo o un pianoforte accordato diversamente.</li>
+        <li><b>Nomi delle note:</b> sigle (C D E) o Do Re Mi.</li>
+        <li><b>Tolleranza:</b> quanto vicino bisogna arrivare per considerarla accordata.</li>
+        <li><b>Sensibilità:</b> aumentala in un luogo silenzioso; diminuiscila se c’è rumore.</li>
+      </ul>
+      <h3>Consigli</h3>
+      <ul>
+        <li>Accorda in un luogo silenzioso, con il telefono vicino allo strumento.</li>
+        <li>Nelle corde doppie, accordane una alla volta, smorzando l’altra con il dito.</li>
+        <li>Se superi la nota, scendi un po’ sotto e risali: la corda tiene meglio l’accordatura.</li>
+      </ul>
+      <h3>Usarlo senza internet</h3>
+      <p>Apri questa pagina una volta con internet. Poi, su Android, usa il menu di Chrome e “Installa app” o “Aggiungi a schermata Home”; su iPhone, tocca Condividi e “Aggiungi alla schermata Home”.</p>
+      <h3>Privacy</h3>
+      <p>Il suono viene analizzato solo sul tuo dispositivo. Niente viene registrato né inviato.</p>
+    </div>
+  </div>
+</dialog>
 
 <footer>
   <div class="wrap">
-    <span>Accordatore, o afinador do <a href="../">cifrAmem</a></span>
-    <span>Gratuito, sem cadastro e sem anúncios</span>
+    <span><span data-t="foot1">Accordatore, o afinador do</span> <a href="../">cifrAmem</a></span>
+    <span data-t="foot2">Gratuito, sem cadastro e sem anúncios</span>
   </div>
 </footer>
 
@@ -291,7 +389,10 @@ footer a { color: var(--accent); }
 
 /* ---------- Música ---------- */
 var LETTERS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-var SOLF = ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#', 'Lá', 'Lá#', 'Si'];
+var SOLF = {
+  pt: ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#', 'Lá', 'Lá#', 'Si'],
+  it: ['Do', 'Do#', 'Re', 'Re#', 'Mi', 'Fa', 'Fa#', 'Sol', 'Sol#', 'La', 'La#', 'Si']
+};
 // helpers to write tunings: n('E2') -> midi
 function n(s) {
   var m = /^([A-G])(#|b)?(-?\d)$/.exec(s);
@@ -308,60 +409,107 @@ function t(spec) {
 }
 
 var INSTRUMENTS = [
-  { id: 'violao', name: 'Violão', unit: 'corda', tunings: [
-    ['Padrão (Mi Lá Ré Sol Si Mi)', t('E2 A2 D3 G3 B3 E4')],
-    ['Meio tom abaixo', t('Eb2 Ab2 Db3 Gb3 Bb3 Eb4')],
-    ['Drop D (Ré na 6ª)', t('D2 A2 D3 G3 B3 E4')],
-    ['DADGAD', t('D2 A2 D3 G3 A3 D4')],
-    ['Sol aberto (Open G)', t('D2 G2 D3 G3 B3 D4')],
-    ['Ré aberto (Open D)', t('D2 A2 D3 F#3 A3 D4')],
-    ['Mi aberto (Open E)', t('E2 B2 E3 G#3 B3 E4')],
-    ['7 cordas (Dó na 7ª)', t('C2 E2 A2 D3 G3 B3 E4')],
-    ['7 cordas (Si na 7ª)', t('B1 E2 A2 D3 G3 B3 E4')],
-    ['Violão de 12 cordas', t('E2/E3 A2/A3 D3/D4 G3/G4 B3 E4')]
+  { id: 'violao', name: ['Violão', 'Chitarra'], tunings: [
+    ['Padrão (Mi Lá Ré Sol Si Mi)', 'Standard (Mi La Re Sol Si Mi)', t('E2 A2 D3 G3 B3 E4')],
+    ['Meio tom abaixo', 'Mezzo tono sotto', t('Eb2 Ab2 Db3 Gb3 Bb3 Eb4')],
+    ['Drop D (Ré na 6ª)', 'Drop D (Re sulla 6ª)', t('D2 A2 D3 G3 B3 E4')],
+    ['DADGAD', 'DADGAD', t('D2 A2 D3 G3 A3 D4')],
+    ['Sol aberto (Open G)', 'Sol aperto (Open G)', t('D2 G2 D3 G3 B3 D4')],
+    ['Ré aberto (Open D)', 'Re aperto (Open D)', t('D2 A2 D3 F#3 A3 D4')],
+    ['Mi aberto (Open E)', 'Mi aperto (Open E)', t('E2 B2 E3 G#3 B3 E4')],
+    ['7 cordas (Dó na 7ª)', '7 corde (Do sulla 7ª)', t('C2 E2 A2 D3 G3 B3 E4')],
+    ['7 cordas (Si na 7ª)', '7 corde (Si sulla 7ª)', t('B1 E2 A2 D3 G3 B3 E4')],
+    ['Violão de 12 cordas', 'Chitarra a 12 corde', t('E2/E3 A2/A3 D3/D4 G3/G4 B3 E4')]
   ]},
-  { id: 'viola', name: 'Viola caipira', unit: 'corda', tunings: [
-    ['Cebolão em Ré', t('A2/A3 D3/D4 F#3/F#4 A3 D4')],
-    ['Cebolão em Mi', t('B2/B3 E3/E4 G#3/G#4 B3 E4')],
-    ['Rio Abaixo (Sol)', t('G2/G3 D3/D4 G3/G4 B3 D4')],
-    ['Natural (como o violão)', t('A2/A3 D3/D4 G3/G4 B3 E4')]
+  { id: 'viola', name: ['Viola caipira', 'Viola caipira'], tunings: [
+    ['Cebolão em Ré', 'Cebolão in Re', t('A2/A3 D3/D4 F#3/F#4 A3 D4')],
+    ['Cebolão em Mi', 'Cebolão in Mi', t('B2/B3 E3/E4 G#3/G#4 B3 E4')],
+    ['Rio Abaixo (Sol)', 'Rio Abaixo (Sol)', t('G2/G3 D3/D4 G3/G4 B3 D4')],
+    ['Natural (como o violão)', 'Naturale (come la chitarra)', t('A2/A3 D3/D4 G3/G4 B3 E4')]
   ]},
-  { id: 'cavaquinho', name: 'Cavaquinho', unit: 'corda', tunings: [
-    ['Padrão (Ré Sol Si Ré)', t('D4 G4 B4 D5')],
-    ['Como o violão (Ré Sol Si Mi)', t('D4 G4 B4 E5')]
+  { id: 'cavaquinho', name: ['Cavaquinho', 'Cavaquinho'], tunings: [
+    ['Padrão (Ré Sol Si Ré)', 'Standard (Re Sol Si Re)', t('D4 G4 B4 D5')],
+    ['Como o violão (Ré Sol Si Mi)', 'Come la chitarra (Re Sol Si Mi)', t('D4 G4 B4 E5')]
   ]},
-  { id: 'ukulele', name: 'Ukulele', unit: 'corda', tunings: [
-    ['Padrão (Sol Dó Mi Lá)', t('G4 C4 E4 A4')],
-    ['Sol grave (Low G)', t('G3 C4 E4 A4')],
-    ['Barítono (Ré Sol Si Mi)', t('D3 G3 B3 E4')],
-    ['Ré (Lá Ré Fá# Si)', t('A4 D4 F#4 B4')]
+  { id: 'ukulele', name: ['Ukulele', 'Ukulele'], tunings: [
+    ['Padrão (Sol Dó Mi Lá)', 'Standard (Sol Do Mi La)', t('G4 C4 E4 A4')],
+    ['Sol grave (Low G)', 'Sol basso (Low G)', t('G3 C4 E4 A4')],
+    ['Barítono (Ré Sol Si Mi)', 'Baritono (Re Sol Si Mi)', t('D3 G3 B3 E4')],
+    ['Ré (Lá Ré Fá# Si)', 'Re (La Re Fa# Si)', t('A4 D4 F#4 B4')]
   ]},
-  { id: 'bandolim', name: 'Bandolim', unit: 'par', tunings: [
-    ['Padrão (Sol Ré Lá Mi)', t('G3 D4 A4 E5')]
+  { id: 'bandolim', name: ['Bandolim', 'Mandolino'], tunings: [
+    ['Padrão (Sol Ré Lá Mi)', 'Standard (Sol Re La Mi)', t('G3 D4 A4 E5')]
   ]},
-  { id: 'baixo', name: 'Baixo', unit: 'corda', tunings: [
-    ['4 cordas (Mi Lá Ré Sol)', t('E1 A1 D2 G2')],
-    ['5 cordas (Si grave)', t('B0 E1 A1 D2 G2')],
-    ['6 cordas', t('B0 E1 A1 D2 G2 C3')],
-    ['Meio tom abaixo', t('Eb1 Ab1 Db2 Gb2')],
-    ['Drop D', t('D1 A1 D2 G2')]
+  { id: 'baixo', name: ['Baixo', 'Basso'], tunings: [
+    ['4 cordas (Mi Lá Ré Sol)', '4 corde (Mi La Re Sol)', t('E1 A1 D2 G2')],
+    ['5 cordas (Si grave)', '5 corde (Si basso)', t('B0 E1 A1 D2 G2')],
+    ['6 cordas', '6 corde', t('B0 E1 A1 D2 G2 C3')],
+    ['Meio tom abaixo', 'Mezzo tono sotto', t('Eb1 Ab1 Db2 Gb2')],
+    ['Drop D', 'Drop D', t('D1 A1 D2 G2')]
   ]},
-  { id: 'violino', name: 'Violino', unit: 'corda', tunings: [
-    ['Padrão (Sol Ré Lá Mi)', t('G3 D4 A4 E5')]
+  { id: 'violino', name: ['Violino', 'Violino'], tunings: [
+    ['Padrão (Sol Ré Lá Mi)', 'Standard (Sol Re La Mi)', t('G3 D4 A4 E5')]
   ]},
-  { id: 'violadearco', name: 'Viola de arco', unit: 'corda', tunings: [
-    ['Padrão (Dó Sol Ré Lá)', t('C3 G3 D4 A4')]
+  { id: 'violadearco', name: ['Viola de arco', 'Viola'], tunings: [
+    ['Padrão (Dó Sol Ré Lá)', 'Standard (Do Sol Re La)', t('C3 G3 D4 A4')]
   ]},
-  { id: 'violoncelo', name: 'Violoncelo', unit: 'corda', tunings: [
-    ['Padrão (Dó Sol Ré Lá)', t('C2 G2 D3 A3')]
+  { id: 'violoncelo', name: ['Violoncelo', 'Violoncello'], tunings: [
+    ['Padrão (Dó Sol Ré Lá)', 'Standard (Do Sol Re La)', t('C2 G2 D3 A3')]
   ]},
-  { id: 'piano', name: 'Piano e teclado', chromatic: true, keyboard: true, range: [25, 4400] },
-  { id: 'cromatico', name: 'Cromático (voz, sopros…)', chromatic: true, range: [30, 2500] }
+  { id: 'piano', name: ['Piano e teclado', 'Pianoforte e tastiera'], chromatic: true, keyboard: true, range: [25, 4400] },
+  { id: 'cromatico', name: ['Cromático (voz, sopros…)', 'Cromatico (voce, fiati…)'], chromatic: true, range: [30, 2500] }
 ];
+
+/* ---------- Textos (português / italiano) ---------- */
+var T = {
+  pt: {
+    title: 'Accordatore, o afinador do cifrAmem', help: 'Como usar', settings: 'Ajustes', close: 'Fechar',
+    instrument: 'Instrumento', tuning: 'Afinação', refFreq: 'Frequência de referência', la: 'Lá', less: 'Diminuir', more: 'Aumentar',
+    refLbl: 'Referência (Lá 4)', refHint: 'Use 440 Hz no padrão. Ajuste para acompanhar um órgão ou piano que esteja um pouco diferente.',
+    names: 'Nomes das notas', namesLetters: 'C D E (cifra)', namesSolf: 'Dó Ré Mi', tol: 'Tolerância para “afinado”',
+    sens: 'Sensibilidade do microfone', sensHint: 'Aumente em lugares silenciosos; diminua se houver muito barulho em volta.',
+    stretch: 'Afinação esticada do piano (curva de Railsback aproximada)', wake: 'Manter a tela ligada',
+    start: 'Ativar o microfone', startMsg: 'O som é analisado só no seu aparelho. Nada é gravado nem enviado.',
+    listen: 'Ouvir a nota', auto: 'Automático', fixed: 'Fixo (toque p/ automático)',
+    foot1: 'Accordatore, o afinador do', foot2: 'Gratuito, sem cadastro e sem anúncios', helpTitle: 'Como usar o Accordatore',
+    string: 'corda', octave: '(oitava)', withOctave: 'com oitava',
+    chromEq: 'Cromático, temperamento igual', chromStretch: 'Cromático, com afinação esticada', chromAll: 'Todas as notas (cromático)',
+    idleString: 'Toque uma corda', idleLocked: function (l) { return 'Toque a ' + l; }, idleKey: 'Toque uma tecla', idleChrom: 'Toque ou cante uma nota',
+    inTune: 'Afinado ✓', lowFar: '↑ Bem abaixo: aperte', low: '↑ Um pouco abaixo: aperte', highFar: '↓ Bem acima: afrouxe', high: '↓ Um pouco acima: afrouxe',
+    below: '↑ Abaixo da nota', above: '↓ Acima da nota', over50: 'mais de 50 ¢',
+    errApi: '<span class="err">Este navegador não dá acesso ao microfone.</span> Abra a página pelo endereço https://www.ciframem.com.br/afinador no Chrome, Safari, Edge ou Firefox.',
+    errAudio: '<span class="err">Não foi possível iniciar o áudio.</span>',
+    errDenied: '<span class="err">O acesso ao microfone foi bloqueado.</span> Toque no cadeado ao lado do endereço da página, permita o microfone e tente de novo.',
+    errNoMic: '<span class="err">Nenhum microfone encontrado.</span> Verifique se o aparelho tem microfone e se outro programa não o está usando.',
+    errHttps: '<span class="err">Abra pelo endereço com https:// para usar o microfone.</span>'
+  },
+  it: {
+    title: 'Accordatore, l’accordatore di cifrAmem', help: 'Come si usa', settings: 'Impostazioni', close: 'Chiudi',
+    instrument: 'Strumento', tuning: 'Accordatura', refFreq: 'Frequenza di riferimento', la: 'La', less: 'Diminuisci', more: 'Aumenta',
+    refLbl: 'Riferimento (La 4)', refHint: 'Lo standard è 440 Hz. Cambialo per suonare con un organo o un pianoforte accordato un po’ diversamente.',
+    names: 'Nomi delle note', namesLetters: 'C D E (sigle)', namesSolf: 'Do Re Mi', tol: 'Tolleranza per “accordato”',
+    sens: 'Sensibilità del microfono', sensHint: 'Aumentala nei luoghi silenziosi; diminuiscila se c’è molto rumore intorno.',
+    stretch: 'Accordatura allargata del pianoforte (curva di Railsback approssimata)', wake: 'Tieni lo schermo acceso',
+    start: 'Attiva il microfono', startMsg: 'Il suono viene analizzato solo sul tuo dispositivo. Niente viene registrato né inviato.',
+    listen: 'Ascolta la nota', auto: 'Automatico', fixed: 'Fisso (tocca per automatico)',
+    foot1: 'Accordatore, l’accordatore di', foot2: 'Gratuito, senza registrazione e senza pubblicità', helpTitle: 'Come si usa l’Accordatore',
+    string: 'corda', octave: '(ottava)', withOctave: 'con ottava',
+    chromEq: 'Cromatico, temperamento equabile', chromStretch: 'Cromatico, con accordatura allargata', chromAll: 'Tutte le note (cromatico)',
+    idleString: 'Suona una corda', idleLocked: function (l) { return 'Suona la ' + l; }, idleKey: 'Suona un tasto', idleChrom: 'Suona o canta una nota',
+    inTune: 'Accordato ✓', lowFar: '↑ Molto calante: tendi', low: '↑ Un po’ calante: tendi', highFar: '↓ Molto crescente: allenta', high: '↓ Un po’ crescente: allenta',
+    below: '↑ Sotto la nota', above: '↓ Sopra la nota', over50: 'oltre 50 ¢',
+    errApi: '<span class="err">Questo browser non permette l’accesso al microfono.</span> Apri la pagina all’indirizzo https://www.ciframem.com.br/afinador con Chrome, Safari, Edge o Firefox.',
+    errAudio: '<span class="err">Impossibile avviare l’audio.</span>',
+    errDenied: '<span class="err">L’accesso al microfono è stato bloccato.</span> Tocca il lucchetto accanto all’indirizzo della pagina, consenti il microfono e riprova.',
+    errNoMic: '<span class="err">Nessun microfono trovato.</span> Controlla che il dispositivo abbia un microfono e che un altro programma non lo stia usando.',
+    errHttps: '<span class="err">Apri l’indirizzo con https:// per usare il microfono.</span>'
+  }
+};
+function L() { return T[prefs.lang] || T.pt; }
 
 /* ---------- Estado e preferências ---------- */
 var STORE = 'cifrAmem.afinador.v1';
-var prefs = { inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
+var prefs = { lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
 try { var saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved) for (var key in saved) prefs[key] = saved[key]; } catch (e) {}
 function save() { try { localStorage.setItem(STORE, JSON.stringify(prefs)); } catch (e) {} }
 
@@ -379,8 +527,9 @@ function stretchCents(m) {
 function targetFreq(m) { return midiFreq(m) * Math.pow(2, stretchCents(m) / 1200); }
 function nameParts(m) {
   var pc = ((m % 12) + 12) % 12, oct = Math.floor(m / 12) - 1;
-  var main = prefs.names === 'solfege' ? SOLF[pc] : LETTERS[pc];
-  var other = prefs.names === 'solfege' ? LETTERS[pc] : SOLF[pc];
+  var sol = SOLF[prefs.lang] || SOLF.pt;
+  var main = prefs.names === 'solfege' ? sol[pc] : LETTERS[pc];
+  var other = prefs.names === 'solfege' ? LETTERS[pc] : sol[pc];
   return { main: main, other: other, oct: oct };
 }
 function noteHTML(s) { return s.replace('#', '<span class="acc">♯</span>'); }
@@ -390,7 +539,7 @@ function plain(s) { return s.replace('#', '♯'); }
 var chips = $('chips');
 INSTRUMENTS.forEach(function (it) {
   var b = document.createElement('button');
-  b.className = 'chip'; b.textContent = it.name; b.dataset.id = it.id;
+  b.className = 'chip'; b.dataset.id = it.id;
   b.addEventListener('click', function () { selectInstrument(it.id); });
   chips.appendChild(b);
 });
@@ -408,13 +557,13 @@ function selectInstrument(id) {
   });
   var sel = $('tuning'); sel.innerHTML = '';
   if (inst.tunings) {
-    inst.tunings.forEach(function (tn, i) { var o = document.createElement('option'); o.value = i; o.textContent = tn[0]; sel.appendChild(o); });
+    inst.tunings.forEach(function (tn, i) { var o = document.createElement('option'); o.value = i; o.textContent = tn[prefs.lang === 'it' ? 1 : 0]; sel.appendChild(o); });
     var ti = prefs.tunings[inst.id] || 0; if (ti >= inst.tunings.length) ti = 0;
     sel.value = ti; sel.disabled = inst.tunings.length < 2;
     $('tuningBox').style.visibility = 'visible';
   } else {
     var o = document.createElement('option');
-    o.textContent = inst.keyboard ? (prefs.stretch ? 'Cromático, com afinação esticada' : 'Cromático, temperamento igual') : 'Todas as notas (cromático)';
+    o.textContent = inst.keyboard ? (prefs.stretch ? L().chromStretch : L().chromEq) : L().chromAll;
     sel.appendChild(o); sel.disabled = true;
   }
   $('stretchRow').style.display = inst.keyboard ? '' : 'none';
@@ -422,23 +571,23 @@ function selectInstrument(id) {
 }
 
 function buildTargets() {
-  lockIdx = -1; tunedSet = {}; resetReading();
+  lockIdx = -1; tunedSet = {}; resetReading(); shownMidi = null; curIdx = -2;
   var box = $('strings'); box.innerHTML = '';
   targets = [];
   if (inst.tunings) {
-    var strs = inst.tunings[parseInt($('tuning').value, 10) || 0][1];
+    var strs = inst.tunings[parseInt($('tuning').value, 10) || 0][2];
     var count = strs.length;
     strs.forEach(function (s, i) {
       var num = count - i;
-      targets.push({ m: s.m, btn: i, label: num + 'ª' });
-      if (s.o !== null) targets.push({ m: s.o, btn: i, label: num + 'ª (oitava)', octave: true });
+      targets.push({ m: s.m, btn: i, label: num + 'ª ' + L().string });
+      if (s.o !== null) targets.push({ m: s.o, btn: i, label: num + 'ª ' + L().string + ' ' + L().octave, octave: true });
       var b = document.createElement('button');
       b.className = 'str'; b.dataset.i = i;
       var np = nameParts(s.m);
       var op = s.o !== null ? nameParts(s.o) : null;
       b.innerHTML = '<small>' + num + 'ª</small><b>' + noteHTML(np.main) + '</b><span class="o">' +
         (op ? '+ ' + plain(op.main) + op.oct : np.oct) + '</span>';
-      b.setAttribute('aria-label', num + 'ª ' + inst.unit + ', ' + plain(np.main) + np.oct + (op ? ' com oitava ' + plain(op.main) + op.oct : ''));
+      b.setAttribute('aria-label', num + 'ª ' + L().string + ', ' + plain(np.main) + np.oct + (op ? ' ' + L().withOctave + ' ' + plain(op.main) + op.oct : ''));
       b.addEventListener('click', function () { toggleLockButton(i); });
       box.appendChild(b);
     });
@@ -496,7 +645,7 @@ function scrollKeyIntoView(m, smooth) {
 function updateLockUI() {
   var locked = lockIdx !== -1;
   $('autoBtn').setAttribute('aria-pressed', !locked);
-  $('autoLbl').textContent = locked ? 'Fixo (toque p/ automático)' : 'Automático';
+  $('autoLbl').textContent = locked ? L().fixed : L().auto;
   if (inst.tunings) {
     [].forEach.call($('strings').children, function (b, i) {
       var tg = locked ? targets[lockIdx] : null;
@@ -588,13 +737,13 @@ $('startBtn').addEventListener('click', start);
 function start() {
   var msg = $('startMsg');
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    msg.innerHTML = '<span class="err">Este navegador não dá acesso ao microfone.</span> Abra a página pelo endereço https://www.ciframem.com.br/afinador no Chrome, Safari, Edge ou Firefox.';
+    msg.innerHTML = L().errApi;
     return;
   }
   try {
     var AC = window.AudioContext || window.webkitAudioContext;
     ctx = ctx || new AC({ latencyHint: 'interactive' });
-  } catch (e) { msg.innerHTML = '<span class="err">Não foi possível iniciar o áudio.</span>'; return; }
+  } catch (e) { msg.innerHTML = L().errAudio; return; }
   ctx.resume && ctx.resume();
   navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } })
     .then(function (s) {
@@ -610,9 +759,7 @@ function start() {
     })
     .catch(function (err) {
       var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError');
-      msg.innerHTML = denied
-        ? '<span class="err">O acesso ao microfone foi bloqueado.</span> Toque no cadeado ao lado do endereço da página, permita o microfone e tente de novo.'
-        : '<span class="err">Nenhum microfone encontrado.</span> Verifique se o aparelho tem microfone e se outro programa não o está usando.';
+      msg.innerHTML = denied ? L().errDenied : L().errNoMic;
     });
 }
 
@@ -739,12 +886,12 @@ function showTarget(m, idx) {
     for (var k in keyEls) keyEls[k].classList.toggle('cur', +k === m);
     if (lockIdx === -1) scrollKeyIntoView(m, true);
   }
-  var label = idx !== null && idx >= 0 ? targets[idx].label + ' ' + inst.unit + ' · ' : (inst.tunings && lockIdx !== -1 ? targets[lockIdx].label + ' ' + inst.unit + ' · ' : '');
+  var label = idx !== null && idx >= 0 ? targets[idx].label + ' · ' : (inst.tunings && lockIdx !== -1 ? targets[lockIdx].label + ' · ' : '');
   $('alt').textContent = label + plain(np.other) + np.oct + ' · ' + fmt2(targetFreq(m)) + ' Hz';
 }
 
 function renderIdleText() {
-  var s = inst.tunings ? (lockIdx !== -1 ? 'Toque a ' + targets[lockIdx].label + ' ' + inst.unit : 'Toque uma corda') : (inst.keyboard ? 'Toque uma tecla' : 'Toque ou cante uma nota');
+  var s = inst.tunings ? (lockIdx !== -1 ? L().idleLocked(targets[lockIdx].label) : L().idleString) : (inst.keyboard ? L().idleKey : L().idleChrom);
   $('status').textContent = s;
 }
 
@@ -757,9 +904,9 @@ function frame(now) {
     var c = dispCents, ac = Math.abs(c);
     state = ac <= prefs.tol ? 'in' : (c < 0 ? 'flat' : 'sharp');
     var txt;
-    if (state === 'in') txt = 'Afinado ✓';
-    else if (inst.tunings) txt = c < 0 ? (ac > 50 ? '↑ Bem baixa: aperte a ' + inst.unit : '↑ Baixa: aperte um pouco') : (ac > 50 ? '↓ Bem alta: afrouxe a ' + inst.unit : '↓ Alta: afrouxe um pouco');
-    else txt = c < 0 ? '↑ Abaixo da nota' : '↓ Acima da nota';
+    if (state === 'in') txt = L().inTune;
+    else if (inst.tunings) txt = c < 0 ? (ac > 50 ? L().lowFar : L().low) : (ac > 50 ? L().highFar : L().high);
+    else txt = c < 0 ? L().below : L().above;
     $('status').textContent = txt;
     $('cents').textContent = (c > 0 ? '+' : c < 0 ? '−' : '') + fmt1(Math.abs(c)) + ' ¢';
     $('hz').textContent = fmt2(dispFreq) + ' Hz';
@@ -838,7 +985,7 @@ function drawMeter(cents, state) {
   g.beginPath(); g.arc(cx, cy, 6 * dpr, 0, Math.PI * 2); g.fillStyle = col; g.fill();
   if (cents !== null && Math.abs(cents) > 50) {
     g.fillStyle = col; g.font = '600 ' + (13 * dpr) + 'px Inter, system-ui, sans-serif';
-    g.fillText(cents < 0 ? '◀ mais de 50 ¢' : 'mais de 50 ¢ ▶', cx, cy - R * 0.36);
+    g.fillText(cents < 0 ? '◀ ' + L().over50 : L().over50 + ' ▶', cx, cy - R * 0.36);
   }
 }
 
@@ -861,11 +1008,40 @@ function drawStrobe(now, cents, state) {
   g.globalAlpha = 1;
 }
 
+/* ---------- Idioma e ajuda ---------- */
+function applyLang(lang) {
+  prefs.lang = lang === 'it' ? 'it' : 'pt'; save();
+  var d = L();
+  document.documentElement.lang = prefs.lang === 'it' ? 'it' : 'pt-BR';
+  document.title = d.title;
+  [].forEach.call(document.querySelectorAll('[data-t]'), function (el) { var v = d[el.dataset.t]; if (typeof v === 'string') el.textContent = v; });
+  [].forEach.call(document.querySelectorAll('[data-t-aria]'), function (el) { var v = d[el.dataset.tAria]; if (v) el.setAttribute('aria-label', v); });
+  [].forEach.call(document.querySelectorAll('.flag'), function (b) { b.setAttribute('aria-pressed', b.dataset.lang === prefs.lang); });
+  [].forEach.call(document.querySelectorAll('[data-lang-block]'), function (b) { b.hidden = b.dataset.langBlock !== prefs.lang; });
+  [].forEach.call(chips.children, function (c) {
+    var it = INSTRUMENTS.filter(function (i) { return i.id === c.dataset.id; })[0];
+    c.textContent = it.name[prefs.lang === 'it' ? 1 : 0];
+  });
+  var keepLock = lockIdx;
+  if (inst) { selectInstrument(inst.id); if (inst.keyboard && keepLock !== -1) { lockIdx = keepLock; updateLockUI(); } }
+  if (running) $('card').classList.add('idle');
+}
+[].forEach.call(document.querySelectorAll('.flag'), function (b) {
+  b.addEventListener('click', function () { applyLang(b.dataset.lang); });
+});
+var helpDlg = $('help');
+$('helpBtn').addEventListener('click', function () {
+  if (helpDlg.showModal) helpDlg.showModal(); else helpDlg.setAttribute('open', '');
+});
+$('helpClose').addEventListener('click', function () { if (helpDlg.close) helpDlg.close(); else helpDlg.removeAttribute('open'); });
+helpDlg.addEventListener('click', function (e) { if (e.target === helpDlg && helpDlg.close) helpDlg.close(); });
+
 /* ---------- Início ---------- */
 setA4(prefs.a4);
 selectInstrument(prefs.inst);
+applyLang(prefs.lang);
 requestAnimationFrame(frame);
-if (!window.isSecureContext && location.protocol !== 'file:') $('startMsg').innerHTML = '<span class="err">Abra pelo endereço com https:// para usar o microfone.</span>';
+if (!window.isSecureContext && location.protocol !== 'file:') $('startMsg').innerHTML = L().errHttps;
 
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
