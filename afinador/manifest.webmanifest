@@ -1,0 +1,17 @@
+{
+  "name": "Afinador cifrAmem",
+  "short_name": "Afinador",
+  "description": "Afinador para violão, viola caipira, cavaquinho, ukulele, bandolim, baixo, violino, violoncelo, piano e afinação cromática.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f4ef",
+  "theme_color": "#3d6b4f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
