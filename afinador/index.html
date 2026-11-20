@@ -101,6 +101,17 @@ dialog.help::backdrop { background: rgb(20 18 15 / .45); }
 @media (prefers-reduced-motion: reduce) { .splash * { animation: none !important; } .splash .dial .nd { stroke: var(--accent); } .splash .dial .hub { fill: var(--accent); } }
 
 /* Instrument chips */
+.chipsbar { position: relative; }
+.cscroll { display: none; position: absolute; top: 8px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--surface); box-shadow: var(--shadow); font: 600 1.5rem/1 'Source Serif', Georgia, serif; color: var(--fg); padding: 0 0 3px; place-items: center; }
+.cscroll:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.cscroll.l { left: -6px; } .cscroll.r { right: -6px; }
+.chipsbar::before, .chipsbar::after { content: ''; position: absolute; top: 0; bottom: 0; width: 44px; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .15s; }
+.chipsbar::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+.chipsbar::after { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+.chipsbar.can-l::before, .chipsbar.can-r::after { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .chipsbar.can-l .cscroll.l, .chipsbar.can-r .cscroll.r { display: grid; }
+}
 .chips { display: flex; gap: 6px; overflow-x: auto; padding: 8px 2px 10px; scrollbar-width: none; scroll-snap-type: x proximity; }
 .chips::-webkit-scrollbar { display: none; }
 .chip {
@@ -250,7 +261,11 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
 </header>
 
 <main class="wrap">
-  <nav class="chips" id="chips" data-t-aria="instrument" aria-label="Instrumento"></nav>
+  <div class="chipsbar" id="chipsbar">
+    <button class="cscroll l" id="chipsL" tabindex="-1" aria-hidden="true">‹</button>
+    <nav class="chips" id="chips" data-t-aria="instrument" aria-label="Instrumento"></nav>
+    <button class="cscroll r" id="chipsR" tabindex="-1" aria-hidden="true">›</button>
+  </div>
 
   <div class="row">
     <div class="tuning" id="tuningBox"><select id="tuning" data-t-aria="tuning" aria-label="Afinação"></select></div>
@@ -283,6 +298,16 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <button data-v="3">±3</button>
         <button data-v="5">±5</button>
       </div>
+    </div>
+    <div class="set">
+      <span class="lbl" data-t="smooth">Ponteiro</span>
+      <div class="seg" id="smoothSeg">
+        <button data-v="0" data-t="sm0">Rápido</button>
+        <button data-v="1" data-t="sm1">Normal</button>
+        <button data-v="2" data-t="sm2">Suave</button>
+        <button data-v="3" data-t="sm3">Muito suave</button>
+      </div>
+      <span class="hint" data-t="smoothHint">Quanto mais suave, mais calmo o ponteiro, mas ele demora um pouco mais para responder.</span>
     </div>
     <div class="set">
       <label for="sens" data-t="sens">Sensibilidade do microfone</label>
@@ -363,6 +388,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li><b>Referência:</b> 440 Hz é o padrão. Mude só para acompanhar um órgão ou piano afinado diferente.</li>
         <li><b>Nomes das notas:</b> cifra (C D E) ou Dó Ré Mi.</li>
         <li><b>Tolerância:</b> o quanto perto precisa ficar para contar como afinado.</li>
+        <li><b>Ponteiro:</b> se ele estiver muito “nervoso”, escolha Suave ou Muito suave.</li>
         <li><b>Sensibilidade:</b> aumente em lugar silencioso; diminua se houver barulho.</li>
       </ul>
       <h3>Dicas</h3>
@@ -401,6 +427,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li><b>Riferimento:</b> 440 Hz è lo standard. Cambialo solo per suonare con un organo o un pianoforte accordato diversamente.</li>
         <li><b>Nomi delle note:</b> sigle (C D E) o Do Re Mi.</li>
         <li><b>Tolleranza:</b> quanto vicino bisogna arrivare per considerarla accordata.</li>
+        <li><b>Lancetta:</b> se è troppo “nervosa”, scegli Morbida o Molto morbida.</li>
         <li><b>Sensibilità:</b> aumentala in un luogo silenzioso; diminuiscila se c’è rumore.</li>
       </ul>
       <h3>Consigli</h3>
@@ -508,6 +535,7 @@ var T = {
     title: 'Accordatore, o afinador do cifrAmem', help: 'Como usar', settings: 'Ajustes', close: 'Fechar',
     instrument: 'Instrumento', tuning: 'Afinação', refFreq: 'Frequência de referência', la: 'Lá', less: 'Diminuir', more: 'Aumentar',
     refLbl: 'Referência (Lá 4)', refHint: 'Use 440 Hz no padrão. Ajuste para acompanhar um órgão ou piano que esteja um pouco diferente.',
+    smooth: 'Ponteiro', sm0: 'Rápido', sm1: 'Normal', sm2: 'Suave', sm3: 'Muito suave', smoothHint: 'Quanto mais suave, mais calmo o ponteiro, mas ele demora um pouco mais para responder.',
     names: 'Nomes das notas', namesLetters: 'C D E (cifra)', namesSolf: 'Dó Ré Mi', tol: 'Tolerância para “afinado”',
     sens: 'Sensibilidade do microfone', sensHint: 'Aumente em lugares silenciosos; diminua se houver muito barulho em volta.',
     stretch: 'Afinação esticada do piano (curva de Railsback aproximada)', wake: 'Manter a tela ligada',
@@ -530,6 +558,7 @@ var T = {
     title: 'Accordatore, l’accordatore di cifrAmem', help: 'Come si usa', settings: 'Impostazioni', close: 'Chiudi',
     instrument: 'Strumento', tuning: 'Accordatura', refFreq: 'Frequenza di riferimento', la: 'La', less: 'Diminuisci', more: 'Aumenta',
     refLbl: 'Riferimento (La 4)', refHint: 'Lo standard è 440 Hz. Cambialo per suonare con un organo o un pianoforte accordato un po’ diversamente.',
+    smooth: 'Lancetta', sm0: 'Rapida', sm1: 'Normale', sm2: 'Morbida', sm3: 'Molto morbida', smoothHint: 'Più è morbida, più la lancetta è calma, ma impiega un po’ di più a rispondere.',
     names: 'Nomi delle note', namesLetters: 'C D E (sigle)', namesSolf: 'Do Re Mi', tol: 'Tolleranza per “accordato”',
     sens: 'Sensibilità del microfono', sensHint: 'Aumentala nei luoghi silenziosi; diminuiscila se c’è molto rumore intorno.',
     stretch: 'Accordatura allargata del pianoforte (curva di Railsback approssimata)', wake: 'Tieni lo schermo acceso',
@@ -553,7 +582,7 @@ function L() { return T[prefs.lang] || T.pt; }
 
 /* ---------- Estado e preferências ---------- */
 var STORE = 'cifrAmem.afinador.v1';
-var prefs = { lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
+var prefs = { smooth: 1, lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
 try { var saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved) for (var key in saved) prefs[key] = saved[key]; } catch (e) {}
 function save() { try { localStorage.setItem(STORE, JSON.stringify(prefs)); } catch (e) {} }
 
@@ -562,6 +591,9 @@ var $ = function (id) { return document.getElementById(id); };
 var fmt1 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); };
 var fmt2 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
 
+// Suavização: [janela da mediana, peso de cada leitura nova, rigidez da mola do ponteiro, resposta do estroboscópio]
+var SMOOTH = [[3, 0.6, 420, 16], [5, 0.35, 160, 10], [7, 0.18, 70, 6], [9, 0.09, 32, 3.5]];
+function sm() { return SMOOTH[prefs.smooth] || SMOOTH[1]; }
 function midiFreq(m) { return prefs.a4 * Math.pow(2, (m - 69) / 12); }
 function stretchCents(m) {
   if (!prefs.stretch || !inst.keyboard) return 0;
@@ -712,6 +744,31 @@ function currentTargetMidi() {
   return inst.tunings ? targets[lockIdx].m : lockIdx;
 }
 
+/* Setas e rodinha do mouse na faixa de instrumentos */
+(function () {
+  var bar = $('chipsbar');
+  function upd() {
+    var max = chips.scrollWidth - chips.clientWidth;
+    bar.classList.toggle('can-l', chips.scrollLeft > 4);
+    bar.classList.toggle('can-r', chips.scrollLeft < max - 4);
+  }
+  function go(dir) {
+    var dx = dir * Math.max(160, chips.clientWidth * 0.7);
+    try { chips.scrollBy({ left: dx, behavior: 'smooth' }); } catch (e) { chips.scrollLeft += dx; }
+  }
+  $('chipsL').addEventListener('click', function () { go(-1); });
+  $('chipsR').addEventListener('click', function () { go(1); });
+  chips.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  chips.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && chips.scrollWidth > chips.clientWidth) {
+      chips.scrollLeft += e.deltaY; e.preventDefault();
+    }
+  }, { passive: false });
+  window.updChips = upd;
+  setTimeout(upd, 0); setTimeout(upd, 600);
+})();
+
 /* ---------- Ajustes ---------- */
 $('setBtn').addEventListener('click', function () {
   var s = $('settings'); s.hidden = !s.hidden; this.setAttribute('aria-expanded', !s.hidden);
@@ -747,6 +804,7 @@ function segment(id, prop, parse, after) {
 }
 segment('namesSeg', 'names', String, function () { selectInstrument(inst.id); });
 segment('tolSeg', 'tol', Number, function () { tunedSet = {}; updateLockUI(); });
+segment('smoothSeg', 'smooth', Number);
 $('sens').value = prefs.sens;
 $('sens').addEventListener('input', function () { prefs.sens = +this.value; save(); });
 $('stretch').checked = prefs.stretch;
@@ -931,14 +989,14 @@ function analyse(now) {
       if (!agree) pend = [r.freq];
       if (pend.length < 3) { lastGood = now; return; }
       hist = pend.slice(); pend = [];
-    } else { pend = []; hist.push(r.freq); if (hist.length > 5) hist.shift(); }
+    } else { pend = []; hist.push(r.freq); if (hist.length > sm()[0]) hist.shift(); }
   } else { hist.push(r.freq); }
   f = median(hist);
   lastGood = now; heldF = f;
   var tg = chooseTarget(f);
   var c = 1200 * Math.log2(f / targetFreq(tg.m));
   if (!haveReading || tg.m !== shownMidi || Math.abs(c - dispCents) > 35) { dispCents = c; inTuneSince = 0; }
-  else dispCents += (c - dispCents) * 0.35;
+  else dispCents += (c - dispCents) * sm()[1];
   dispFreq = f; haveReading = true;
   showTarget(tg.m, tg.idx);
   // marcar como afinado
@@ -1058,7 +1116,7 @@ function drawMeter(cents, state) {
   // ponteiro com amortecimento (mola crítica)
   var now = performance.now(), dt = Math.min(0.05, lastT ? (now - lastT) / 1000 : 0.016); lastT = now;
   var target = cents === null ? needle * 0.9 : Math.max(-55, Math.min(55, cents));
-  var k = 160, d = 2 * Math.sqrt(k);
+  var k = sm()[2], d = 2 * Math.sqrt(k);
   needleVel += (k * (target - needle) - d * needleVel) * dt; needle += needleVel * dt;
   var na = ang(needle);
   var col = cents === null ? colors['--line-strong'] : state === 'in' ? colors['--accent'] : state === 'flat' ? colors['--flat'] : colors['--sharp'];
@@ -1076,7 +1134,7 @@ function drawStrobe(now, cents, state) {
   var W = cv.width, H = cv.height;
   var dt = Math.min(0.05, drawStrobe.t ? (now - drawStrobe.t) / 1000 : 0.016); drawStrobe.t = now;
   var target = cents === null ? 0 : Math.max(-60, Math.min(60, cents));
-  strobeVel += (target - strobeVel) * Math.min(1, dt * 10);
+  strobeVel += (target - strobeVel) * Math.min(1, dt * sm()[3]);
   strobePhase += strobeVel * dt * 6 * dpr;   // 1 cent ≈ 6 px/s
   g.fillStyle = colors['--subtle']; g.fillRect(0, 0, W, H);
   var col = cents === null ? colors['--line-strong'] : state === 'in' ? colors['--accent'] : state === 'flat' ? colors['--flat'] : colors['--sharp'];
@@ -1104,6 +1162,7 @@ function applyLang(lang) {
     var it = INSTRUMENTS.filter(function (i) { return i.id === c.dataset.id; })[0];
     c.textContent = it.name[prefs.lang === 'it' ? 1 : 0];
   });
+  if (window.updChips) setTimeout(window.updChips, 0);
   var keepLock = lockIdx;
   if (inst) { selectInstrument(inst.id); if (inst.keyboard && keepLock !== -1) { lockIdx = keepLock; updateLockUI(); } }
   if (running) $('card').classList.add('idle');
