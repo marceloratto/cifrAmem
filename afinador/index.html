@@ -459,6 +459,17 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
       <span class="hint" data-t="smoothHint">Quanto mais suave, mais calmo o ponteiro, mas ele demora um pouco mais para responder.</span>
     </div>
     <div class="set">
+      <span class="lbl" data-t="doneLbl">Mensagem “Instrumento afinado”</span>
+      <div class="seg" id="doneSeg">
+        <button data-v="2">2 s</button>
+        <button data-v="4">4 s</button>
+        <button data-v="6">6 s</button>
+        <button data-v="8">8 s</button>
+        <button data-v="-1" data-t="doneOff">Não mostrar</button>
+      </div>
+      <span class="hint" data-t="doneHint">Tempo de espera depois que a última corda fica afinada.</span>
+    </div>
+    <div class="set">
       <label for="sens" data-t="sens">Sensibilidade do microfone</label>
       <input type="range" id="sens" min="0" max="100" step="1">
       <span class="hint" data-t="sensHint">Aumente em lugares silenciosos; diminua se houver muito barulho em volta.</span>
@@ -661,6 +672,7 @@ var T = {
     start: 'Ativar o microfone', startMsg: 'O som é analisado só no seu aparelho. Nada é gravado nem enviado.',
     listen: 'Ouvir a nota', auto: 'Automático', fixed: 'Fixo (toque p/ automático)',
     splashSub: 'O afinador do cifrAmem', splashMade: 'Gratuito · sem cadastro · funciona sem internet',
+    doneLbl: 'Mensagem “Instrumento afinado”', doneOff: 'Não mostrar', doneHint: 'Tempo de espera depois que a última corda fica afinada.',
     language: 'Idioma', la: 'Lá', qMic: 'Microfone', sensLv: ['Baixa', 'Média', 'Alta', 'Máxima'],
     qSensAria: 'Microfone: sensibilidade {v}. Toque para ajustar.',
     calBtn: 'Medir o ruído do lugar', calHint: 'Fique em silêncio e toque no botão: o afinador mede o barulho do ambiente e ajusta a sensibilidade sozinho.',
@@ -692,6 +704,7 @@ var T = {
     start: 'Attiva il microfono', startMsg: 'Il suono viene analizzato solo sul tuo dispositivo. Niente viene registrato né inviato.',
     listen: 'Ascolta la nota', auto: 'Automatico', fixed: 'Fisso (tocca per automatico)',
     splashSub: 'L’accordatore di cifrAmem', splashMade: 'Gratuito · senza registrazione · funziona senza internet',
+    doneLbl: 'Messaggio “Strumento accordato”', doneOff: 'Non mostrare', doneHint: 'Tempo di attesa dopo che l’ultima corda è accordata.',
     language: 'Lingua', la: 'La', qMic: 'Microfono', sensLv: ['Bassa', 'Media', 'Alta', 'Massima'],
     qSensAria: 'Microfono: sensibilità {v}. Tocca per regolare.',
     calBtn: 'Misura il rumore del luogo', calHint: 'Resta in silenzio e tocca il pulsante: l’accordatore misura il rumore dell’ambiente e regola la sensibilità da solo.',
@@ -715,7 +728,7 @@ function L() { return T[prefs.lang] || T.pt; }
 
 /* ---------- Estado e preferências ---------- */
 var STORE = 'cifrAmem.afinador.v1';
-var prefs = { smooth: 2, lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
+var prefs = { doneDelay: 4, smooth: 2, lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
 try { var saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved) for (var key in saved) prefs[key] = saved[key]; } catch (e) {}
 if (!prefs.smoothChosen) prefs.smooth = 2;   // padrão: Suave (até a pessoa escolher outro)
 function save() { try { localStorage.setItem(STORE, JSON.stringify(prefs)); } catch (e) {} }
@@ -943,6 +956,7 @@ function segment(id, prop, parse, after) {
 }
 segment('namesSeg', 'names', String, function () { selectInstrument(inst.id); });
 segment('tolSeg', 'tol', Number, function () { tunedSet = {}; updateLockUI(); });
+segment('doneSeg', 'doneDelay', Number);
 segment('smoothSeg', 'smooth', Number, function () { prefs.smoothChosen = true; save(); updateQuick(); });
 $('sens').value = prefs.sens;
 $('sens').addEventListener('input', function () { prefs.sens = +this.value; save(); updateQuick(); });
@@ -1411,7 +1425,8 @@ function checkAllTuned() {
   for (var i = 0; i < targets.length; i++) if (!tunedSet[i]) return;
   celebrated = true;
   clearTimeout(celebrateTimer);
-  celebrateTimer = setTimeout(showCelebration, 2000);   // espera 2 s antes de comemorar
+  if (!(prefs.doneDelay >= 0)) return;                 // 'Não mostrar'
+  celebrateTimer = setTimeout(showCelebration, prefs.doneDelay * 1000);   // espera antes de comemorar
 }
 var celebrateTimer = 0;
 function showCelebration() {
