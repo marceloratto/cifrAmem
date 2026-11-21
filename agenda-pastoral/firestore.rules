@@ -1,0 +1,32 @@
+rules_version = '2';
+// Regras da Agenda Pastoral (cifrAmem). Troque SEU_EMAIL@gmail.com pelo e-mail Google do coordenador (dono).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function logado() { return request.auth != null && request.auth.token.email_verified == true; }
+    function email() { return request.auth.token.email.lower(); }
+    function dono() { return logado() && email() == 'SEU_EMAIL@gmail.com'; }
+    function membro() { return logado() && exists(/databases/$(database)/documents/membros/$(email())); }
+    function eu() { return get(/databases/$(database)/documents/membros/$(email())).data; }
+    function admin() { return dono() || (membro() && eu().papel == 'admin'); }
+    function podeAgenda(ag) { return admin() || (membro() && eu().papel == 'editor' && ('todas' in eu().agendas || ag in eu().agendas)); }
+    function eventoValido() {
+      let d = request.resource.data;
+      return d.title is string && d.title.size() <= 120 && d.date is string && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && d.ag is string;
+    }
+
+    match /membros/{e} {
+      allow read: if logado() && (e == email() || dono() || membro());
+      allow write: if admin();
+    }
+    match /agendas/{id} {
+      allow read: if dono() || membro();
+      allow write: if admin();
+    }
+    match /events/{id} {
+      allow read: if dono() || membro();
+      allow create: if eventoValido() && podeAgenda(request.resource.data.ag);
+      allow update: if eventoValido() && podeAgenda(resource.data.ag) && podeAgenda(request.resource.data.ag);
+      allow delete: if podeAgenda(resource.data.ag);
+    }
+  }
+}

@@ -124,6 +124,10 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 .rv{display:grid;gap:.4rem}.rvr{display:flex;gap:.6rem;align-items:flex-start;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;padding:.6rem .7rem}.rvr input{width:1.25rem;height:1.25rem;margin-top:.2rem;accent-color:var(--acc);flex:none}.rvr>div{flex:1;display:grid;gap:.3rem}.rvr small{color:var(--mut)}.rvr.dup{background:color-mix(in srgb,var(--lw) 22%,transparent)}.dw{font-size:.82rem;font-weight:600;color:var(--warn)}.rvr select{min-height:40px !important;font-size:16px}
 .prev{background:var(--card);border-radius:10px;padding:.55rem .7rem;margin:0}.prev:empty{display:none}
 .df{position:relative;display:block}.df>input{padding-right:3rem !important}.dpk{position:absolute;right:0;top:0;width:44px;height:44px;display:grid;place-items:center;color:var(--mut)}.dpk input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.ti{width:1.05em;height:1.05em;flex:none;vertical-align:-.15em;margin-right:.3em}
+.dots{gap:1px;align-items:center;min-height:.95rem}.dots .ti{width:1rem;height:1rem;margin:0;stroke-width:2.4}.dots .pl{font-size:.7rem;color:var(--mut);line-height:1}
+.chips em .ti{width:.85rem;height:.85rem;margin-right:2px;vertical-align:-.15em;stroke-width:2.4}
+.leg .ti{margin:0}
 #toast{position:fixed;left:50%;bottom:5.5rem;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:12px;font-size:.9rem;opacity:0;pointer-events:none;transition:.2s;z-index:30;max-width:90vw}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media(max-width:600px){.hide-s{display:none}.c{min-height:3.9rem}}
@@ -211,7 +215,14 @@ const AG0=[
  {id:'pf-regional',name:'Pastoral Familiar · Regional',pastoral:'Pastoral Familiar',nivel:'Regional',color:'#4a3fc4'},
  {id:'pf-brasil',name:'Pastoral Familiar · Brasil (CNPF)',pastoral:'Pastoral Familiar',nivel:'Nacional',color:'#b0237e'},
  {id:'musica',name:'Pastoral da Música',pastoral:'Música',nivel:'Paroquial',color:'#d9730d'}];
-const NIV=['Paroquial','Decanato','Diocesano','Regional','Nacional','Outro'],TIPOS=['Missa especial','Missa','Reunião','Encontro','Formação','Ensaio','Retiro','Celebração','Evento'];
+const NIV=['Paroquial','Decanato','Diocesano','Regional','Nacional','Outro'],TIPOS=['Missa especial','Missa','Reunião','Encontro','Formação','Ensaio','Retiro','Celebração','Confraternização','Festa','Evento'];
+const TIC={'Missa especial':'<path d="M7 3h10c0 5-2 8-5 8S7 8 7 3zM12 11v7M8 21h8"/><path d="M19 2l.6 1.4L21 4l-1.4.6L19 6l-.6-1.4L17 4l1.4-.6z" fill="currentColor"/>','Missa':'<path d="M7 3h10c0 5-2 8-5 8S7 8 7 3zM12 11v7M8 21h8"/>',
+'Reunião':'<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6M12.5 14.4c1-.3 2.2-.4 3.5-.4 3.3 0 6 2.5 6 6"/>','Encontro':'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+'Formação':'<path d="M2 5c3-1.5 7-1.5 10 1 3-2.5 7-2.5 10-1v14c-3-1.5-7-1.5-10 1-3-2.5-7-2.5-10-1zM12 6v14"/>','Ensaio':'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+'Retiro':'<path d="M2 20l7-12 4 6 3-4 6 10z"/><circle cx="17" cy="5" r="2"/>','Celebração':'<path d="M12 2v6M9 5h6M8 22h8M10 22V11h4v11"/>',
+'Confraternização':'<path d="M5 3h5l-.5 6a2 2 0 0 1-4 0zM7.5 11v8M5 21h5M14 3h5l-.5 6a2 2 0 0 1-4 0zM16.5 11v8M14 21h5"/>','Festa':'<path d="M3 4l18 0M5 4l2 6 3-6M11 4l2 6 3-6M17 4l2 6 2-6"/><path d="M8 15l1 2 2 .3-1.5 1.5.4 2.2L8 20l-1.9 1 .4-2.2L5 17.3 7 17z" fill="currentColor"/>',
+'Evento':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15.5" r="1.6" fill="currentColor"/>'};
+function ico(t,c){return`<svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:${c}" aria-label="${esc(t||'Evento')}" role="img">${TIC[t]||TIC.Evento}</svg>`}
 const SW=['#1f6fd1','#0b8a8f','#4a3fc4','#b0237e','#d9730d','#7a5c3e','#2b7a4b','#c2410c','#5b6472','#0f766e'];
 const now=new Date(),TODAY=U(now.getFullYear(),now.getMonth()+1,now.getDate());
 let cy=now.getFullYear(),cm=now.getMonth(),sel=TODAY,view='mes',EV=[],AGD=[],db=null,mode='local',ro=false,picking=false,picked=new Set();
@@ -249,12 +260,12 @@ function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date
   h+=`<button class="c${d.getUTCMonth()!==cm?' out':''}${t===TODAY?' today':''}${t===sel?' sel':''}" data-t="${t}" aria-label="${d.getUTCDate()} de ${MES[d.getUTCMonth()]}${L.cel?', '+esc(L.cel.n):''}${ev.length?', '+ev.length+' evento(s)':''}">
   <span class="n">${d.getUTCDate()}</span>${big?`<span class="s ${L.cel.r}"></span>`:''}
   <span class="cl">${big?esc(L.cel.n.split(/[,·(]/)[0]):''}</span>
-  <span class="dots">${ev.slice(0,4).map(e=>`<i style="background:${col(e)}"></i>`).join('')}</span>
-  <span class="chips">${ev.slice(0,3).map(e=>`<em style="--c:${col(e)}">${e.all?'':esc(e.start||'')+' '}${esc(e.title)}</em>`).join('')}${ev.length>3?`<em class="more">+${ev.length-3}</em>`:''}</span>
+  <span class="dots">${ev.slice(0,3).map(e=>ico(e.tipo,col(e))).join('')}${ev.length>3?'<b class="pl">+</b>':''}</span>
+  <span class="chips">${ev.slice(0,3).map(e=>`<em style="--c:${col(e)}">${ico(e.tipo,col(e))}${e.all?'':esc(e.start||'')+' '}${esc(e.title)}</em>`).join('')}${ev.length>3?`<em class="more">+${ev.length-3}</em>`:''}</span>
   <span class="rb" style="background:${LC[L.c].v}"></span></button>`}
  $('#grid').innerHTML=h}
 function litBlock(t){const L=lit(t);return`<div class="lit" data-c="${L.c}" style="--lc:${LC[L.c].v}"><span class="sw"></span><div>${L.cel?`<strong>${esc(L.cel.n)}</strong>${RK[L.cel.r]?`<small class="rk">${RK[L.cel.r]}</small>`:''}`:''}<span>${L.w&&!(L.cel&&/Domingo/.test(L.cel.n))?esc(L.w)+' · ':''}${L.s} · Ano ${L.ano} · ${LC[L.c].n}</span></div></div>`}
-function evRow(e,t){const a=ag(e.ag),k=e.id+'@'+iso(t);return`<div class="ev" style="--c:${col(e)}">${picking?`<label class="pk"><input type="checkbox" data-pick="${k}" ${picked.has(k)?'checked':''} aria-label="Selecionar ${esc(e.title)}"></label>`:''}<button class="evb" data-id="${e.id}" data-t="${t}"><span class="tm">${e.all?'dia todo':esc(e.start||'—')}${!e.all&&e.end?`<small>${esc(e.end)}</small>`:''}</span><span class="tx"><strong>${esc(e.title)}</strong><span>${e.tipo?esc(e.tipo)+' · ':''}${esc(a?a.name:'Sem agenda')}${e.local?' · '+esc(e.local):''}${e.rep&&e.rep!=='none'?' · repete':''}</span></span></button></div>`}
+function evRow(e,t){const a=ag(e.ag),k=e.id+'@'+iso(t);return`<div class="ev" style="--c:${col(e)}">${picking?`<label class="pk"><input type="checkbox" data-pick="${k}" ${picked.has(k)?'checked':''} aria-label="Selecionar ${esc(e.title)}"></label>`:''}<button class="evb" data-id="${e.id}" data-t="${t}"><span class="tm">${e.all?'dia todo':esc(e.start||'—')}${!e.all&&e.end?`<small>${esc(e.end)}</small>`:''}</span><span class="tx"><strong>${ico(e.tipo,col(e))}${esc(e.title)}</strong><span>${e.tipo?esc(e.tipo)+' · ':''}${esc(a?a.name:'Sem agenda')}${e.local?' · '+esc(e.local):''}${e.rep&&e.rep!=='none'?' · repete':''}</span></span></button></div>`}
 function day(){const d=new Date(sel),ev=expand(sel,sel)[iso(sel)]||[];
  $('#day').innerHTML=`<div class="dh"><h2>${SEM[d.getUTCDay()]}, ${fd(sel)}</h2>${ro?'':'<button class="btn pri" data-new>+ Evento</button>'}</div>${litBlock(sel)}
  <div class="evs">${ev.length?ev.map(e=>evRow(e,sel)).join(''):`<p class="empty">Nenhum evento neste dia.${ro?'':' Toque em “+ Evento” para agendar.'}</p>`}</div>`}
@@ -311,6 +322,7 @@ function openAg(){sheet(`<div class="shh"><h3>Agendas e cores</h3><button class=
  ${canEditAg()?'<button class="btn" data-edag="">+ Nova agenda</button>':''}
  ${memBlock()}
  <p class="sub">Backup</p><p class="fine">${mode==='local'?'Neste modo os eventos ficam só neste aparelho. Salve um backup para guardar ou levar a outro aparelho.':'Cópia de segurança de todos os eventos e agendas.'}</p><div class="ph"><button class="btn" id="bks">Salvar backup</button><label class="btn" style="position:relative">Restaurar backup<input type="file" id="bkl" accept=".json,application/json" style="position:absolute;inset:0;opacity:0"></label></div>
+ <p class="sub">Ícones dos tipos de evento</p><div class="leg">${TIPOS.map(t=>`<span>${ico(t,'var(--ink)')}${t}</span>`).join('')}</div>
  <p class="sub">Cores litúrgicas (fita sob cada dia)</p><div class="leg">${Object.entries(LC).map(([k,c])=>`<span data-c="${k}"><i style="background:${c.v}"></i>${c.n}</span>`).join('')}<span><i class="s S"></i>Solenidade</span><span><i class="s F"></i>Festa</span></div>
  <p class="fine">Tempos e solenidades calculados pelas normas gerais e da CNBB (Epifania, Ascensão, São Pedro e São Paulo, Assunção e Todos os Santos no domingo). Confira sempre o Diretório Litúrgico da sua diocese.</p>`)}
 document.addEventListener('click',ev=>{if(ev.target.id==='bks')backupSave()});document.addEventListener('change',ev=>{if(ev.target.id==='bkl'&&ev.target.files[0])backupLoad(ev.target.files[0])});
@@ -500,17 +512,17 @@ function buildPdf(R,g,l){const{jsPDF}=window.jspdf,doc=new jsPDF({orientation:'l
 function buildHtml(R,g,l){const e2=esc;let body='';
  if(g)for(const{y,m}of R.months){const f=Date.UTC(y,m,1),start=f-dow(f)*DAY,dim=new Date(Date.UTC(y,m+1,0)).getUTCDate(),wk=Math.ceil((dow(f)+dim)/7);let rows='';
   for(let w=0;w<wk;w++){rows+='<tr>';for(let i=0;i<7;i++){const t=start+(w*7+i)*DAY,d=new Date(t),out=d.getUTCMonth()!==m,L=lit(t),ev=out?[]:(R.oc[iso(t)]||[]),big=L.cel&&(L.cel.r==='S'||L.cel.r==='F');
-   rows+=`<td class="${out?'out':''}" style="border-bottom:4px solid ${LHEX[L.c]}"><b class="${i?'':'dom'}">${d.getUTCDate()}</b>${big&&!out?`<i>${e2(short(L.cel.n))}</i>`:''}${ev.map(e=>`<span style="border-color:${col(e)}">${e.all||!e.start?'':e2(e.start)+' '}${e2(e.title)}</span>`).join('')}</td>`}rows+='</tr>'}
+   rows+=`<td class="${out?'out':''}" style="border-bottom:4px solid ${LHEX[L.c]}"><b class="${i?'':'dom'}">${d.getUTCDate()}</b>${big&&!out?`<i>${e2(short(L.cel.n))}</i>`:''}${ev.map(e=>`<span style="border-color:${col(e)}">${ico(e.tipo,col(e))}${e.all||!e.start?'':e2(e.start)+' '}${e2(e.title)}</span>`).join('')}</td>`}rows+='</tr>'}
   body+=`<section class="mes"><h2>${cap(MES[m])} ${y} <small>Ano ${lit(Date.UTC(y,m,15)).ano}</small></h2><table><thead><tr>${['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></section>`}
  if(l){let h='',lm=-1;for(let t=R.from;t<=R.to;t+=DAY){const ev=R.oc[iso(t)]||[],L=lit(t),big=L.cel&&(L.cel.r==='S'||L.cel.r==='F');if(!ev.length&&!big)continue;const d=new Date(t),mk=d.getUTCFullYear()*12+d.getUTCMonth();if(mk!==lm){lm=mk;h+=`<h3 class="lmes">${cap(MES[d.getUTCMonth()])} ${d.getUTCFullYear()}</h3>`}
-  h+=`<div class="dia" style="border-left:5px solid ${LHEX[L.c]}"><h3>${cap(SEM[d.getUTCDay()])}, ${fd(t)}</h3><p class="lit">${e2(L.cel?L.cel.n+(RK[L.cel.r]?' ('+RK[L.cel.r]+')':''):(L.w||L.s))} · ${LC[L.c].n}</p>${ev.map(e=>`<p class="ev" style="border-color:${col(e)}"><b>${e.all||!e.start?'dia todo':e2(e.start)+(e.end?'–'+e2(e.end):'')}</b> ${e2(e.title)} <small>${e2([e.tipo,ag(e.ag)?.name,e.local].filter(Boolean).join(' · '))}</small>${e.notes?`<br><small>${e2(e.notes)}</small>`:''}</p>`).join('')}</div>`}
+  h+=`<div class="dia" style="border-left:5px solid ${LHEX[L.c]}"><h3>${cap(SEM[d.getUTCDay()])}, ${fd(t)}</h3><p class="lit">${e2(L.cel?L.cel.n+(RK[L.cel.r]?' ('+RK[L.cel.r]+')':''):(L.w||L.s))} · ${LC[L.c].n}</p>${ev.map(e=>`<p class="ev" style="border-color:${col(e)}"><b>${e.all||!e.start?'dia todo':e2(e.start)+(e.end?'–'+e2(e.end):'')}</b> ${ico(e.tipo,col(e))}${e2(e.title)} <small>${e2([e.tipo,ag(e.ag)?.name,e.local].filter(Boolean).join(' · '))}</small>${e.notes?`<br><small>${e2(e.notes)}</small>`:''}</p>`).join('')}</div>`}
   body+=`<section class="lista"><h2>Eventos · ${rangeLabel(R)}</h2>${h||'<p>Nenhum evento no período.</p>'}</section>`}
  const leg=legend().map(a2=>`<span><i style="background:${a2.color}"></i>${e2(a2.name)}</span>`).join('')+Object.entries(LC).map(([k,c])=>`<span><i class="f" style="background:${LHEX[k]}"></i>${c.n}</span>`).join('');
  return`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agenda Pastoral · ${rangeLabel(R)}</title><style>
 body{font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1b1a17;margin:0;padding:24px;background:#fff}h1{font:600 28px Georgia,serif;margin:0 0 4px}h2{font:600 22px Georgia,serif;margin:28px 0 10px}h2 small{font:500 13px system-ui;color:#6c6860}
 .leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#444;margin:8px 0 0}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}.leg i.f{width:16px;height:5px;border-radius:2px}
 table{width:100%;border-collapse:collapse;table-layout:fixed}th{font-size:12px;color:#6c6860;padding:4px}td{vertical-align:top;border:1px solid #e3ded4;height:92px;padding:4px;font-size:11px}td.out{background:#f7f5f0;color:#b5b0a6}td b{display:block;font-size:13px}td b.dom{color:#8a1c3b}td i{display:block;color:#8a1c3b;font-size:10px;margin-bottom:2px}
-td span{display:block;border-left:3px solid;padding-left:3px;margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ti{width:1em;height:1em;vertical-align:-.15em;margin-right:3px}td span{display:block;border-left:3px solid;padding-left:3px;margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .lmes{font:600 20px Georgia,serif;margin:26px 0 6px;padding-bottom:4px;border-bottom:2px solid #1b1a17;break-after:avoid}.dia{padding:6px 0 8px 12px;margin:10px 0;break-inside:avoid}.dia h3{margin:0;font-size:16px}.lit{margin:2px 0 6px;color:#6c6860;font-size:13px}.ev{margin:4px 0;border-left:3px solid;padding-left:8px}.ev small{color:#6c6860}
 .mes{break-after:page}@media(max-width:700px){td{height:60px;font-size:9px}body{padding:12px}}@page{size:A4 landscape;margin:12mm}
 </style></head><body><h1>Agenda Pastoral</h1><p style="margin:0;color:#6c6860">${rangeLabel(R)}</p><div class="leg">${leg}</div>${body}
