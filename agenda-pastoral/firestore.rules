@@ -8,6 +8,7 @@ service cloud.firestore {
     function membro() { return logado() && exists(/databases/$(database)/documents/membros/$(email())); }
     function eu() { return get(/databases/$(database)/documents/membros/$(email())).data; }
     function admin() { return dono() || (membro() && eu().papel == 'admin'); }
+    function editor() { return membro() && eu().papel == 'editor'; }
     function ve(ag) { return admin() || (membro() &&
       (!eu().keys().hasAll(['ver']) || 'todas' in eu().ver || ag in eu().ver)); }
     function podeAgenda(ag) { return admin() || (membro() && eu().papel == 'editor' &&
@@ -20,7 +21,7 @@ service cloud.firestore {
     }
 
     match /membros/{e} {
-      allow read: if logado() && (e == email() || dono() || membro());
+      allow read: if logado() && (e == email() || admin() || editor());
       allow write: if admin();
     }
     // pedidos de acesso: a pessoa grava só o próprio pedido; o coordenador vê e apaga
@@ -49,12 +50,14 @@ service cloud.firestore {
     // mural de avisos: vê quem vê o grupo; publica quem pode lançar eventos no grupo
     match /avisos/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
-      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email()
+      allow create: if (podeAgenda(request.resource.data.ag)
+          || (request.resource.data.tipo == 'oracao' && membro() && ve(request.resource.data.ag)))
+        && request.resource.data.autor == email()
         && request.resource.data.titulo is string && request.resource.data.titulo.size() <= 100
         && request.resource.data.texto is string && request.resource.data.texto.size() <= 3000;
-      allow update: if (admin() || (podeAgenda(resource.data.ag) && resource.data.autor == email()))
-        && podeAgenda(request.resource.data.ag);
-      allow delete: if admin() || (podeAgenda(resource.data.ag) && resource.data.autor == email());
+      allow update: if admin() || (resource.data.autor == email() && request.resource.data.autor == email()
+        && (podeAgenda(request.resource.data.ag) || request.resource.data.tipo == 'oracao'));
+      allow delete: if admin() || resource.data.autor == email();
     }
     match /cientes/{id} {
       allow read: if dono() || membro();
@@ -67,6 +70,53 @@ service cloud.firestore {
       allow create: if (dono() || membro()) && request.resource.data.uid == email()
         && request.resource.data.texto is string && request.resource.data.texto.size() <= 500;
       allow delete: if admin() || resource.data.uid == email();
+    }
+    match /aniversarios/{e} {
+      allow read: if dono() || membro();
+      allow write: if admin();
+    }
+    match /atas/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create, update: if podeAgenda(request.resource.data.ag);
+      allow delete: if podeAgenda(resource.data.ag);
+    }
+    match /escalas/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
+      allow delete: if podeAgenda(resource.data.ag);
+    }
+    // formulário de inscrição: público para ler (link de inscrição)
+    match /formularios/{id} {
+      allow read: if true;
+      allow create, update: if podeAgenda(request.resource.data.ag);
+      allow delete: if podeAgenda(resource.data.ag);
+    }
+    // inscrições: qualquer pessoa envia (sem login) se o formulário estiver aberto
+    match /inscritos/{id} {
+      allow create: if exists(/databases/$(database)/documents/formularios/$(request.resource.data.form))
+        && get(/databases/$(database)/documents/formularios/$(request.resource.data.form)).data.aberto == true
+        && request.resource.data.ag
+          == get(/databases/$(database)/documents/formularios/$(request.resource.data.form)).data.ag
+        && request.resource.data.nome1 is string && request.resource.data.nome1.size() <= 80
+        && request.resource.data.tel is string && request.resource.data.tel.size() <= 20
+        && request.resource.data.keys().size() <= 14;
+      allow read, delete: if podeAgenda(resource.data.ag);
+    }
+    match /materiais/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email();
+      allow delete: if admin() || resource.data.autor == email();
+    }
+    match /enquetes/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email();
+      allow delete: if admin() || resource.data.autor == email();
+    }
+    match /votos/{id} {
+      allow read: if dono() || membro();
+      allow create, update: if (dono() || membro()) && request.resource.data.uid == email()
+        && id == request.resource.data.enq + '~' + email() && request.resource.data.opcao is int;
+      allow delete: if (dono() || membro()) && resource.data.uid == email();
     }
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
