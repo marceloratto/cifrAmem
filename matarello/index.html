@@ -181,6 +181,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .status{display:flex;gap:12px;align-items:center;font-weight:700}
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--tomato);animation:sp 1s linear infinite;flex:none}
 @keyframes sp{to{transform:rotate(360deg)}}
+[hidden]{display:none!important}
+.panel label.btn,.ed label.btn{display:inline-flex}
+@media(max-width:600px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.tile{padding:12px;gap:2px}.tile .ico{width:38px;height:38px;margin-bottom:4px}.tile>span:last-child{display:none}.tile b{font-size:calc(16px*var(--fs))}}
+.thumbs .th{position:relative}.thumbs .th button{position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);cursor:pointer;font-weight:800;line-height:1}
 .thumbs{display:flex;gap:8px;flex-wrap:wrap}.thumbs img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
 .found{display:grid;gap:8px}
 .found label{display:flex;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-weight:700}
@@ -296,7 +300,7 @@ which:`Qual receita?`,optMany:`opcional, se houver várias`,whichPh:`ex.: tirami
 pdfT:`Importar de PDF`,pdfP:`Funciona com PDFs de texto e escaneados. Se o PDF tiver várias receitas, você escolhe quais salvar.`,pdfFile:`Arquivo PDF`,
 videoT:`Importar de vídeo`,videoP:`O navegador não consegue abrir o Instagram diretamente, então use a legenda do post e, se quiser, o próprio vídeo ou prints.`,howT:`Como pegar a legenda no Instagram`,how1:`Abra o Reel e toque em "mais" na legenda para expandir.`,how2:`Pressione e segure o texto e escolha Copiar (ou use "···" › Copiar link para guardar a fonte).`,how3:`Cole abaixo. Para receitas narradas, envie também o vídeo salvo ou prints da tela: o Claude lê o texto que aparece nas imagens.`,
 videoLink:`Link do vídeo`,keptSource:`fica guardado como fonte`,caption:`Legenda ou descrição`,captionPh:`Cole aqui a legenda do post`,vidFiles:`Vídeo salvo ou prints`,vidHint:`opcional; do vídeo tiro quadros automaticamente e uso um deles como foto`,
-photoT:`Importar de foto ou print`,photoP:`Fotografe a página do livro, o caderno escrito à mão ou faça um print de um site ou app. Pode enviar várias imagens da mesma receita.`,images:`Imagens`,
+photoT:`Importar de foto ou print`,photoP:`Tire uma foto da receita (livro, caderno escrito à mão, embalagem, print) e o Claude separa nome, porções, tempos, ingredientes, equipamentos e passos nos campos certos. Se a receita ocupar mais de uma página, tire uma foto de cada.`,images:`Imagens`,
 textT:`Importar de texto ou site`,textP:`Copie a receita da página (Ctrl+A, Ctrl+C no site) ou de uma mensagem e cole aqui. Não precisa limpar: o Claude separa o que é receita.`,pageLink:`Link da página`,optSource:`opcional, fica como fonte`,text:`Texto`,pasteHere:`Cole aqui`,
 sparkT:`Criar receita com IA`,sparkP:`Descreva o que você quer ou o que tem em casa. O Claude escreve uma receita completa para você revisar.`,request:`Pedido`,sparkPh:`Tenho frango, limão-siciliano, alecrim e batatas. Quero algo ao forno para 4 pessoas, estilo italiano.`,
 boxT:`Backup do caderno`,boxP:`Exporte todas as receitas para guardar ou levar para outro lugar, e importe um backup do Matarello.`,boxP2:`As receitas ficam guardadas neste aparelho. Para levar do PC para o celular, exporte aqui e importe no outro aparelho.`,exp:`Exportar backup (.json)`,imp:`Importar backup`,backupSaved:`Backup salvo`,dlFail:`Não foi possível baixar o arquivo`,badFile:`Arquivo inválido`,
@@ -322,6 +326,7 @@ h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compart
 h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
 gotIt:`Entendi`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+takePhoto:`Tirar foto`,fromGallery:`Escolher da galeria`,photoAdded:`Foto adicionada. Se a receita continuar em outra página, tire mais uma.`,removeImg:`Remover imagem`,fillPhoto:`Preencher com foto da receita`,filled:`Campos preenchidos. Confira e salve.`,replaceQ:`Substituir o que já foi escrito?`,replaceMsg:`Os campos serão preenchidos com a receita da foto.`,replaceBtn:`Substituir`,
 tmName:`Thermomix / Bimby`,tmOnly:`Thermomix`,tmFor:`Receita para Thermomix / Bimby`,tmModel:`Modelo`,tmAny:`Qualquer modelo`,tmNo:`Não é receita de Thermomix`,
 tTm:`Thermomix / Bimby`,dTm:`Receitas do Cookidoo, do livro da Thermomix ou da tela da máquina`,
 tmT:`Importar receita de Thermomix / Bimby`,tmP:`O Matarello guarda os ajustes da máquina (tempo, temperatura, velocidade, colher inversa, Varoma) e mostra cada um destacado no passo.`,
@@ -355,7 +360,7 @@ which:`Quale ricetta?`,optMany:`facoltativo, se ce ne sono diverse`,whichPh:`es.
 pdfT:`Importa da PDF`,pdfP:`Funziona con PDF di testo e scansionati. Se il PDF contiene più ricette, scegli quali salvare.`,pdfFile:`File PDF`,
 videoT:`Importa da video`,videoP:`Il browser non può aprire Instagram direttamente: usa la didascalia del post e, se vuoi, il video stesso o degli screenshot.`,howT:`Come copiare la didascalia su Instagram`,how1:`Apri il Reel e tocca "altro" nella didascalia per espanderla.`,how2:`Tieni premuto sul testo e scegli Copia (oppure "···" › Copia link per salvare la fonte).`,how3:`Incolla qui sotto. Per le ricette raccontate a voce, invia anche il video salvato o degli screenshot: Claude legge il testo che compare nelle immagini.`,
 videoLink:`Link del video`,keptSource:`resta salvato come fonte`,caption:`Didascalia o descrizione`,captionPh:`Incolla qui la didascalia del post`,vidFiles:`Video salvato o screenshot`,vidHint:`facoltativo; dal video estraggo dei fotogrammi e ne uso uno come foto`,
-photoT:`Importa da foto o screenshot`,photoP:`Fotografa la pagina del libro, il quaderno scritto a mano o fai uno screenshot di un sito o di un'app. Puoi inviare più immagini della stessa ricetta.`,images:`Immagini`,
+photoT:`Importa da foto o screenshot`,photoP:`Scatta una foto della ricetta (libro, quaderno scritto a mano, confezione, screenshot) e Claude mette nome, porzioni, tempi, ingredienti, attrezzatura e passaggi nei campi giusti. Se la ricetta occupa più pagine, scatta una foto per ognuna.`,images:`Immagini`,
 textT:`Importa da testo o sito`,textP:`Copia la ricetta dalla pagina (Ctrl+A, Ctrl+C sul sito) o da un messaggio e incollala qui. Non serve ripulirla: Claude separa ciò che è ricetta.`,pageLink:`Link della pagina`,optSource:`facoltativo, resta come fonte`,text:`Testo`,pasteHere:`Incolla qui`,
 sparkT:`Crea una ricetta con l'IA`,sparkP:`Descrivi cosa vuoi o cosa hai in casa. Claude scrive una ricetta completa da controllare.`,request:`Richiesta`,sparkPh:`Ho pollo, limone, rosmarino e patate. Vorrei qualcosa al forno per 4 persone, in stile italiano.`,
 boxT:`Backup del quaderno`,boxP:`Esporta tutte le ricette per conservarle o portarle altrove, e importa un backup del Matarello.`,boxP2:`Le ricette sono salvate su questo dispositivo. Per passarle dal PC al telefono, esporta qui e importa sull'altro dispositivo.`,exp:`Esporta backup (.json)`,imp:`Importa backup`,backupSaved:`Backup salvato`,dlFail:`Impossibile scaricare il file`,badFile:`File non valido`,
@@ -381,6 +386,7 @@ h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condivi
 h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
 gotIt:`Ho capito`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+takePhoto:`Scatta foto`,fromGallery:`Scegli dalla galleria`,photoAdded:`Foto aggiunta. Se la ricetta continua su un'altra pagina, scattane un'altra.`,removeImg:`Rimuovi immagine`,fillPhoto:`Compila dalla foto della ricetta`,filled:`Campi compilati. Controlla e salva.`,replaceQ:`Sostituire quanto già scritto?`,replaceMsg:`I campi verranno compilati con la ricetta della foto.`,replaceBtn:`Sostituisci`,
 tmName:`Bimby / Thermomix`,tmOnly:`Bimby`,tmFor:`Ricetta per Bimby / Thermomix`,tmModel:`Modello`,tmAny:`Qualsiasi modello`,tmNo:`Non è una ricetta Bimby`,
 tTm:`Bimby / Thermomix`,dTm:`Ricette di Cookidoo, del ricettario Bimby o dello schermo della macchina`,
 tmT:`Importa una ricetta Bimby / Thermomix`,tmP:`Il Matarello conserva le impostazioni della macchina (tempo, temperatura, velocità, antiorario, Varoma) e le evidenzia in ogni passaggio.`,
@@ -644,7 +650,8 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
  const backH=ex?'#receita-'+esc(ex.id):'#';
  app.innerHTML=`<div class="tricolor"></div><section class="band ed"><div class="wrap">
  <a class="back" href="${backH}">${ic('back')}${t('back')}</a>
- <h1>${ex?t('editT'):t('newT')}</h1>${from?`<p class="note">${esc(t('importedFrom',{f:from}))}</p>`:''}
+ <h1>${ex?t('editT'):t('newT')}</h1>
+ <div class="hero-act" style="justify-content:flex-start;margin-top:12px"><label class="btn green">${ic('camera')}${t('fillPhoto')}<input type="file" id="fillph" accept="image/*" multiple hidden></label><span id="fillst"></span></div>${from?`<p class="note">${esc(t('importedFrom',{f:from}))}</p>`:''}
  <form id="f" class="form" autocomplete="off">
   <div class="ed-grid">
    <div class="ed-photo"><div class="drop" id="drop" tabindex="0" role="button" aria-label="${at('choosePhoto')}"></div>
@@ -681,6 +688,18 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
  drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');
  drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');take(e.dataTransfer.files[0])};
  $('#phx').onclick=()=>{S.edPhoto='';show()};
+ $('#fillph').onchange=async e=>{const files=[...e.target.files].filter(x=>/^image\//.test(x.type||'image/'));e.target.value='';if(!files.length)return;if(!aiReady()){aiSettings();return}
+  const max=await aiMaxImages();if(!max){toast(t('eNoImgs'));return}
+  const f=$('#f');if((f.elements.title.value.trim()||f.elements.ingredients.value.trim()||f.elements.steps.value.trim())&&!await ask(t('replaceQ'),t('replaceMsg'),t('replaceBtn')))return;
+  const st=$('#fillst');st.innerHTML=spinMsg(t('thinking'));
+  try{const j=await aiJson(buildPrompt('As imagens são fotos de UMA receita (livro, caderno manuscrito, embalagem ou print), possivelmente em várias páginas. Leia todo o texto e extraia essa receita numa ficha só. Ignore fotos que não sejam texto.',''),files.slice(0,max));
+   const r=((Array.isArray(j)?j:j&&j.recipes)||[])[0];if(!r){toast(t('noneFound'));return}const n=normalize(r);
+   const set=(k,v)=>{const el=f.elements[k];if(!el||v===undefined||v===null||v===''||(Array.isArray(v)&&!v.length))return;el.value=Array.isArray(v)?v.join('\n'):v};
+   ['title','subtitle','category','servings','difficulty','notes'].forEach(k=>set(k,n[k]));set('prepMin',n.prepMin||'');set('cookMin',n.cookMin||'');set('tags',n.tags.join(', '));set('ingredients',n.ingredients);set('equipment',n.equipment);set('steps',n.steps);
+   if(n.tm){f.elements.tmOn.checked=true;f.elements.tmModel.value=n.tm}
+   toast(t('filled'))}
+  catch(err){const c=err?.code;if(c!=='cancelled')toast(err?.msg||(c==='not_granted'?t('eDenied'):c==='rate_limited'?t('eRate'):c==='invalid_json'?t('eJson'):c==='image_rejected'?t('eImg'):t('eGeneric')))}
+  finally{st.innerHTML=''}};
  $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast(t('waitPhoto'));return}
   const d=Object.fromEntries(new FormData(e.target));
   const r=normalize({...(ex||{}),...d,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
@@ -717,7 +736,7 @@ function renderImport(){
   <div class="panel" id="panel"></div>
   <div id="result" style="margin-top:18px"></div>
  </div></section>`;
- app.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{impTab=b.dataset.tab;renderImport()});
+ app.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{impTab=b.dataset.tab;renderImport();if(innerWidth<900)$('#panel').scrollIntoView({behavior:'smooth',block:'start'})});
  const cf=$('#aicfg');if(cf)cf.onclick=aiSettings;
  panel()}
 function panel(){const p=$('#panel');const which=`<label>${t('which')} <small>${t('optMany')}</small><input id="which" placeholder="${at('whichPh')}"></label>`;
@@ -728,7 +747,12 @@ function panel(){const p=$('#panel');const which=`<label>${t('which')} <small>${
   <label>${t('videoLink')} <small>${t('keptSource')}</small><input id="url" type="url" placeholder="https://www.instagram.com/reel/…"></label>
   <label>${t('caption')}<textarea id="txt" rows="7" placeholder="${at('captionPh')}"></textarea></label>
   <label>${t('vidFiles')} <small>${t('vidHint')}</small><input type="file" id="file" accept="video/*,image/*" multiple></label><div class="thumbs" id="th"></div>${run}`;
- if(impTab==='photo')p.innerHTML=`<h2>${t('photoT')}</h2><p>${t('photoP')}</p><label>${t('images')}<input type="file" id="file" accept="image/*" multiple></label><div class="thumbs" id="th"></div>${which}${run}`;
+ if(impTab==='photo'){S.impImgs=[];p.innerHTML=`<h2>${t('photoT')}</h2><p>${t('photoP')}</p>
+  <div class="hero-act" style="justify-content:flex-start"><label class="btn green">${ic('camera')}${t('takePhoto')}<input type="file" id="cam" accept="image/*" capture="environment" hidden></label><label class="btn">${ic('upload')}${t('fromGallery')}<input type="file" id="gal" accept="image/*" multiple hidden></label></div>
+  <div class="thumbs" id="th"></div>${which}${run}`;
+  const draw=()=>{$('#th').innerHTML=S.impImgs.map((f,i)=>`<span class="th"><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="${at('removeImg')}">×</button></span>`).join('');$('#th').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{S.impImgs.splice(+b.dataset.rm,1);draw()})};
+  const add=(e,cam)=>{const fs=[...e.target.files].filter(f=>/^image\//.test(f.type||'image/'));e.target.value='';if(!fs.length)return;S.impImgs.push(...fs);draw();if(cam)toast(t('photoAdded'))};
+  $('#cam').onchange=e=>add(e,true);$('#gal').onchange=e=>add(e,false)}
  if(impTab==='text')p.innerHTML=`<h2>${t('textT')}</h2><p>${t('textP')}</p><label>${t('pageLink')} <small>${t('optSource')}</small><input id="url" type="url" placeholder="https://…"></label><label>${t('text')}<textarea id="txt" rows="10" placeholder="${at('pasteHere')}"></textarea></label>${run}`;
  if(impTab==='tm')p.innerHTML=`<h2>${t('tmT')}</h2><p>${t('tmP')}</p>
   <div class="howto"><b>${t('tmHow')}</b><ol><li>${esc(t('tmHow1'))}</li><li>${esc(t('tmHow2'))}</li><li>${esc(t('tmHow3'))}</li></ol></div>
@@ -740,7 +764,7 @@ function panel(){const p=$('#panel');const which=`<label>${t('which')} <small>${
   <div class="hero-act" style="justify-content:flex-start"><button class="btn green" id="exp">${ic('download')}${t('exp')}</button><label class="btn">${ic('upload')}${t('imp')}<input type="file" id="bk" accept=".json,application/json" hidden></label></div><div id="st"></div>`;
   $('#exp').onclick=async()=>{try{await saveFile('matarello-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({app:'Matarello',version:1,exportedAt:new Date().toISOString(),recipes:S.recipes},null,1),'application/json');toast(t('backupSaved'))}catch(e){if(e?.code!=='declined')toast(t('dlFail'))}};
   $('#bk').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const list=(Array.isArray(j)?j:j.recipes||[]).map(r=>normalize(r,true));await saveMany(list)}catch(err){toast(t('badFile'))}};return}
- const fi=$('#file');if(fi&&$('#th'))fi.onchange=()=>{$('#th').innerHTML=[...fi.files].filter(f=>/^image\//.test(f.type)).slice(0,8).map(f=>`<img src="${URL.createObjectURL(f)}" alt="">`).join('')};
+ const fi=$('#file');if(fi&&$('#th')&&impTab!=='photo')fi.onchange=()=>{$('#th').innerHTML=[...fi.files].filter(f=>/^image\//.test(f.type)).slice(0,8).map(f=>`<img src="${URL.createObjectURL(f)}" alt="">`).join('')};
  $('#go').onclick=startImport;$('#stop').onclick=()=>ctl&&ctl.abort()}
 function status(html){const s=$('#st');if(s)s.innerHTML=html}
 const spinMsg=m=>`<div class="status"><span class="spin"></span>${esc(m)}</div>`;
@@ -767,7 +791,7 @@ async function startImport(){if(!aiReady()){aiSettings();return}
    for(const f of fs){if(/^video\//.test(f.type)){status(spinMsg(t('frames')));try{const fr=await videoFrames(f,Math.min(6,Math.max(maxImg-images.length,0)));images.push(...fr);cover=fr[Math.floor(fr.length/2)]||null}catch(e){toast(t('eVideo'))}}else if(/^image\//.test(f.type))images.push(f)}
    if(!material&&!images.length)throw{msg:t('eNeedCap')};
    task='Extraia a receita deste vídeo de culinária a partir da legenda e dos quadros/prints (leia o texto que aparece na tela). Se faltar quantidade, estime e avise em "notes".'+(which?` Receita: "${which}".`:'')}
-  else if(impTab==='photo'){images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!images.length)throw{msg:t('eNeedImg')};from=t('fPhoto');task+=' Leia o texto das imagens (pode ser manuscrito). Ignore fotos que não sejam texto.'}
+  else if(impTab==='photo'){images=(S.impImgs||[]).slice();if(!images.length)throw{msg:t('eNeedImg')};from=t('fPhoto');task+=' As imagens são fotos de uma receita (livro, caderno manuscrito, embalagem ou print), possivelmente várias páginas da mesma receita: leia todo o texto e junte numa ficha só. Ignore fotos que não sejam texto.'}
   else if(impTab==='text'){material=val('#txt');if(!material)throw{msg:t('eNeedText')};from=url?t('fSite')+' · '+url:t('fText')}
   else if(impTab==='tm'){material=val('#txt');images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!material&&!images.length)throw{msg:t('eNeedCap')};from=url?t('fTm')+' · '+url:t('fTm');task='Extraia esta receita de Thermomix/Bimby (texto copiado do Cookidoo, do livro ou prints do app/da máquina). Ignore menus, avaliações e textos do site. Preencha "tm" e mantenha todos os ajustes da máquina em cada passo.'}
   else if(impTab==='spark'){const x=val('#txt');if(!x)throw{msg:t('eNeedWish')};task='Crie UMA receita original, testável e bem detalhada, de inspiração italiana quando fizer sentido, para este pedido: '+x;from=t('fAi')}
