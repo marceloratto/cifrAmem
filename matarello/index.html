@@ -117,7 +117,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .box h2,.col-steps>h2{font-size:calc(26px*var(--fs));margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .box h2 small{font:700 calc(13px*var(--fs)) "Nunito Sans";color:var(--mute);margin-left:auto}
 .ing,.eq{list-style:none;margin:0;padding:0}
-.ing li{border-bottom:1px dashed var(--line)}.ing li:last-child{border:0}
+.ing li{border-bottom:1px dashed var(--line);display:flex;gap:10px;align-items:flex-start;padding:9px 0}.ing li.grp{display:block}
+.ing label.ckl{padding:0;flex:none}.ingb{flex:1;text-align:left;border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;min-height:24px}.ingtx{flex:1}
+.ingb .qv{border-bottom:1.5px dotted currentColor}.ingb:hover .qv{background:color-mix(in srgb,var(--pasta) 30%,transparent)}
+.ing li:has(input:checked) .ingtx{text-decoration:line-through;opacity:.5}.ing li:last-child{border:0}
 .ing label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;cursor:pointer}
 .ing input{width:22px;height:22px;min-height:0;margin:1px 0 0;accent-color:var(--basil);flex:none}
 .ing input:checked+span{text-decoration:line-through;opacity:.5}
@@ -340,7 +343,7 @@ h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compart
 h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
 gotIt:`Entendi`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
-qtyMode:`Quantidades`,bakerMode:`% do padeiro`,flourTot:`Farinha`,hydr:`Hidratação`,doughTot:`Massa total`,eggNote:`~ ovos estimados: ovo 50 g, gema 18 g, clara 30 g.`,noFlour:`Para usar o % do padeiro, a receita precisa ter farinha em gramas.`,tapHint:`Toque numa quantidade para recalcular a receita toda na mesma proporção.`,adjT:`Ajustar quantidade`,adjP:`As outras quantidades mudam na mesma proporção.`,apply:`Aplicar`,adjusted:`Quantidades ajustadas (×{x})`,saveFor:`Salvar para {n} {p}`,backOrig:`Voltar`,saveQ:`Salvar a receita com estas quantidades?`,saveMsg:`A receita passa a ser para {n} {p}, com todas as quantidades recalculadas na mesma proporção. Você pode restaurar as originais depois.`,savedScale:`Quantidades salvas`,restore:`Restaurar quantidades originais ({n} {p})`,restored:`Quantidades originais restauradas`,
+qtyMode:`Quantidades`,bakerMode:`% do padeiro`,flourTot:`Farinha`,hydr:`Hidratação`,doughTot:`Massa total`,eggNote:`~ ovos estimados: ovo 50 g, gema 18 g, clara 30 g.`,noFlour:`Para usar o % do padeiro, a receita precisa ter farinha em gramas.`,tapHint:`Toque num ingrediente para mudar a quantidade e recalcular a receita toda na mesma proporção. O quadradinho marca o que já foi separado.`,adjT:`Ajustar quantidade`,adjP:`As outras quantidades mudam na mesma proporção.`,apply:`Aplicar`,badNum:`Digite um número maior que zero, por exemplo 700 ou 0,5.`,adjusted:`Quantidades ajustadas (×{x})`,saveFor:`Salvar para {n} {p}`,backOrig:`Voltar`,saveQ:`Salvar a receita com estas quantidades?`,saveMsg:`A receita passa a ser para {n} {p}, com todas as quantidades recalculadas na mesma proporção. Você pode restaurar as originais depois.`,savedScale:`Quantidades salvas`,restore:`Restaurar quantidades originais ({n} {p})`,restored:`Quantidades originais restauradas`,
 takePhoto:`Tirar foto`,fromGallery:`Escolher da galeria`,photoAdded:`Foto adicionada. Se a receita continuar em outra página, tire mais uma.`,removeImg:`Remover imagem`,fillPhoto:`Preencher com foto da receita`,filled:`Campos preenchidos. Confira e salve.`,replaceQ:`Substituir o que já foi escrito?`,replaceMsg:`Os campos serão preenchidos com a receita da foto.`,replaceBtn:`Substituir`,
 tmName:`Thermomix / Bimby`,tmOnly:`Thermomix`,tmFor:`Receita para Thermomix / Bimby`,tmModel:`Modelo`,tmAny:`Qualquer modelo`,tmNo:`Não é receita de Thermomix`,
 tTm:`Thermomix / Bimby`,dTm:`Receitas do Cookidoo, do livro da Thermomix ou da tela da máquina`,
@@ -401,7 +404,7 @@ h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condivi
 h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
 gotIt:`Ho capito`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
-qtyMode:`Quantità`,bakerMode:`% del fornaio`,flourTot:`Farina`,hydr:`Idratazione`,doughTot:`Impasto totale`,eggNote:`~ uova stimate: uovo 50 g, tuorlo 18 g, albume 30 g.`,noFlour:`Per usare le percentuali del fornaio, la ricetta deve avere la farina in grammi.`,tapHint:`Tocca una quantità per ricalcolare tutta la ricetta nella stessa proporzione.`,adjT:`Modifica quantità`,adjP:`Le altre quantità cambiano nella stessa proporzione.`,apply:`Applica`,adjusted:`Quantità modificate (×{x})`,saveFor:`Salva per {n} {p}`,backOrig:`Annulla`,saveQ:`Salvare la ricetta con queste quantità?`,saveMsg:`La ricetta diventa per {n} {p}, con tutte le quantità ricalcolate nella stessa proporzione. Potrai ripristinare quelle originali.`,savedScale:`Quantità salvate`,restore:`Ripristina le quantità originali ({n} {p})`,restored:`Quantità originali ripristinate`,
+qtyMode:`Quantità`,bakerMode:`% del fornaio`,flourTot:`Farina`,hydr:`Idratazione`,doughTot:`Impasto totale`,eggNote:`~ uova stimate: uovo 50 g, tuorlo 18 g, albume 30 g.`,noFlour:`Per usare le percentuali del fornaio, la ricetta deve avere la farina in grammi.`,tapHint:`Tocca un ingrediente per cambiare la quantità e ricalcolare tutta la ricetta nella stessa proporzione. Il quadratino segna ciò che hai già preparato.`,adjT:`Modifica quantità`,adjP:`Le altre quantità cambiano nella stessa proporzione.`,apply:`Applica`,badNum:`Inserisci un numero maggiore di zero, per esempio 700 o 0,5.`,adjusted:`Quantità modificate (×{x})`,saveFor:`Salva per {n} {p}`,backOrig:`Annulla`,saveQ:`Salvare la ricetta con queste quantità?`,saveMsg:`La ricetta diventa per {n} {p}, con tutte le quantità ricalcolate nella stessa proporzione. Potrai ripristinare quelle originali.`,savedScale:`Quantità salvate`,restore:`Ripristina le quantità originali ({n} {p})`,restored:`Quantità originali ripristinate`,
 takePhoto:`Scatta foto`,fromGallery:`Scegli dalla galleria`,photoAdded:`Foto aggiunta. Se la ricetta continua su un'altra pagina, scattane un'altra.`,removeImg:`Rimuovi immagine`,fillPhoto:`Compila dalla foto della ricetta`,filled:`Campi compilati. Controlla e salva.`,replaceQ:`Sostituire quanto già scritto?`,replaceMsg:`I campi verranno compilati con la ricetta della foto.`,replaceBtn:`Sostituisci`,
 tmName:`Bimby / Thermomix`,tmOnly:`Bimby`,tmFor:`Ricetta per Bimby / Thermomix`,tmModel:`Modello`,tmAny:`Qualsiasi modello`,tmNo:`Non è una ricetta Bimby`,
 tTm:`Bimby / Thermomix`,dTm:`Ricette di Cookidoo, del ricettario Bimby o dello schermo della macchina`,
@@ -516,22 +519,23 @@ function aiSettings(){const m=modal(`<h3>${t('aiT')}</h3><p>${t('aiP')}</p>
 
 /* ---------- ingredientes ---------- */
 const FR={'½':.5,'¼':.25,'¾':.75,'⅓':1/3,'⅔':2/3};
-function num(s){s=s.trim().replace(/(\d)([½¼¾⅓⅔])/,'$1 $2');let x=0;for(const p of s.split(/\s+/)){if(FR[p]!=null)x+=FR[p];else if(p.includes('/')){const[a,b]=p.split('/');x+=(+a)/(+b||1)}else x+=parseFloat(p.replace(',','.'))}return x}
-function parseIng(l){const m=l.match(/^\s*(\d+\s+\d+\/\d+|\d+\s*[½¼¾⅓⅔]|\d+\/\d+|\d+(?:[.,]\d+)?|[½¼¾⅓⅔])(?:\s*(?:a|-|–)\s*(\d+(?:[.,]\d+)?)(?=\s))?\s*(.*)$/);if(!m)return{q:null,rest:l};return{q:num(m[1]),q2:m[2]?num(m[2]):null,rest:m[3]}}
+function num(s){s=s.trim();if(/^\d{1,3}(\.\d{3})+$/.test(s))return+s.replace(/\./g,'');s=s.replace(/(\d)([½¼¾⅓⅔])/,'$1 $2');let x=0;for(const p of s.split(/\s+/)){if(FR[p]!=null)x+=FR[p];else if(p.includes('/')){const[a,b]=p.split('/');x+=(+a)/(+b||1)}else x+=parseFloat(p.replace(',','.'))}return x}
+function parseIng(l){const m=l.match(/^\s*(\d{1,3}(?:\.\d{3})+(?!\d)|\d+\s+\d+\/\d+|\d+\s*[½¼¾⅓⅔]|\d+\/\d+|\d+(?:[.,]\d+)?|[½¼¾⅓⅔])(?:\s*(?:a|-|–)\s*(\d+(?:[.,]\d+)?)(?=\s))?\s*(.*)$/);if(!m){const k=l.match(/(\d{1,3}(?:\.\d{3})+(?!\d)|\d+(?:[.,]\d+)?)\s*(?=(?:kg|g|gr|ml|l)\b)/i);if(k&&k.index>0)return{q:num(k[1]),q2:null,pre:l.slice(0,k.index),rest:l.slice(k.index+k[0].length)};return{q:null,rest:l,pre:''}}return{q:num(m[1]),q2:m[2]?num(m[2]):null,rest:m[3],pre:''}}
 function fq(q){if(q==null||!isFinite(q))return'';const r=Math.round(q*100)/100,w=Math.floor(r),d=Math.round((r-w)*100)/100,F={.25:'¼',.5:'½',.75:'¾',.33:'⅓',.67:'⅔'};if(F[d]&&r<20)return(w?w+' ':'')+F[d];return(r>=20?Math.round(r):r).toString().replace('.',',')}
-function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l};
+function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l,pre:''};
  const um=p.rest.match(/^(kg|g|gr|l|ml)\b\.?/i);if(um&&p.q2==null){let q=p.q*f,u=um[1].toLowerCase(),rest=p.rest.slice(um[0].length);
   if((u==='kg'||u==='l')&&q<1){q*=1000;u=u==='kg'?'g':'ml'}else if((u==='g'||u==='gr')&&q>=1000&&f!==1){q/=1000;u='kg'}else if(u==='ml'&&q>=1000&&f!==1){q/=1000;u='l'}
-  const d=q>=100||u==='g'&&q>=20||u==='ml'&&q>=20?Math.round(q):Math.round(q*10)/10;return{q:String(d).replace('.',','),rest:u+rest}}return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest}}
+  const d=q>=100||u==='g'&&q>=20||u==='ml'&&q>=20?Math.round(q):Math.round(q*10)/10;return{q:String(d).replace('.',','),rest:u+rest,pre:p.pre}}return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest,pre:p.pre}}
+const ln=s=>(s.pre||'')+(s.q?s.q+' ':'')+s.rest;
 const isGrp=l=>/:\s*$/.test(l)&&l.length<70;
-function grams(l,f){const p=parseIng(l);if(p.q==null)return null;const q=p.q*f,r=p.rest;let m;
- if(m=r.match(/^(kg|quilos?|quilogramas?|chili|chilogrammi)\b/i))return{g:q*1000,r};if(m=r.match(/^(g|gr|grs|gramas?|grammi|grammo)\b\.?/i))return{g:q,r};if(m=r.match(/^(l|litros?|litri|litro)\b/i))return{g:q*1000,r};if(m=r.match(/^(ml|mililitros?|millilitri)\b/i))return{g:q,r};
- if(/^(ovos?|uovo|uova)\b/i.test(r))return{g:q*50,r,approx:1};if(/^(gemas?|tuorl[oi])\b/i.test(r))return{g:q*18,r,approx:1};if(/^(claras?|album[ei])\b/i.test(r))return{g:q*30,r,approx:1};return null}
+function grams(l,f){const p=parseIng(l);if(p.q==null)return null;const q=p.q*f,r=p.rest,R=(p.pre||'')+p.rest;let m;
+ if(m=r.match(/^(kg|quilos?|quilogramas?|chili|chilogrammi)\b/i))return{g:q*1000,r:R};if(m=r.match(/^(g|gr|grs|gramas?|grammi|grammo)\b\.?/i))return{g:q,r:R};if(m=r.match(/^(l|litros?|litri|litro)\b/i))return{g:q*1000,r:R};if(m=r.match(/^(ml|mililitros?|millilitri)\b/i))return{g:q,r:R};
+ if(/^(ovos?|uovo|uova)\b/i.test(r))return{g:q*50,r:R,approx:1};if(/^(gemas?|tuorl[oi])\b/i.test(r))return{g:q*18,r:R,approx:1};if(/^(claras?|album[ei])\b/i.test(r))return{g:q*30,r:R,approx:1};return null}
 function bakerInfo(lines,f){let flour=0,liq=0,sum=0,approx=false;const items=lines.map(l=>{if(isGrp(l))return null;const x=grams(l,f);if(!x)return null;sum+=x.g;if(x.approx)approx=true;
   if(!x.approx&&/farinha|farina|flour|s[eê]mola|semolina|fubá|manitoba|polvilho/i.test(x.r))flour+=x.g;else if(/água|agua|acqua|leite|latte|water|milk/i.test(x.r))liq+=x.g;return x});
  return{flour,liq,sum,approx,items}}
 const fmtG=g=>g>=1000?(Math.round(g/10)/100).toLocaleString('pt-BR')+' kg':(g<10?String(Math.round(g*10)/10).replace('.',','):Math.round(g).toLocaleString('pt-BR'))+' g';
-const fmtP=p=>(p<10?String(Math.round(p*10)/10).replace('.',','):Math.round(p))+'%';
+const fmtP=p=>String(Math.round(p*10)/10).replace('.',',')+'%';
 const TMTOK=String.raw`(?:\d+(?:[.,]\d+)?\s*(?:seg|sec|s|min|h)\.?|\d{2,3}\s*°\s*C?|Varoma|⟲|colher inversa|sentido inverso|reverse|antiorario|vel(?:ocidade|ocità)?\.?\s*(?:colher|cucchiaio|soft|turbo|\d+(?:[.,]\d+)?(?:\s*[-–]\s*\d+(?:[.,]\d+)?)?)|turbo)`;
 const TMRE=new RegExp(TMTOK+String.raw`(?:\s*\/\s*`+TMTOK+')*','gi');
 function fmtStep(s){let out='',last=0;s=String(s);for(const m of s.matchAll(TMRE)){const v=m[0];if(!(/vel|varoma|turbo/i.test(v)||(/\//.test(v)&&/°|colher|antiorario|⟲|inverso/i.test(v))))continue;out+=esc(s.slice(last,m.index))+`<span class="tm">${ic('tm')}${esc(v)}</span>`;last=m.index+v.length}return out+esc(s.slice(last))}
@@ -596,9 +600,10 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
  const base=r.servings||1,f=S.fac[id]||1,sv=Math.round(base*f*10)/10,chk=S.chk[id]||(S.chk[id]={});
  const bk=bakerInfo(r.ingredients||[],f),bkOn=S.baker&&bk.flour>0;
- const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);const q=s.q?`<button type="button" class="qbtn" data-adj="${i}">${esc(s.q)}</button> `:'';
-  if(bkOn){const x=bk.items[i];return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span><span class="pct">${x?(x.approx?'~':'')+fmtP(x.g/bk.flour*100):'—'}</span>${q}${esc(s.rest)}</span></label></li>`}
-  return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span>${q}${esc(s.rest)}</span></label></li>`}).join('');
+ const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);
+  const x=bkOn?bk.items[i]:null;const pc=bkOn?`<span class="pct">${x?(x.approx?'~':'')+fmtP(x.g/bk.flour*100):'—'}</span>`:'';
+  const body=`${pc}${esc(s.pre||'')}${s.q?`<b class="qv">${esc(s.q)}</b> `:''}${esc(s.rest)}`;
+  return`<li><label class="ckl"><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''} aria-label="${esc(l)}"></label>${s.q?`<button type="button" class="ingb ingtx" data-adj="${i}">${body}</button>`:`<span class="ingtx">${body}</span>`}</li>`}).join('');
  const segm=bk.flour>0?`<div class="segm" role="group" aria-label="${at('bakerMode')}"><button type="button" data-bk="0" aria-pressed="${!bkOn}">${t('qtyMode')}</button><button type="button" data-bk="1" aria-pressed="${bkOn}">${t('bakerMode')}</button></div>`:'';
  const bkr=bkOn?`<div class="bkr"><div><span>${t('flourTot')} = 100%</span><b>${fmtG(bk.flour)}</b></div><div><span>${t('hydr')}</span><b>${fmtP(bk.liq/bk.flour*100)}</b></div><div><span>${t('doughTot')}</span><b>${bk.approx?'~':''}${fmtG(bk.sum)}</b></div></div>`:'';
  const adj=Math.abs(f-1)>1e-9?`<div class="adj"><span>${t('adjusted',{x:String(Math.round(f*100)/100).replace('.',',')})}</span><button class="btn green" id="savescale">${t('saveFor',{n:fmtN(sv),p:pl(sv)})}</button><button class="btn quiet" id="resetscale">${t('backOrig')}</button></div>`:'';
@@ -640,7 +645,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  app.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>{S.baker=b.dataset.bk==='1';pref('baker',S.baker?'1':'0');route(true,true)});
  app.querySelectorAll('[data-adj]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();adjustQty(r,+b.dataset.adj,f)});
  const ss=$('#savescale');if(ss)ss.onclick=async()=>{if(!await ask(t('saveQ'),t('saveMsg',{n:fmtN(sv),p:pl(sv)}),t('saveFor',{n:fmtN(sv),p:pl(sv)})))return;
-  const n={...r,ingredients:(r.ingredients||[]).map(l=>isGrp(l)?l:(x=>(x.q?x.q+' ':'')+x.rest)(scaled(l,f))),servings:sv,orig:r.orig||{ingredients:r.ingredients,servings:r.servings}};
+  const n={...r,ingredients:(r.ingredients||[]).map(l=>isGrp(l)?l:ln(scaled(l,f))),servings:sv,orig:r.orig||{ingredients:r.ingredients,servings:r.servings}};
   try{await persist(normalize(n,true));S.fac[id]=1;toast(t('savedScale'));route(true,true)}catch(e){}};
  const rs=$('#resetscale');if(rs)rs.onclick=()=>{S.fac[id]=1;route(true,true)};
  const ro=$('#restore');if(ro)ro.onclick=async()=>{try{await persist(normalize({...r,ingredients:r.orig.ingredients,servings:r.orig.servings,orig:null},true));toast(t('restored'));route(true,true)}catch(e){}};
@@ -648,7 +653,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  app.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(`${r.title} · ${t('step')} ${b.dataset.st}`,+b.dataset.tm));
  $('#cook').onclick=()=>cookMode(r,f);
  $('#favb').onclick=async()=>{const n={...r,favorite:!r.favorite};try{await persist(n);route(true,true)}catch(e){}};
- $('#shop').onclick=()=>{const x=`${t('shopTitle')} — ${r.title} (${sv} ${pl(sv)})\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+(s.q?s.q+' ':'')+s.rest}).join('\n');copyText(x,t('copied'))};
+ $('#shop').onclick=()=>{const x=`${t('shopTitle')} — ${r.title} (${sv} ${pl(sv)})\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+ln(s)}).join('\n');copyText(x,t('copied'))};
  $('#dlr').onclick=()=>downloadSheet(r,sv,f);
  $('#ckd').onclick=()=>toCookidoo(r,sv,f);
  $('#del').onclick=async()=>{if(await ask(t('delQ'),t('delMsg',{t:r.title}),t('del'))){await remove(id);toast(t('deleted'));go('')}}}
@@ -656,9 +661,9 @@ function adjustQty(r,i,f){const p=parseIng(r.ingredients[i]);if(p.q==null||!p.q)
  const um=p.rest.match(/^(kg|g|gr|l|ml)\b\.?\s*/i);const u=um?um[1].toLowerCase().replace('gr','g'):'';const big=u==='kg'||u==='l';const pair=u==='kg'||u==='g'?['g','kg']:u==='l'||u==='ml'?['ml','l']:null;
  const rest=um?p.rest.slice(um[0].length):p.rest;const cur=p.q*f;
  const showU=pair?(big&&cur<1?pair[0]:u):'';const val=v=>Math.round(v*100)/100;const inU=showU&&showU!==u?(big?cur*1000:cur/1000):cur;
- const m=modal(`<h3>${t('adjT')}</h3><p>${t('adjP')}</p><label class="adjrow"><input id="nq" type="number" inputmode="decimal" step="any" min="0" value="${val(inU)}">${pair?`<select id="nu" style="width:auto">${pair.map(x=>`<option ${x===showU?'selected':''}>${x}</option>`).join('')}</select>`:''}<span>${esc(pair?rest:p.rest)}</span></label><div class="act"><button class="btn" data-x>${t('cancel')}</button><button class="btn red" data-ok>${t('apply')}</button></div>`);
+ const m=modal(`<h3>${t('adjT')}</h3><p>${t('adjP')}</p><label class="adjrow"><input id="nq" type="text" inputmode="decimal" autocomplete="off" value="${String(val(inU)).replace('.',',')}">${pair?`<select id="nu" style="width:auto">${pair.map(x=>`<option ${x===showU?'selected':''}>${x}</option>`).join('')}</select>`:''}<span>${esc([p.pre.trim(),(pair?rest:p.rest).trim()].filter(Boolean).join(' · '))}</span></label><div class="act"><button class="btn" data-x>${t('cancel')}</button><button class="btn red" data-ok>${t('apply')}</button></div>`);
  const inp=m.querySelector('#nq');setTimeout(()=>{inp.focus();inp.select()},50);
- const ok=()=>{let v=parseFloat(String(inp.value).replace(',','.'));if(!(v>0))return;if(pair){const su=m.querySelector('#nu').value;if(su!==u)v=big?v/1000:v*1000}S.fac[r.id]=v/p.q;m.remove();route(true,true)};
+ const ok=()=>{let v=parseFloat(String(inp.value).trim().replace(/\.(?=\d{3}\b)/g,'').replace(',','.'));if(!(v>0)){toast(t('badNum'));inp.focus();return}if(pair){const su=m.querySelector('#nu').value;if(su!==u)v=big?v/1000:v*1000}S.fac[r.id]=v/p.q;m.remove();route(true,true)};
  m.querySelector('[data-ok]').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};m.querySelector('[data-x]').onclick=()=>m.remove()}
 function copyText(x,ok){const fb=()=>{const m=modal(`<h3>${t('copyText')}</h3><textarea rows="10">${esc(x)}</textarea><div class="act"><button class="btn" data-x>${t('close')}</button></div>`);m.querySelector('[data-x]').onclick=()=>m.remove();m.querySelector('textarea').select()};
  try{navigator.clipboard.writeText(x).then(()=>toast(ok),fb)}catch(e){fb()}}
@@ -679,7 +684,7 @@ async function cookMode(r,f){const st=r.steps||[];if(!st.length){toast(t('noStep
  const key=e=>{if(e.key==='ArrowRight'&&i<st.length-1){i++;draw()}else if(e.key==='ArrowLeft'&&i>0){i--;draw()}else if(e.key==='Escape')close()};addEventListener('keydown',key);
  const draw=()=>{const x=stepTime(st[i]);ov.innerHTML=`<div class="ck-top"><b>${esc(r.title)}</b><span>${t('stepOf',{i:i+1,n:st.length})}</span><button class="btn" data-c>${t('close')}</button></div><div class="ck-bar"><i style="width:${(i+1)/st.length*100}%"></i></div>
   <div class="ck-main"><span class="ck-n">${i+1}</span><p>${fmtStep(st[i])}</p>${x?`<div><button class="btn green" data-t>${ic('timer')}${t('timer')} ${fmtMin(x)}</button></div>`:''}</div>
-  <details class="ck-ing"><summary>${t('seeIng')}</summary><ul>${(r.ingredients||[]).map(l=>isGrp(l)?`<li><b>${esc(l)}</b></li>`:(s=>`<li>${esc((s.q?s.q+' ':'')+s.rest)}</li>`)(scaled(l,f))).join('')}${(r.equipment||[]).map(e=>`<li><i>${esc(e)}</i></li>`).join('')}</ul></details>
+  <details class="ck-ing"><summary>${t('seeIng')}</summary><ul>${(r.ingredients||[]).map(l=>isGrp(l)?`<li><b>${esc(l)}</b></li>`:`<li>${esc(ln(scaled(l,f)))}</li>`).join('')}${(r.equipment||[]).map(e=>`<li><i>${esc(e)}</i></li>`).join('')}</ul></details>
   <div class="ck-nav"><button class="btn" data-p ${i?'':'disabled'}>${t('prev')}</button>${i<st.length-1?`<button class="btn red" data-n>${t('next')}</button>`:`<button class="btn green" data-c>${t('buon')}</button>`}</div>`;
   ov.querySelectorAll('[data-c]').forEach(b=>b.onclick=close);ov.querySelector('[data-p]').onclick=()=>{i--;draw()};const n=ov.querySelector('[data-n]');if(n)n.onclick=()=>{i++;draw()};const tb=ov.querySelector('[data-t]');if(tb)tb.onclick=()=>startTimer(`${r.title} · ${t('step')} ${i+1}`,x)};
  draw()}
@@ -863,7 +868,7 @@ function showFound(list,from,cover){const box=$('#result');
 async function saveMany(list){if(!list.length){toast(t('nothingSave'));return}let ok=0;for(const r of list){try{await persist(r);ok++}catch(e){break}}toast(t('savedN',{n:ok}));if(ok)go('')}
 
 /* ---------- Cookidoo ---------- */
-function toCookidoo(r,sv,f){const ing=(r.ingredients||[]).map(l=>isGrp(l)?l:(s=>(s.q?s.q+' ':'')+s.rest)(scaled(l,f)));const st=r.steps||[];
+function toCookidoo(r,sv,f){const ing=(r.ingredients||[]).map(l=>isGrp(l)?l:ln(scaled(l,f)));const st=r.steps||[];
  const info=`${t('servings')}: ${sv}\n${t('prep')}: ${fmtMin(r.prepMin)}\n${t('cook')}: ${fmtMin(r.cookMin)}\n${t('diff')}: ${dname(r.difficulty)}`;
  const all=`${r.title}\n\n${info}\n\n${t('ckIng')}:\n${ing.join('\n')}\n\n${t('ckSteps')}:\n${st.map((s,i)=>(i+1)+'. '+s).join('\n')}${r.notes?'\n\n'+t('tip')+':\n'+r.notes:''}`;
  const parts=[r.title,info,ing.join('\n'),st.join('\n\n'),all,...st];
@@ -878,7 +883,7 @@ function toCookidoo(r,sv,f){const ing=(r.ingredients||[]).map(l=>isGrp(l)?l:(s=>
 /* ---------- ficha para imprimir ---------- */
 async function downloadSheet(r,sv,f){let ph=safeImg(r.photo);
  if(ph&&!ph.startsWith('data:')){try{const b=await (await fetch(ph)).blob();ph=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)})}catch(e){ph=''}}
- const ing=(r.ingredients||[]).map(l=>isGrp(l)?`<li class="g">${esc(l)}</li>`:(s=>`<li><b>${esc(s.q)}</b> ${esc(s.rest)}</li>`)(scaled(l,f))).join('');const c=catOf(r.category);
+ const ing=(r.ingredients||[]).map(l=>isGrp(l)?`<li class="g">${esc(l)}</li>`:(s=>`<li>${esc(s.pre||'')}<b>${esc(s.q)}</b> ${esc(s.rest)}</li>`)(scaled(l,f))).join('');const c=catOf(r.category);
  const html=`<!DOCTYPE html><html lang="${S.lang==='it'?'it':'pt-BR'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(r.title)} · Matarello</title><style>body{font:15px/1.5 Georgia,serif;color:#2b1d18;max-width:860px;margin:0 auto;padding:28px}h1{font-size:34px;margin:4px 0}.k{color:#d63a2c;font:700 13px sans-serif}.bar{height:8px;background:linear-gradient(90deg,#2f8a4b 0 33%,#fff 33% 66%,#d63a2c 66%);border:1px solid #eee;margin-bottom:18px}img{width:100%;max-height:380px;object-fit:cover;border-radius:14px}.f{display:flex;gap:24px;font:600 14px sans-serif;margin:12px 0;flex-wrap:wrap}.c{display:grid;grid-template-columns:260px 1fr;gap:28px}ul{padding-left:18px}li{margin:4px 0}.g{list-style:none;margin-left:-18px;font-weight:700;color:#2f8a4b}ol li{margin-bottom:10px}b{color:#a92a1f}.t{background:#fdf1d8;padding:12px 16px;border-radius:10px}@media(max-width:640px){.c{grid-template-columns:1fr}}@media print{body{padding:0}}</style></head><body><div class="bar"></div><p class="k">MATARELLO · ${esc(c[1])} · ${esc(catDesc(c))}</p><h1>${esc(r.title)}</h1><p>${esc(r.subtitle)}</p>${ph?`<img src="${ph}" alt="">`:''}<div class="f"><span>${t('prep')}: ${fmtMin(r.prepMin)}</span><span>${t('cook')}: ${fmtMin(r.cookMin)}</span><span>${t('servings')}: ${sv}</span><span>${t('diff')}: ${esc(dname(r.difficulty))}</span></div><div class="c"><div><h2>${t('ingredients')}</h2><ul>${ing}</ul><h2>${t('equipment')}</h2><ul>${(r.equipment||[]).map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div><div><h2>${t('method')}</h2><ol>${(r.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${r.notes?`<div class="t"><b>${t('tip')}:</b> ${esc(r.notes)}</div>`:''}${r.sourceUrl||r.sourceLabel?`<p>${t('sheetSrc')}: ${esc(r.sourceLabel)} ${esc(r.sourceUrl)}</p>`:''}</div></div></body></html>`;
  const name=r.title.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'-').replace(/^-|-$/g,'').toLowerCase()||'receita';
  try{await saveFile(name+'.html',html,'text/html');toast(t('sheetSaved'))}catch(e){if(e?.code!=='declined')toast(t('sheetFail'))}}
