@@ -80,6 +80,13 @@ service cloud.firestore {
       allow create, update: if podeAgenda(request.resource.data.ag);
       allow delete: if podeAgenda(resource.data.ag);
     }
+    // fotos dos eventos (reduzidas, até ~700 KB cada)
+    match /fotos/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email()
+                    && request.resource.data.img is string && request.resource.data.img.size() < 900000;
+      allow delete: if podeAgenda(resource.data.ag) || (logado() && resource.data.autor == email());
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
