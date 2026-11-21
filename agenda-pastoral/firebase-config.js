@@ -8,4 +8,4 @@ window.AGP_FIREBASE = {
   messagingSenderId: "425889618925",
   appId: "1:425889618925:web:ce31e1a47a46e871c325e4"
 };
-window.AGP_DONO = ""; // e-mail Google do coordenador (o mesmo das regras)
+window.AGP_DONO = "marceloratto71@gmail.com"; // e-mail Google do coordenador (o mesmo das regras)
