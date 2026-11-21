@@ -141,6 +141,7 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 <div id="lview" hidden></div></main>
 <div id="pbar" hidden><div><span id="pn"></span><button class="btn" id="pall">Marcar todos visíveis</button><button class="btn pri" id="psend" disabled>Enviar para o celular</button></div></div>
 <div id="sh" hidden></div><div id="toast" role="status"></div>
+<script src="firebase-config.js"></script>
 <script>{
 const DAY=864e5,U=(y,m,d)=>Date.UTC(y,m-1,d),iso=t=>new Date(t).toISOString().slice(0,10),parse=s=>{const[a,b,c]=s.split('-').map(Number);return U(a,b,c)},dow=t=>new Date(t).getUTCDay(),nextSun=t=>t+((7-dow(t))%7)*DAY;
 const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],SEM=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
@@ -240,7 +241,7 @@ function render(){
  document.querySelectorAll('[data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
  const L=lit(sel);$('#rib').style.setProperty('--lc',LC[L.c].v);$('#rib').dataset.c=L.c;
  $('#rib').innerHTML=`<b>${L.s}</b><span>${L.w?esc(L.w)+' · ':''}Ano ${L.ano} · cor ${LC[L.c].n.toLowerCase()}</span>`;
- $('#note').hidden=false;$('#note').dataset.m=mode;$('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
+ $('#note').hidden=false;$('#note').dataset.m=mode;if(mode==='fb')$('#note').innerHTML=fbNote();else $('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
  $('#mview').hidden=view!=='mes';$('#lview').hidden=view!=='lista';
  view==='mes'?(grid(),day()):list();bar()}
 function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate(),wk=Math.ceil((dow(first)+dim)/7),oc=expand(start,start+(wk*7-1)*DAY);let h='';
@@ -287,10 +288,11 @@ function repPreview(){const box=$('#f-prev');if(!box)return;const date=brIso($('
  const L=repLabels(date);[...$('#f-rep').options].forEach(o=>o.textContent=L[o.value]);
  if(!date||rep==='none'){box.textContent='';return}const ds=[];occE({date,rep,until},parse(date),parse(date)+800*DAY,t=>{if(ds.length<5)ds.push(t)});
  box.innerHTML=ds.length?`<b>Próximas datas:</b> ${ds.map(fd).join(' · ')}${ds.length===5?' …':''}${until?` <br>Termina em ${isoBr(until)}.`:' <br>Sem data de término.'}`:'Nenhuma data com essa regra.'}
-function openEv(id,t){const e=EV.find(x=>x.id===id)||{date:iso(t||sel),ag:AGS().find(a=>!hidden.has(a.id))?.id||'paroquia',tipo:'Reunião',rep:'none'},opts=(a,v)=>a.map(x=>`<option ${x===v?'selected':''}>${x}</option>`).join('');
+function openEv(id,t){const lk0=0,e=EV.find(x=>x.id===id)||{date:iso(t||sel),ag:AGS().find(a=>!hidden.has(a.id)&&canAg(a.id))?.id||AGS().find(a=>canAg(a.id))?.id||'paroquia',tipo:'Reunião',rep:'none'},opts=(a,v)=>a.map(x=>`<option ${x===v?'selected':''}>${x}</option>`).join('');
+ const lk=ro||!canAg(e.ag);
  sheet(`<form id="fe"><div class="shh"><h3>${e.id?'Editar evento':'Novo evento'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
  <label>Título<input id="f-title" required maxlength="120" value="${esc(e.title)}" placeholder="Ex.: Encontro de noivos"></label>
- <div class="two"><label>Tipo<select id="f-tipo">${opts(TIPOS,e.tipo)}</select></label><label>Agenda<select id="f-ag">${AGS().map(a=>`<option value="${a.id}" ${a.id===e.ag?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label></div>
+ <div class="two"><label>Tipo<select id="f-tipo">${opts(TIPOS,e.tipo)}</select></label><label>Agenda<select id="f-ag">${AGS().filter(a=>canAg(a.id)||a.id===e.ag).map(a=>`<option value="${a.id}" ${a.id===e.ag?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label></div>
  <div class="two"><label>Data${dfield('f-date',e.date)}</label><label class="tg"><input type="checkbox" id="f-all" ${e.all?'checked':''}> Dia inteiro</label></div>
  <div class="two" id="hrs" ${e.all?'hidden':''}><label>Início<input type="time" id="f-start" value="${esc(e.start||'')}"></label><label>Fim<input type="time" id="f-end" value="${esc(e.end||'')}"></label></div>
  <label>Local<input id="f-local" maxlength="120" value="${esc(e.local||'')}" placeholder="Ex.: Salão paroquial"></label>
@@ -298,15 +300,16 @@ function openEv(id,t){const e=EV.find(x=>x.id===id)||{date:iso(t||sel),ag:AGS().
  <p id="f-prev" class="fine prev" aria-live="polite"></p>
  <label>Observações<textarea id="f-notes" rows="3" maxlength="1000">${esc(e.notes||'')}</textarea></label>
  ${e.id?`<p class="sub">Adicionar à agenda do celular (Android ou iPhone)</p>${phoneBtns(e,t||parse(e.date))}`:''}
- <div class="act">${e.id&&!ro?'<button type="button" class="btn del" id="fdel">Excluir</button>':''}<span></span><button type="button" class="btn" data-close>Cancelar</button>${ro?'':'<button class="btn pri">Salvar</button>'}</div></form>`);
+ <div class="act">${e.id&&!lk?'<button type="button" class="btn del" id="fdel">Excluir</button>':''}<span></span><button type="button" class="btn" data-close>Cancelar</button>${lk?'':'<button class="btn pri">Salvar</button>'}</div></form>`);
  $('#f-all').onchange=ev=>$('#hrs').hidden=ev.target.checked;
  ['f-date','f-rep','f-until'].forEach(id=>{$('#'+id).addEventListener('input',repPreview);$('#'+id).addEventListener('change',repPreview)});document.querySelectorAll('#fe [data-nat]').forEach(n=>n.addEventListener('change',()=>setTimeout(repPreview)));repPreview();
  $('#fe').onsubmit=async ev=>{ev.preventDefault();const n={title:$('#f-title').value.trim(),tipo:$('#f-tipo').value,ag:$('#f-ag').value,date:brIso($('#f-date').value)||'',all:$('#f-all').checked,start:$('#f-start').value,end:$('#f-end').value,local:$('#f-local').value.trim(),rep:$('#f-rep').value,until:brIso($('#f-until').value)||'',notes:$('#f-notes').value.trim()};
   if(!n.title||!n.date)return toast('Preencha título e data (dd/mm/aaaa).');if($('#f-until').value.trim()&&!n.until)return toast('Data “Até” inválida: use dd/mm/aaaa.');if(await put('events',e.id||nid(),n)){close();sel=parse(n.date);const d=new Date(sel);cy=d.getUTCFullYear();cm=d.getUTCMonth();render();toast('Evento salvo.')}};
  const del=$('#fdel');if(del)del.onclick=async()=>{if(del.dataset.ok){if(await rm('events',e.id)){close();render();toast('Evento excluído.')}}else{del.dataset.ok=1;del.textContent=e.rep&&e.rep!=='none'?'Excluir todas as repetições?':'Confirmar exclusão'}}}
 function openAg(){sheet(`<div class="shh"><h3>Agendas e cores</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
- <p class="sub">Mostrar no calendário</p><div class="agl">${AGS().map(a=>`<div class="agr"><label><input type="checkbox" data-vis="${a.id}" ${hidden.has(a.id)?'':'checked'}><i style="background:${a.color}"></i><span><b>${esc(a.name)}</b><small>${esc(a.pastoral)} · ${esc(a.nivel)}</small></span></label>${ro?'':`<button class="btn sm" data-edag="${a.id}">Editar</button>`}</div>`).join('')}</div>
- ${ro?'':'<button class="btn" data-edag="">+ Nova agenda</button>'}
+ <p class="sub">Mostrar no calendário</p><div class="agl">${AGS().map(a=>`<div class="agr"><label><input type="checkbox" data-vis="${a.id}" ${hidden.has(a.id)?'':'checked'}><i style="background:${a.color}"></i><span><b>${esc(a.name)}</b><small>${esc(a.pastoral)} · ${esc(a.nivel)}</small></span></label>${canEditAg()?`<button class="btn sm" data-edag="${a.id}">Editar</button>`:''}</div>`).join('')}</div>
+ ${canEditAg()?'<button class="btn" data-edag="">+ Nova agenda</button>':''}
+ ${memBlock()}
  <p class="sub">Backup</p><p class="fine">${mode==='local'?'Neste modo os eventos ficam só neste aparelho. Salve um backup para guardar ou levar a outro aparelho.':'Cópia de segurança de todos os eventos e agendas.'}</p><div class="ph"><button class="btn" id="bks">Salvar backup</button><label class="btn" style="position:relative">Restaurar backup<input type="file" id="bkl" accept=".json,application/json" style="position:absolute;inset:0;opacity:0"></label></div>
  <p class="sub">Cores litúrgicas (fita sob cada dia)</p><div class="leg">${Object.entries(LC).map(([k,c])=>`<span data-c="${k}"><i style="background:${c.v}"></i>${c.n}</span>`).join('')}<span><i class="s S"></i>Solenidade</span><span><i class="s F"></i>Festa</span></div>
  <p class="fine">Tempos e solenidades calculados pelas normas gerais e da CNBB (Epifania, Ascensão, São Pedro e São Paulo, Assunção e Todos os Santos no domingo). Confira sempre o Diretório Litúrgico da sua diocese.</p>`)}
@@ -329,13 +332,13 @@ function openSend(){const items=[...picked].map(k=>{const[id,d]=k.split('@');ret
 // dados
 const nid=()=>'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 async function put(c,id,b){const body=JSON.parse(JSON.stringify(b));
- if(mode==='db'){try{await db.collection(c).doc(id).set(body);return true}catch(e){err(e);return false}}
+ if(mode==='db'||mode==='fb'){try{await db.collection(c).doc(id).set(body);return true}catch(e){err(e);return false}}
  const arr=c==='events'?EV:AGD,i=arr.findIndex(x=>x.id===id),v={id,...body};i<0?arr.push(v):arr[i]=v;LS.set('agp-'+c,arr);return true}
-async function rm(c,id){if(mode==='db'){try{await db.collection(c).doc(id).delete();return true}catch(e){err(e);return false}}
+async function rm(c,id){if(mode==='db'||mode==='fb'){try{await db.collection(c).doc(id).delete();return true}catch(e){err(e);return false}}
  EV=EV.filter(x=>x.id!==id);LS.set('agp-events',EV);return true}
-function err(e){if(e&&e.code==='invalid_argument'){ro=true;render();toast('Você tem acesso só de leitura a esta agenda.')}else if(e&&e.code==='quota_exceeded')toast('Limite de armazenamento atingido: exclua eventos antigos.');else toast('Não foi possível salvar. Tente de novo.')}
+function err(e){if(e&&e.code==='permission-denied'){toast('Você não tem permissão para alterar essa agenda.')}else if(e&&e.code==='invalid_argument'){ro=true;render();toast('Você tem acesso só de leitura a esta agenda.')}else if(e&&e.code==='quota_exceeded')toast('Limite de armazenamento atingido: exclua eventos antigos.');else toast('Não foi possível salvar. Tente de novo.')}
 function local(){mode='local';EV=LS.get('agp-events',[]);AGD=LS.get('agp-agendas',[]);render()}
-(async()=>{let d=null;try{d=await window.claude?.use?.('db')}catch{}
+(async()=>{if(window.AGP_FIREBASE&&!window.claude)return void setTimeout(fbInit,0);let d=null;try{d=await window.claude?.use?.('db')}catch{}
 
  if(!d)return local();db=d;mode='db';render();const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
  db.collection('events').onSnapshot(s=>{if(!s.metadata.fromCache)clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')});
@@ -514,11 +517,55 @@ td span{display:block;border-left:3px solid;padding-left:3px;margin-top:2px;over
 <p style="color:#6c6860;font-size:12px;margin-top:24px">Tempos e solenidades calculados pelas normas gerais e da CNBB; confira o Diretório Litúrgico da diocese. Gerado em ${new Date().toLocaleDateString('pt-BR')}.</p></body></html>`}
 $('#exp').onclick=openExp;
 
+// Firebase: base única compartilhada (versão do site)
+var ME=null,FBU=null,fbAuth=null,MEMB=[],fbUn=[],fbSubOn=false,fbReady=false;
+var FBV='10.14.1',FBS=n=>`https://www.gstatic.com/firebasejs/${FBV}/firebase-${n}-compat.js`,PAP={leitor:'Leitor (só vê)',editor:'Editor',admin:'Administrador'};
+function canAg(id){return mode!=='fb'||!!ME&&(ME.papel==='admin'||ME.papel==='editor'&&(ME.agendas||[]).some(x=>x==='todas'||x===id))}
+function canEditAg(){return !ro&&(mode!=='fb'||ME?.papel==='admin')}
+async function fbInit(){mode='fb';ro=true;render();
+ try{await loadJs(FBS('app'));await loadJs(FBS('auth'));await loadJs(FBS('firestore'))}catch{fbReady=true;render();toast('Sem conexão com o servidor da agenda.');return}
+ firebase.initializeApp(window.AGP_FIREBASE);fbAuth=firebase.auth();const fs=firebase.firestore();try{await fs.enablePersistence({synchronizeTabs:true})}catch{}
+ db=fs;fbAuth.getRedirectResult().catch(e=>toast('Falha ao entrar ('+(e.code||'erro')+').'));
+ fbAuth.onAuthStateChanged(u=>{FBU=u;fbReady=true;fbUn.forEach(f=>f());fbUn=[];fbSubOn=false;ME=null;EV=[];AGD=[];MEMB=[];ro=true;render();if(u)fbStart(u)})}
+function fbStart(u){const em=(u.email||'').toLowerCase(),dono=em&&em===String(window.AGP_DONO||'').toLowerCase();
+ fbUn.push(db.collection('membros').doc(em).onSnapshot(d=>{ME=d.exists?d.data():dono?{nome:u.displayName||'',papel:'admin',agendas:['todas']}:null;
+  if(dono&&!d.exists)db.collection('membros').doc(em).set({nome:u.displayName||'',papel:'admin',agendas:['todas']}).catch(()=>{});
+  ro=!ME||ME.papel==='leitor';if(ME&&!fbSubOn)fbSub();render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
+function fbSub(){fbSubOn=true;const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
+ fbUn.push(db.collection('events').onSnapshot(s=>{clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')}));
+ fbUn.push(db.collection('agendas').onSnapshot(s=>{AGD=s.docs.map(x=>({id:x.id,...x.data()}));render()},()=>{}));
+ if(ME.papel==='admin')fbUn.push(db.collection('membros').onSnapshot(s=>{MEMB=s.docs.map(x=>({id:x.id,...x.data()})).sort((a,b)=>(a.nome||a.id).localeCompare(b.nome||b.id))},()=>{}))}
+async function fbLogin(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
+ try{await fbAuth.signInWithPopup(p)}catch(e){if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/web-storage-unsupported'].includes(e.code))return fbAuth.signInWithRedirect(p);if(!['auth/popup-closed-by-user','auth/cancelled-popup-request'].includes(e.code))toast('Falha ao entrar ('+e.code+').')}}
+function fbNote(){const em=esc(FBU?.email||'');if(!fbReady)return'Conectando à agenda compartilhada…';
+ if(!fbAuth)return'Sem conexão com o servidor da agenda. Verifique a internet e recarregue.';
+ if(!FBU)return`Agenda compartilhada da pastoral: entre com sua conta Google para ver e lançar eventos. <button class="btn sm pri" id="fbin">Entrar com Google</button>`;
+ if(!ME)return`Conectado como ${em}. Seu acesso ainda não foi liberado: peça ao coordenador para incluir este e-mail. <button class="btn sm" id="fbout">Sair</button>`;
+ return`Agenda compartilhada · ${esc(ME.nome||em)} · ${PAP[ME.papel]||ME.papel}${ME.papel==='editor'&&!(ME.agendas||[]).includes('todas')?' de '+esc((ME.agendas||[]).map(id=>ag(id)?.name||id).join(', ')):''} <button class="btn sm" id="fbout">Sair</button>`}
+function memBlock(){if(mode!=='fb'||ME?.papel!=='admin')return'';
+ return`<p class="sub">Pessoas com acesso</p><div class="agl">${MEMB.map(m=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(m.nome||m.id)}</b><small>${esc(m.id)} · ${PAP[m.papel]||esc(m.papel)} · ${(m.agendas||[]).includes('todas')?'todas as agendas':esc((m.agendas||[]).map(id=>ag(id)?.name||id).join(', ')||'nenhuma agenda')}</small></span><button class="btn sm" data-edm="${esc(m.id)}">Editar</button></div>`).join('')}</div><button class="btn" data-edm="">+ Adicionar pessoa</button>`}
+function openMem(id){const m=MEMB.find(x=>x.id===id)||{id:'',nome:'',papel:'editor',agendas:[]},all=(m.agendas||[]).includes('todas'),self=id&&id===(FBU?.email||'').toLowerCase();
+ sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar acesso':'Adicionar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
+ <label>E-mail da conta Google<input id="m-email" type="email" required ${id?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label>
+ <label>Nome<input id="m-nome" maxlength="60" value="${esc(m.nome||'')}"></label>
+ <label>Permissão<select id="m-pap" ${self?'disabled':''}>${Object.entries(PAP).map(([k,v])=>`<option value="${k}" ${k===m.papel?'selected':''}>${v}</option>`).join('')}</select></label>
+ <div id="m-ags"><p class="sub">Agendas em que pode lançar e editar</p><label class="tg"><input type="checkbox" id="m-all" ${all?'checked':''}> Todas as agendas</label>
+ ${AGS().map(a=>`<label class="tg"><input type="checkbox" data-mag="${a.id}" ${all||(m.agendas||[]).includes(a.id)?'checked':''} ${all?'disabled':''}><i style="display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:${a.color}"></i> ${esc(a.name)}</label>`).join('')}</div>
+ <p class="fine">Leitor vê tudo e não altera. Editor lança e altera eventos só nas agendas marcadas. Administrador altera tudo, inclusive agendas e pessoas.</p><p id="m-st" class="fine" aria-live="polite"></p>
+ <div class="act">${id&&!self?'<button type="button" class="btn del" id="mdel">Remover acesso</button>':''}<span></span><button type="button" class="btn" data-back>Voltar</button><button class="btn pri">Salvar</button></div></form>`);
+ const sync=()=>{$('#m-ags').hidden=$('#m-pap').value!=='editor';document.querySelectorAll('[data-mag]').forEach(c=>{c.disabled=$('#m-all').checked;if($('#m-all').checked)c.checked=true})};$('#m-pap').onchange=sync;$('#m-all').onchange=sync;sync();
+ $('#fm').onsubmit=async ev=>{ev.preventDefault();const em=$('#m-email').value.trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return $('#m-st').textContent='E-mail inválido.';
+  const papel=self?'admin':$('#m-pap').value,agendas=papel!=='editor'||$('#m-all').checked?['todas']:[...document.querySelectorAll('[data-mag]:checked')].map(c=>c.dataset.mag);
+  if(papel==='editor'&&!agendas.length)return $('#m-st').textContent='Marque ao menos uma agenda.';
+  try{await db.collection('membros').doc(em).set({nome:$('#m-nome').value.trim(),papel,agendas});openAg();toast('Acesso salvo. A pessoa entra com essa conta Google.')}catch(e){$('#m-st').textContent='Não foi possível salvar ('+e.code+').'}};
+ const d=$('#mdel');if(d)d.onclick=async()=>{if(!d.dataset.ok){d.dataset.ok=1;d.textContent='Confirmar remoção';return}try{await db.collection('membros').doc(id).delete();openAg();toast('Acesso removido.')}catch(e){toast('Não foi possível remover ('+e.code+').')}}}
+document.addEventListener('click',ev=>{const t=ev.target;if(t.closest('#fbin'))fbLogin();else if(t.closest('#fbout'))fbAuth&&fbAuth.signOut();else{const b=t.closest('[data-edm]');if(b)openMem(b.dataset.edm)}});
+
 // arquivos: salvar, .ics, backup
 async function saveFile(name,data,mime){let dl=null;try{dl=await window.claude?.use?.('downloads')}catch{}
  if(dl)return dl.save({filename:name,data});
  const blob=new Blob([data],{type:mime||'application/octet-stream'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);return{status:'saved'}}
-const inClaude=()=>!!window.claude;
+function inClaude(){return!!window.claude}
 const icsEsc=s=>String(s??'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/[,;]/g,m=>'\\'+m);
 function fold(l){const out=[];let cur='';for(const ch of l){if(new TextEncoder().encode(cur+ch).length>73){out.push(cur);cur=' '+ch}else cur+=ch}out.push(cur);return out.join('\r\n')}
 function buildIcs(items,name){const st=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z',L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//cifrAmem//Agenda Pastoral//PT','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:'+icsEsc(name),'X-WR-TIMEZONE:America/Sao_Paulo',
