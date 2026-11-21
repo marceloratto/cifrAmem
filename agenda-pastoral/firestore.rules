@@ -8,6 +8,7 @@ service cloud.firestore {
     function membro() { return logado() && exists(/databases/$(database)/documents/membros/$(email())); }
     function eu() { return get(/databases/$(database)/documents/membros/$(email())).data; }
     function admin() { return dono() || (membro() && eu().papel == 'admin'); }
+    function ve(ag) { return admin() || (membro() && (!eu().keys().hasAll(['ver']) || 'todas' in eu().ver || ag in eu().ver)); }
     function podeAgenda(ag) { return admin() || (membro() && eu().papel == 'editor' && ('todas' in eu().agendas || ag in eu().agendas)); }
     function eventoValido() {
       let d = request.resource.data;
@@ -22,8 +23,16 @@ service cloud.firestore {
       allow read: if dono() || membro();
       allow write: if admin();
     }
-    match /events/{id} {
+    // presença: cada pessoa só grava a própria resposta
+    match /rsvp/{id} {
       allow read: if dono() || membro();
+      allow create, update: if (dono() || membro()) && request.resource.data.uid == email()
+        && id == request.resource.data.ev + '~' + request.resource.data.date + '~' + email()
+        && request.resource.data.resp in ['sim', 'talvez', 'nao'];
+      allow delete: if (dono() || membro()) && resource.data.uid == email();
+    }
+    match /events/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create: if eventoValido() && podeAgenda(request.resource.data.ag);
       allow update: if eventoValido() && podeAgenda(resource.data.ag) && podeAgenda(request.resource.data.ag);
       allow delete: if podeAgenda(resource.data.ag);

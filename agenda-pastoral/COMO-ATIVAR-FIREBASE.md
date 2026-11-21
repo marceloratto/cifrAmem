@@ -21,11 +21,12 @@ O plano gratuito (Spark) é suficiente para uma paróquia.
 
 Esses dados não são senhas: quem protege a agenda são as regras do passo 2.
 
-## 4. Dar acesso às pessoas
-Entre na agenda com seu e-mail (vira administrador automaticamente). Em **Agendas › Pessoas com acesso**:
-- **Leitor**: só vê.
-- **Editor**: lança e altera eventos nas agendas marcadas (ex.: só Pastoral da Música).
-- **Administrador**: altera tudo, inclusive agendas e pessoas.
+## 4. Cadastrar as pessoas
+Entre na agenda com seu e-mail (vira administrador automaticamente). Em **Agendas › Cadastro de pessoas**:
+- Nome, e-mail Google e telefone/WhatsApp.
+- **O que pode ver**: todas as agendas ou só algumas (ex.: só Pastoral da Música).
+- **Permissão**: Leitor (só vê), Editor (lança e altera eventos nas agendas marcadas) ou Administrador (tudo, inclusive agendas e cadastros).
+- Todos os cadastrados podem marcar presença nos eventos que veem: **Vou / Talvez / Não vou**.
 
 ## 5. Trazer os eventos que já existem
 No aparelho (ou na versão no Claude) onde estão os eventos: **Agendas › Backup › Salvar backup**.

@@ -128,6 +128,7 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 .dots{gap:1px;align-items:center;min-height:.95rem}.dots .ti{width:1rem;height:1rem;margin:0;stroke-width:2.4}.dots .pl{font-size:.7rem;color:var(--mut);line-height:1}
 .chips em .ti{width:.85rem;height:.85rem;margin-right:2px;vertical-align:-.15em;stroke-width:2.4}
 .leg .ti{margin:0}
+.rsb{display:flex;gap:.4rem;flex-wrap:wrap}.rsb .btn[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}.rs{display:grid;gap:.35rem;background:var(--card);border-radius:12px;padding:.7rem .8rem}.rs .fine{margin:0}
 #toast{position:fixed;left:50%;bottom:5.5rem;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:12px;font-size:.9rem;opacity:0;pointer-events:none;transition:.2s;z-index:30;max-width:90vw}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media(max-width:600px){.hide-s{display:none}.c{min-height:3.9rem}}
@@ -227,7 +228,7 @@ const SW=['#1f6fd1','#0b8a8f','#4a3fc4','#b0237e','#d9730d','#7a5c3e','#2b7a4b',
 const now=new Date(),TODAY=U(now.getFullYear(),now.getMonth()+1,now.getDate());
 let cy=now.getFullYear(),cm=now.getMonth(),sel=TODAY,view='mes',EV=[],AGD=[],db=null,mode='local',ro=false,picking=false,picked=new Set();
 let hidden=new Set(LS.get('agp-hidden',[])),fs=LS.get('agp-fs',16),theme=LS.get('agp-theme','auto');
-const AGS=()=>{const m=new Map(AG0.map(a=>[a.id,{...a}]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return[...m.values()].filter(a=>!a.off)};
+const AGS=()=>{const m=new Map(AG0.map(a=>[a.id,{...a}]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return[...m.values()].filter(a=>!a.off&&canSee(a.id))};
 const ag=id=>AGS().find(a=>a.id===id),col=e=>ag(e.ag)?.color||'#888';
 const byTime=(a,b)=>(b.all?1:0)-(a.all?1:0)||(a.start||'').localeCompare(b.start||'')||a.title.localeCompare(b.title);
 function occE(e,from,to,P){const s=parse(e.date),until=e.until?parse(e.until):Infinity,Q=t=>{if(t>=s&&t>=from&&t<=to&&t<=until)P(t)};
@@ -265,7 +266,7 @@ function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date
   <span class="rb" style="background:${LC[L.c].v}"></span></button>`}
  $('#grid').innerHTML=h}
 function litBlock(t){const L=lit(t);return`<div class="lit" data-c="${L.c}" style="--lc:${LC[L.c].v}"><span class="sw"></span><div>${L.cel?`<strong>${esc(L.cel.n)}</strong>${RK[L.cel.r]?`<small class="rk">${RK[L.cel.r]}</small>`:''}`:''}<span>${L.w&&!(L.cel&&/Domingo/.test(L.cel.n))?esc(L.w)+' · ':''}${L.s} · Ano ${L.ano} · ${LC[L.c].n}</span></div></div>`}
-function evRow(e,t){const a=ag(e.ag),k=e.id+'@'+iso(t);return`<div class="ev" style="--c:${col(e)}">${picking?`<label class="pk"><input type="checkbox" data-pick="${k}" ${picked.has(k)?'checked':''} aria-label="Selecionar ${esc(e.title)}"></label>`:''}<button class="evb" data-id="${e.id}" data-t="${t}"><span class="tm">${e.all?'dia todo':esc(e.start||'—')}${!e.all&&e.end?`<small>${esc(e.end)}</small>`:''}</span><span class="tx"><strong>${ico(e.tipo,col(e))}${esc(e.title)}</strong><span>${e.tipo?esc(e.tipo)+' · ':''}${esc(a?a.name:'Sem agenda')}${e.local?' · '+esc(e.local):''}${e.rep&&e.rep!=='none'?' · repete':''}</span></span></button></div>`}
+function evRow(e,t){const a=ag(e.ag),k=e.id+'@'+iso(t);return`<div class="ev" style="--c:${col(e)}">${picking?`<label class="pk"><input type="checkbox" data-pick="${k}" ${picked.has(k)?'checked':''} aria-label="Selecionar ${esc(e.title)}"></label>`:''}<button class="evb" data-id="${e.id}" data-t="${t}"><span class="tm">${e.all?'dia todo':esc(e.start||'—')}${!e.all&&e.end?`<small>${esc(e.end)}</small>`:''}</span><span class="tx"><strong>${ico(e.tipo,col(e))}${esc(e.title)}</strong><span>${e.tipo?esc(e.tipo)+' · ':''}${esc(a?a.name:'Sem agenda')}${e.local?' · '+esc(e.local):''}${e.rep&&e.rep!=='none'?' · repete':''}${rsSum(e.id,iso(t))?' · '+rsSum(e.id,iso(t)):''}</span></span></button></div>`}
 function day(){const d=new Date(sel),ev=expand(sel,sel)[iso(sel)]||[];
  $('#day').innerHTML=`<div class="dh"><h2>${SEM[d.getUTCDay()]}, ${fd(sel)}</h2>${ro?'':'<button class="btn pri" data-new>+ Evento</button>'}</div>${litBlock(sel)}
  <div class="evs">${ev.length?ev.map(e=>evRow(e,sel)).join(''):`<p class="empty">Nenhum evento neste dia.${ro?'':' Toque em “+ Evento” para agendar.'}</p>`}</div>`}
@@ -287,7 +288,7 @@ function oLink(e,t){const end=e.end&&e.end>e.start?e.end:e.start;const q=new URL
 function phoneBtns(e,t){return`<div class="ph"><a class="btn" href="${esc(gLink(e,t))}" target="_blank" rel="noopener">Google Agenda</a><a class="btn" href="${esc(oLink(e,t))}" target="_blank" rel="noopener">Outlook</a></div>`}
 // folhas
 function sheet(h){$('#sh').innerHTML=`<div class="sp" role="dialog" aria-modal="true">${h}</div>`;$('#sh').hidden=false;setTimeout(()=>$('#sh input,#sh select,#sh button')?.focus(),30)}
-function close(){$('#sh').hidden=true;$('#sh').innerHTML=''}
+function close(){$('#sh').hidden=true;$('#sh').innerHTML='';CURRS=null}
 function dfield(id,v){return`<span class="df"><input id="${id}" inputmode="numeric" autocomplete="off" placeholder="dd/mm/aaaa" maxlength="10" value="${esc(isoBr(v||''))}"><span class="dpk" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><input type="date" tabindex="-1" data-nat="${id}" value="${esc(v||'')}"></span></span>`}
 document.addEventListener('input',ev=>{const t=ev.target;if(t.dataset&&t.dataset.nat){const x=$('#'+t.dataset.nat);if(x)x.value=isoBr(t.value);return}
  if(t.closest&&t.closest('.df')&&!t.dataset.nat){let d=t.value.replace(/\D/g,'').slice(0,8);if(d.length>4)d=d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4);else if(d.length>2)d=d.slice(0,2)+'/'+d.slice(2);if(ev.inputType&&ev.inputType.startsWith('delete'))return;t.value=d;const n=t.parentNode.querySelector('[data-nat]');const i2=brIso(d);if(n&&i2)n.value=i2}});
@@ -302,6 +303,7 @@ function repPreview(){const box=$('#f-prev');if(!box)return;const date=brIso($('
 function openEv(id,t){const lk0=0,e=EV.find(x=>x.id===id)||{date:iso(t||sel),ag:AGS().find(a=>!hidden.has(a.id)&&canAg(a.id))?.id||AGS().find(a=>canAg(a.id))?.id||'paroquia',tipo:'Reunião',rep:'none'},opts=(a,v)=>a.map(x=>`<option ${x===v?'selected':''}>${x}</option>`).join('');
  const lk=ro||!canAg(e.ag);
  sheet(`<form id="fe"><div class="shh"><h3>${e.id?'Editar evento':'Novo evento'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
+ ${rsBlock(e,t)}
  <label>Título<input id="f-title" required maxlength="120" value="${esc(e.title)}" placeholder="Ex.: Encontro de noivos"></label>
  <div class="two"><label>Tipo<select id="f-tipo">${opts(TIPOS,e.tipo)}</select></label><label>Agenda<select id="f-ag">${AGS().filter(a=>canAg(a.id)||a.id===e.ag).map(a=>`<option value="${a.id}" ${a.id===e.ag?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label></div>
  <div class="two"><label>Data${dfield('f-date',e.date)}</label><label class="tg"><input type="checkbox" id="f-all" ${e.all?'checked':''}> Dia inteiro</label></div>
@@ -312,6 +314,7 @@ function openEv(id,t){const lk0=0,e=EV.find(x=>x.id===id)||{date:iso(t||sel),ag:
  <label>Observações<textarea id="f-notes" rows="3" maxlength="1000">${esc(e.notes||'')}</textarea></label>
  ${e.id?`<p class="sub">Adicionar à agenda do celular (Android ou iPhone)</p>${phoneBtns(e,t||parse(e.date))}`:''}
  <div class="act">${e.id&&!lk?'<button type="button" class="btn del" id="fdel">Excluir</button>':''}<span></span><button type="button" class="btn" data-close>Cancelar</button>${lk?'':'<button class="btn pri">Salvar</button>'}</div></form>`);
+ CURRS=e.id?{ev:e.id,d:iso(t||parse(e.date))}:null;rsRender();
  $('#f-all').onchange=ev=>$('#hrs').hidden=ev.target.checked;
  ['f-date','f-rep','f-until'].forEach(id=>{$('#'+id).addEventListener('input',repPreview);$('#'+id).addEventListener('change',repPreview)});document.querySelectorAll('#fe [data-nat]').forEach(n=>n.addEventListener('change',()=>setTimeout(repPreview)));repPreview();
  $('#fe').onsubmit=async ev=>{ev.preventDefault();const n={title:$('#f-title').value.trim(),tipo:$('#f-tipo').value,ag:$('#f-ag').value,date:brIso($('#f-date').value)||'',all:$('#f-all').checked,start:$('#f-start').value,end:$('#f-end').value,local:$('#f-local').value.trim(),rep:$('#f-rep').value,until:brIso($('#f-until').value)||'',notes:$('#f-notes').value.trim()};
@@ -354,7 +357,8 @@ function local(){mode='local';EV=LS.get('agp-events',[]);AGD=LS.get('agp-agendas
 
  if(!d)return local();db=d;mode='db';render();const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
  db.collection('events').onSnapshot(s=>{if(!s.metadata.fromCache)clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')});
- db.collection('agendas').onSnapshot(s=>{AGD=s.docs.map(x=>({id:x.id,...x.data()}));render()},()=>{})})();
+ db.collection('agendas').onSnapshot(s=>{AGD=s.docs.map(x=>({id:x.id,...x.data()}));render()},()=>{});
+ try{USR=await window.claude.use('user');UID=USR?await USR.id():null}catch{}if(UID){rsSub();render()}})();
 // eventos de interface
 function go(t){sel=t;const d=new Date(t);cy=d.getUTCFullYear();cm=d.getUTCMonth()}
 function shift(n){cm+=n;if(cm<0){cm=11;cy--}if(cm>11){cm=0;cy++}const dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate();sel=U(cy,cm+1,Math.min(new Date(sel).getUTCDate(),dim));render()}
@@ -538,14 +542,16 @@ async function fbInit(){mode='fb';ro=true;render();
  try{await loadJs(FBS('app'));await loadJs(FBS('auth'));await loadJs(FBS('firestore'))}catch{fbReady=true;render();toast('Sem conexão com o servidor da agenda.');return}
  firebase.initializeApp(window.AGP_FIREBASE);fbAuth=firebase.auth();const fs=firebase.firestore();try{await fs.enablePersistence({synchronizeTabs:true})}catch{}
  db=fs;fbAuth.getRedirectResult().catch(e=>toast('Falha ao entrar ('+(e.code||'erro')+').'));
- fbAuth.onAuthStateChanged(u=>{FBU=u;fbReady=true;fbUn.forEach(f=>f());fbUn=[];fbSubOn=false;ME=null;EV=[];AGD=[];MEMB=[];ro=true;render();if(u)fbStart(u)})}
+ fbAuth.onAuthStateChanged(u=>{FBU=u;fbReady=true;fbUn.forEach(f=>f());fbUn=[];fbSubOn=false;ME=null;EV=[];AGD=[];MEMB=[];RS=[];ro=true;render();if(u)fbStart(u)})}
 function fbStart(u){const em=(u.email||'').toLowerCase(),dono=em&&em===String(window.AGP_DONO||'').toLowerCase();
  fbUn.push(db.collection('membros').doc(em).onSnapshot(d=>{ME=d.exists?d.data():dono?{nome:u.displayName||'',papel:'admin',agendas:['todas']}:null;
   if(dono&&!d.exists)db.collection('membros').doc(em).set({nome:u.displayName||'',papel:'admin',agendas:['todas']}).catch(()=>{});
   ro=!ME||ME.papel==='leitor';if(ME&&!fbSubOn)fbSub();render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
 function fbSub(){fbSubOn=true;const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
- fbUn.push(db.collection('events').onSnapshot(s=>{clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')}));
+ const ver=(ME.ver||['todas']),qe=ME.papel==='admin'||ver.includes('todas')?db.collection('events'):db.collection('events').where('ag','in',ver.length?ver.slice(0,30):['-']);
+ fbUn.push(qe.onSnapshot(s=>{clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')}));
  fbUn.push(db.collection('agendas').onSnapshot(s=>{AGD=s.docs.map(x=>({id:x.id,...x.data()}));render()},()=>{}));
+ rsSub();
  if(ME.papel==='admin')fbUn.push(db.collection('membros').onSnapshot(s=>{MEMB=s.docs.map(x=>({id:x.id,...x.data()})).sort((a,b)=>(a.nome||a.id).localeCompare(b.nome||b.id))},()=>{}))}
 async function fbLogin(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
  try{await fbAuth.signInWithPopup(p)}catch(e){if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/web-storage-unsupported'].includes(e.code))return fbAuth.signInWithRedirect(p);if(!['auth/popup-closed-by-user','auth/cancelled-popup-request'].includes(e.code))toast('Falha ao entrar ('+e.code+').')}}
@@ -553,25 +559,55 @@ function fbNote(){const em=esc(FBU?.email||'');if(!fbReady)return'Conectando à 
  if(!fbAuth)return'Sem conexão com o servidor da agenda. Verifique a internet e recarregue.';
  if(!FBU)return`Agenda compartilhada da pastoral: entre com sua conta Google para ver e lançar eventos. <button class="btn sm pri" id="fbin">Entrar com Google</button>`;
  if(!ME)return`Conectado como ${em}. Seu acesso ainda não foi liberado: peça ao coordenador para incluir este e-mail. <button class="btn sm" id="fbout">Sair</button>`;
- return`Agenda compartilhada · ${esc(ME.nome||em)} · ${PAP[ME.papel]||ME.papel}${ME.papel==='editor'&&!(ME.agendas||[]).includes('todas')?' de '+esc((ME.agendas||[]).map(id=>ag(id)?.name||id).join(', ')):''} <button class="btn sm" id="fbout">Sair</button>`}
+ return`Agenda compartilhada · ${esc(ME.nome||em)} · ${PAP[ME.papel]||ME.papel}${ME.papel==='editor'&&!(ME.agendas||[]).includes('todas')?' de '+esc(agList(ME.agendas)):''} <button class="btn sm" id="fbout">Sair</button>`}
+const agList=l=>(l||[]).includes('todas')?'todas':(l||[]).map(id=>ag0name(id)).join(', ')||'nenhuma';
+function ag0name(id){const m=new Map(AG0.map(a=>[a.id,a]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return m.get(id)?.name||id}
+function allAgs(){const m=new Map(AG0.map(a=>[a.id,{...a}]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return[...m.values()].filter(a=>!a.off)}
 function memBlock(){if(mode!=='fb'||ME?.papel!=='admin')return'';
- return`<p class="sub">Pessoas com acesso</p><div class="agl">${MEMB.map(m=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(m.nome||m.id)}</b><small>${esc(m.id)} · ${PAP[m.papel]||esc(m.papel)} · ${(m.agendas||[]).includes('todas')?'todas as agendas':esc((m.agendas||[]).map(id=>ag(id)?.name||id).join(', ')||'nenhuma agenda')}</small></span><button class="btn sm" data-edm="${esc(m.id)}">Editar</button></div>`).join('')}</div><button class="btn" data-edm="">+ Adicionar pessoa</button>`}
-function openMem(id){const m=MEMB.find(x=>x.id===id)||{id:'',nome:'',papel:'editor',agendas:[]},all=(m.agendas||[]).includes('todas'),self=id&&id===(FBU?.email||'').toLowerCase();
- sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar acesso':'Adicionar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
- <label>E-mail da conta Google<input id="m-email" type="email" required ${id?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label>
- <label>Nome<input id="m-nome" maxlength="60" value="${esc(m.nome||'')}"></label>
+ return`<p class="sub">Cadastro de pessoas</p><div class="agl">${MEMB.map(m=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(m.nome||m.id)}</b><small>${esc(m.id)}${m.telefone?' · '+esc(m.telefone):''}</small><small>${PAP[m.papel]||esc(m.papel)} · vê: ${esc(m.papel==='admin'?'todas':agList(m.ver||['todas']))}${m.papel==='editor'?' · altera: '+esc(agList(m.agendas)):''}</small></span><button class="btn sm" data-edm="${esc(m.id)}">Editar</button></div>`).join('')}</div><button class="btn" data-edm="">+ Cadastrar pessoa</button>`}
+function agChecks(key,list,dis){const all=(list||[]).includes('todas');return`<label class="tg"><input type="checkbox" data-all="${key}" ${all?'checked':''} ${dis?'disabled':''}> Todas as agendas</label>${allAgs().map(a=>`<label class="tg"><input type="checkbox" data-${key}="${a.id}" ${all||(list||[]).includes(a.id)?'checked':''} ${all||dis?'disabled':''}><i style="display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:${a.color}"></i> ${esc(a.name)}</label>`).join('')}`}
+function readChecks(key){if(document.querySelector(`[data-all="${key}"]`).checked)return['todas'];return[...document.querySelectorAll(`[data-${key}]:checked`)].map(c=>c.dataset[key])}
+function openMem(id){const m=MEMB.find(x=>x.id===id)||{id:'',nome:'',telefone:'',papel:'editor',ver:['todas'],agendas:[]},self=id&&id===(FBU?.email||'').toLowerCase();
+ sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar cadastro':'Cadastrar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
+ <label>Nome<input id="m-nome" maxlength="60" required value="${esc(m.nome||'')}" placeholder="Ex.: Ana Souza"></label>
+ <div class="two"><label>E-mail da conta Google<input id="m-email" type="email" required ${id?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label><label>Telefone / WhatsApp<input id="m-tel" inputmode="tel" maxlength="20" value="${esc(m.telefone||'')}" placeholder="(21) 9..."></label></div>
  <label>Permissão<select id="m-pap" ${self?'disabled':''}>${Object.entries(PAP).map(([k,v])=>`<option value="${k}" ${k===m.papel?'selected':''}>${v}</option>`).join('')}</select></label>
- <div id="m-ags"><p class="sub">Agendas em que pode lançar e editar</p><label class="tg"><input type="checkbox" id="m-all" ${all?'checked':''}> Todas as agendas</label>
- ${AGS().map(a=>`<label class="tg"><input type="checkbox" data-mag="${a.id}" ${all||(m.agendas||[]).includes(a.id)?'checked':''} ${all?'disabled':''}><i style="display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:${a.color}"></i> ${esc(a.name)}</label>`).join('')}</div>
- <p class="fine">Leitor vê tudo e não altera. Editor lança e altera eventos só nas agendas marcadas. Administrador altera tudo, inclusive agendas e pessoas.</p><p id="m-st" class="fine" aria-live="polite"></p>
+ <div id="m-verb"><p class="sub">O que pode ver</p>${agChecks('ver',m.ver||['todas'])}</div>
+ <div id="m-edb"><p class="sub">Onde pode lançar e alterar eventos</p>${agChecks('ed',m.agendas||[])}</div>
+ <p class="fine">Todos os cadastrados podem marcar presença (Vou / Talvez / Não vou) nos eventos que veem. Leitor só vê. Editor lança e altera nas agendas marcadas. Administrador vê e altera tudo, inclusive agendas e cadastros.</p><p id="m-st" class="fine" aria-live="polite"></p>
  <div class="act">${id&&!self?'<button type="button" class="btn del" id="mdel">Remover acesso</button>':''}<span></span><button type="button" class="btn" data-back>Voltar</button><button class="btn pri">Salvar</button></div></form>`);
- const sync=()=>{$('#m-ags').hidden=$('#m-pap').value!=='editor';document.querySelectorAll('[data-mag]').forEach(c=>{c.disabled=$('#m-all').checked;if($('#m-all').checked)c.checked=true})};$('#m-pap').onchange=sync;$('#m-all').onchange=sync;sync();
- $('#fm').onsubmit=async ev=>{ev.preventDefault();const em=$('#m-email').value.trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return $('#m-st').textContent='E-mail inválido.';
-  const papel=self?'admin':$('#m-pap').value,agendas=papel!=='editor'||$('#m-all').checked?['todas']:[...document.querySelectorAll('[data-mag]:checked')].map(c=>c.dataset.mag);
-  if(papel==='editor'&&!agendas.length)return $('#m-st').textContent='Marque ao menos uma agenda.';
-  try{await db.collection('membros').doc(em).set({nome:$('#m-nome').value.trim(),papel,agendas});openAg();toast('Acesso salvo. A pessoa entra com essa conta Google.')}catch(e){$('#m-st').textContent='Não foi possível salvar ('+e.code+').'}};
+ const sync=()=>{const pp=self?'admin':$('#m-pap').value;$('#m-verb').hidden=pp==='admin';$('#m-edb').hidden=pp!=='editor';for(const k of['ver','ed']){const a=document.querySelector(`[data-all="${k}"]`);document.querySelectorAll(`[data-${k}]`).forEach(c=>{c.disabled=a.checked;if(a.checked)c.checked=true})}};
+ $('#fm').addEventListener('change',ev=>{const k=ev.target.dataset.all;if(k&&!ev.target.checked)document.querySelectorAll(`[data-${k}]`).forEach(c=>c.checked=false);sync()});sync();
+ $('#fm').onsubmit=async ev=>{ev.preventDefault();const em=$('#m-email').value.trim().toLowerCase(),st=$('#m-st');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return st.textContent='E-mail inválido.';
+  const papel=self?'admin':$('#m-pap').value,ver=papel==='admin'?['todas']:readChecks('ver'),agendas=papel==='admin'?['todas']:papel==='editor'?readChecks('ed'):[];
+  if(!ver.length)return st.textContent='Marque ao menos uma agenda para ver.';if(papel==='editor'&&!agendas.length)return st.textContent='Marque onde a pessoa pode lançar eventos.';
+  if(papel==='editor'&&!ver.includes('todas')){agendas.forEach(a=>{if(a!=='todas'&&!ver.includes(a))ver.push(a)})}
+  try{await db.collection('membros').doc(em).set({nome:$('#m-nome').value.trim(),telefone:$('#m-tel').value.trim(),papel,ver,agendas});openAg();toast('Cadastro salvo. A pessoa entra com essa conta Google.')}catch(e){st.textContent='Não foi possível salvar ('+e.code+').'}};
  const d=$('#mdel');if(d)d.onclick=async()=>{if(!d.dataset.ok){d.dataset.ok=1;d.textContent='Confirmar remoção';return}try{await db.collection('membros').doc(id).delete();openAg();toast('Acesso removido.')}catch(e){toast('Não foi possível remover ('+e.code+').')}}}
 document.addEventListener('click',ev=>{const t=ev.target;if(t.closest('#fbin'))fbLogin();else if(t.closest('#fbout'))fbAuth&&fbAuth.signOut();else{const b=t.closest('[data-edm]');if(b)openMem(b.dataset.edm)}});
+
+// presença (Vou / Talvez / Não vou)
+var RS=[],UID=null,USR=null,NAMES={},CURRS=null;
+const RSN={sim:'Vou',talvez:'Talvez',nao:'Não vou'};
+function canSee(id){return mode!=='fb'||!ME||ME.papel==='admin'||(ME.ver||['todas']).some(x=>x==='todas'||x===id)}
+function shared(){return(mode==='db'&&!!UID)||(mode==='fb'&&!!ME)}
+function myId(){return mode==='fb'?(FBU?.email||'').toLowerCase():UID}
+const rsKey=(ev,d)=>ev+'~'+d,safeSeg=s=>String(s).replace(/[^A-Za-z0-9_.~:@+-]/g,'-');
+function rsOf(ev,d){return RS.filter(r=>r.ev===ev&&r.date===d)}
+function rsName(r){return mode==='fb'?(r.nome||r.uid):(NAMES[r.uid]||'Alguém')}
+async function rsNames(){if(mode!=='db'||!USR?.profiles)return;const ids=[...new Set(RS.map(r=>r.uid))].filter(i=>!(i in NAMES));if(!ids.length)return;
+ try{const ps=await USR.profiles(ids);ids.forEach(i=>NAMES[i]=ps?.[i]?.name||'');rsRender();render()}catch{}}
+function rsSum(ev,d){if(!shared())return'';const l=rsOf(ev,d),c=k=>l.filter(r=>r.resp===k).length;if(!l.length)return'';
+ return[c('sim')&&c('sim')+(c('sim')>1?' vão':' vai'),c('talvez')&&c('talvez')+' talvez',c('nao')&&c('nao')+' não'].filter(Boolean).join(', ')}
+function rsBlock(e,t){if(!shared()||!e.id)return'';return`<div class="rs" id="rsb"></div>`}
+function rsRender(){const box=$('#rsb');if(!box||!CURRS)return;const{ev,d}=CURRS,l=rsOf(ev,d),me=l.find(r=>r.uid===myId());
+ const grp=k=>{const n=l.filter(r=>r.resp===k).map(rsName);return n.length?`<p class="fine"><b>${RSN[k]==='Vou'?'Vão':RSN[k]==='Talvez'?'Talvez':'Não vão'} (${n.length}):</b> ${n.map(x=>esc(x)).join(', ')}</p>`:''};
+ box.innerHTML=`<p class="sub">Presença em ${fd(parse(d))}</p><div class="rsb" role="group" aria-label="Sua presença">${Object.entries(RSN).map(([k,v])=>`<button type="button" class="btn" data-rs="${k}" aria-pressed="${me?.resp===k}">${v}</button>`).join('')}</div>${grp('sim')}${grp('talvez')}${grp('nao')}${l.length?'':'<p class="fine">Ninguém respondeu ainda.</p>'}`}
+async function rsSet(resp){if(!CURRS)return;const{ev,d}=CURRS,me=myId();if(!me)return;const id=safeSeg(rsKey(ev,d)+'~'+me),cur=rsOf(ev,d).find(r=>r.uid===me);
+ try{if(cur&&cur.resp===resp)await db.collection('rsvp').doc(id).delete();else await db.collection('rsvp').doc(id).set({ev,date:d,uid:me,resp,...(mode==='fb'?{nome:ME?.nome||FBU?.displayName||me}:{})})}
+ catch(e){toast(e?.code==='permission-denied'||e?.code==='invalid_argument'?'Você não pode responder nesta agenda.':'Não foi possível registrar.')}}
+function rsSub(){const un=db.collection('rsvp').onSnapshot(s=>{RS=s.docs.map(x=>({id:x.id,...x.data()}));rsRender();render();rsNames()},()=>{});if(mode==='fb')fbUn.push(un)}
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-rs]');if(b)rsSet(b.dataset.rs)});
 
 // arquivos: salvar, .ics, backup
 async function saveFile(name,data,mime){let dl=null;try{dl=await window.claude?.use?.('downloads')}catch{}
