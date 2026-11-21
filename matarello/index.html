@@ -18,7 +18,7 @@
    PICTURE: o mascote chef num medalhão sobre a toalha vermelha; fichas com foto grande
    COLOUR and TYPE: tomate #d63a2c, manjericão #2f8a4b, massa #f2b441 sobre branco; Lobster no nome, Fraunces nos títulos, Nunito Sans no texto
    LAYOUT: capa centralizada, grade de fichas, ficha da receita com ingredientes ao lado do preparo */
-:root{color-scheme:light dark;
+:root{color-scheme:light dark;--fs:1;
 --bg:light-dark(#ffffff,#17110f);--paper:light-dark(#ffffff,#221a16);--soft:light-dark(#f6f2ef,#2b211c);
 --ink:light-dark(#2b1d18,#f7eee8);--mute:light-dark(#6e5c54,#bfaba1);--line:light-dark(#ece2dc,#3b2e28);
 --tomato:#d63a2c;--tomato-d:light-dark(#a92a1f,#ff7a6b);--basil:light-dark(#2f8a4b,#62c682);--pasta:#f2b441;
@@ -26,7 +26,7 @@
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:80px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:calc(16px*var(--fs))/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:800;line-height:1.08;text-wrap:balance;margin:0}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -38,10 +38,10 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stro
 .top .wrap{display:flex;align-items:center;gap:12px;padding:10px max(5vw,16px);max-width:calc(1240px + 10vw)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo img{width:42px;height:42px;border-radius:50%;border:2px solid var(--tomato);background:#fff}
-.logo b{font:400 28px/1 Lobster,cursive;color:var(--tomato)}
+.logo b{font:400 calc(28px*var(--fs))/1 Lobster,cursive;color:var(--tomato)}
 .top nav{margin-left:auto;display:flex;gap:8px}
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);font-weight:700;font-size:calc(15px*var(--fs));cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn:hover{border-color:var(--tomato);color:var(--tomato-d)}
 .btn.red{background:var(--tomato);border-color:var(--tomato);color:#fff}.btn.red:hover{background:#b92e22;color:#fff}
 .btn.green{background:var(--basil);border-color:var(--basil);color:#fff}
@@ -57,25 +57,25 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stro
  repeating-linear-gradient(90deg,rgb(255 255 255/.10) 0 28px,transparent 28px 56px),var(--tomato)}
 .medal{width:clamp(190px,30vw,300px);aspect-ratio:1;margin:0 auto;border-radius:50%;background:#fff;padding:8px;box-shadow:0 0 0 8px rgb(255 255 255/.25),0 20px 50px rgb(80 10 0/.35)}
 .medal img{width:100%;height:100%;border-radius:50%;display:block}
-.kicker{font-weight:800;font-size:14px;margin:0 0 6px;letter-spacing:.02em}
-.brand{font:400 clamp(58px,10vw,104px)/1 Lobster,cursive;margin:18px 0 6px;text-shadow:0 3px 0 rgb(120 20 10/.35)}
-.lede{font-size:17px;max-width:62ch;margin:0 auto 20px;opacity:.95}
+.kicker{font-weight:800;font-size:calc(14px*var(--fs));margin:0 0 6px;letter-spacing:.02em}
+.brand{font:400 calc(clamp(58px,10vw,104px)*var(--fs))/1 Lobster,cursive;margin:18px 0 6px;text-shadow:0 3px 0 rgb(120 20 10/.35)}
+.lede{font-size:calc(17px*var(--fs));max-width:62ch;margin:0 auto 20px;opacity:.95}
 .hero-act{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .stats{display:flex;justify-content:center;gap:clamp(18px,5vw,56px);margin:26px 0 0;flex-wrap:wrap}
-.stats div{display:flex;flex-direction:column-reverse}.stats dt{font-size:14px;opacity:.85}.stats dd{margin:0;font:800 34px/1 Fraunces,serif}
+.stats div{display:flex;flex-direction:column-reverse}.stats dt{font-size:calc(14px*var(--fs));opacity:.85}.stats dd{margin:0;font:800 calc(34px*var(--fs))/1 Fraunces,serif}
 .tricolor{height:10px;background:linear-gradient(90deg,#2f8a4b 0 33.3%,#fff 33.3% 66.6%,#d63a2c 66.6%);border-bottom:1px solid var(--line)}
 /* list */
 .tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-.tools h2{font-size:32px;margin-right:auto}
+.tools h2{font-size:calc(32px*var(--fs));margin-right:auto}
 .search{position:relative;flex:1 1 260px;max-width:440px}
 .search svg{position:absolute;left:14px;top:13px;color:var(--mute)}
-input,select,textarea{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px;font-size:16px}
+input,select,textarea{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px;font-size:calc(16px*var(--fs))}
 textarea{line-height:1.5;resize:vertical}
 input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--tomato) 18%,transparent)}
 .search input{padding-left:42px;border-radius:999px}
 .tools select{width:auto;border-radius:999px}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;scrollbar-width:thin}
-.chip{flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip{flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .chip small{font-weight:600;color:var(--mute)}
 .chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}.chip.on small{color:inherit;opacity:.7}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:22px}
@@ -85,62 +85,62 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .ph>img{width:100%;height:100%;object-fit:cover;display:block}
 .noph{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c) 30%,#fff) 0 38%,color-mix(in srgb,var(--c) 70%,#fff) 39%)}
 .noph img{width:44%;aspect-ratio:1;border-radius:50%;background:#fff;padding:4px;box-shadow:0 8px 20px rgb(0 0 0/.15)}
-.cat{position:absolute;left:12px;top:12px;background:var(--c);color:#fff;font-weight:800;font-size:13px;padding:4px 10px;border-radius:999px;box-shadow:0 2px 8px rgb(0 0 0/.2)}
+.cat{position:absolute;left:12px;top:12px;background:var(--c);color:#fff;font-weight:800;font-size:calc(13px*var(--fs));padding:4px 10px;border-radius:999px;box-shadow:0 2px 8px rgb(0 0 0/.2)}
 .favd{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--tomato);display:grid;place-items:center}
 .favd svg{fill:currentColor}
 .cb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.cb h3{font-size:21px}
-.cb p{margin:0;color:var(--mute);font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.meta{margin-top:auto;padding-top:8px;display:flex;gap:12px;flex-wrap:wrap;font-size:14px;font-weight:700;color:var(--mute)}
+.cb h3{font-size:calc(21px*var(--fs))}
+.cb p{margin:0;color:var(--mute);font-size:calc(15px*var(--fs));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{margin-top:auto;padding-top:8px;display:flex;gap:12px;flex-wrap:wrap;font-size:calc(14px*var(--fs));font-weight:700;color:var(--mute)}
 .meta span{display:inline-flex;gap:5px;align-items:center;white-space:nowrap}
 .empty{grid-column:1/-1;text-align:center;padding:48px 16px;border:2px dashed var(--line);border-radius:22px}
 .empty img{width:120px;border-radius:50%;margin-bottom:10px}
-.empty h3{font-size:26px;margin-bottom:6px}.empty p{color:var(--mute);margin:0 0 16px}
+.empty h3{font-size:calc(26px*var(--fs));margin-bottom:6px}.empty p{color:var(--mute);margin:0 0 16px}
 /* recipe */
 .back{display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;color:var(--mute);margin-bottom:16px;min-height:44px}
 .rhead{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
 .rphoto{border-radius:24px;aspect-ratio:4/3;box-shadow:var(--shadow)}
-.rinfo h1{font-size:clamp(34px,4.6vw,52px);margin:2px 0 10px}
+.rinfo h1{font-size:calc(clamp(34px,4.6vw,52px)*var(--fs));margin:2px 0 10px}
 .rinfo .lede{margin:0 0 18px;color:var(--mute);max-width:none}
 .red{color:var(--tomato-d)}
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
 .fact{padding:12px 14px;border-right:1px solid var(--line)}.fact:last-child{border:0}
-.fact span{display:block;font-size:13px;color:var(--mute);font-weight:700}.fact b{font:800 20px/1.2 Fraunces,serif;white-space:nowrap}
+.fact span{display:block;font-size:calc(13px*var(--fs));color:var(--mute);font-weight:700}.fact b{font:800 calc(20px*var(--fs))/1.2 Fraunces,serif;white-space:nowrap}
 .stepper{display:flex;align-items:center;gap:6px}
 .stepper button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);background:var(--soft);cursor:pointer;font-weight:800}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
-.tag{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--basil) 14%,transparent);color:var(--basil)}
+.tag{font-size:calc(13px*var(--fs));font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--basil) 14%,transparent);color:var(--basil)}
 .ractions{display:flex;gap:8px;flex-wrap:wrap}
 .ractions .on svg{fill:currentColor;color:var(--tomato)}
 .rbody{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:clamp(20px,4vw,48px);margin-top:clamp(28px,4vw,48px)}
 .box{background:var(--soft);border-radius:22px;padding:20px;margin-bottom:18px}
-.box h2,.col-steps>h2{font-size:26px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.box h2 small{font:700 13px "Nunito Sans";color:var(--mute);margin-left:auto}
+.box h2,.col-steps>h2{font-size:calc(26px*var(--fs));margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.box h2 small{font:700 calc(13px*var(--fs)) "Nunito Sans";color:var(--mute);margin-left:auto}
 .ing,.eq{list-style:none;margin:0;padding:0}
 .ing li{border-bottom:1px dashed var(--line)}.ing li:last-child{border:0}
 .ing label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;cursor:pointer}
 .ing input{width:22px;height:22px;min-height:0;margin:1px 0 0;accent-color:var(--basil);flex:none}
 .ing input:checked+span{text-decoration:line-through;opacity:.5}
 .ing b{color:var(--tomato-d)}
-.ing .grp{font:800 15px Fraunces,serif;padding:14px 0 4px;color:var(--basil);border:0}
+.ing .grp{font:800 calc(15px*var(--fs)) Fraunces,serif;padding:14px 0 4px;color:var(--basil);border:0}
 .eq li{display:flex;gap:10px;align-items:center;padding:7px 0}
 .eq li::before{content:"";width:9px;height:9px;border-radius:3px;background:var(--pasta);flex:none}
 .steps{list-style:none;margin:0;padding:0;counter-reset:s}
 .steps li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
-.steps .n{width:44px;height:44px;border-radius:50%;background:var(--tomato);color:#fff;display:grid;place-items:center;font:800 19px Fraunces,serif}
-.steps p{margin:8px 0 0;font-size:17px;max-width:68ch}
-.tbtn{margin-top:10px;min-height:38px;font-size:14px;color:var(--basil);border-color:color-mix(in srgb,var(--basil) 40%,transparent)}
+.steps .n{width:44px;height:44px;border-radius:50%;background:var(--tomato);color:#fff;display:grid;place-items:center;font:800 calc(19px*var(--fs)) Fraunces,serif}
+.steps p{margin:8px 0 0;font-size:calc(17px*var(--fs));max-width:68ch}
+.tbtn{margin-top:10px;min-height:38px;font-size:calc(14px*var(--fs));color:var(--basil);border-color:color-mix(in srgb,var(--basil) 40%,transparent)}
 .tip{margin-top:24px;padding:20px 22px;border-radius:20px;background:color-mix(in srgb,var(--pasta) 20%,var(--paper));border:1px solid color-mix(in srgb,var(--pasta) 50%,transparent)}
-.tip h3{font-size:20px;margin-bottom:6px}.tip p{margin:0;white-space:pre-line}
-.src{margin-top:18px;color:var(--mute);font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tip h3{font-size:calc(20px*var(--fs));margin-bottom:6px}.tip p{margin:0;white-space:pre-line}
+.src{margin-top:18px;color:var(--mute);font-size:calc(15px*var(--fs));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .src a{color:var(--tomato-d);font-weight:700;overflow-wrap:anywhere}
 @media(max-width:860px){.rhead,.rbody{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:520px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 /* editor */
-.ed h1{font-size:clamp(32px,4vw,44px);margin-bottom:8px}
+.ed h1{font-size:calc(clamp(32px,4vw,44px)*var(--fs));margin-bottom:8px}
 .note{background:color-mix(in srgb,var(--basil) 12%,transparent);color:var(--basil);border-radius:12px;padding:10px 14px;font-weight:700;margin:8px 0 0}
 .form{display:grid;gap:18px;margin-top:20px}
-.form label{display:grid;gap:6px;font-weight:800;font-size:15px}
+.form label{display:grid;gap:6px;font-weight:800;font-size:calc(15px*var(--fs))}
 .form label small{font-weight:600;color:var(--mute)}
 .ed-grid{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:24px}
 .ed-main{display:grid;gap:14px;align-content:start}
@@ -153,18 +153,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .ed-act{display:flex;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg);padding:12px 0;border-top:1px solid var(--line)}
 @media(max-width:760px){.ed-grid,.r2{grid-template-columns:minmax(0,1fr)}.r4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* import */
-.imp h1{font-size:clamp(32px,4vw,44px)}
+.imp h1{font-size:calc(clamp(32px,4vw,44px)*var(--fs))}
 .imp>.wrap>p{color:var(--mute);max-width:70ch}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px;margin:22px 0}
 .tile{text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:20px;padding:18px;cursor:pointer;display:grid;gap:6px;box-shadow:var(--shadow)}
 .tile .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--k);color:#fff;margin-bottom:6px}
 .tile .ico svg{width:24px;height:24px}
-.tile b{font:800 19px Fraunces,serif}.tile span{color:var(--mute);font-size:14px}
+.tile b{font:800 calc(19px*var(--fs)) Fraunces,serif}.tile span{color:var(--mute);font-size:calc(14px*var(--fs))}
 .tile.on{border-color:var(--k);box-shadow:0 0 0 3px color-mix(in srgb,var(--k) 25%,transparent)}
 .panel{background:var(--soft);border-radius:24px;padding:clamp(18px,3vw,30px);display:grid;gap:14px}
-.panel h2{font-size:26px}.panel p{margin:0;color:var(--mute)}
-.panel label{display:grid;gap:6px;font-weight:800;font-size:15px}
-.howto{font-size:14px;color:var(--mute);background:var(--paper);border-radius:14px;padding:12px 14px;border:1px solid var(--line)}
+.panel h2{font-size:calc(26px*var(--fs))}.panel p{margin:0;color:var(--mute)}
+.panel label{display:grid;gap:6px;font-weight:800;font-size:calc(15px*var(--fs))}
+.howto{font-size:calc(14px*var(--fs));color:var(--mute);background:var(--paper);border-radius:14px;padding:12px 14px;border:1px solid var(--line)}
 .howto ol{margin:6px 0 0;padding-left:20px}
 .status{display:flex;gap:12px;align-items:center;font-weight:700}
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--tomato);animation:sp 1s linear infinite;flex:none}
@@ -178,21 +178,21 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 /* cook mode */
 .cook{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column}
 .ck-top{display:flex;align-items:center;gap:12px;padding:12px max(4vw,16px);border-bottom:1px solid var(--line)}
-.ck-top b{font:800 20px Fraunces,serif;margin-right:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ck-top b{font:800 calc(20px*var(--fs)) Fraunces,serif;margin-right:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ck-top span{color:var(--mute);font-weight:700;white-space:nowrap}
 .ck-bar{height:6px;background:var(--soft)}.ck-bar i{display:block;height:100%;background:var(--tomato);transition:width .3s}
 .ck-main{flex:1;overflow:auto;padding:clamp(20px,5vw,60px) max(6vw,18px);display:flex;flex-direction:column;justify-content:center;max-width:1000px;margin:0 auto;width:100%}
-.ck-n{font:400 64px/1 Lobster,cursive;color:var(--tomato)}
-.ck-main p{font-size:clamp(22px,3.2vw,34px);line-height:1.4;margin:12px 0 18px;font-weight:600}
+.ck-n{font:400 calc(64px*var(--fs))/1 Lobster,cursive;color:var(--tomato)}
+.ck-main p{font-size:calc(clamp(22px,3.2vw,34px)*var(--fs));line-height:1.4;margin:12px 0 18px;font-weight:600}
 .ck-ing{padding:0 max(6vw,18px);max-width:1000px;margin:0 auto;width:100%}
 .ck-ing summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center}
 .ck-ing ul{columns:2 240px;margin:0 0 12px;padding-left:20px}
 .ck-nav{display:flex;gap:12px;padding:14px max(4vw,16px);border-top:1px solid var(--line)}
-.ck-nav .btn{flex:1;min-height:56px;font-size:17px}
+.ck-nav .btn{flex:1;min-height:56px;font-size:calc(17px*var(--fs))}
 /* timers, toast, modal */
 #timers{position:fixed;right:16px;bottom:16px;z-index:70;display:grid;gap:8px}
-.tmr{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border-radius:16px;padding:8px 8px 8px 14px;box-shadow:var(--shadow);font-weight:700;font-size:14px}
-.tmr b{font:800 20px Fraunces,serif;font-variant-numeric:tabular-nums}
+.tmr{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border-radius:16px;padding:8px 8px 8px 14px;box-shadow:var(--shadow);font-weight:700;font-size:calc(14px*var(--fs))}
+.tmr b{font:800 calc(20px*var(--fs)) Fraunces,serif;font-variant-numeric:tabular-nums}
 .tmr.done{background:var(--tomato);color:#fff;animation:pulse 1s infinite}
 .tmr button{border:0;background:rgb(255 255 255/.15);color:inherit;border-radius:10px;min-height:36px;padding:0 10px;cursor:pointer;font-weight:700}
 @keyframes pulse{50%{transform:scale(1.04)}}
@@ -200,376 +200,565 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 #toast.show{opacity:1;transform:translate(-50%,0)}
 .modal{position:fixed;inset:0;z-index:90;background:rgb(20 10 5/.5);display:grid;place-items:center;padding:16px}
 .modal>div{background:var(--paper);border-radius:22px;padding:24px;max-width:520px;width:100%;display:grid;gap:14px;box-shadow:0 30px 80px rgb(0 0 0/.3)}
-.modal h3{font-size:24px}.modal p{margin:0;color:var(--mute)}
+.modal h3{font-size:calc(24px*var(--fs))}.modal p{margin:0;color:var(--mute)}
 .modal .act{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
-footer{text-align:center;color:var(--mute);font-size:14px;padding:30px 16px 40px}
+footer{text-align:center;color:var(--mute);font-size:calc(14px*var(--fs));padding:30px 16px 40px}
 footer img{width:46px;border-radius:50%;display:block;margin:0 auto 6px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* aparência: idioma, tema, letra, ajuda */
+.ib{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);display:grid;place-items:center;cursor:pointer;font-weight:800;font-size:calc(17px*var(--fs));flex:none;padding:0}
+.ib:hover{border-color:var(--tomato);color:var(--tomato-d)}
+.ib.txt{font-size:calc(15px*var(--fs));letter-spacing:-.02em}
+.flag{width:42px;height:42px;border-radius:50%;padding:0;border:2px solid transparent;background:var(--soft);display:grid;place-items:center;cursor:pointer;flex:none}
+.flag svg{width:26px;height:18px;border-radius:3px;box-shadow:0 0 0 1px rgb(0 0 0/.15);display:block}
+.flag[aria-pressed=false]{opacity:.5;filter:grayscale(.5)}
+.flag[aria-pressed=true]{border-color:var(--tomato);background:var(--paper)}
+.flag:hover{opacity:1;filter:none}
+.sep{width:1px;height:28px;background:var(--line);flex:none;margin:0 2px}
+.top nav{align-items:center;gap:6px}
+.wide{display:contents}.narrow{display:none}
+@media(max-width:900px){.wide{display:none}.narrow{display:grid}}
+@media(max-width:520px){.logo b{display:none}.top .wrap{gap:6px}.top nav{gap:5px}}
+.pop{position:fixed;right:max(5vw,16px);top:66px;z-index:40;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 20px 50px rgb(0 0 0/.2);display:grid;gap:14px;width:min(330px,calc(100vw - 32px))}
+.pop h4{margin:0 0 6px;font-size:calc(14px*var(--fs));color:var(--mute)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1 1 0;min-height:58px;flex-direction:column;padding:4px 6px;font-size:calc(14px*var(--fs));border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fsrow{display:flex;align-items:center;gap:10px}.fsrow b{flex:1;text-align:center;font-size:calc(18px*var(--fs))}
+/* setas das categorias */
+.chipsw{display:flex;align-items:flex-start;gap:6px}
+.chipsw .chips{flex:1;scroll-behavior:smooth;scrollbar-width:none}
+.chipsw .chips::-webkit-scrollbar{display:none}
+.arr{display:none}
+@media(min-width:700px) and (hover:hover){.arr{display:grid;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);place-items:center;cursor:pointer;flex:none;box-shadow:var(--shadow);margin-top:2px;padding:0}.arr:hover{border-color:var(--tomato);color:var(--tomato-d)}.arr[disabled]{opacity:.3;cursor:default;box-shadow:none}}
+@media not ((min-width:700px) and (hover:hover)){.chipsw .chips{scrollbar-width:thin}}
+/* ajuda */
+.modal>div.help{max-width:760px;max-height:88vh;overflow:auto;gap:4px}
+.help h3{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.help h3 img{width:48px;border-radius:50%}
+.help section{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.help .hic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:var(--k)}
+.help .hic svg{width:22px;height:22px}
+.help h4{margin:0 0 4px;font:800 calc(18px*var(--fs)) Fraunces,serif}
+.help p,.help li{margin:0;color:var(--ink);font-size:calc(15px*var(--fs))}
+.help ul{margin:4px 0 0;padding-left:18px}
+.help .act{position:sticky;bottom:-24px;background:var(--paper);padding:12px 0 0}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <a class="logo" href="#"><img src="mascote-mini.jpg" alt=""><b>Matarello</b></a>
-  <nav>
-    <a class="btn" href="#importar"><svg class="i" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>Importar</span></a>
-    <a class="btn red" href="#nova"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Nova receita</span></a>
-  </nav>
-</div></header>
+<header class="top"><div class="wrap" id="topbar"></div></header>
 <main id="app"></main>
-<footer><img src="mascote-mini.jpg" alt="">Matarello · il quaderno di ricette<br><span id="mode"></span></footer>
+<footer id="foot"></footer>
 <div id="timers"></div>
 <div id="toast" role="status"></div>
 <script>
 {
 const $=s=>document.querySelector(s);
 const app=$('#app');
-const P={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/>',heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',play:'<path d="M8 5v14l11-7z"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',pdf:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 14h6M9 18h4"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',text:'<path d="M5 6h14M5 10h14M5 14h10M5 18h7"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',box:'<path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',chef:'<path d="M7 14a4 4 0 0 1-.6-7.9A5 5 0 0 1 17.6 6 4 4 0 0 1 17 14v6H7z"/><path d="M7 17h10"/>'};
+const pref=(k,v)=>{try{if(v===undefined)return localStorage.getItem('matarello.'+k);localStorage.setItem('matarello.'+k,v)}catch(e){return null}};
+
+/* ---------- idiomas ---------- */
+const T={pt:{
+lang:`Idioma`,pt:`Português`,it:`Italiano`,help:`Como usar`,theme:`Tema`,light:`Claro`,dark:`Escuro`,auto:`Automático`,toLight:`Mudar para modo claro`,toDark:`Mudar para modo escuro`,font:`Tamanho da letra`,smaller:`Diminuir letra`,bigger:`Aumentar letra`,display:`Aparência`,
+importNav:`Importar`,newNav:`Nova receita`,kicker:`Caderno de receitas`,
+lede:`Receitas com foto, ingredientes, equipamentos e passo a passo. Importe de PDFs, vídeos do Instagram, fotos do caderno da nonna ou qualquer texto.`,
+importRecipe:`Importar receita`,sRecipes:`Receitas`,sFavs:`Favoritas`,sCats:`Categorias`,listTitle:`Receitas`,searchPh:`Buscar por nome, ingrediente ou tag`,search:`Buscar`,sort:`Ordenar`,sortRec:`Mais recentes`,sortAz:`A–Z`,sortFast:`Mais rápidas`,favs:`Favoritas`,all:`Todas`,prevCats:`Categorias anteriores`,nextCats:`Mais categorias`,
+loading:`Abrindo o caderno…`,nothing:`Nada encontrado`,tryOther:`Tente outra busca ou categoria.`,emptyT:`Seu caderno está em branco`,emptyP:`Escreva sua primeira receita ou importe de um PDF, vídeo, foto ou texto.`,
+portions:`porções`,portion:`porção`,fav:`Favorita`,
+backAll:`Todas as receitas`,prep:`Preparo`,cook:`Cozimento`,diff:`Dificuldade`,servings:`Porções`,less:`Menos porções`,more:`Mais porções`,
+cookMode:`Modo cozinha`,favorite:`Favoritar`,favorited:`Favorita`,edit:`Editar`,shop:`Lista de compras`,dlSheet:`Baixar ficha`,del:`Excluir`,
+ingredients:`Ingredientes`,noIng:`Nenhum ingrediente cadastrado.`,equipment:`Equipamentos`,noEq:`Nenhum equipamento cadastrado.`,method:`Modo de preparo`,noSteps:`Nenhum passo cadastrado.`,tip:`Dica do chef`,source:`Fonte`,timer:`Cronômetro`,
+notFound:`Receita não encontrada`,maybeDel:`Ela pode ter sido excluída.`,backBook:`Voltar ao caderno`,
+shopTitle:`Lista de compras`,copied:`Lista copiada`,copyText:`Copie o texto`,close:`Fechar`,cancel:`Cancelar`,
+delQ:`Excluir receita?`,delMsg:`"{t}" será removida do caderno.`,deleted:`Receita excluída`,
+started:`Cronômetro de {m} iniciado`,timeUp:`Tempo! `,ready:`Pronto!`,stop:`Parar`,ok:`OK`,step:`passo`,
+stepOf:`Passo {i} de {n}`,noStepsYet:`Esta receita ainda não tem passos.`,seeIng:`Ver ingredientes e equipamentos`,prev:`Anterior`,next:`Próximo passo`,buon:`Buon appetito!`,
+editT:`Editar receita`,newT:`Nova receita`,back:`Voltar`,importedFrom:`Importada de {f}. Confira os dados antes de salvar.`,choosePhoto:`Escolher foto`,removePhoto:`Remover`,dropHint:`Toque ou arraste<br>uma foto do prato`,photoAlt:`Foto da receita`,
+name:`Nome da receita`,namePh:`Lasanha alla bolognese`,desc:`Descrição curta`,descPh:`Uma frase que dá água na boca`,category:`Categoria`,prepMin:`Preparo (min)`,cookMin:`Cozimento (min)`,tags:`Tags`,tagsHint:`separadas por vírgula`,tagsPh:`massa, domingo, forno`,
+ingHint:`um por linha, quantidade primeiro ("200 g de farinha"). Termine uma linha com ":" para criar um grupo.`,ingPh:`Para a massa:\n500 g de farinha 00\n5 ovos`,eqHint:`um por linha`,eqPh:`Matarello (rolo de macarrão)\nPanela grande\nRefratário 30 × 20 cm`,stepsHint:`um passo por linha. Tempos como "20 min" viram cronômetro.`,notes:`Dica do chef / observações`,sourceHint:`link do Instagram, site, livro…`,sourceName:`Nome da fonte`,sourceNamePh:`Caderno da Nonna, @perfil, livro…`,
+save:`Salvar receita`,saving:`Salvando…`,saved:`Receita salva`,waitPhoto:`Aguarde a foto terminar de carregar`,badImg:`Não consegui abrir essa imagem`,
+impTitle:`Importar receita`,impIntro:`O Claude lê o material e monta a ficha com ingredientes, equipamentos e passo a passo. Você confere e salva.`,aiActive:`IA ativa com a sua chave da API da Anthropic.`,aiNeed:`<b class="warn">Para ler PDFs, vídeos e fotos, configure a IA uma vez</b> com a sua chave da API da Anthropic. O backup funciona sem ela.`,aiCfg:`Configurar IA`,
+tPdf:`PDF`,dPdf:`Livros, apostilas e receitas salvas em PDF`,tVideo:`Vídeo`,dVideo:`Instagram, Reels, TikTok, YouTube`,tPhoto:`Foto ou print`,dPhoto:`Caderno da nonna, página de livro, print de site`,tText:`Texto ou site`,dText:`Cole a receita de um site, WhatsApp ou e-mail`,tSpark:`Criar com IA`,dSpark:`Diga o que tem na geladeira e o Claude cria a receita`,tBox:`Backup`,dBox:`Importe ou exporte o caderno inteiro em .json`,
+which:`Qual receita?`,optMany:`opcional, se houver várias`,whichPh:`ex.: tiramisù`,readBtn:`Ler com o Claude`,
+pdfT:`Importar de PDF`,pdfP:`Funciona com PDFs de texto e escaneados. Se o PDF tiver várias receitas, você escolhe quais salvar.`,pdfFile:`Arquivo PDF`,
+videoT:`Importar de vídeo`,videoP:`O navegador não consegue abrir o Instagram diretamente, então use a legenda do post e, se quiser, o próprio vídeo ou prints.`,howT:`Como pegar a legenda no Instagram`,how1:`Abra o Reel e toque em "mais" na legenda para expandir.`,how2:`Pressione e segure o texto e escolha Copiar (ou use "···" › Copiar link para guardar a fonte).`,how3:`Cole abaixo. Para receitas narradas, envie também o vídeo salvo ou prints da tela: o Claude lê o texto que aparece nas imagens.`,
+videoLink:`Link do vídeo`,keptSource:`fica guardado como fonte`,caption:`Legenda ou descrição`,captionPh:`Cole aqui a legenda do post`,vidFiles:`Vídeo salvo ou prints`,vidHint:`opcional; do vídeo tiro quadros automaticamente e uso um deles como foto`,
+photoT:`Importar de foto ou print`,photoP:`Fotografe a página do livro, o caderno escrito à mão ou faça um print de um site ou app. Pode enviar várias imagens da mesma receita.`,images:`Imagens`,
+textT:`Importar de texto ou site`,textP:`Copie a receita da página (Ctrl+A, Ctrl+C no site) ou de uma mensagem e cole aqui. Não precisa limpar: o Claude separa o que é receita.`,pageLink:`Link da página`,optSource:`opcional, fica como fonte`,text:`Texto`,pasteHere:`Cole aqui`,
+sparkT:`Criar receita com IA`,sparkP:`Descreva o que você quer ou o que tem em casa. O Claude escreve uma receita completa para você revisar.`,request:`Pedido`,sparkPh:`Tenho frango, limão-siciliano, alecrim e batatas. Quero algo ao forno para 4 pessoas, estilo italiano.`,
+boxT:`Backup do caderno`,boxP:`Exporte todas as receitas para guardar ou levar para outro lugar, e importe um backup do Matarello.`,boxP2:`As receitas ficam guardadas neste aparelho. Para levar do PC para o celular, exporte aqui e importe no outro aparelho.`,exp:`Exportar backup (.json)`,imp:`Importar backup`,backupSaved:`Backup salvo`,dlFail:`Não foi possível baixar o arquivo`,badFile:`Arquivo inválido`,
+readingPage:`Lendo página {i} de {n}…`,frames:`Extraindo quadros do vídeo…`,thinking:`O Claude está lendo e organizando a receita… isso pode levar até um minuto.`,
+eNeedPdf:`Escolha um arquivo PDF.`,eScanned:`Este PDF parece escaneado e o envio de imagens não está disponível aqui.`,eNeedCap:`Cole a legenda ou envie o vídeo ou prints.`,eNeedImg:`Escolha pelo menos uma imagem.`,eNeedText:`Cole o texto da receita.`,eNeedWish:`Escreva o que você quer cozinhar.`,eNoImgs:`O envio de imagens não está disponível nesta visualização.`,eVideo:`Não consegui abrir o vídeo; seguindo com o resto`,eDenied:`Permissão para usar o Claude foi negada.`,eRate:`Muitas leituras seguidas. Tente em alguns minutos.`,eJson:`Não consegui organizar a resposta. Tente de novo.`,eImg:`Uma das imagens não pôde ser lida.`,eBig:`Material grande demais; indique qual receita ou envie menos páginas.`,eGeneric:`Não foi possível ler agora. Tente de novo.`,
+eKey:`Chave da API inválida. Confira em Configurar IA.`,eApiRate:`Limite da API atingido. Tente em instantes.`,eModel:`Modelo não encontrado. Ajuste o modelo em Configurar IA.`,eApi:`Erro da API`,eNet:`Sem conexão com a API da Anthropic.`,
+noneFound:`Nenhuma receita encontrada`,noneP:`Tente enviar outro material ou mais detalhes.`,nFound:`{n} receitas encontradas`,foundP:`Marque as que quer salvar, ou abra uma para revisar antes.`,nIng:`ingredientes`,nSteps:`passos`,review:`Revisar`,saveSel:`Salvar selecionadas`,nothingSave:`Nada para salvar`,savedN:`{n} receita(s) salva(s)`,
+fPdf:`PDF`,fVideo:`vídeo`,fPhoto:`foto`,fSite:`site`,fText:`texto colado`,fAi:`criação com IA`,
+aiT:`Configurar IA`,aiP:`Para importar e criar receitas neste site, o Matarello usa a API da Anthropic com a sua chave. Ela fica guardada só neste navegador e cada leitura é cobrada na sua conta da API. Crie a chave em console.anthropic.com › API Keys.`,aiKey:`Chave da API`,aiModel:`Modelo`,aiClear:`Apagar chave`,aiSave:`Salvar`,aiCleared:`Chave apagada`,aiSaved:`IA configurada`,aiSaveFail:`Não foi possível guardar a chave`,
+sheetSaved:`Ficha salva: abra no navegador para imprimir ou gerar PDF`,sheetFail:`Não foi possível baixar a ficha`,
+dbQuota:`O caderno atingiu o limite de armazenamento.`,dbRO:`Não foi possível salvar (acesso só de leitura ou foto grande demais).`,dbFail:`Não foi possível salvar agora. Tente de novo.`,noSpace:`Sem espaço para salvar neste navegador`,cloud:`Caderno salvo na nuvem`,device:`Receitas guardadas neste aparelho · faça backup em Importar › Backup`,noOpen:`Não consegui abrir o caderno ainda. Verifique a conexão.`,noLoad:`O caderno não pôde ser carregado.`,
+foot:`Matarello · caderno de receitas`,noAi:`A leitura com o Claude não está disponível aqui.`,
+helpT:`Como usar o Matarello`,helpIntro:`Seu caderno de receitas com foto, ingredientes, equipamentos e passo a passo.`,
+h1t:`Criar uma receita`,h1:`Toque em <b>Nova receita</b>, escolha uma foto do prato e preencha nome, categoria, porções, tempos, ingredientes, equipamentos e passos. Toque em <b>Salvar receita</b>.`,
+h2t:`Escrever os ingredientes`,h2:`<ul><li>Um ingrediente por linha, com a quantidade na frente: <i>200 g de farinha</i>, <i>1/2 xícara de açúcar</i>, <i>2 a 3 dentes de alho</i>.</li><li>Uma linha que termina com dois-pontos cria um grupo: <i>Para o molho:</i></li><li>Assim, ao mudar as porções, as quantidades são recalculadas.</li></ul>`,
+h3t:`Ver e cozinhar`,h3:`<ul><li>Na ficha, use <b>−</b> e <b>+</b> nas porções para ajustar as quantidades.</li><li>Marque os ingredientes conforme for separando.</li><li>Tempos escritos nos passos, como <i>10 min</i> ou <i>1 hora</i>, viram botões de <b>cronômetro</b> com alarme.</li><li><b>Modo cozinha</b> mostra um passo por vez em letra grande e mantém a tela acesa. No PC, use as setas do teclado.</li></ul>`,
+h4t:`Importar receitas`,h4:`<ul><li><b>PDF</b>: livros e apostilas, inclusive escaneados. Se houver várias receitas, escolha quais salvar.</li><li><b>Vídeo</b>: cole o link e a legenda do Instagram, TikTok ou YouTube; opcionalmente envie o vídeo salvo ou prints.</li><li><b>Foto ou print</b>: página de livro, caderno escrito à mão, print de site.</li><li><b>Texto ou site</b>: copie e cole a receita.</li><li><b>Criar com IA</b>: diga o que tem em casa.</li></ul>Sempre confira a ficha antes de salvar. No site, configure a IA uma vez com a sua chave da API da Anthropic (console.anthropic.com).`,
+h5t:`Buscar e organizar`,h5:`Busque por nome, ingrediente ou tag. Filtre por categoria (no PC, use as setas ao lado da lista), mostre só as favoritas e ordene por recentes, A–Z ou mais rápidas.`,
+h6t:`Lista de compras e ficha`,h6:`<b>Lista de compras</b> copia os ingredientes já na quantidade escolhida, para colar no WhatsApp ou nas notas. <b>Baixar ficha</b> gera um arquivo para imprimir ou salvar em PDF pelo navegador.`,
+h7t:`Backup e outros aparelhos`,h7:`As receitas ficam guardadas no aparelho em que você está. Em <b>Importar › Backup</b>, exporte o caderno de vez em quando e importe o arquivo no outro aparelho.`,
+h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compartilhar › Adicionar à Tela de Início.</li><li><b>Android</b>: no Chrome, abra o menu ⋮ › Instalar app.</li></ul>Depois da primeira visita, o Matarello abre mesmo sem internet.`,
+h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
+gotIt:`Entendi`,
+sheetCat:`Categoria`,sheetSrc:`Fonte`
+},it:{
+lang:`Lingua`,pt:`Portoghese`,it:`Italiano`,help:`Come si usa`,theme:`Tema`,light:`Chiaro`,dark:`Scuro`,auto:`Automatico`,toLight:`Passa al tema chiaro`,toDark:`Passa al tema scuro`,font:`Dimensione del testo`,smaller:`Riduci il testo`,bigger:`Ingrandisci il testo`,display:`Aspetto`,
+importNav:`Importa`,newNav:`Nuova ricetta`,kicker:`Il quaderno di ricette`,
+lede:`Ricette con foto, ingredienti, attrezzatura e procedimento. Importa da PDF, video di Instagram, foto del quaderno della nonna o qualsiasi testo.`,
+importRecipe:`Importa ricetta`,sRecipes:`Ricette`,sFavs:`Preferite`,sCats:`Categorie`,listTitle:`Ricette`,searchPh:`Cerca per nome, ingrediente o tag`,search:`Cerca`,sort:`Ordina`,sortRec:`Più recenti`,sortAz:`A–Z`,sortFast:`Più veloci`,favs:`Preferite`,all:`Tutte`,prevCats:`Categorie precedenti`,nextCats:`Altre categorie`,
+loading:`Apro il quaderno…`,nothing:`Nessun risultato`,tryOther:`Prova un'altra ricerca o categoria.`,emptyT:`Il tuo quaderno è vuoto`,emptyP:`Scrivi la tua prima ricetta o importala da PDF, video, foto o testo.`,
+portions:`porzioni`,portion:`porzione`,fav:`Preferita`,
+backAll:`Tutte le ricette`,prep:`Preparazione`,cook:`Cottura`,diff:`Difficoltà`,servings:`Porzioni`,less:`Meno porzioni`,more:`Più porzioni`,
+cookMode:`Modalità cucina`,favorite:`Aggiungi ai preferiti`,favorited:`Preferita`,edit:`Modifica`,shop:`Lista della spesa`,dlSheet:`Scarica scheda`,del:`Elimina`,
+ingredients:`Ingredienti`,noIng:`Nessun ingrediente inserito.`,equipment:`Attrezzatura`,noEq:`Nessuna attrezzatura inserita.`,method:`Procedimento`,noSteps:`Nessun passaggio inserito.`,tip:`Il consiglio dello chef`,source:`Fonte`,timer:`Timer`,
+notFound:`Ricetta non trovata`,maybeDel:`Potrebbe essere stata eliminata.`,backBook:`Torna al quaderno`,
+shopTitle:`Lista della spesa`,copied:`Lista copiata`,copyText:`Copia il testo`,close:`Chiudi`,cancel:`Annulla`,
+delQ:`Eliminare la ricetta?`,delMsg:`"{t}" verrà rimossa dal quaderno.`,deleted:`Ricetta eliminata`,
+started:`Timer di {m} avviato`,timeUp:`Tempo scaduto! `,ready:`Pronto!`,stop:`Ferma`,ok:`OK`,step:`passo`,
+stepOf:`Passo {i} di {n}`,noStepsYet:`Questa ricetta non ha ancora passaggi.`,seeIng:`Vedi ingredienti e attrezzatura`,prev:`Indietro`,next:`Passo successivo`,buon:`Buon appetito!`,
+editT:`Modifica ricetta`,newT:`Nuova ricetta`,back:`Indietro`,importedFrom:`Importata da {f}. Controlla i dati prima di salvare.`,choosePhoto:`Scegli foto`,removePhoto:`Rimuovi`,dropHint:`Tocca o trascina<br>una foto del piatto`,photoAlt:`Foto della ricetta`,
+name:`Nome della ricetta`,namePh:`Lasagne alla bolognese`,desc:`Breve descrizione`,descPh:`Una frase che fa venire l'acquolina`,category:`Categoria`,prepMin:`Preparazione (min)`,cookMin:`Cottura (min)`,tags:`Tag`,tagsHint:`separati da virgola`,tagsPh:`pasta, domenica, forno`,
+ingHint:`uno per riga, prima la quantità ("200 g di farina"). Termina una riga con ":" per creare un gruppo.`,ingPh:`Per la sfoglia:\n500 g di farina 00\n5 uova`,eqHint:`uno per riga`,eqPh:`Mattarello\nPentola grande\nPirofila 30 × 20 cm`,stepsHint:`un passaggio per riga. Tempi come "20 min" diventano un timer.`,notes:`Consiglio dello chef / note`,sourceHint:`link di Instagram, sito, libro…`,sourceName:`Nome della fonte`,sourceNamePh:`Quaderno della nonna, @profilo, libro…`,
+save:`Salva ricetta`,saving:`Salvataggio…`,saved:`Ricetta salvata`,waitPhoto:`Attendi il caricamento della foto`,badImg:`Impossibile aprire questa immagine`,
+impTitle:`Importa ricetta`,impIntro:`Claude legge il materiale e prepara la scheda con ingredienti, attrezzatura e procedimento. Tu controlli e salvi.`,aiActive:`IA attiva con la tua chiave API di Anthropic.`,aiNeed:`<b class="warn">Per leggere PDF, video e foto, configura l'IA una volta</b> con la tua chiave API di Anthropic. Il backup funziona anche senza.`,aiCfg:`Configura IA`,
+tPdf:`PDF`,dPdf:`Libri, dispense e ricette salvate in PDF`,tVideo:`Video`,dVideo:`Instagram, Reels, TikTok, YouTube`,tPhoto:`Foto o screenshot`,dPhoto:`Quaderno della nonna, pagina di libro, screenshot di un sito`,tText:`Testo o sito`,dText:`Incolla la ricetta da un sito, WhatsApp o e-mail`,tSpark:`Crea con l'IA`,dSpark:`Di' cosa hai in frigo e Claude crea la ricetta`,tBox:`Backup`,dBox:`Importa o esporta tutto il quaderno in .json`,
+which:`Quale ricetta?`,optMany:`facoltativo, se ce ne sono diverse`,whichPh:`es.: tiramisù`,readBtn:`Leggi con Claude`,
+pdfT:`Importa da PDF`,pdfP:`Funziona con PDF di testo e scansionati. Se il PDF contiene più ricette, scegli quali salvare.`,pdfFile:`File PDF`,
+videoT:`Importa da video`,videoP:`Il browser non può aprire Instagram direttamente: usa la didascalia del post e, se vuoi, il video stesso o degli screenshot.`,howT:`Come copiare la didascalia su Instagram`,how1:`Apri il Reel e tocca "altro" nella didascalia per espanderla.`,how2:`Tieni premuto sul testo e scegli Copia (oppure "···" › Copia link per salvare la fonte).`,how3:`Incolla qui sotto. Per le ricette raccontate a voce, invia anche il video salvato o degli screenshot: Claude legge il testo che compare nelle immagini.`,
+videoLink:`Link del video`,keptSource:`resta salvato come fonte`,caption:`Didascalia o descrizione`,captionPh:`Incolla qui la didascalia del post`,vidFiles:`Video salvato o screenshot`,vidHint:`facoltativo; dal video estraggo dei fotogrammi e ne uso uno come foto`,
+photoT:`Importa da foto o screenshot`,photoP:`Fotografa la pagina del libro, il quaderno scritto a mano o fai uno screenshot di un sito o di un'app. Puoi inviare più immagini della stessa ricetta.`,images:`Immagini`,
+textT:`Importa da testo o sito`,textP:`Copia la ricetta dalla pagina (Ctrl+A, Ctrl+C sul sito) o da un messaggio e incollala qui. Non serve ripulirla: Claude separa ciò che è ricetta.`,pageLink:`Link della pagina`,optSource:`facoltativo, resta come fonte`,text:`Testo`,pasteHere:`Incolla qui`,
+sparkT:`Crea una ricetta con l'IA`,sparkP:`Descrivi cosa vuoi o cosa hai in casa. Claude scrive una ricetta completa da controllare.`,request:`Richiesta`,sparkPh:`Ho pollo, limone, rosmarino e patate. Vorrei qualcosa al forno per 4 persone, in stile italiano.`,
+boxT:`Backup del quaderno`,boxP:`Esporta tutte le ricette per conservarle o portarle altrove, e importa un backup del Matarello.`,boxP2:`Le ricette sono salvate su questo dispositivo. Per passarle dal PC al telefono, esporta qui e importa sull'altro dispositivo.`,exp:`Esporta backup (.json)`,imp:`Importa backup`,backupSaved:`Backup salvato`,dlFail:`Impossibile scaricare il file`,badFile:`File non valido`,
+readingPage:`Lettura pagina {i} di {n}…`,frames:`Estrazione dei fotogrammi dal video…`,thinking:`Claude sta leggendo e organizzando la ricetta… può volerci fino a un minuto.`,
+eNeedPdf:`Scegli un file PDF.`,eScanned:`Questo PDF sembra scansionato e l'invio di immagini non è disponibile qui.`,eNeedCap:`Incolla la didascalia o invia il video o gli screenshot.`,eNeedImg:`Scegli almeno un'immagine.`,eNeedText:`Incolla il testo della ricetta.`,eNeedWish:`Scrivi cosa vuoi cucinare.`,eNoImgs:`L'invio di immagini non è disponibile in questa visualizzazione.`,eVideo:`Impossibile aprire il video; continuo con il resto`,eDenied:`Il permesso di usare Claude è stato negato.`,eRate:`Troppe letture di seguito. Riprova tra qualche minuto.`,eJson:`Non sono riuscito a organizzare la risposta. Riprova.`,eImg:`Una delle immagini non può essere letta.`,eBig:`Materiale troppo grande; indica quale ricetta o invia meno pagine.`,eGeneric:`Impossibile leggere ora. Riprova.`,
+eKey:`Chiave API non valida. Controlla in Configura IA.`,eApiRate:`Limite dell'API raggiunto. Riprova tra poco.`,eModel:`Modello non trovato. Modificalo in Configura IA.`,eApi:`Errore dell'API`,eNet:`Nessuna connessione con l'API di Anthropic.`,
+noneFound:`Nessuna ricetta trovata`,noneP:`Prova con un altro materiale o più dettagli.`,nFound:`{n} ricette trovate`,foundP:`Seleziona quelle da salvare, oppure aprine una per controllarla prima.`,nIng:`ingredienti`,nSteps:`passaggi`,review:`Controlla`,saveSel:`Salva selezionate`,nothingSave:`Niente da salvare`,savedN:`{n} ricetta/e salvata/e`,
+fPdf:`PDF`,fVideo:`video`,fPhoto:`foto`,fSite:`sito`,fText:`testo incollato`,fAi:`creata con l'IA`,
+aiT:`Configura IA`,aiP:`Per importare e creare ricette su questo sito, il Matarello usa l'API di Anthropic con la tua chiave. Resta salvata solo in questo browser e ogni lettura è addebitata sul tuo account API. Crea la chiave su console.anthropic.com › API Keys.`,aiKey:`Chiave API`,aiModel:`Modello`,aiClear:`Cancella chiave`,aiSave:`Salva`,aiCleared:`Chiave cancellata`,aiSaved:`IA configurata`,aiSaveFail:`Impossibile salvare la chiave`,
+sheetSaved:`Scheda salvata: aprila nel browser per stampare o creare un PDF`,sheetFail:`Impossibile scaricare la scheda`,
+dbQuota:`Il quaderno ha raggiunto il limite di spazio.`,dbRO:`Impossibile salvare (accesso in sola lettura o foto troppo grande).`,dbFail:`Impossibile salvare ora. Riprova.`,noSpace:`Spazio insufficiente in questo browser`,cloud:`Quaderno salvato nel cloud`,device:`Ricette salvate su questo dispositivo · fai il backup in Importa › Backup`,noOpen:`Non riesco ancora ad aprire il quaderno. Controlla la connessione.`,noLoad:`Impossibile caricare il quaderno.`,
+foot:`Matarello · il quaderno di ricette`,noAi:`La lettura con Claude non è disponibile qui.`,
+helpT:`Come si usa il Matarello`,helpIntro:`Il tuo quaderno di ricette con foto, ingredienti, attrezzatura e procedimento.`,
+h1t:`Creare una ricetta`,h1:`Tocca <b>Nuova ricetta</b>, scegli una foto del piatto e compila nome, categoria, porzioni, tempi, ingredienti, attrezzatura e passaggi. Tocca <b>Salva ricetta</b>.`,
+h2t:`Scrivere gli ingredienti`,h2:`<ul><li>Un ingrediente per riga, con la quantità davanti: <i>200 g di farina</i>, <i>1/2 tazza di zucchero</i>, <i>2 a 3 spicchi d'aglio</i>.</li><li>Una riga che termina con i due punti crea un gruppo: <i>Per il sugo:</i></li><li>Così, cambiando le porzioni, le quantità vengono ricalcolate.</li></ul>`,
+h3t:`Consultare e cucinare`,h3:`<ul><li>Nella scheda usa <b>−</b> e <b>+</b> sulle porzioni per adattare le quantità.</li><li>Spunta gli ingredienti man mano che li prepari.</li><li>I tempi scritti nei passaggi, come <i>10 min</i> o <i>1 ora</i>, diventano pulsanti <b>timer</b> con allarme.</li><li>La <b>Modalità cucina</b> mostra un passaggio alla volta a caratteri grandi e tiene lo schermo acceso. Sul PC usa le frecce della tastiera.</li></ul>`,
+h4t:`Importare ricette`,h4:`<ul><li><b>PDF</b>: libri e dispense, anche scansionati. Se ci sono più ricette, scegli quali salvare.</li><li><b>Video</b>: incolla il link e la didascalia di Instagram, TikTok o YouTube; se vuoi invia il video salvato o degli screenshot.</li><li><b>Foto o screenshot</b>: pagina di libro, quaderno scritto a mano, screenshot di un sito.</li><li><b>Testo o sito</b>: copia e incolla la ricetta.</li><li><b>Crea con l'IA</b>: di' cosa hai in casa.</li></ul>Controlla sempre la scheda prima di salvare. Sul sito, configura l'IA una volta con la tua chiave API di Anthropic (console.anthropic.com).`,
+h5t:`Cercare e organizzare`,h5:`Cerca per nome, ingrediente o tag. Filtra per categoria (sul PC usa le frecce accanto all'elenco), mostra solo le preferite e ordina per più recenti, A–Z o più veloci.`,
+h6t:`Lista della spesa e scheda`,h6:`<b>Lista della spesa</b> copia gli ingredienti già nella quantità scelta, da incollare su WhatsApp o nelle note. <b>Scarica scheda</b> crea un file da stampare o salvare in PDF dal browser.`,
+h7t:`Backup e altri dispositivi`,h7:`Le ricette restano sul dispositivo che stai usando. In <b>Importa › Backup</b> esporta il quaderno ogni tanto e importa il file sull'altro dispositivo.`,
+h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condividi › Aggiungi alla schermata Home.</li><li><b>Android</b>: in Chrome apri il menu ⋮ › Installa app.</li></ul>Dopo la prima visita il Matarello si apre anche senza internet.`,
+h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
+gotIt:`Ho capito`,
+sheetCat:`Categoria`,sheetSrc:`Fonte`}};
+const S={recipes:[],q:'',cat:'',fav:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home',chipX:0,
+ lang:pref('lang')||((navigator.language||'').toLowerCase().startsWith('it')?'it':'pt'),theme:pref('theme')||'auto',fs:Math.min(1.6,Math.max(.8,parseFloat(pref('fs'))||1))};
+const t=(k,v)=>{let s=T[S.lang][k]??T.pt[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
+const at=(k,v)=>esc(t(k,v)).replace(/\n/g,'&#10;');
+
+const P={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/>',heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',play:'<path d="M8 5v14l11-7z"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',fwd:'<path d="M9 5l7 7-7 7"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',pdf:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 14h6M9 18h4"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',text:'<path d="M5 6h14M5 10h14M5 14h10M5 18h7"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',box:'<path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',chef:'<path d="M7 14a4 4 0 0 1-.6-7.9A5 5 0 0 1 17.6 6 4 4 0 0 1 17 14v6H7z"/><path d="M7 17h10"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',auto:'<circle cx="12" cy="12" r="8"/><path d="M12 4v16a8 8 0 0 0 0-16z" fill="currentColor"/>',list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',aa:'<path d="M3 19l5-13 5 13M4.8 14.5h6.4M14 19l3.5-9 3.5 9M15.2 16h4.6"/>'};
 const ic=n=>`<svg class="i" viewBox="0 0 24 24">${P[n]||''}</svg>`;
-const CATS=[['antipasti','Antipasti','Entradas'],['primi','Primi','Massas e risotos'],['secondi','Secondi','Carnes e peixes'],['contorni','Contorni','Acompanhamentos'],['pizze','Pane e pizza','Pães e pizzas'],['salse','Salse','Molhos'],['dolci','Dolci','Sobremesas'],['bevande','Bevande','Bebidas'],['altro','Altro','Outros']];
+const FLAG={pt:'<svg viewBox="0 0 30 21" aria-hidden="true"><rect width="30" height="21" fill="#009c3b"/><path d="M15 2.2 27.6 10.5 15 18.8 2.4 10.5z" fill="#ffdf00"/><circle cx="15" cy="10.5" r="5.2" fill="#002776"/><path d="M9.9 9.6c3.4-.7 7.2-.1 10.1 1.7" stroke="#fff" stroke-width=".9" fill="none"/></svg>',
+ it:'<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce2b37"/></svg>'};
+const CATS=[['antipasti','Antipasti','Entradas','Antipasti'],['primi','Primi','Massas e risotos','Pasta e risotti'],['secondi','Secondi','Carnes e peixes','Carne e pesce'],['contorni','Contorni','Acompanhamentos','Contorni e insalate'],['pizze','Pane e pizza','Pães e pizzas','Pane e pizza'],['salse','Salse','Molhos','Salse e sughi'],['dolci','Dolci','Sobremesas','Dolci'],['bevande','Bevande','Bebidas','Bevande'],['altro','Altro','Outros','Altro']];
 const CATCOL={antipasti:'#e8a21f',primi:'#d63a2c',secondi:'#8e3b26',contorni:'#2f8a4b',pizze:'#e0702a',salse:'#b02f4a',dolci:'#c2577f',bevande:'#2f7aa8',altro:'#6e5c54'};
 const catOf=k=>CATS.find(c=>c[0]===k)||CATS[8];
-const S={recipes:[],q:'',cat:'',fav:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home'};
+const catDesc=c=>S.lang==='it'?c[3]:c[2];
+const DIFF={'Fácil':'Facile','Média':'Media','Difícil':'Difficile'};
+const dname=d=>S.lang==='it'?(DIFF[d]||d):d;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const arr=a=>Array.isArray(a)?a.map(x=>String(x??'').trim()).filter(Boolean):(typeof a==='string'?a.split('\n').map(x=>x.trim()).filter(Boolean):[]);
 const n0=v=>{const x=parseInt(v,10);return isFinite(x)&&x>=0?x:0};
 const fmtMin=m=>{m=n0(m);if(!m)return'—';const h=Math.floor(m/60),r=m%60;return h?(h+'h'+(r?' '+r:'')):r+' min'};
 const safeImg=u=>typeof u==='string'&&/^(data:image\/|\/|blob:|https:\/\/)/.test(u)?u:'';
+const pl=n=>n>1?t('portions'):t('portion');
+
+/* ---------- aparência ---------- */
+const mq=matchMedia('(prefers-color-scheme: dark)');
+const isDark=()=>S.theme==='dark'||(S.theme==='auto'&&(document.documentElement.dataset.theme?document.documentElement.dataset.theme==='dark':mq.matches));
+function applyLook(){const r=document.documentElement;if(S.theme==='auto'){if(r.dataset.mtheme){r.removeAttribute('data-theme');delete r.dataset.mtheme}}else{r.dataset.theme=S.theme;r.dataset.mtheme='1'}
+ r.style.setProperty('--fs',S.fs);r.lang=S.lang==='it'?'it':'pt-BR';const m=$('meta[name=theme-color]');if(m)m.content=isDark()?'#17110f':'#d63a2c'}
+function setTheme(v){S.theme=v;pref('theme',v);applyLook();renderTop();refreshPop()}
+function setFs(d){S.fs=Math.round(Math.min(1.6,Math.max(.8,S.fs+d))*10)/10;pref('fs',S.fs);applyLook();refreshPop();updArrows()}
+function setLang(l){if(l===S.lang)return;let keep=null;if(S.view==='edit'&&$('#f'))keep={...Object.fromEntries(new FormData($('#f'))),photo:S.edPhoto,_id:S.edId};
+ S.lang=l;pref('lang',l);applyLook();renderTop();renderFoot();
+ if(keep){renderEdit(keep._id,keep)}else route(true,true)}
+function renderTop(){const fl=l=>`<button class="flag" data-lang="${l}" aria-pressed="${S.lang===l}" title="${t(l)}" aria-label="${t(l)}">${FLAG[l]}</button>`;
+ $('#topbar').innerHTML=`<a class="logo" href="#"><img src="mascote-mini.jpg" alt=""><b>Matarello</b></a>
+ <nav><button class="ib" id="helpb" title="${at('help')}" aria-label="${at('help')}">?</button>${fl('pt')}${fl('it')}<span class="sep wide"></span>
+  <span class="wide"><button class="ib" id="thb" title="${at(isDark()?'toLight':'toDark')}" aria-label="${at(isDark()?'toLight':'toDark')}">${ic(isDark()?'sun':'moon')}</button><button class="ib txt" data-fs="-.1" title="${at('smaller')}" aria-label="${at('smaller')}">A−</button><button class="ib txt" data-fs=".1" title="${at('bigger')}" aria-label="${at('bigger')}">A+</button></span>
+  <button class="ib narrow" id="aab" title="${at('display')}" aria-label="${at('display')}" aria-expanded="false">${ic('aa')}</button>
+  <span class="sep wide"></span>
+  <a class="btn" href="#importar" title="${at('importNav')}">${ic('upload')}<span>${t('importNav')}</span></a>
+  <a class="btn red" href="#nova" title="${at('newNav')}">${ic('plus')}<span>${t('newNav')}</span></a></nav>`;
+ $('#topbar').querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+ $('#helpb').onclick=showHelp;$('#thb').onclick=()=>setTheme(isDark()?'light':'dark');
+ $('#topbar').querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>setFs(+b.dataset.fs));
+ $('#aab').onclick=e=>{e.stopPropagation();togglePop()}}
+let popEl=null;
+function togglePop(){if(popEl){closePop();return}popEl=document.createElement('div');popEl.className='pop';popEl.onclick=e=>e.stopPropagation();document.body.append(popEl);refreshPop();$('#aab')?.setAttribute('aria-expanded','true');setTimeout(()=>addEventListener('click',closePop,{once:true}))}
+function closePop(){if(popEl){popEl.remove();popEl=null;$('#aab')?.setAttribute('aria-expanded','false')}}
+function refreshPop(){if(!popEl)return;popEl.innerHTML=`<div><h4>${t('theme')}</h4><div class="seg">${[['light','sun'],['dark','moon'],['auto','auto']].map(([v,i])=>`<button data-th="${v}" aria-pressed="${S.theme===v}">${ic(i)}${t(v)}</button>`).join('')}</div></div>
+ <div><h4>${t('font')}</h4><div class="fsrow"><button class="ib txt" data-f="-.1" aria-label="${at('smaller')}">A−</button><b>${Math.round(S.fs*100)}%</b><button class="ib txt" data-f=".1" aria-label="${at('bigger')}">A+</button></div></div>`;
+ popEl.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>setTheme(b.dataset.th));popEl.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>setFs(+b.dataset.f))}
+mq.addEventListener?.('change',()=>{applyLook();renderTop()});
+function renderFoot(){$('#foot').innerHTML=`<img src="mascote-mini.jpg" alt="">${t('foot')}<br><span>${S.mode==='db'?t('cloud'):S.ready?t('device'):''}</span>`}
+function showHelp(){const sec=[['h1','plus','#d63a2c'],['h2','list','#e8a21f'],['h3','play','#2f8a4b'],['h4','upload','#c2577f'],['h5','search','#2f7aa8'],['h6','copy','#e0702a'],['h7','box','#6e5c54'],['h8','phone','#8e3b26'],['h9','aa','#2b1d18']];
+ const m=modal(`<h3><img src="mascote-mini.jpg" alt="">${t('helpT')}</h3><p>${t('helpIntro')}</p>${sec.map(([k,i,c])=>`<section><span class="hic" style="--k:${c}">${ic(i)}</span><div><h4>${t(k+'t')}</h4><div>${t(k)}</div></div></section>`).join('')}<div class="act"><button class="btn red" data-x>${t('gotIt')}</button></div>`,'help');
+ m.querySelector('[data-x]').onclick=()=>m.remove()}
 
 /* ---------- toast, modal ---------- */
-let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3200)}
-function modal(html){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div role="dialog" aria-modal="true">${html}</div>`;document.body.append(m);m.addEventListener('click',e=>{if(e.target===m)m.remove()});return m}
-function ask(title,msg,ok){return new Promise(res=>{const m=modal(`<h3>${esc(title)}</h3><p>${esc(msg)}</p><div class="act"><button class="btn" data-a="0">Cancelar</button><button class="btn red" data-a="1">${esc(ok)}</button></div>`);m.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{m.remove();res(b.dataset.a==='1')})})}
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3200)}
+function modal(html,cls){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div role="dialog" aria-modal="true" class="${cls||''}">${html}</div>`;document.body.append(m);m.addEventListener('click',e=>{if(e.target===m)m.remove()});const k=e=>{if(e.key==='Escape'&&m.isConnected){m.remove();removeEventListener('keydown',k)}};addEventListener('keydown',k);return m}
+function ask(title,msg,ok){return new Promise(res=>{const m=modal(`<h3>${esc(title)}</h3><p>${esc(msg)}</p><div class="act"><button class="btn" data-a="0">${t('cancel')}</button><button class="btn red" data-a="1">${esc(ok)}</button></div>`);m.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{m.remove();res(b.dataset.a==='1')})})}
 
-/* ---------- storage ---------- */
+/* ---------- armazenamento ---------- */
 const LS='matarello.v1';
 const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('matarello',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
 async function idbGet(k){const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
-async function idbSet(k,v){const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+async function idbSet(k,v){const d=await idb();return new Promise((res,rej)=>{const x=d.transaction('kv','readwrite');x.objectStore('kv').put(v,k);x.oncomplete=()=>res();x.onerror=()=>rej(x.error)})}
 async function lsLoad(){try{const v=await idbGet('recipes');if(Array.isArray(v))return v}catch(e){}try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return[]}}
-function lsSave(){idbSet('recipes',JSON.parse(JSON.stringify(S.recipes))).catch(()=>{try{localStorage.setItem(LS,JSON.stringify(S.recipes))}catch(e){toast('Sem espaço para salvar neste navegador')}})}
+function lsSave(){idbSet('recipes',JSON.parse(JSON.stringify(S.recipes))).catch(()=>{try{localStorage.setItem(LS,JSON.stringify(S.recipes))}catch(e){toast(t('noSpace'))}})}
 async function saveFile(name,data,type){if(S.dl)return S.dl.save({filename:name,data});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
-/* IA: Claude dentro do claude.ai, ou API da Anthropic com a chave do usuário no site */
-const KEY='matarello.apikey',MODEL='matarello.model';
-const getKey=()=>{try{return localStorage.getItem(KEY)||''}catch(e){return''}};
-const getModel=()=>{try{return localStorage.getItem(MODEL)||'claude-sonnet-5-5'}catch(e){return'claude-sonnet-5-5'}};
+function normalize(r,keepId){r=r||{};const cat=CATS.some(c=>c[0]===r.category)?r.category:'altro';
+ const id=keepId&&/^[a-z0-9-]{3,40}$/i.test(r.id||'')?r.id:uid();
+ const df={Facile:'Fácil',Media:'Média',Difficile:'Difícil',Easy:'Fácil',Medium:'Média',Hard:'Difícil'};const d=df[r.difficulty]||r.difficulty;
+ return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:Math.max(1,n0(r.servings)||4),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),favorite:!!r.favorite,createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
+async function persist(r){r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
+ if(S.mode==='db'){try{await S.db.collection('recipes').doc(r.id).set(JSON.parse(JSON.stringify(r)))}catch(e){dbErr(e);throw e}}else lsSave()}
+async function remove(id){S.recipes=S.recipes.filter(x=>x.id!==id);if(S.mode==='db'){try{await S.db.collection('recipes').doc(id).delete()}catch(e){dbErr(e)}}else lsSave()}
+function dbErr(e){const c=e&&e.code;toast(c==='quota_exceeded'?t('dbQuota'):c==='invalid_argument'?t('dbRO'):t('dbFail'))}
+
+/* ---------- IA ---------- */
+const KEY='apikey',MODEL='model';
+const getKey=()=>pref(KEY)||'';const getModel=()=>pref(MODEL)||'claude-sonnet-5-5';
 const aiReady=()=>!!(S.sample||getKey());
 async function aiMaxImages(){if(S.sample){const l=await S.sample.limits().catch(()=>null);return l?.images?.maxCount||0}return getKey()?8:0}
-function parseJson(t){try{return JSON.parse(t)}catch(e){}const f=t.match(/```(?:json)?\s*([\s\S]*?)```/);if(f){try{return JSON.parse(f[1])}catch(e){}}const a=t.search(/[\[{]/),b=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(a>=0&&b>a){try{return JSON.parse(t.slice(a,b+1))}catch(e){}}throw{code:'invalid_json'}}
+function parseJson(s){try{return JSON.parse(s)}catch(e){}const f=s.match(/```(?:json)?\s*([\s\S]*?)```/);if(f){try{return JSON.parse(f[1])}catch(e){}}const a=s.search(/[\[{]/),b=Math.max(s.lastIndexOf('}'),s.lastIndexOf(']'));if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1))}catch(e){}}throw{code:'invalid_json'}}
 async function aiJson(prompt,images,signal){
  if(S.sample)return S.sample.json(prompt,{signal,images:images.length?images:undefined,modelTier:'default'});
  const content=[];for(const b of images){const c=await toCanvas(b,1568);content.push({type:'image',source:{type:'base64',media_type:'image/jpeg',data:c.toDataURL('image/jpeg',.85).split(',')[1]}})}
  content.push({type:'text',text:prompt});
  let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,headers:{'content-type':'application/json','x-api-key':getKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:getModel(),max_tokens:16000,messages:[{role:'user',content}]})})}
- catch(e){if(e.name==='AbortError')throw{code:'cancelled'};throw{msg:'Sem conexão com a API da Anthropic.'}}
- if(!r.ok){let m='';try{m=(await r.json()).error?.message||''}catch(e){}throw{msg:r.status===401?'Chave da API inválida. Confira em Configurar IA.':r.status===429?'Limite da API atingido. Tente em instantes.':r.status===404?'Modelo não encontrado. Ajuste o modelo em Configurar IA.':'Erro da API ('+r.status+') '+m}}
+ catch(e){if(e.name==='AbortError')throw{code:'cancelled'};throw{msg:t('eNet')}}
+ if(!r.ok){let m='';try{m=(await r.json()).error?.message||''}catch(e){}throw{msg:r.status===401?t('eKey'):r.status===429?t('eApiRate'):r.status===404?t('eModel'):t('eApi')+' ('+r.status+') '+m}}
  const j=await r.json();return parseJson((j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join(''))}
-function aiSettings(){const m=modal(`<h3>Configurar IA</h3><p>Para importar e criar receitas neste site, o Matarello usa a API da Anthropic com a sua chave. Ela fica guardada só neste navegador e cada leitura é cobrada na sua conta da API. Crie a chave em console.anthropic.com › API Keys.</p>
- <label style="display:grid;gap:6px;font-weight:800">Chave da API<input id="ak" type="password" value="${esc(getKey())}" placeholder="sk-ant-…" autocomplete="off"></label>
- <label style="display:grid;gap:6px;font-weight:800">Modelo<input id="am" value="${esc(getModel())}"></label>
- <div class="act"><button class="btn quiet" data-clr>Apagar chave</button><button class="btn" data-x>Cancelar</button><button class="btn red" data-ok>Salvar</button></div>`);
+function aiSettings(){const m=modal(`<h3>${t('aiT')}</h3><p>${t('aiP')}</p>
+ <label style="display:grid;gap:6px;font-weight:800">${t('aiKey')}<input id="ak" type="password" value="${esc(getKey())}" placeholder="sk-ant-…" autocomplete="off"></label>
+ <label style="display:grid;gap:6px;font-weight:800">${t('aiModel')}<input id="am" value="${esc(getModel())}"></label>
+ <div class="act"><button class="btn quiet" data-clr>${t('aiClear')}</button><button class="btn" data-x>${t('cancel')}</button><button class="btn red" data-ok>${t('aiSave')}</button></div>`);
  m.querySelector('[data-x]').onclick=()=>m.remove();
- m.querySelector('[data-clr]').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}m.remove();toast('Chave apagada');if(S.view==='import')renderImport()};
- m.querySelector('[data-ok]').onclick=()=>{try{localStorage.setItem(KEY,m.querySelector('#ak').value.trim());localStorage.setItem(MODEL,m.querySelector('#am').value.trim()||'claude-sonnet-5-5')}catch(e){toast('Não foi possível guardar a chave')}m.remove();toast('IA configurada');if(S.view==='import')renderImport()}}
-function normalize(r,keepId){r=r||{};const cat=CATS.some(c=>c[0]===r.category)?r.category:'altro';
- const id=keepId&&/^[a-z0-9-]{3,40}$/i.test(r.id||'')?r.id:uid();
- return{id,title:String(r.title||'Receita sem nome').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:Math.max(1,n0(r.servings)||4),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(r.difficulty)?r.difficulty:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),favorite:!!r.favorite,createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
-async function persist(r){r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
- if(S.mode==='db'){try{await S.db.collection('recipes').doc(r.id).set(JSON.parse(JSON.stringify(r)))}catch(e){dbErr(e);throw e}}else lsSave()}
-async function remove(id){S.recipes=S.recipes.filter(x=>x.id!==id);if(S.mode==='db'){try{await S.db.collection('recipes').doc(id).delete()}catch(e){dbErr(e)}}else lsSave()}
-function dbErr(e){const c=e&&e.code;toast(c==='quota_exceeded'?'O caderno atingiu o limite de armazenamento.':c==='invalid_argument'?'Não foi possível salvar (acesso só de leitura ou foto grande demais).':'Não foi possível salvar agora. Tente de novo.')}
+ m.querySelector('[data-clr]').onclick=()=>{try{localStorage.removeItem('matarello.'+KEY)}catch(e){}m.remove();toast(t('aiCleared'));if(S.view==='import')renderImport()};
+ m.querySelector('[data-ok]').onclick=()=>{try{localStorage.setItem('matarello.'+KEY,m.querySelector('#ak').value.trim());localStorage.setItem('matarello.'+MODEL,m.querySelector('#am').value.trim()||'claude-sonnet-5-5')}catch(e){toast(t('aiSaveFail'))}m.remove();toast(t('aiSaved'));if(S.view==='import')renderImport()}}
 
-/* ---------- ingredients ---------- */
+/* ---------- ingredientes ---------- */
 const FR={'½':.5,'¼':.25,'¾':.75,'⅓':1/3,'⅔':2/3};
-function num(s){s=s.trim();if(FR[s])return FR[s];if(s.includes('/')){let t=0;for(const x of s.split(/\s+/)){if(x.includes('/')){const[a,b]=x.split('/');t+=(+a)/(+b||1)}else t+=+x}return t}return parseFloat(s.replace(',','.'))}
+function num(s){s=s.trim();if(FR[s])return FR[s];if(s.includes('/')){let x=0;for(const p of s.split(/\s+/)){if(p.includes('/')){const[a,b]=p.split('/');x+=(+a)/(+b||1)}else x+=+p}return x}return parseFloat(s.replace(',','.'))}
 function parseIng(l){const m=l.match(/^\s*(\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:[.,]\d+)?|[½¼¾⅓⅔])(?:\s*(?:a|-|–)\s*(\d+(?:[.,]\d+)?)(?=\s))?\s*(.*)$/);if(!m)return{q:null,rest:l};return{q:num(m[1]),q2:m[2]?num(m[2]):null,rest:m[3]}}
 function fq(q){if(q==null||!isFinite(q))return'';const r=Math.round(q*100)/100,w=Math.floor(r),d=Math.round((r-w)*100)/100,F={.25:'¼',.5:'½',.75:'¾',.33:'⅓',.67:'⅔'};if(F[d]&&r<20)return(w?w+' ':'')+F[d];return(r>=20?Math.round(r):r).toString().replace('.',',')}
 function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l};return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest}}
 const isGrp=l=>/:\s*$/.test(l)&&l.length<70;
-function stepTime(s){const h=s.match(/(\d+(?:[.,]\d+)?)\s*(?:a\s*\d+\s*)?(?:h|horas?)\b/i),m=s.match(/(\d+)\s*(?:a\s*\d+\s*)?(?:min|minutos?)\b/i);let t=0;if(h)t+=parseFloat(h[1].replace(',','.'))*60;if(m)t+=+m[1];return t>0&&t<=24*60?Math.round(t):0}
+function stepTime(s){const h=s.match(/(\d+(?:[.,]\d+)?)\s*(?:a\s*\d+\s*)?(?:h|horas?|ore|ora)\b/i),m=s.match(/(\d+)\s*(?:a\s*\d+\s*)?(?:min|minutos?|minuti|minuto)\b/i);let x=0;if(h)x+=parseFloat(h[1].replace(',','.'))*60;if(m)x+=+m[1];return x>0&&x<=24*60?Math.round(x):0}
 
-/* ---------- router ---------- */
-function route(soft){const h=decodeURIComponent(location.hash.slice(1));let v='home',id=null;
+/* ---------- rotas ---------- */
+function route(soft,keepScroll){const h=decodeURIComponent(location.hash.slice(1));let v='home',id=null;
  if(h.startsWith('receita-')){v='recipe';id=h.slice(8)}else if(h.startsWith('editar-')){v='edit';id=h.slice(7)}else if(h==='nova'){v='edit'}else if(h==='importar'){v='import'}
- if(soft&&!(v==='home'||v==='recipe')||soft&&v!==S.view)return;
- S.view=v;({home:renderHome,recipe:renderRecipe,edit:renderEdit,import:renderImport})[v](id);if(!soft)window.scrollTo(0,0)}
+ if(soft&&!keepScroll&&(!(v==='home'||v==='recipe')||v!==S.view))return;
+ const y=scrollY;S.view=v;closePop();({home:renderHome,recipe:renderRecipe,edit:renderEdit,import:renderImport})[v](id);if(soft)scrollTo(0,y);else scrollTo(0,0)}
 addEventListener('hashchange',()=>route());
 const go=h=>{if(location.hash.slice(1)===h)route();else location.hash=h};
 
-/* ---------- home ---------- */
+/* ---------- início ---------- */
 function photoHTML(r){const u=safeImg(r.photo);return u?`<img src="${esc(u)}" alt="${esc(r.title)}" loading="lazy">`:`<div class="noph"><img src="mascote-mini.jpg" alt=""></div>`}
 function filtered(){const q=S.q.trim().toLowerCase();let l=S.recipes.filter(r=>(!S.cat||r.category===S.cat)&&(!S.fav||r.favorite)&&(!q||[r.title,r.subtitle,...(r.ingredients||[]),...(r.tags||[])].join(' ').toLowerCase().includes(q)));
  const tot=r=>n0(r.prepMin)+n0(r.cookMin);
- if(S.sort==='az')l.sort((a,b)=>a.title.localeCompare(b.title,'pt'));else if(S.sort==='fast')l.sort((a,b)=>(tot(a)||1e9)-(tot(b)||1e9));else l.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));return l}
-const card=r=>`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.favorite?`<span class="favd" aria-label="Favorita">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} porções</span><span>${ic('chef')}${esc(r.difficulty||'')}</span></div></div></a>`;
-function gridHTML(){if(!S.ready&&!S.recipes.length)return`<div class="empty"><div class="spin" style="margin:0 auto 12px"></div><p>Abrindo o caderno…</p></div>`;
+ if(S.sort==='az')l.sort((a,b)=>a.title.localeCompare(b.title,S.lang));else if(S.sort==='fast')l.sort((a,b)=>(tot(a)||1e9)-(tot(b)||1e9));else l.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));return l}
+const card=r=>`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.favorite?`<span class="favd" aria-label="${at('fav')}">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} ${pl(r.servings)}</span><span>${ic('chef')}${esc(dname(r.difficulty))}</span></div></div></a>`;
+function gridHTML(){if(!S.ready&&!S.recipes.length)return`<div class="empty"><div class="spin" style="margin:0 auto 12px"></div><p>${t('loading')}</p></div>`;
  const l=filtered();if(l.length)return l.map(card).join('');
- if(S.recipes.length)return`<div class="empty"><h3>Nada encontrado</h3><p>Tente outra busca ou categoria.</p></div>`;
- return`<div class="empty"><img src="mascote-mini.jpg" alt=""><h3>Seu caderno está em branco</h3><p>Escreva sua primeira receita ou importe de um PDF, vídeo, foto ou texto.</p><div class="hero-act"><a class="btn red" href="#nova">${ic('plus')}Nova receita</a><a class="btn" href="#importar">${ic('upload')}Importar</a></div></div>`}
+ if(S.recipes.length)return`<div class="empty"><h3>${t('nothing')}</h3><p>${t('tryOther')}</p></div>`;
+ return`<div class="empty"><img src="mascote-mini.jpg" alt=""><h3>${t('emptyT')}</h3><p>${t('emptyP')}</p><div class="hero-act"><a class="btn red" href="#nova">${ic('plus')}${t('newNav')}</a><a class="btn" href="#importar">${ic('upload')}${t('importNav')}</a></div></div>`}
+function updArrows(){const c=$('#chips');if(!c)return;const l=$('#arl'),r=$('#arr');if(!l)return;l.disabled=c.scrollLeft<=4;r.disabled=c.scrollLeft+c.clientWidth>=c.scrollWidth-4}
 function renderHome(){const favs=S.recipes.filter(r=>r.favorite).length,cats=new Set(S.recipes.map(r=>r.category)).size;
  const cnt=k=>S.recipes.filter(r=>r.category===k).length;
  app.innerHTML=`<section class="hero band"><div class="wrap">
-  <div class="medal"><img src="mascote.jpg" alt="Mascote do Matarello: ratinho chef com um livro de receitas"></div>
+  <div class="medal"><img src="mascote.jpg" alt="Matarello"></div>
   <h1 class="brand">Matarello</h1>
-  <p class="kicker">Il quaderno di ricette</p>
-  <p class="lede">Receitas com foto, ingredientes, equipamentos e passo a passo. Importe de PDFs, vídeos do Instagram, fotos do caderno da nonna ou qualquer texto.</p>
-  <div class="hero-act"><a class="btn light" href="#nova">${ic('plus')}Nova receita</a><a class="btn ghost-l" href="#importar">${ic('upload')}Importar receita</a></div>
-  <dl class="stats"><div><dt>Receitas</dt><dd>${S.recipes.length}</dd></div><div><dt>Favoritas</dt><dd>${favs}</dd></div><div><dt>Categorias</dt><dd>${cats}</dd></div></dl>
+  <p class="kicker">${t('kicker')}</p>
+  <p class="lede">${t('lede')}</p>
+  <div class="hero-act"><a class="btn light" href="#nova">${ic('plus')}${t('newNav')}</a><a class="btn ghost-l" href="#importar">${ic('upload')}${t('importRecipe')}</a></div>
+  <dl class="stats"><div><dt>${t('sRecipes')}</dt><dd>${S.recipes.length}</dd></div><div><dt>${t('sFavs')}</dt><dd>${favs}</dd></div><div><dt>${t('sCats')}</dt><dd>${cats}</dd></div></dl>
  </div></section><div class="tricolor"></div>
  <section class="band"><div class="wrap">
-  <div class="tools"><h2>Ricette</h2>
-   <div class="search">${ic('search')}<input type="search" id="q" placeholder="Buscar por nome, ingrediente ou tag" value="${esc(S.q)}" aria-label="Buscar"></div>
-   <select id="sort" aria-label="Ordenar"><option value="rec">Mais recentes</option><option value="az">A–Z</option><option value="fast">Mais rápidas</option></select>
-   <button class="chip ${S.fav?'on':''}" id="favf">${ic('heart')}Favoritas</button>
+  <div class="tools"><h2>${t('listTitle')}</h2>
+   <div class="search">${ic('search')}<input type="search" id="q" placeholder="${at('searchPh')}" value="${esc(S.q)}" aria-label="${at('search')}"></div>
+   <select id="sort" aria-label="${at('sort')}"><option value="rec">${t('sortRec')}</option><option value="az">${t('sortAz')}</option><option value="fast">${t('sortFast')}</option></select>
+   <button class="chip ${S.fav?'on':''}" id="favf">${ic('heart')}${t('favs')}</button>
   </div>
-  <div class="chips"><button class="chip ${!S.cat?'on':''}" data-cat="">Todas <small>${S.recipes.length}</small></button>${CATS.map(c=>`<button class="chip ${S.cat===c[0]?'on':''}" data-cat="${c[0]}">${c[1]} <small>${c[2]} · ${cnt(c[0])}</small></button>`).join('')}</div>
+  <div class="chipsw"><button class="arr" id="arl" aria-label="${at('prevCats')}">${ic('back')}</button>
+   <div class="chips" id="chips"><button class="chip ${!S.cat?'on':''}" data-cat="">${t('all')} <small>${S.recipes.length}</small></button>${CATS.map(c=>`<button class="chip ${S.cat===c[0]?'on':''}" data-cat="${c[0]}">${c[1]} <small>${esc(catDesc(c))} · ${cnt(c[0])}</small></button>`).join('')}</div>
+   <button class="arr" id="arr" aria-label="${at('nextCats')}">${ic('fwd')}</button></div>
   <div class="grid" id="grid">${gridHTML()}</div>
  </div></section>`;
  $('#sort').value=S.sort;
  $('#q').oninput=e=>{S.q=e.target.value;$('#grid').innerHTML=gridHTML()};
  $('#sort').onchange=e=>{S.sort=e.target.value;$('#grid').innerHTML=gridHTML()};
- $('#favf').onclick=()=>{S.fav=!S.fav;renderHome()};
- app.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;renderHome()})}
+ $('#favf').onclick=()=>{S.fav=!S.fav;route(true,true)};
+ const ch=$('#chips');ch.style.scrollBehavior='auto';ch.scrollLeft=S.chipX;ch.style.scrollBehavior='';
+ ch.onscroll=()=>{S.chipX=ch.scrollLeft;updArrows()};
+ $('#arl').onclick=()=>ch.scrollBy({left:-ch.clientWidth*.7});$('#arr').onclick=()=>ch.scrollBy({left:ch.clientWidth*.7});
+ requestAnimationFrame(updArrows);
+ app.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;route(true,true)})}
+addEventListener('resize',updArrows);
 
-/* ---------- recipe ---------- */
+/* ---------- receita ---------- */
 function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
- if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>Receita não encontrada</h3><p>Ela pode ter sido excluída.</p><a class="btn" href="#">Voltar ao caderno</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
+ if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
  const sv=S.serv[id]||r.servings||1,f=sv/(r.servings||1),chk=S.chk[id]||(S.chk[id]={});
  const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span>${s.q?`<b>${esc(s.q)}</b> `:''}${esc(s.rest)}</span></label></li>`}).join('');
- const steps=(r.steps||[]).map((s,i)=>{const t=stepTime(s);return`<li><span class="n">${i+1}</span><div><p>${esc(s)}</p>${t?`<button class="btn tbtn" data-tm="${t}" data-st="${i+1}">${ic('timer')}Cronômetro ${fmtMin(t)}</button>`:''}</div></li>`}).join('');
+ const steps=(r.steps||[]).map((s,i)=>{const x=stepTime(s);return`<li><span class="n">${i+1}</span><div><p>${esc(s)}</p>${x?`<button class="btn tbtn" data-tm="${x}" data-st="${i+1}">${ic('timer')}${t('timer')} ${fmtMin(x)}</button>`:''}</div></li>`}).join('');
  const src=r.sourceUrl?(/^https?:\/\//.test(r.sourceUrl)?`<a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(r.sourceLabel||r.sourceUrl)}</a>`:esc(r.sourceUrl)):esc(r.sourceLabel);
+ const c=catOf(r.category);
  app.innerHTML=`<div class="tricolor"></div><article class="band"><div class="wrap">
- <a class="back" href="#">${ic('back')}Todas as receitas</a>
+ <a class="back" href="#">${ic('back')}${t('backAll')}</a>
  <header class="rhead">
   <div class="ph rphoto" style="--c:${CATCOL[r.category]}">${photoHTML(r)}</div>
   <div class="rinfo">
-   <p class="kicker red">${esc(catOf(r.category)[1])} · ${esc(catOf(r.category)[2])}</p>
+   <p class="kicker red">${esc(c[1])} · ${esc(catDesc(c))}</p>
    <h1>${esc(r.title)}</h1>${r.subtitle?`<p class="lede">${esc(r.subtitle)}</p>`:''}
-   <div class="facts"><div class="fact"><span>Preparo</span><b>${fmtMin(r.prepMin)}</b></div><div class="fact"><span>Cozimento</span><b>${fmtMin(r.cookMin)}</b></div><div class="fact"><span>Dificuldade</span><b>${esc(r.difficulty)}</b></div><div class="fact"><span>Porções</span><div class="stepper"><button data-sv="-1" aria-label="Menos porções">−</button><b>${sv}</b><button data-sv="1" aria-label="Mais porções">+</button></div></div></div>
-   ${(r.tags||[]).length?`<div class="tags">${r.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:'<div style="height:16px"></div>'}
+   <div class="facts"><div class="fact"><span>${t('prep')}</span><b>${fmtMin(r.prepMin)}</b></div><div class="fact"><span>${t('cook')}</span><b>${fmtMin(r.cookMin)}</b></div><div class="fact"><span>${t('diff')}</span><b>${esc(dname(r.difficulty))}</b></div><div class="fact"><span>${t('servings')}</span><div class="stepper"><button data-sv="-1" aria-label="${at('less')}">−</button><b>${sv}</b><button data-sv="1" aria-label="${at('more')}">+</button></div></div></div>
+   ${(r.tags||[]).length?`<div class="tags">${r.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>`:'<div style="height:16px"></div>'}
    <div class="ractions">
-    <button class="btn red" id="cook">${ic('play')}Modo cozinha</button>
-    <button class="btn ${r.favorite?'on':''}" id="favb">${ic('heart')}${r.favorite?'Favorita':'Favoritar'}</button>
-    <a class="btn" href="#editar-${esc(r.id)}">${ic('edit')}Editar</a>
-    <button class="btn" id="shop">${ic('copy')}Lista de compras</button>
-    <button class="btn" id="dlr">${ic('download')}Baixar ficha</button>
-    <button class="btn quiet" id="del">${ic('trash')}Excluir</button>
+    <button class="btn red" id="cook">${ic('play')}${t('cookMode')}</button>
+    <button class="btn ${r.favorite?'on':''}" id="favb">${ic('heart')}${r.favorite?t('favorited'):t('favorite')}</button>
+    <a class="btn" href="#editar-${esc(r.id)}">${ic('edit')}${t('edit')}</a>
+    <button class="btn" id="shop">${ic('copy')}${t('shop')}</button>
+    <button class="btn" id="dlr">${ic('download')}${t('dlSheet')}</button>
+    <button class="btn quiet" id="del">${ic('trash')}${t('del')}</button>
    </div>
   </div>
  </header>
  <div class="rbody">
   <aside>
-   <section class="box"><h2>Ingredientes <small>${sv} porç${sv>1?'ões':'ão'}</small></h2>${ings?`<ul class="ing">${ings}</ul>`:'<p>Nenhum ingrediente cadastrado.</p>'}</section>
-   <section class="box"><h2>Equipamentos</h2>${(r.equipment||[]).length?`<ul class="eq">${r.equipment.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>`:'<p>Nenhum equipamento cadastrado.</p>'}</section>
+   <section class="box"><h2>${t('ingredients')} <small>${sv} ${pl(sv)}</small></h2>${ings?`<ul class="ing">${ings}</ul>`:`<p>${t('noIng')}</p>`}</section>
+   <section class="box"><h2>${t('equipment')}</h2>${(r.equipment||[]).length?`<ul class="eq">${r.equipment.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>`:`<p>${t('noEq')}</p>`}</section>
   </aside>
-  <section class="col-steps"><h2>Modo de preparo</h2>${steps?`<ol class="steps">${steps}</ol>`:'<p>Nenhum passo cadastrado.</p>'}
-   ${r.notes?`<div class="tip"><h3>Dica do chef</h3><p>${esc(r.notes)}</p></div>`:''}
-   ${src?`<p class="src">${ic('link')}Fonte: ${src}</p>`:''}
+  <section class="col-steps"><h2>${t('method')}</h2>${steps?`<ol class="steps">${steps}</ol>`:`<p>${t('noSteps')}</p>`}
+   ${r.notes?`<div class="tip"><h3>${t('tip')}</h3><p>${esc(r.notes)}</p></div>`:''}
+   ${src?`<p class="src">${ic('link')}${t('source')}: ${src}</p>`:''}
   </section>
  </div></div></article>`;
- app.querySelectorAll('[data-sv]').forEach(b=>b.onclick=()=>{S.serv[id]=Math.max(1,sv+ +b.dataset.sv);renderRecipe(id)});
- app.querySelectorAll('[data-ck]').forEach(c=>c.onchange=()=>{chk[c.dataset.ck]=c.checked});
- app.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(`${r.title} · passo ${b.dataset.st}`,+b.dataset.tm));
+ app.querySelectorAll('[data-sv]').forEach(b=>b.onclick=()=>{S.serv[id]=Math.max(1,sv+ +b.dataset.sv);route(true,true)});
+ app.querySelectorAll('[data-ck]').forEach(x=>x.onchange=()=>{chk[x.dataset.ck]=x.checked});
+ app.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(`${r.title} · ${t('step')} ${b.dataset.st}`,+b.dataset.tm));
  $('#cook').onclick=()=>cookMode(r,f);
- $('#favb').onclick=async()=>{const n={...r,favorite:!r.favorite};try{await persist(n);renderRecipe(id)}catch(e){}};
- $('#shop').onclick=()=>{const t=`Lista de compras — ${r.title} (${sv} porções)\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+(s.q?s.q+' ':'')+s.rest}).join('\n');copyText(t,'Lista copiada')};
+ $('#favb').onclick=async()=>{const n={...r,favorite:!r.favorite};try{await persist(n);route(true,true)}catch(e){}};
+ $('#shop').onclick=()=>{const x=`${t('shopTitle')} — ${r.title} (${sv} ${pl(sv)})\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+(s.q?s.q+' ':'')+s.rest}).join('\n');copyText(x,t('copied'))};
  $('#dlr').onclick=()=>downloadSheet(r,sv,f);
- $('#del').onclick=async()=>{if(await ask('Excluir receita?',`"${r.title}" será removida do caderno.`,'Excluir')){await remove(id);toast('Receita excluída');go('')}}}
-function copyText(t,ok){const fb=()=>{const m=modal(`<h3>Copie o texto</h3><textarea rows="10">${esc(t)}</textarea><div class="act"><button class="btn" data-x>Fechar</button></div>`);m.querySelector('[data-x]').onclick=()=>m.remove();m.querySelector('textarea').select()};
- try{navigator.clipboard.writeText(t).then(()=>toast(ok),fb)}catch(e){fb()}}
+ $('#del').onclick=async()=>{if(await ask(t('delQ'),t('delMsg',{t:r.title}),t('del'))){await remove(id);toast(t('deleted'));go('')}}}
+function copyText(x,ok){const fb=()=>{const m=modal(`<h3>${t('copyText')}</h3><textarea rows="10">${esc(x)}</textarea><div class="act"><button class="btn" data-x>${t('close')}</button></div>`);m.querySelector('[data-x]').onclick=()=>m.remove();m.querySelector('textarea').select()};
+ try{navigator.clipboard.writeText(x).then(()=>toast(ok),fb)}catch(e){fb()}}
 
-/* ---------- timers ---------- */
+/* ---------- cronômetros ---------- */
 let AC,tick;const timers=[];
 function beep(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach(d=>{const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=880;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.25,AC.currentTime+d);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d+.3);o.start(AC.currentTime+d);o.stop(AC.currentTime+d+.32)})}catch(e){}}
-function startTimer(label,min){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();AC.resume()}catch(e){}timers.push({id:uid(),label,end:Date.now()+min*60000});drawTimers();toast('Cronômetro de '+fmtMin(min)+' iniciado');if(!tick)tick=setInterval(drawTimers,1000)}
-function drawTimers(){const now=Date.now();$('#timers').innerHTML=timers.map(t=>{const rem=t.end-now;if(rem<=0&&!t.done){t.done=true;beep();toast('Tempo! '+t.label)}const s=Math.max(0,Math.round(rem/1000));return`<div class="tmr ${t.done?'done':''}"><div><div style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.label)}</div><b>${t.done?'Pronto!':String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}</b></div><button data-tx="${t.id}">${t.done?'OK':'Parar'}</button></div>`}).join('');
- $('#timers').querySelectorAll('[data-tx]').forEach(b=>b.onclick=()=>{const i=timers.findIndex(t=>t.id===b.dataset.tx);if(i>=0)timers.splice(i,1);drawTimers()});
+function startTimer(label,min){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();AC.resume()}catch(e){}timers.push({id:uid(),label,end:Date.now()+min*60000});drawTimers();toast(t('started',{m:fmtMin(min)}));if(!tick)tick=setInterval(drawTimers,1000)}
+function drawTimers(){const now=Date.now();$('#timers').innerHTML=timers.map(x=>{const rem=x.end-now;if(rem<=0&&!x.done){x.done=true;beep();toast(t('timeUp')+x.label)}const s=Math.max(0,Math.round(rem/1000));return`<div class="tmr ${x.done?'done':''}"><div><div style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.label)}</div><b>${x.done?t('ready'):String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}</b></div><button data-tx="${x.id}">${x.done?t('ok'):t('stop')}</button></div>`}).join('');
+ $('#timers').querySelectorAll('[data-tx]').forEach(b=>b.onclick=()=>{const i=timers.findIndex(x=>x.id===b.dataset.tx);if(i>=0)timers.splice(i,1);drawTimers()});
  if(!timers.length){clearInterval(tick);tick=null}}
 
-/* ---------- cook mode ---------- */
-async function cookMode(r,f){const st=r.steps||[];if(!st.length){toast('Esta receita ainda não tem passos.');return}
+/* ---------- modo cozinha ---------- */
+async function cookMode(r,f){const st=r.steps||[];if(!st.length){toast(t('noStepsYet'));return}
  let i=0,lock=null;try{lock=await navigator.wakeLock?.request('screen')}catch(e){}
  const ov=document.createElement('div');ov.className='cook';document.body.append(ov);document.body.style.overflow='hidden';
  const close=()=>{ov.remove();document.body.style.overflow='';removeEventListener('keydown',key);try{lock&&lock.release()}catch(e){}};
  const key=e=>{if(e.key==='ArrowRight'&&i<st.length-1){i++;draw()}else if(e.key==='ArrowLeft'&&i>0){i--;draw()}else if(e.key==='Escape')close()};addEventListener('keydown',key);
- const draw=()=>{const t=stepTime(st[i]);ov.innerHTML=`<div class="ck-top"><b>${esc(r.title)}</b><span>Passo ${i+1} de ${st.length}</span><button class="btn" data-c>Fechar</button></div><div class="ck-bar"><i style="width:${(i+1)/st.length*100}%"></i></div>
-  <div class="ck-main"><span class="ck-n">${i+1}</span><p>${esc(st[i])}</p>${t?`<div><button class="btn green" data-t>${ic('timer')}Cronômetro ${fmtMin(t)}</button></div>`:''}</div>
-  <details class="ck-ing"><summary>Ver ingredientes e equipamentos</summary><ul>${(r.ingredients||[]).map(l=>isGrp(l)?`<li><b>${esc(l)}</b></li>`:(s=>`<li>${esc((s.q?s.q+' ':'')+s.rest)}</li>`)(scaled(l,f))).join('')}${(r.equipment||[]).map(e=>`<li><i>${esc(e)}</i></li>`).join('')}</ul></details>
-  <div class="ck-nav"><button class="btn" data-p ${i?'':'disabled'}>Anterior</button>${i<st.length-1?'<button class="btn red" data-n>Próximo passo</button>':'<button class="btn green" data-c>Buon appetito!</button>'}</div>`;
-  ov.querySelectorAll('[data-c]').forEach(b=>b.onclick=close);ov.querySelector('[data-p]').onclick=()=>{i--;draw()};const n=ov.querySelector('[data-n]');if(n)n.onclick=()=>{i++;draw()};const tb=ov.querySelector('[data-t]');if(tb)tb.onclick=()=>startTimer(`${r.title} · passo ${i+1}`,t)};
+ const draw=()=>{const x=stepTime(st[i]);ov.innerHTML=`<div class="ck-top"><b>${esc(r.title)}</b><span>${t('stepOf',{i:i+1,n:st.length})}</span><button class="btn" data-c>${t('close')}</button></div><div class="ck-bar"><i style="width:${(i+1)/st.length*100}%"></i></div>
+  <div class="ck-main"><span class="ck-n">${i+1}</span><p>${esc(st[i])}</p>${x?`<div><button class="btn green" data-t>${ic('timer')}${t('timer')} ${fmtMin(x)}</button></div>`:''}</div>
+  <details class="ck-ing"><summary>${t('seeIng')}</summary><ul>${(r.ingredients||[]).map(l=>isGrp(l)?`<li><b>${esc(l)}</b></li>`:(s=>`<li>${esc((s.q?s.q+' ':'')+s.rest)}</li>`)(scaled(l,f))).join('')}${(r.equipment||[]).map(e=>`<li><i>${esc(e)}</i></li>`).join('')}</ul></details>
+  <div class="ck-nav"><button class="btn" data-p ${i?'':'disabled'}>${t('prev')}</button>${i<st.length-1?`<button class="btn red" data-n>${t('next')}</button>`:`<button class="btn green" data-c>${t('buon')}</button>`}</div>`;
+  ov.querySelectorAll('[data-c]').forEach(b=>b.onclick=close);ov.querySelector('[data-p]').onclick=()=>{i--;draw()};const n=ov.querySelector('[data-n]');if(n)n.onclick=()=>{i++;draw()};const tb=ov.querySelector('[data-t]');if(tb)tb.onclick=()=>startTimer(`${r.title} · ${t('step')} ${i+1}`,x)};
  draw()}
 
-/* ---------- photos ---------- */
+/* ---------- fotos ---------- */
 async function toCanvas(src,max){let img;try{img=await createImageBitmap(src,{imageOrientation:'from-image'})}catch(e){img=await new Promise((res,rej)=>{const u=URL.createObjectURL(src),im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=u})}
  const w=img.width,h=img.height,s=Math.min(1,max/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c}
 async function storePhoto(blob){const c=await toCanvas(blob,1200);if(!S.db)return c.toDataURL('image/jpeg',.8);if(S.assets){try{const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));const a=await S.assets.upload(b);return a.url||('/_blob/'+a.id)}catch(e){}}
  const c2=await toCanvas(blob,800);return c2.toDataURL('image/jpeg',.72)}
 
 /* ---------- editor ---------- */
-function renderEdit(id){const ex=id?S.recipes.find(x=>x.id===id):null;
- if(id&&!ex){app.innerHTML=`<section class="band"><div class="wrap"><div class="empty">${S.ready?'<h3>Receita não encontrada</h3><a class="btn" href="#">Voltar</a>':'<div class="spin" style="margin:0 auto"></div>'}</div></div></section>`;return}
- const b=ex||S.draft||{};const from=!ex&&S.draft?S.draft._from:'';const pend=!ex&&S.draft?S.draft._photoBlob:null;S.draft=null;
- let photo=safeImg(b.photo),busy=false;
+function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
+ if(id&&!ex){app.innerHTML=`<section class="band"><div class="wrap"><div class="empty">${S.ready?`<h3>${t('notFound')}</h3><a class="btn" href="#">${t('back')}</a>`:'<div class="spin" style="margin:0 auto"></div>'}</div></div></section>`;return}
+ let b=ex||S.draft||{};if(keep)b={...b,...keep,tags:String(keep.tags||'').split(','),ingredients:keep.ingredients,equipment:keep.equipment,steps:keep.steps};
+ const from=keep?S.edFrom:(!ex&&S.draft?S.draft._from:'');const pend=!keep&&!ex&&S.draft?S.draft._photoBlob:null;S.draft=null;S.edFrom=from;S.edId=id||null;
+ let busy=false;S.edPhoto=safeImg(b.photo);
+ const lines=v=>esc(Array.isArray(v)?v.join('\n'):(v||''));
  const opt=(v,list)=>list.map(x=>`<option value="${esc(x[0])}" ${x[0]===v?'selected':''}>${esc(x[1])}</option>`).join('');
+ const backH=ex?'#receita-'+esc(ex.id):'#';
  app.innerHTML=`<div class="tricolor"></div><section class="band ed"><div class="wrap">
- <a class="back" href="${ex?'#receita-'+esc(ex.id):'#'}">${ic('back')}Voltar</a>
- <h1>${ex?'Editar receita':'Nova receita'}</h1>${from?`<p class="note">Importada de ${esc(from)}. Confira os dados antes de salvar.</p>`:''}
+ <a class="back" href="${backH}">${ic('back')}${t('back')}</a>
+ <h1>${ex?t('editT'):t('newT')}</h1>${from?`<p class="note">${esc(t('importedFrom',{f:from}))}</p>`:''}
  <form id="f" class="form" autocomplete="off">
   <div class="ed-grid">
-   <div class="ed-photo"><div class="drop" id="drop" tabindex="0" role="button" aria-label="Escolher foto"></div>
-    <div class="row"><label class="btn" style="display:inline-flex">${ic('camera')}Escolher foto<input type="file" accept="image/*" id="ph" hidden></label><button type="button" class="btn quiet" id="phx">Remover</button></div></div>
+   <div class="ed-photo"><div class="drop" id="drop" tabindex="0" role="button" aria-label="${at('choosePhoto')}"></div>
+    <div class="row"><label class="btn" style="display:inline-flex">${ic('camera')}${t('choosePhoto')}<input type="file" accept="image/*" id="ph" hidden></label><button type="button" class="btn quiet" id="phx">${t('removePhoto')}</button></div></div>
    <div class="ed-main">
-    <label>Nome da receita<input name="title" required maxlength="140" value="${esc(b.title||'')}" placeholder="Lasanha alla bolognese"></label>
-    <label>Descrição curta<input name="subtitle" maxlength="300" value="${esc(b.subtitle||'')}" placeholder="Uma frase que dá água na boca"></label>
-    <div class="r4"><label>Categoria<select name="category">${opt(b.category||'primi',CATS.map(c=>[c[0],c[1]+' · '+c[2]]))}</select></label>
-     <label>Porções<input name="servings" type="number" min="1" inputmode="numeric" value="${esc(b.servings||4)}"></label>
-     <label>Preparo (min)<input name="prepMin" type="number" min="0" inputmode="numeric" value="${esc(b.prepMin||'')}"></label>
-     <label>Cozimento (min)<input name="cookMin" type="number" min="0" inputmode="numeric" value="${esc(b.cookMin||'')}"></label></div>
-    <div class="r2"><label>Dificuldade<select name="difficulty">${opt(b.difficulty||'Média',[['Fácil','Fácil'],['Média','Média'],['Difícil','Difícil']])}</select></label>
-     <label>Tags <small>separadas por vírgula</small><input name="tags" value="${esc((b.tags||[]).join(', '))}" placeholder="massa, domingo, forno"></label></div>
+    <label>${t('name')}<input name="title" required maxlength="140" value="${esc(b.title||'')}" placeholder="${at('namePh')}"></label>
+    <label>${t('desc')}<input name="subtitle" maxlength="300" value="${esc(b.subtitle||'')}" placeholder="${at('descPh')}"></label>
+    <div class="r4"><label>${t('category')}<select name="category">${opt(b.category||'primi',CATS.map(c=>[c[0],c[1]+' · '+catDesc(c)]))}</select></label>
+     <label>${t('servings')}<input name="servings" type="number" min="1" inputmode="numeric" value="${esc(b.servings||4)}"></label>
+     <label>${t('prepMin')}<input name="prepMin" type="number" min="0" inputmode="numeric" value="${esc(b.prepMin||'')}"></label>
+     <label>${t('cookMin')}<input name="cookMin" type="number" min="0" inputmode="numeric" value="${esc(b.cookMin||'')}"></label></div>
+    <div class="r2"><label>${t('diff')}<select name="difficulty">${opt(b.difficulty||'Média',['Fácil','Média','Difícil'].map(d=>[d,dname(d)]))}</select></label>
+     <label>${t('tags')} <small>${t('tagsHint')}</small><input name="tags" value="${esc((b.tags||[]).map(x=>String(x).trim()).filter(Boolean).join(', '))}" placeholder="${at('tagsPh')}"></label></div>
    </div>
   </div>
   <div class="r2">
-   <label>Ingredientes <small>um por linha, quantidade primeiro ("200 g de farinha"). Termine uma linha com ":" para criar um grupo.</small><textarea name="ingredients" rows="12" placeholder="Para a massa:&#10;500 g de farinha 00&#10;5 ovos">${esc((b.ingredients||[]).join('\n'))}</textarea></label>
-   <label>Equipamentos <small>um por linha</small><textarea name="equipment" rows="12" placeholder="Matarello (rolo de macarrão)&#10;Panela grande&#10;Refratário 30 × 20 cm">${esc((b.equipment||[]).join('\n'))}</textarea></label>
+   <label>${t('ingredients')} <small>${esc(t('ingHint'))}</small><textarea name="ingredients" rows="12" placeholder="${at('ingPh')}">${lines(b.ingredients)}</textarea></label>
+   <label>${t('equipment')} <small>${t('eqHint')}</small><textarea name="equipment" rows="12" placeholder="${at('eqPh')}">${lines(b.equipment)}</textarea></label>
   </div>
-  <label>Modo de preparo <small>um passo por linha. Tempos como "20 min" viram cronômetro.</small><textarea name="steps" rows="12">${esc((b.steps||[]).join('\n'))}</textarea></label>
-  <label>Dica do chef / observações<textarea name="notes" rows="3">${esc(b.notes||'')}</textarea></label>
-  <div class="r2"><label>Fonte <small>link do Instagram, site, livro…</small><input name="sourceUrl" value="${esc(b.sourceUrl||'')}" placeholder="https://www.instagram.com/reel/…"></label>
-   <label>Nome da fonte<input name="sourceLabel" value="${esc(b.sourceLabel||'')}" placeholder="Caderno da Nonna, @perfil, livro…"></label></div>
-  <div class="ed-act"><button class="btn red" type="submit" id="save">Salvar receita</button><a class="btn" href="${ex?'#receita-'+esc(ex.id):'#'}">Cancelar</a></div>
+  <label>${t('method')} <small>${esc(t('stepsHint'))}</small><textarea name="steps" rows="12">${lines(b.steps)}</textarea></label>
+  <label>${t('notes')}<textarea name="notes" rows="3">${esc(b.notes||'')}</textarea></label>
+  <div class="r2"><label>${t('source')} <small>${t('sourceHint')}</small><input name="sourceUrl" value="${esc(b.sourceUrl||'')}" placeholder="https://www.instagram.com/reel/…"></label>
+   <label>${t('sourceName')}<input name="sourceLabel" value="${esc(b.sourceLabel||'')}" placeholder="${at('sourceNamePh')}"></label></div>
+  <div class="ed-act"><button class="btn red" type="submit" id="save">${t('save')}</button><a class="btn" href="${backH}">${t('cancel')}</a></div>
  </form></div></section>`;
  const drop=$('#drop');
- const show=()=>{drop.innerHTML=photo?`<img src="${esc(photo)}" alt="Foto da receita">`:busy?'<div class="spin"></div>':`<div>${ic('camera')}<br>Toque ou arraste<br>uma foto do prato</div>`};show();
- const take=async file=>{if(!file||!/^image\//.test(file.type||'image/'))return;busy=true;photo='';show();try{photo=await storePhoto(file)}catch(e){toast('Não consegui abrir essa imagem')}busy=false;show()};
+ const show=()=>{drop.innerHTML=S.edPhoto?`<img src="${esc(S.edPhoto)}" alt="${at('photoAlt')}">`:busy?'<div class="spin"></div>':`<div>${ic('camera')}<br>${t('dropHint')}</div>`};show();
+ const take=async file=>{if(!file||!/^image\//.test(file.type||'image/'))return;busy=true;S.edPhoto='';show();try{S.edPhoto=await storePhoto(file)}catch(e){toast(t('badImg'))}busy=false;show()};
  if(pend)take(pend);
  $('#ph').onchange=e=>take(e.target.files[0]);
  drop.onclick=()=>$('#ph').click();drop.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#ph').click()}};
  drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');
  drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');take(e.dataTransfer.files[0])};
- $('#phx').onclick=()=>{photo='';show()};
- $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast('Aguarde a foto terminar de carregar');return}
+ $('#phx').onclick=()=>{S.edPhoto='';show()};
+ $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast(t('waitPhoto'));return}
   const d=Object.fromEntries(new FormData(e.target));
-  const r=normalize({...(ex||{}),...d,tags:d.tags.split(','),photo,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
-  const btn=$('#save');btn.disabled=true;btn.textContent='Salvando…';
-  try{await persist(r);toast('Receita salva');go('receita-'+r.id)}catch(err){btn.disabled=false;btn.textContent='Salvar receita'}}}
+  const r=normalize({...(ex||{}),...d,tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
+  const btn=$('#save');btn.disabled=true;btn.textContent=t('saving');
+  try{await persist(r);toast(t('saved'));go('receita-'+r.id)}catch(err){btn.disabled=false;btn.textContent=t('save')}}}
 
-/* ---------- import ---------- */
-const SCHEMA='{"recipes":[{"title":"Lasanha alla bolognese","subtitle":"frase curta e convidativa","category":"primi","servings":6,"prepMin":40,"cookMin":90,"difficulty":"Média","ingredients":["Para o molho:","500 g de carne moída","2 colheres (sopa) de azeite"],"equipment":["Panela grande","Refratário 30 × 20 cm","Forno"],"steps":["Aqueça o azeite e refogue a cebola por 5 min."],"notes":"dicas, variações e como conservar","tags":["massa","forno"]}]}';
-function buildPrompt(task,material){return`Você organiza receitas para um caderno de receitas profissional, em português do Brasil.
+/* ---------- importação ---------- */
+const SCHEMA='{"recipes":[{"title":"","subtitle":"","category":"primi","servings":6,"prepMin":40,"cookMin":90,"difficulty":"Média","ingredients":["…:","500 g …","2 …"],"equipment":["…"],"steps":["…"],"notes":"","tags":["…"]}]}';
+function buildPrompt(task,material){const lg=S.lang==='it'?'italiano':'português do Brasil';return`Você organiza receitas para um caderno de receitas profissional. Escreva todo o conteúdo da receita (título, descrição, ingredientes, equipamentos, passos, dicas e tags) em ${lg}.
 Tarefa: ${task}
 Regras:
 - Responda somente com JSON neste formato: ${SCHEMA}
-- "category" deve ser uma destas: antipasti (entradas), primi (massas, risotos, sopas), secondi (carnes, peixes, aves), contorni (acompanhamentos, saladas), pizze (pães, pizzas, focaccias), salse (molhos), dolci (sobremesas, bolos), bevande (bebidas), altro.
-- Traduza para português do Brasil se preciso. Use gramas, ml e medidas caseiras usuais.
+- "category" deve ser uma destas chaves: antipasti (entradas), primi (massas, risotos, sopas), secondi (carnes, peixes, aves), contorni (acompanhamentos, saladas), pizze (pães, pizzas, focaccias), salse (molhos), dolci (sobremesas, bolos), bevande (bebidas), altro.
+- "difficulty" é exatamente "Fácil", "Média" ou "Difícil" (sempre em português, é uma chave interna).
+- Traduza para ${lg} se preciso. Use gramas, ml e medidas caseiras usuais.
 - Cada ingrediente começa pela quantidade numérica, depois a unidade e o ingrediente. Títulos de grupo terminam com ":".
 - Liste todos os equipamentos necessários, inclusive os implícitos no preparo (forno com temperatura, batedeira, assadeira com medida, termômetro, panela de pressão…).
-- Cada passo é um parágrafo curto e claro, com tempos (ex.: "por 10 min") e temperaturas quando houver.
-- Estime porções, tempos e dificuldade se não estiverem informados. "difficulty" é Fácil, Média ou Difícil.
+- Cada passo é um parágrafo curto e claro, com tempos (ex.: "10 min") e temperaturas quando houver.
+- Estime porções, tempos e dificuldade se não estiverem informados.
 - Até 10 receitas. Se não houver receita no material, responda {"recipes":[]}.
 ${material?'Material:\n"""\n'+material.slice(0,80000)+'\n"""':''}`}
-const TILES=[
- ['pdf','PDF','Livros, apostilas e receitas salvas em PDF','#d63a2c'],
- ['video','Vídeo','Instagram, Reels, TikTok, YouTube','#c2577f'],
- ['photo','Foto ou print','Caderno da nonna, página de livro, print de site','#e0702a'],
- ['text','Texto ou site','Cole a receita de um site, WhatsApp ou e-mail','#2f7aa8'],
- ['spark','Criar com IA','Diga o que tem na geladeira e o Claude cria a receita','#2f8a4b'],
- ['box','Backup','Importe ou exporte o caderno inteiro em .json','#6e5c54']];
+const TILES=[['pdf','pdf','#d63a2c'],['video','video','#c2577f'],['photo','camera','#e0702a'],['text','text','#2f7aa8'],['spark','spark','#2f8a4b'],['box','box','#6e5c54']];
+const cap=s=>s[0].toUpperCase()+s.slice(1);
 let impTab='pdf',ctl=null;
 function renderImport(){
  app.innerHTML=`<div class="tricolor"></div><section class="band imp"><div class="wrap">
-  <a class="back" href="#">${ic('back')}Voltar ao caderno</a>
-  <h1>Importar receita</h1>
-  <p>O Claude lê o material e monta a ficha com ingredientes, equipamentos e passo a passo. Você confere e salva.</p>
-  ${S.sample?'':`<div class="howto" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="flex:1 1 280px">${getKey()?'IA ativa com a sua chave da API da Anthropic.':'<b class="warn">Para ler PDFs, vídeos e fotos, configure a IA uma vez</b> com a sua chave da API da Anthropic. O backup funciona sem ela.'}</span><button class="btn ${getKey()?'':'red'}" id="aicfg">${ic('spark')}Configurar IA</button></div>`}
-  <div class="tiles">${TILES.map(t=>`<button class="tile ${impTab===t[0]?'on':''}" data-tab="${t[0]}" style="--k:${t[3]}"><span class="ico">${ic(t[0]==='photo'?'camera':t[0])}</span><b>${t[1]}</b><span>${t[2]}</span></button>`).join('')}</div>
+  <a class="back" href="#">${ic('back')}${t('backBook')}</a>
+  <h1>${t('impTitle')}</h1>
+  <p>${t('impIntro')}</p>
+  ${S.sample?'':`<div class="howto" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="flex:1 1 280px">${getKey()?t('aiActive'):t('aiNeed')}</span><button class="btn ${getKey()?'':'red'}" id="aicfg">${ic('spark')}${t('aiCfg')}</button></div>`}
+  <div class="tiles">${TILES.map(([k,i,c])=>`<button class="tile ${impTab===k?'on':''}" data-tab="${k}" style="--k:${c}"><span class="ico">${ic(i)}</span><b>${t('t'+cap(k))}</b><span>${t('d'+cap(k))}</span></button>`).join('')}</div>
   <div class="panel" id="panel"></div>
   <div id="result" style="margin-top:18px"></div>
  </div></section>`;
  app.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{impTab=b.dataset.tab;renderImport()});
  const cf=$('#aicfg');if(cf)cf.onclick=aiSettings;
  panel()}
-function panel(){const p=$('#panel');const which='<label>Qual receita? <small>opcional, se houver várias</small><input id="which" placeholder="ex.: tiramisù"></label>';
- const run=`<div class="hero-act" style="justify-content:flex-start"><button class="btn red" id="go">${ic('spark')}Ler com o Claude</button><button class="btn quiet" id="stop" hidden>Parar</button></div><div id="st"></div>`;
- if(impTab==='pdf')p.innerHTML=`<h2>Importar de PDF</h2><p>Funciona com PDFs de texto e escaneados. Se o PDF tiver várias receitas, você escolhe quais salvar.</p><label>Arquivo PDF<input type="file" id="file" accept="application/pdf,.pdf"></label>${which}${run}`;
- if(impTab==='video')p.innerHTML=`<h2>Importar de vídeo</h2><p>O navegador não consegue abrir o Instagram diretamente, então use a legenda do post e, se quiser, o próprio vídeo ou prints.</p>
-  <div class="howto"><b>Como pegar a legenda no Instagram</b><ol><li>Abra o Reel e toque em "mais" na legenda para expandir.</li><li>Pressione e segure o texto e escolha Copiar (ou use "···" › Copiar link para guardar a fonte).</li><li>Cole abaixo. Para receitas narradas, envie também o vídeo salvo ou prints da tela: o Claude lê o texto que aparece nas imagens.</li></ol></div>
-  <label>Link do vídeo <small>fica guardado como fonte</small><input id="url" type="url" placeholder="https://www.instagram.com/reel/…"></label>
-  <label>Legenda ou descrição<textarea id="txt" rows="7" placeholder="Cole aqui a legenda do post"></textarea></label>
-  <label>Vídeo salvo ou prints <small>opcional; do vídeo tiro quadros automaticamente e uso um deles como foto</small><input type="file" id="file" accept="video/*,image/*" multiple></label><div class="thumbs" id="th"></div>${run}`;
- if(impTab==='photo')p.innerHTML=`<h2>Importar de foto ou print</h2><p>Fotografe a página do livro, o caderno escrito à mão ou faça um print de um site ou app. Pode enviar várias imagens da mesma receita.</p><label>Imagens<input type="file" id="file" accept="image/*" multiple></label><div class="thumbs" id="th"></div>${which}${run}`;
- if(impTab==='text')p.innerHTML=`<h2>Importar de texto ou site</h2><p>Copie a receita da página (Ctrl+A, Ctrl+C no site) ou de uma mensagem e cole aqui. Não precisa limpar: o Claude separa o que é receita.</p><label>Link da página <small>opcional, fica como fonte</small><input id="url" type="url" placeholder="https://…"></label><label>Texto<textarea id="txt" rows="10" placeholder="Cole aqui"></textarea></label>${run}`;
- if(impTab==='spark')p.innerHTML=`<h2>Criar receita com IA</h2><p>Descreva o que você quer ou o que tem em casa. O Claude escreve uma receita completa para você revisar.</p><label>Pedido<textarea id="txt" rows="4" placeholder="Tenho frango, limão-siciliano, alecrim e batatas. Quero algo ao forno para 4 pessoas, estilo italiano."></textarea></label>${run}`;
- if(impTab==='box'){p.innerHTML=`<h2>Backup do caderno</h2><p>Exporte todas as receitas para guardar ou levar para outro lugar, e importe um backup do Matarello.</p>
-  <p>As receitas ficam guardadas neste aparelho. Para levar do PC para o celular, exporte aqui e importe no outro aparelho.</p>
-  <div class="hero-act" style="justify-content:flex-start"><button class="btn green" id="exp">${ic('download')}Exportar backup (.json)</button><label class="btn">${ic('upload')}Importar backup<input type="file" id="bk" accept=".json,application/json" hidden></label></div><div id="st"></div>`;
-  $('#exp').onclick=async()=>{try{await saveFile('matarello-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({app:'Matarello',version:1,exportedAt:new Date().toISOString(),recipes:S.recipes},null,1),'application/json');toast('Backup salvo')}catch(e){if(e?.code!=='declined')toast('Não foi possível baixar o arquivo')}};
-  $('#bk').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const list=(Array.isArray(j)?j:j.recipes||[]).map(r=>normalize(r,true));await saveMany(list)}catch(err){toast('Arquivo inválido')}};return}
+function panel(){const p=$('#panel');const which=`<label>${t('which')} <small>${t('optMany')}</small><input id="which" placeholder="${at('whichPh')}"></label>`;
+ const run=`<div class="hero-act" style="justify-content:flex-start"><button class="btn red" id="go">${ic('spark')}${t('readBtn')}</button><button class="btn quiet" id="stop" hidden>${t('stop')}</button></div><div id="st"></div>`;
+ if(impTab==='pdf')p.innerHTML=`<h2>${t('pdfT')}</h2><p>${t('pdfP')}</p><label>${t('pdfFile')}<input type="file" id="file" accept="application/pdf,.pdf"></label>${which}${run}`;
+ if(impTab==='video')p.innerHTML=`<h2>${t('videoT')}</h2><p>${t('videoP')}</p>
+  <div class="howto"><b>${t('howT')}</b><ol><li>${esc(t('how1'))}</li><li>${esc(t('how2'))}</li><li>${esc(t('how3'))}</li></ol></div>
+  <label>${t('videoLink')} <small>${t('keptSource')}</small><input id="url" type="url" placeholder="https://www.instagram.com/reel/…"></label>
+  <label>${t('caption')}<textarea id="txt" rows="7" placeholder="${at('captionPh')}"></textarea></label>
+  <label>${t('vidFiles')} <small>${t('vidHint')}</small><input type="file" id="file" accept="video/*,image/*" multiple></label><div class="thumbs" id="th"></div>${run}`;
+ if(impTab==='photo')p.innerHTML=`<h2>${t('photoT')}</h2><p>${t('photoP')}</p><label>${t('images')}<input type="file" id="file" accept="image/*" multiple></label><div class="thumbs" id="th"></div>${which}${run}`;
+ if(impTab==='text')p.innerHTML=`<h2>${t('textT')}</h2><p>${t('textP')}</p><label>${t('pageLink')} <small>${t('optSource')}</small><input id="url" type="url" placeholder="https://…"></label><label>${t('text')}<textarea id="txt" rows="10" placeholder="${at('pasteHere')}"></textarea></label>${run}`;
+ if(impTab==='spark')p.innerHTML=`<h2>${t('sparkT')}</h2><p>${t('sparkP')}</p><label>${t('request')}<textarea id="txt" rows="4" placeholder="${at('sparkPh')}"></textarea></label>${run}`;
+ if(impTab==='box'){p.innerHTML=`<h2>${t('boxT')}</h2><p>${t('boxP')}</p><p>${t('boxP2')}</p>
+  <div class="hero-act" style="justify-content:flex-start"><button class="btn green" id="exp">${ic('download')}${t('exp')}</button><label class="btn">${ic('upload')}${t('imp')}<input type="file" id="bk" accept=".json,application/json" hidden></label></div><div id="st"></div>`;
+  $('#exp').onclick=async()=>{try{await saveFile('matarello-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({app:'Matarello',version:1,exportedAt:new Date().toISOString(),recipes:S.recipes},null,1),'application/json');toast(t('backupSaved'))}catch(e){if(e?.code!=='declined')toast(t('dlFail'))}};
+  $('#bk').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const list=(Array.isArray(j)?j:j.recipes||[]).map(r=>normalize(r,true));await saveMany(list)}catch(err){toast(t('badFile'))}};return}
  const fi=$('#file');if(fi&&$('#th'))fi.onchange=()=>{$('#th').innerHTML=[...fi.files].filter(f=>/^image\//.test(f.type)).slice(0,8).map(f=>`<img src="${URL.createObjectURL(f)}" alt="">`).join('')};
  $('#go').onclick=startImport;$('#stop').onclick=()=>ctl&&ctl.abort()}
 function status(html){const s=$('#st');if(s)s.innerHTML=html}
+const spinMsg=m=>`<div class="status"><span class="spin"></span>${esc(m)}</div>`;
 async function loadPdfJs(){if(window.pdfjsLib)return window.pdfjsLib;const add=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.append(s)});
  const B='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';await add(B+'pdf.min.js');await add(B+'pdf.worker.min.js');window.pdfjsLib.GlobalWorkerOptions.workerSrc=B+'pdf.worker.min.js';return window.pdfjsLib}
 async function readPdf(file,maxImg){const lib=await loadPdfJs();const doc=await lib.getDocument({data:await file.arrayBuffer()}).promise;let text='';const N=Math.min(doc.numPages,40);
- for(let i=1;i<=N;i++){status(`<div class="status"><span class="spin"></span>Lendo página ${i} de ${N}…</div>`);const pg=await doc.getPage(i);const c=await pg.getTextContent();text+=`\n--- página ${i} ---\n`+c.items.map(x=>x.str+(x.hasEOL?'\n':' ')).join('')}
- let imgs=[];if(text.replace(/\s|--- página \d+ ---/g,'').length<150*Math.min(N,3)){for(let i=1;i<=Math.min(doc.numPages,maxImg);i++){const pg=await doc.getPage(i);const vp=pg.getViewport({scale:1.6});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;imgs.push(await new Promise(r=>c.toBlob(r,'image/jpeg',.85)))}}
- return{text,imgs,pages:doc.numPages}}
+ for(let i=1;i<=N;i++){status(spinMsg(t('readingPage',{i,n:N})));const pg=await doc.getPage(i);const c=await pg.getTextContent();text+=`\n--- p. ${i} ---\n`+c.items.map(x=>x.str+(x.hasEOL?'\n':' ')).join('')}
+ let imgs=[];if(text.replace(/\s|--- p\. \d+ ---/g,'').length<150*Math.min(N,3)){for(let i=1;i<=Math.min(doc.numPages,maxImg);i++){const pg=await doc.getPage(i);const vp=pg.getViewport({scale:1.6});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;imgs.push(await new Promise(r=>c.toBlob(r,'image/jpeg',.85)))}}
+ return{text,imgs}}
 async function videoFrames(file,n){const url=URL.createObjectURL(file),v=document.createElement('video');v.muted=true;v.playsInline=true;v.preload='auto';v.src=url;
  await new Promise((res,rej)=>{v.onloadeddata=res;v.onerror=()=>rej(new Error('video'));setTimeout(()=>rej(new Error('timeout')),15000)});
  const out=[],d=isFinite(v.duration)?v.duration:0;
- for(let k=0;k<n;k++){const t=d*(k+.5)/n;await new Promise(res=>{const to=setTimeout(res,3000);v.onseeked=()=>{clearTimeout(to);res()};v.currentTime=t});
+ for(let k=0;k<n;k++){const x=d*(k+.5)/n;await new Promise(res=>{const to=setTimeout(res,3000);v.onseeked=()=>{clearTimeout(to);res()};v.currentTime=x});
   const s=Math.min(1,900/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement('canvas');c.width=Math.round(v.videoWidth*s);c.height=Math.round(v.videoHeight*s);c.getContext('2d').drawImage(v,0,0,c.width,c.height);out.push(await new Promise(r=>c.toBlob(r,'image/jpeg',.82)))}
  URL.revokeObjectURL(url);return out}
 async function startImport(){if(!aiReady()){aiSettings();return}
- const go=$('#go'),stop=$('#stop');const val=s=>($(s)?.value||'').trim();
+ const gob=$('#go'),stop=$('#stop');const val=s=>($(s)?.value||'').trim();
  const maxImg=await aiMaxImages();
  let material='',images=[],task='Extraia as receitas do material.',from='',url=val('#url'),cover=null;
  const which=val('#which');if(which)task+=` Traga apenas a receita que corresponde a: "${which}".`;
- try{go.disabled=true;stop.hidden=false;
-  if(impTab==='pdf'){const f=$('#file').files[0];if(!f)throw{msg:'Escolha um arquivo PDF.'};from='PDF · '+f.name;const r=await readPdf(f,Math.min(maxImg,6));material=r.text;if(r.imgs.length){if(!maxImg)throw{msg:'Este PDF parece escaneado e o envio de imagens não está disponível aqui.'};images=r.imgs;task+=' O PDF é escaneado: leia as imagens das páginas.'}}
-  else if(impTab==='video'){material=val('#txt');from=url?'vídeo · '+url:'vídeo';const fs=[...($('#file').files||[])];
-   for(const f of fs){if(/^video\//.test(f.type)){status(`<div class="status"><span class="spin"></span>Extraindo quadros do vídeo…</div>`);try{const fr=await videoFrames(f,Math.min(6,Math.max(maxImg-images.length,0)));images.push(...fr);cover=fr[Math.floor(fr.length/2)]||null}catch(e){toast('Não consegui abrir o vídeo; seguindo com o resto')}}else if(/^image\//.test(f.type))images.push(f)}
-   if(!material&&!images.length)throw{msg:'Cole a legenda ou envie o vídeo ou prints.'};
+ try{gob.disabled=true;stop.hidden=false;
+  if(impTab==='pdf'){const f=$('#file').files[0];if(!f)throw{msg:t('eNeedPdf')};from=t('fPdf')+' · '+f.name;const r=await readPdf(f,Math.min(maxImg,6));material=r.text;if(r.imgs.length){if(!maxImg)throw{msg:t('eScanned')};images=r.imgs;task+=' O PDF é escaneado: leia as imagens das páginas.'}}
+  else if(impTab==='video'){material=val('#txt');from=url?t('fVideo')+' · '+url:t('fVideo');const fs=[...($('#file').files||[])];
+   for(const f of fs){if(/^video\//.test(f.type)){status(spinMsg(t('frames')));try{const fr=await videoFrames(f,Math.min(6,Math.max(maxImg-images.length,0)));images.push(...fr);cover=fr[Math.floor(fr.length/2)]||null}catch(e){toast(t('eVideo'))}}else if(/^image\//.test(f.type))images.push(f)}
+   if(!material&&!images.length)throw{msg:t('eNeedCap')};
    task='Extraia a receita deste vídeo de culinária a partir da legenda e dos quadros/prints (leia o texto que aparece na tela). Se faltar quantidade, estime e avise em "notes".'+(which?` Receita: "${which}".`:'')}
-  else if(impTab==='photo'){images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!images.length)throw{msg:'Escolha pelo menos uma imagem.'};from='foto';task+=' Leia o texto das imagens (pode ser manuscrito). Ignore fotos que não sejam texto.'}
-  else if(impTab==='text'){material=val('#txt');if(!material)throw{msg:'Cole o texto da receita.'};from=url?'site · '+url:'texto colado'}
-  else if(impTab==='spark'){const t=val('#txt');if(!t)throw{msg:'Escreva o que você quer cozinhar.'};task='Crie UMA receita original, testável e bem detalhada, de inspiração italiana quando fizer sentido, para este pedido: '+t;from='criação com IA'}
-  if(images.length){if(!maxImg)throw{msg:'O envio de imagens não está disponível nesta visualização.'};images=images.slice(0,maxImg)}
-  status(`<div class="status"><span class="spin"></span>O Claude está lendo e organizando a receita… isso pode levar até um minuto.</div>`);
+  else if(impTab==='photo'){images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!images.length)throw{msg:t('eNeedImg')};from=t('fPhoto');task+=' Leia o texto das imagens (pode ser manuscrito). Ignore fotos que não sejam texto.'}
+  else if(impTab==='text'){material=val('#txt');if(!material)throw{msg:t('eNeedText')};from=url?t('fSite')+' · '+url:t('fText')}
+  else if(impTab==='spark'){const x=val('#txt');if(!x)throw{msg:t('eNeedWish')};task='Crie UMA receita original, testável e bem detalhada, de inspiração italiana quando fizer sentido, para este pedido: '+x;from=t('fAi')}
+  if(images.length){if(!maxImg)throw{msg:t('eNoImgs')};images=images.slice(0,maxImg)}
+  status(spinMsg(t('thinking')));
   ctl=new AbortController();
   const j=await aiJson(buildPrompt(task,material),images,ctl.signal);
   const list=(Array.isArray(j)?j:(j&&j.recipes)||[]).map(r=>{const n=normalize(r);if(url&&/^https?:\/\//.test(url)){n.sourceUrl=url;n.sourceLabel=n.sourceLabel||(url.includes('instagram')?'Instagram':url.includes('tiktok')?'TikTok':url.includes('youtu')?'YouTube':'Site')}return n});
   status('');showFound(list,from,cover)}
- catch(e){status('');const c=e?.code;if(c!=='cancelled')toast(e?.msg||(c==='not_granted'?'Permissão para usar o Claude foi negada.':c==='rate_limited'?'Muitas leituras seguidas. Tente em alguns minutos.':c==='invalid_json'?'Não consegui organizar a resposta. Tente de novo.':c==='image_rejected'?'Uma das imagens não pôde ser lida.':c==='prompt_too_large'?'Material grande demais; indique qual receita ou envie menos páginas.':'Não foi possível ler agora. Tente de novo.'))}
- finally{go.disabled=false;stop.hidden=true;ctl=null}}
+ catch(e){status('');const c=e?.code;if(c!=='cancelled')toast(e?.msg||(c==='not_granted'?t('eDenied'):c==='rate_limited'?t('eRate'):c==='invalid_json'?t('eJson'):c==='image_rejected'?t('eImg'):c==='prompt_too_large'?t('eBig'):t('eGeneric')))}
+ finally{gob.disabled=false;stop.hidden=true;ctl=null}}
 function showFound(list,from,cover){const box=$('#result');
- if(!list.length){box.innerHTML=`<div class="empty"><h3>Nenhuma receita encontrada</h3><p>Tente enviar outro material ou mais detalhes.</p></div>`;return}
+ if(!list.length){box.innerHTML=`<div class="empty"><h3>${t('noneFound')}</h3><p>${t('noneP')}</p></div>`;return}
  if(list.length===1){S.draft={...list[0],_from:from,_photoBlob:cover};go('nova');return}
- box.innerHTML=`<div class="panel"><h2>${list.length} receitas encontradas</h2><p>Marque as que quer salvar, ou abra uma para revisar antes.</p><div class="found">${list.map((r,i)=>`<label><input type="checkbox" data-i="${i}" checked><span>${esc(r.title)}<br><small>${esc(catOf(r.category)[2])} · ${r.ingredients.length} ingredientes · ${r.steps.length} passos</small></span><button type="button" class="btn quiet" data-rev="${i}" style="margin-left:auto">Revisar</button></label>`).join('')}</div><div class="hero-act" style="justify-content:flex-start"><button class="btn red" id="saveall">Salvar selecionadas</button></div></div>`;
+ box.innerHTML=`<div class="panel"><h2>${t('nFound',{n:list.length})}</h2><p>${t('foundP')}</p><div class="found">${list.map((r,i)=>`<label><input type="checkbox" data-i="${i}" checked><span>${esc(r.title)}<br><small>${esc(catDesc(catOf(r.category)))} · ${r.ingredients.length} ${t('nIng')} · ${r.steps.length} ${t('nSteps')}</small></span><button type="button" class="btn quiet" data-rev="${i}" style="margin-left:auto">${t('review')}</button></label>`).join('')}</div><div class="hero-act" style="justify-content:flex-start"><button class="btn red" id="saveall">${t('saveSel')}</button></div></div>`;
  box.querySelectorAll('[data-rev]').forEach(b=>b.onclick=e=>{e.preventDefault();S.draft={...list[+b.dataset.rev],_from:from};go('nova')});
  $('#saveall').onclick=()=>saveMany([...box.querySelectorAll('[data-i]:checked')].map(c=>list[+c.dataset.i]))}
-async function saveMany(list){if(!list.length){toast('Nada para salvar');return}let ok=0;for(const r of list){try{await persist(r);ok++}catch(e){break}}toast(`${ok} receita${ok>1?'s':''} salva${ok>1?'s':''}`);if(ok)go('')}
+async function saveMany(list){if(!list.length){toast(t('nothingSave'));return}let ok=0;for(const r of list){try{await persist(r);ok++}catch(e){break}}toast(t('savedN',{n:ok}));if(ok)go('')}
 
-/* ---------- printable sheet ---------- */
+/* ---------- ficha para imprimir ---------- */
 async function downloadSheet(r,sv,f){let ph=safeImg(r.photo);
  if(ph&&!ph.startsWith('data:')){try{const b=await (await fetch(ph)).blob();ph=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)})}catch(e){ph=''}}
- const ing=(r.ingredients||[]).map(l=>isGrp(l)?`<li class="g">${esc(l)}</li>`:(s=>`<li><b>${esc(s.q)}</b> ${esc(s.rest)}</li>`)(scaled(l,f))).join('');
- const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(r.title)} · Matarello</title><style>body{font:15px/1.5 Georgia,serif;color:#2b1d18;max-width:860px;margin:0 auto;padding:28px}h1{font-size:34px;margin:4px 0}.k{color:#d63a2c;font:700 13px sans-serif}.bar{height:8px;background:linear-gradient(90deg,#2f8a4b 0 33%,#fff 33% 66%,#d63a2c 66%);border:1px solid #eee;margin-bottom:18px}img{width:100%;max-height:380px;object-fit:cover;border-radius:14px}.f{display:flex;gap:24px;font:600 14px sans-serif;margin:12px 0;flex-wrap:wrap}.c{display:grid;grid-template-columns:260px 1fr;gap:28px}ul{padding-left:18px}li{margin:4px 0}.g{list-style:none;margin-left:-18px;font-weight:700;color:#2f8a4b}ol li{margin-bottom:10px}b{color:#a92a1f}.t{background:#fdf1d8;padding:12px 16px;border-radius:10px}@media(max-width:640px){.c{grid-template-columns:1fr}}@media print{body{padding:0}}</style></head><body><div class="bar"></div><p class="k">MATARELLO · ${esc(catOf(r.category)[1])}</p><h1>${esc(r.title)}</h1><p>${esc(r.subtitle)}</p>${ph?`<img src="${ph}" alt="">`:''}<div class="f"><span>Preparo: ${fmtMin(r.prepMin)}</span><span>Cozimento: ${fmtMin(r.cookMin)}</span><span>Porções: ${sv}</span><span>Dificuldade: ${esc(r.difficulty)}</span></div><div class="c"><div><h2>Ingredientes</h2><ul>${ing}</ul><h2>Equipamentos</h2><ul>${(r.equipment||[]).map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div><div><h2>Modo de preparo</h2><ol>${(r.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${r.notes?`<div class="t"><b>Dica do chef:</b> ${esc(r.notes)}</div>`:''}${r.sourceUrl||r.sourceLabel?`<p>Fonte: ${esc(r.sourceLabel)} ${esc(r.sourceUrl)}</p>`:''}</div></div></body></html>`;
+ const ing=(r.ingredients||[]).map(l=>isGrp(l)?`<li class="g">${esc(l)}</li>`:(s=>`<li><b>${esc(s.q)}</b> ${esc(s.rest)}</li>`)(scaled(l,f))).join('');const c=catOf(r.category);
+ const html=`<!DOCTYPE html><html lang="${S.lang==='it'?'it':'pt-BR'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(r.title)} · Matarello</title><style>body{font:15px/1.5 Georgia,serif;color:#2b1d18;max-width:860px;margin:0 auto;padding:28px}h1{font-size:34px;margin:4px 0}.k{color:#d63a2c;font:700 13px sans-serif}.bar{height:8px;background:linear-gradient(90deg,#2f8a4b 0 33%,#fff 33% 66%,#d63a2c 66%);border:1px solid #eee;margin-bottom:18px}img{width:100%;max-height:380px;object-fit:cover;border-radius:14px}.f{display:flex;gap:24px;font:600 14px sans-serif;margin:12px 0;flex-wrap:wrap}.c{display:grid;grid-template-columns:260px 1fr;gap:28px}ul{padding-left:18px}li{margin:4px 0}.g{list-style:none;margin-left:-18px;font-weight:700;color:#2f8a4b}ol li{margin-bottom:10px}b{color:#a92a1f}.t{background:#fdf1d8;padding:12px 16px;border-radius:10px}@media(max-width:640px){.c{grid-template-columns:1fr}}@media print{body{padding:0}}</style></head><body><div class="bar"></div><p class="k">MATARELLO · ${esc(c[1])} · ${esc(catDesc(c))}</p><h1>${esc(r.title)}</h1><p>${esc(r.subtitle)}</p>${ph?`<img src="${ph}" alt="">`:''}<div class="f"><span>${t('prep')}: ${fmtMin(r.prepMin)}</span><span>${t('cook')}: ${fmtMin(r.cookMin)}</span><span>${t('servings')}: ${sv}</span><span>${t('diff')}: ${esc(dname(r.difficulty))}</span></div><div class="c"><div><h2>${t('ingredients')}</h2><ul>${ing}</ul><h2>${t('equipment')}</h2><ul>${(r.equipment||[]).map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div><div><h2>${t('method')}</h2><ol>${(r.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${r.notes?`<div class="t"><b>${t('tip')}:</b> ${esc(r.notes)}</div>`:''}${r.sourceUrl||r.sourceLabel?`<p>${t('sheetSrc')}: ${esc(r.sourceLabel)} ${esc(r.sourceUrl)}</p>`:''}</div></div></body></html>`;
  const name=r.title.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'-').replace(/^-|-$/g,'').toLowerCase()||'receita';
- try{await saveFile(name+'.html',html,'text/html');toast('Ficha salva: abra no navegador para imprimir ou gerar PDF')}catch(e){if(e?.code!=='declined')toast('Não foi possível baixar a ficha')}}
+ try{await saveFile(name+'.html',html,'text/html');toast(t('sheetSaved'))}catch(e){if(e?.code!=='declined')toast(t('sheetFail'))}}
 
-/* ---------- boot ---------- */
-route();
+/* ---------- início do app ---------- */
+applyLook();renderTop();renderFoot();route();
 const use=n=>window.claude&&window.claude.use?window.claude.use(n).catch(()=>null):Promise.resolve(null);
 (async()=>{const local=(await lsLoad()).map(r=>normalize(r,true));
- if(!window.claude){S.recipes=local;S.ready=true;$('#mode').textContent='Receitas guardadas neste aparelho · faça backup em Importar › Backup';try{navigator.storage?.persist?.()}catch(e){}route();return}
- S.recipes=local;route(true);
+ if(!window.claude){S.recipes=local;S.ready=true;renderFoot();try{navigator.storage?.persist?.()}catch(e){}route(true,true);return}
+ S.recipes=local;route(true,true);
  const[db,assets,sample,dl]=await Promise.all(['db','assets','sample','downloads'].map(use));
  S.assets=assets;S.sample=sample;S.dl=dl;
- if(db){S.db=db;S.mode='db';$('#mode').textContent='Caderno salvo na nuvem';let first=true;
-  const t=setTimeout(()=>{if(!S.ready){S.ready=true;route(true);toast('Não consegui abrir o caderno ainda. Verifique a conexão.')}},10000);
-  db.collection('recipes').onSnapshot(snap=>{S.recipes=snap.docs.map(d=>normalize({...d.data(),id:d.id},true));if(!snap.metadata.fromCache)clearTimeout(t);S.ready=true;if(first){first=false;route()}else route(true)},err=>{clearTimeout(t);S.ready=true;toast('O caderno não pôde ser carregado.');route(true)})}
- else{S.ready=true;$('#mode').textContent='Receitas guardadas neste aparelho';route()}})();
+ if(db){S.db=db;S.mode='db';renderFoot();let first=true;
+  const tm=setTimeout(()=>{if(!S.ready){S.ready=true;route(true);toast(t('noOpen'))}},10000);
+  db.collection('recipes').onSnapshot(snap=>{S.recipes=snap.docs.map(d=>normalize({...d.data(),id:d.id},true));if(!snap.metadata.fromCache)clearTimeout(tm);S.ready=true;if(first){first=false;route()}else route(true)},err=>{clearTimeout(tm);S.ready=true;toast(t('noLoad'));route(true)})}
+ else{S.ready=true;renderFoot();route(true,true)}})();
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!window.claude)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 </script>
