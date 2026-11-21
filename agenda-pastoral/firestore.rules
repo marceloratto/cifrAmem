@@ -29,6 +29,11 @@ service cloud.firestore {
       allow create, update: if logado() && e == email() && request.resource.data.email == email();
       allow delete: if admin() || (logado() && e == email());
     }
+    // configurações (lista de funções): todos os conectados leem, o coordenador altera
+    match /config/{doc} {
+      allow read: if logado();
+      allow write: if admin();
+    }
     match /agendas/{id} {
       allow read: if dono() || membro();
       allow write: if admin();
