@@ -47,7 +47,7 @@ button{cursor:pointer}
 #rib[data-c=w],#rib[data-c=p]{color:#2a2115}
 :root[data-mode=dark] #rib{color:#141414}
 #rib b{font:600 1.1rem Spectral,Georgia,serif}#rib span{font-size:.88rem;opacity:.92}
-#note{margin:0;padding:.5rem max(4vw,12px);font-size:.82rem;background:var(--card);color:var(--mut);border-bottom:1px solid var(--line)}
+#note[data-m=db]{color:var(--lg)}#note{margin:0;padding:.5rem max(4vw,12px);font-size:.82rem;background:var(--card);color:var(--mut);border-bottom:1px solid var(--line)}
 main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 #mview{display:grid;gap:1.2rem}
 @media(min-width:900px){#mview{grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr);align-items:start}#day{position:sticky;top:120px}}
@@ -240,7 +240,7 @@ function render(){
  document.querySelectorAll('[data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
  const L=lit(sel);$('#rib').style.setProperty('--lc',LC[L.c].v);$('#rib').dataset.c=L.c;
  $('#rib').innerHTML=`<b>${L.s}</b><span>${L.w?esc(L.w)+' · ':''}Ano ${L.ano} · cor ${LC[L.c].n.toLowerCase()}</span>`;
- $('#note').hidden=mode!=='local';$('#note').textContent=mode==='local'?'Os eventos ficam salvos neste aparelho. Use Agendas › Backup para guardar uma cópia.':'';
+ $('#note').hidden=false;$('#note').dataset.m=mode;$('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
  $('#mview').hidden=view!=='mes';$('#lview').hidden=view!=='lista';
  view==='mes'?(grid(),day()):list();bar()}
 function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate(),wk=Math.ceil((dow(first)+dim)/7),oc=expand(start,start+(wk*7-1)*DAY);let h='';
