@@ -129,6 +129,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .steps li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .steps .n{width:44px;height:44px;border-radius:50%;background:var(--tomato);color:#fff;display:grid;place-items:center;font:800 calc(19px*var(--fs)) Fraunces,serif}
 .steps p{margin:8px 0 0;font-size:calc(17px*var(--fs));max-width:68ch}
+.tm{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;background:color-mix(in srgb,var(--basil) 14%,transparent);color:var(--basil);border:1px solid color-mix(in srgb,var(--basil) 35%,transparent);border-radius:9px;padding:0 7px;font-weight:800;line-height:1.6}
+.tm svg{width:15px;height:15px}
+.tmb{position:absolute;left:12px;bottom:12px;background:#1f5e34;color:#fff;font-weight:800;font-size:calc(12px*var(--fs));padding:3px 9px;border-radius:999px;display:inline-flex;gap:5px;align-items:center;box-shadow:0 2px 8px rgb(0 0 0/.2)}
+.tmb svg{width:14px;height:14px}
+.badge{display:inline-flex;gap:6px;align-items:center;font-weight:800;font-size:calc(14px*var(--fs));padding:4px 12px;border-radius:999px;background:#1f5e34;color:#fff;margin-bottom:10px}
+.ckb{display:grid;gap:12px}
+.ckb .blk{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:8px}
+.ckb .blk header{display:flex;align-items:center;gap:10px}.ckb .blk header b{flex:1}
+.ckb pre{margin:0;white-space:pre-wrap;font:inherit;font-size:calc(15px*var(--fs));max-height:180px;overflow:auto;color:var(--ink)}
+.ckb .cp{min-height:36px;font-size:calc(14px*var(--fs));padding:0 12px}
+.ckb .stp{display:flex;gap:10px;align-items:flex-start;border-top:1px dashed var(--line);padding-top:8px}.ckb .stp span{flex:1}
+.check{display:flex!important;align-items:center;gap:10px;font-weight:800}.check input{width:22px;height:22px;min-height:0;accent-color:var(--basil)}
 .tbtn{margin-top:10px;min-height:38px;font-size:calc(14px*var(--fs));color:var(--basil);border-color:color-mix(in srgb,var(--basil) 40%,transparent)}
 .tip{margin-top:24px;padding:20px 22px;border-radius:20px;background:color-mix(in srgb,var(--pasta) 20%,var(--paper));border:1px solid color-mix(in srgb,var(--pasta) 50%,transparent)}
 .tip h3{font-size:calc(20px*var(--fs));margin-bottom:6px}.tip p{margin:0;white-space:pre-line}
@@ -308,7 +320,15 @@ h7t:`Backup e outros aparelhos`,h7:`As receitas ficam guardadas no aparelho em q
 h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compartilhar › Adicionar à Tela de Início.</li><li><b>Android</b>: no Chrome, abra o menu ⋮ › Instalar app.</li></ul>Depois da primeira visita, o Matarello abre mesmo sem internet.`,
 h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
 gotIt:`Entendi`,
-sheetCat:`Categoria`,sheetSrc:`Fonte`
+sheetCat:`Categoria`,sheetSrc:`Fonte`,
+tmName:`Thermomix / Bimby`,tmOnly:`Thermomix`,tmFor:`Receita para Thermomix / Bimby`,tmModel:`Modelo`,tmAny:`Qualquer modelo`,tmNo:`Não é receita de Thermomix`,
+tTm:`Thermomix / Bimby`,dTm:`Receitas do Cookidoo, do livro da Thermomix ou da tela da máquina`,
+tmT:`Importar receita de Thermomix / Bimby`,tmP:`O Matarello guarda os ajustes da máquina (tempo, temperatura, velocidade, colher inversa, Varoma) e mostra cada um destacado no passo.`,
+tmHow:`Como trazer do Cookidoo`,tmHow1:`No computador, abra a receita em cookidoo.com.br já logado, selecione a página toda (Ctrl+A) e copie (Ctrl+C). No celular, faça prints do app Cookidoo ou da tela da Thermomix.`,tmHow2:`Cole o texto abaixo ou envie os prints. Pode mandar várias imagens da mesma receita.`,tmHow3:`Confira a ficha e salve. As receitas do Cookidoo são de uso pessoal: guarde para você, sem republicar.`,
+tmLink:`Link da receita no Cookidoo`,tmText:`Texto copiado`,tmImgs:`Prints ou fotos`,fTm:`Thermomix`,
+toCookidoo:`Copiar para Cookidoo`,ckT:`Levar para o Cookidoo`,ckP:`No Cookidoo, vá em Minhas receitas › Receitas criadas › botão verde › Criar receita. Copie cada parte abaixo e cole no campo correspondente. As quantidades estão para {n} {p}.`,
+ckName:`Nome`,ckInfo:`Porções e tempos`,ckIng:`Ingredientes`,ckSteps:`Passos`,ckStep:`Passo`,ckAll:`Copiar tudo`,copy:`Copiar`,copiedOk:`Copiado`,ckNote:`Os ajustes da máquina (como 5 min/100 °C/vel. 1) vão no texto do passo. No Cookidoo, você pode transformá-los em botões de cozimento guiado.`,
+h10t:`Thermomix / Bimby`,h10:`<ul><li>Marque <b>Receita para Thermomix / Bimby</b> ao editar e escolha o modelo. A receita ganha o selo e aparece no filtro <b>Thermomix</b>.</li><li>Escreva os ajustes como no livro da máquina: <i>10 seg/vel. 5</i>, <i>5 min/100 °C/vel. 1</i>, <i>20 min/Varoma/colher inversa/vel. 1</i>. Eles aparecem destacados em verde.</li><li>Para importar do Cookidoo, use <b>Importar › Thermomix / Bimby</b> e cole o texto da página ou envie prints.</li><li>Para levar uma receita para a máquina, use <b>Copiar para Cookidoo</b> na ficha e cole cada parte em Receitas criadas do Cookidoo (precisa de assinatura do Cookidoo).</li></ul>`
 },it:{
 lang:`Lingua`,pt:`Portoghese`,it:`Italiano`,help:`Come si usa`,theme:`Tema`,light:`Chiaro`,dark:`Scuro`,auto:`Automatico`,toLight:`Passa al tema chiaro`,toDark:`Passa al tema scuro`,font:`Dimensione del testo`,smaller:`Riduci il testo`,bigger:`Ingrandisci il testo`,display:`Aspetto`,
 importNav:`Importa`,newNav:`Nuova ricetta`,kicker:`Il quaderno di ricette`,
@@ -358,13 +378,21 @@ h7t:`Backup e altri dispositivi`,h7:`Le ricette restano sul dispositivo che stai
 h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condividi › Aggiungi alla schermata Home.</li><li><b>Android</b>: in Chrome apri il menu ⋮ › Installa app.</li></ul>Dopo la prima visita il Matarello si apre anche senza internet.`,
 h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
 gotIt:`Ho capito`,
-sheetCat:`Categoria`,sheetSrc:`Fonte`}};
-const S={recipes:[],q:'',cat:'',fav:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home',chipX:0,
+sheetCat:`Categoria`,sheetSrc:`Fonte`,
+tmName:`Bimby / Thermomix`,tmOnly:`Bimby`,tmFor:`Ricetta per Bimby / Thermomix`,tmModel:`Modello`,tmAny:`Qualsiasi modello`,tmNo:`Non è una ricetta Bimby`,
+tTm:`Bimby / Thermomix`,dTm:`Ricette di Cookidoo, del ricettario Bimby o dello schermo della macchina`,
+tmT:`Importa una ricetta Bimby / Thermomix`,tmP:`Il Matarello conserva le impostazioni della macchina (tempo, temperatura, velocità, antiorario, Varoma) e le evidenzia in ogni passaggio.`,
+tmHow:`Come portarla da Cookidoo`,tmHow1:`Sul computer apri la ricetta su cookidoo.it dopo aver fatto l'accesso, seleziona tutta la pagina (Ctrl+A) e copia (Ctrl+C). Sul telefono fai degli screenshot dell'app Cookidoo o dello schermo del Bimby.`,tmHow2:`Incolla il testo qui sotto o invia gli screenshot. Puoi inviare più immagini della stessa ricetta.`,tmHow3:`Controlla la scheda e salva. Le ricette di Cookidoo sono per uso personale: tienile per te, senza ripubblicarle.`,
+tmLink:`Link della ricetta su Cookidoo`,tmText:`Testo copiato`,tmImgs:`Screenshot o foto`,fTm:`Bimby`,
+toCookidoo:`Copia per Cookidoo`,ckT:`Portare su Cookidoo`,ckP:`Su Cookidoo vai in Le mie ricette › Ricette create › pulsante verde › Crea ricetta. Copia ogni parte qui sotto e incollala nel campo corrispondente. Le quantità sono per {n} {p}.`,
+ckName:`Nome`,ckInfo:`Porzioni e tempi`,ckIng:`Ingredienti`,ckSteps:`Passaggi`,ckStep:`Passo`,ckAll:`Copia tutto`,copy:`Copia`,copiedOk:`Copiato`,ckNote:`Le impostazioni della macchina (come 5 min./100°/vel. 1) restano nel testo del passaggio. Su Cookidoo puoi trasformarle in pulsanti di cottura guidata.`,
+h10t:`Bimby / Thermomix`,h10:`<ul><li>Quando modifichi, spunta <b>Ricetta per Bimby / Thermomix</b> e scegli il modello. La ricetta riceve il bollino e compare nel filtro <b>Bimby</b>.</li><li>Scrivi le impostazioni come nel ricettario: <i>10 sec./vel. 5</i>, <i>5 min./100°/vel. 1</i>, <i>20 min./Varoma/antiorario/vel. 1</i>. Vengono evidenziate in verde.</li><li>Per importare da Cookidoo usa <b>Importa › Bimby / Thermomix</b> e incolla il testo della pagina o invia degli screenshot.</li><li>Per portare una ricetta sulla macchina usa <b>Copia per Cookidoo</b> nella scheda e incolla ogni parte in Ricette create su Cookidoo (serve l'abbonamento Cookidoo).</li></ul>`}};
+const S={recipes:[],q:'',cat:'',fav:false,tmOnly:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home',chipX:0,
  lang:pref('lang')||((navigator.language||'').toLowerCase().startsWith('it')?'it':'pt'),theme:pref('theme')||'auto',fs:Math.min(1.6,Math.max(.8,parseFloat(pref('fs'))||1))};
 const t=(k,v)=>{let s=T[S.lang][k]??T.pt[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const at=(k,v)=>esc(t(k,v)).replace(/\n/g,'&#10;');
 
-const P={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/>',heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',play:'<path d="M8 5v14l11-7z"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',fwd:'<path d="M9 5l7 7-7 7"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',pdf:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 14h6M9 18h4"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',text:'<path d="M5 6h14M5 10h14M5 14h10M5 18h7"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',box:'<path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',chef:'<path d="M7 14a4 4 0 0 1-.6-7.9A5 5 0 0 1 17.6 6 4 4 0 0 1 17 14v6H7z"/><path d="M7 17h10"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',auto:'<circle cx="12" cy="12" r="8"/><path d="M12 4v16a8 8 0 0 0 0-16z" fill="currentColor"/>',list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',aa:'<path d="M3 19l5-13 5 13M4.8 14.5h6.4M14 19l3.5-9 3.5 9M15.2 16h4.6"/>'};
+const P={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/>',heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',play:'<path d="M8 5v14l11-7z"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',fwd:'<path d="M9 5l7 7-7 7"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',pdf:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 14h6M9 18h4"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',text:'<path d="M5 6h14M5 10h14M5 14h10M5 18h7"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',box:'<path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',chef:'<path d="M7 14a4 4 0 0 1-.6-7.9A5 5 0 0 1 17.6 6 4 4 0 0 1 17 14v6H7z"/><path d="M7 17h10"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',auto:'<circle cx="12" cy="12" r="8"/><path d="M12 4v16a8 8 0 0 0 0-16z" fill="currentColor"/>',list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',tm:'<path d="M7 4h10l-1 13H8z"/><path d="M17 7h2a2 2 0 0 1 0 4h-2.3M6 21h12M9 17l-1 4M15 17l1 4"/>',aa:'<path d="M3 19l5-13 5 13M4.8 14.5h6.4M14 19l3.5-9 3.5 9M15.2 16h4.6"/>'};
 const ic=n=>`<svg class="i" viewBox="0 0 24 24">${P[n]||''}</svg>`;
 const FLAG={pt:'<svg viewBox="0 0 30 21" aria-hidden="true"><rect width="30" height="21" fill="#009c3b"/><path d="M15 2.2 27.6 10.5 15 18.8 2.4 10.5z" fill="#ffdf00"/><circle cx="15" cy="10.5" r="5.2" fill="#002776"/><path d="M9.9 9.6c3.4-.7 7.2-.1 10.1 1.7" stroke="#fff" stroke-width=".9" fill="none"/></svg>',
  it:'<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce2b37"/></svg>'};
@@ -412,7 +440,7 @@ function refreshPop(){if(!popEl)return;popEl.innerHTML=`<div><h4>${t('theme')}</
  popEl.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>setTheme(b.dataset.th));popEl.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>setFs(+b.dataset.f))}
 mq.addEventListener?.('change',()=>{applyLook();renderTop()});
 function renderFoot(){$('#foot').innerHTML=`<img src="mascote-mini.jpg" alt="">${t('foot')}<br><span>${S.mode==='db'?t('cloud'):S.ready?t('device'):''}</span>`}
-function showHelp(){const sec=[['h1','plus','#d63a2c'],['h2','list','#e8a21f'],['h3','play','#2f8a4b'],['h4','upload','#c2577f'],['h5','search','#2f7aa8'],['h6','copy','#e0702a'],['h7','box','#6e5c54'],['h8','phone','#8e3b26'],['h9','aa','#2b1d18']];
+function showHelp(){const sec=[['h1','plus','#d63a2c'],['h2','list','#e8a21f'],['h3','play','#2f8a4b'],['h4','upload','#c2577f'],['h5','search','#2f7aa8'],['h6','copy','#e0702a'],['h7','box','#6e5c54'],['h8','phone','#8e3b26'],['h10','tm','#1f5e34'],['h9','aa','#2b1d18']];
  const m=modal(`<h3><img src="mascote-mini.jpg" alt="">${t('helpT')}</h3><p>${t('helpIntro')}</p>${sec.map(([k,i,c])=>`<section><span class="hic" style="--k:${c}">${ic(i)}</span><div><h4>${t(k+'t')}</h4><div>${t(k)}</div></div></section>`).join('')}<div class="act"><button class="btn red" data-x>${t('gotIt')}</button></div>`,'help');
  m.querySelector('[data-x]').onclick=()=>m.remove()}
 
@@ -432,7 +460,7 @@ async function saveFile(name,data,type){if(S.dl)return S.dl.save({filename:name,
 function normalize(r,keepId){r=r||{};const cat=CATS.some(c=>c[0]===r.category)?r.category:'altro';
  const id=keepId&&/^[a-z0-9-]{3,40}$/i.test(r.id||'')?r.id:uid();
  const df={Facile:'Fácil',Media:'Média',Difficile:'Difícil',Easy:'Fácil',Medium:'Média',Hard:'Difícil'};const d=df[r.difficulty]||r.difficulty;
- return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:Math.max(1,n0(r.servings)||4),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),favorite:!!r.favorite,createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
+ return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:Math.max(1,n0(r.servings)||4),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),favorite:!!r.favorite,tm:TMS.includes(r.tm)?r.tm:(r.tm===true||/thermomix|bimby/i.test(String(r.tm||''))?'any':''),createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
 async function persist(r){r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
  if(S.mode==='db'){try{await S.db.collection('recipes').doc(r.id).set(JSON.parse(JSON.stringify(r)))}catch(e){dbErr(e);throw e}}else lsSave()}
 async function remove(id){S.recipes=S.recipes.filter(x=>x.id!==id);if(S.mode==='db'){try{await S.db.collection('recipes').doc(id).delete()}catch(e){dbErr(e)}}else lsSave()}
@@ -467,6 +495,11 @@ function parseIng(l){const m=l.match(/^\s*(\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:[.,]\d+
 function fq(q){if(q==null||!isFinite(q))return'';const r=Math.round(q*100)/100,w=Math.floor(r),d=Math.round((r-w)*100)/100,F={.25:'¼',.5:'½',.75:'¾',.33:'⅓',.67:'⅔'};if(F[d]&&r<20)return(w?w+' ':'')+F[d];return(r>=20?Math.round(r):r).toString().replace('.',',')}
 function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l};return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest}}
 const isGrp=l=>/:\s*$/.test(l)&&l.length<70;
+const TMTOK=String.raw`(?:\d+(?:[.,]\d+)?\s*(?:seg|sec|s|min|h)\.?|\d{2,3}\s*°\s*C?|Varoma|⟲|colher inversa|sentido inverso|reverse|antiorario|vel(?:ocidade|ocità)?\.?\s*(?:colher|cucchiaio|soft|turbo|\d+(?:[.,]\d+)?(?:\s*[-–]\s*\d+(?:[.,]\d+)?)?)|turbo)`;
+const TMRE=new RegExp(TMTOK+String.raw`(?:\s*\/\s*`+TMTOK+')*','gi');
+function fmtStep(s){let out='',last=0;s=String(s);for(const m of s.matchAll(TMRE)){const v=m[0];if(!(/vel|varoma|turbo/i.test(v)||(/\//.test(v)&&/°|colher|antiorario|⟲|inverso/i.test(v))))continue;out+=esc(s.slice(last,m.index))+`<span class="tm">${ic('tm')}${esc(v)}</span>`;last=m.index+v.length}return out+esc(s.slice(last))}
+const TMS=['any','TM31','TM5','TM6','TM7'];
+const tmLabel=v=>v==='any'?t('tmName'):'Thermomix '+v;
 function stepTime(s){const h=s.match(/(\d+(?:[.,]\d+)?)\s*(?:a\s*\d+\s*)?(?:h|horas?|ore|ora)\b/i),m=s.match(/(\d+)\s*(?:a\s*\d+\s*)?(?:min|minutos?|minuti|minuto)\b/i);let x=0;if(h)x+=parseFloat(h[1].replace(',','.'))*60;if(m)x+=+m[1];return x>0&&x<=24*60?Math.round(x):0}
 
 /* ---------- rotas ---------- */
@@ -479,10 +512,10 @@ const go=h=>{if(location.hash.slice(1)===h)route();else location.hash=h};
 
 /* ---------- início ---------- */
 function photoHTML(r){const u=safeImg(r.photo);return u?`<img src="${esc(u)}" alt="${esc(r.title)}" loading="lazy">`:`<div class="noph"><img src="mascote-mini.jpg" alt=""></div>`}
-function filtered(){const q=S.q.trim().toLowerCase();let l=S.recipes.filter(r=>(!S.cat||r.category===S.cat)&&(!S.fav||r.favorite)&&(!q||[r.title,r.subtitle,...(r.ingredients||[]),...(r.tags||[])].join(' ').toLowerCase().includes(q)));
+function filtered(){const q=S.q.trim().toLowerCase();let l=S.recipes.filter(r=>(!S.cat||r.category===S.cat)&&(!S.fav||r.favorite)&&(!S.tmOnly||r.tm)&&(!q||[r.title,r.subtitle,...(r.ingredients||[]),...(r.tags||[])].join(' ').toLowerCase().includes(q)));
  const tot=r=>n0(r.prepMin)+n0(r.cookMin);
  if(S.sort==='az')l.sort((a,b)=>a.title.localeCompare(b.title,S.lang));else if(S.sort==='fast')l.sort((a,b)=>(tot(a)||1e9)-(tot(b)||1e9));else l.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));return l}
-const card=r=>`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.favorite?`<span class="favd" aria-label="${at('fav')}">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} ${pl(r.servings)}</span><span>${ic('chef')}${esc(dname(r.difficulty))}</span></div></div></a>`;
+const card=r=>`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.tm?`<span class="tmb">${ic('tm')}${r.tm==='any'?t('tmOnly'):r.tm}</span>`:''}${r.favorite?`<span class="favd" aria-label="${at('fav')}">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} ${pl(r.servings)}</span><span>${ic('chef')}${esc(dname(r.difficulty))}</span></div></div></a>`;
 function gridHTML(){if(!S.ready&&!S.recipes.length)return`<div class="empty"><div class="spin" style="margin:0 auto 12px"></div><p>${t('loading')}</p></div>`;
  const l=filtered();if(l.length)return l.map(card).join('');
  if(S.recipes.length)return`<div class="empty"><h3>${t('nothing')}</h3><p>${t('tryOther')}</p></div>`;
@@ -503,6 +536,7 @@ function renderHome(){const favs=S.recipes.filter(r=>r.favorite).length,cats=new
    <div class="search">${ic('search')}<input type="search" id="q" placeholder="${at('searchPh')}" value="${esc(S.q)}" aria-label="${at('search')}"></div>
    <select id="sort" aria-label="${at('sort')}"><option value="rec">${t('sortRec')}</option><option value="az">${t('sortAz')}</option><option value="fast">${t('sortFast')}</option></select>
    <button class="chip ${S.fav?'on':''}" id="favf">${ic('heart')}${t('favs')}</button>
+   <button class="chip ${S.tmOnly?'on':''}" id="tmf">${ic('tm')}${t('tmOnly')}</button>
   </div>
   <div class="chipsw"><button class="arr" id="arl" aria-label="${at('prevCats')}">${ic('back')}</button>
    <div class="chips" id="chips"><button class="chip ${!S.cat?'on':''}" data-cat="">${t('all')} <small>${S.recipes.length}</small></button>${CATS.map(c=>`<button class="chip ${S.cat===c[0]?'on':''}" data-cat="${c[0]}">${c[1]} <small>${esc(catDesc(c))} · ${cnt(c[0])}</small></button>`).join('')}</div>
@@ -512,7 +546,7 @@ function renderHome(){const favs=S.recipes.filter(r=>r.favorite).length,cats=new
  $('#sort').value=S.sort;
  $('#q').oninput=e=>{S.q=e.target.value;$('#grid').innerHTML=gridHTML()};
  $('#sort').onchange=e=>{S.sort=e.target.value;$('#grid').innerHTML=gridHTML()};
- $('#favf').onclick=()=>{S.fav=!S.fav;route(true,true)};
+ $('#favf').onclick=()=>{S.fav=!S.fav;route(true,true)};$('#tmf').onclick=()=>{S.tmOnly=!S.tmOnly;route(true,true)};
  const ch=$('#chips');ch.style.scrollBehavior='auto';ch.scrollLeft=S.chipX;ch.style.scrollBehavior='';
  ch.onscroll=()=>{S.chipX=ch.scrollLeft;updArrows()};
  $('#arl').onclick=()=>ch.scrollBy({left:-ch.clientWidth*.7});$('#arr').onclick=()=>ch.scrollBy({left:ch.clientWidth*.7});
@@ -525,7 +559,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
  const sv=S.serv[id]||r.servings||1,f=sv/(r.servings||1),chk=S.chk[id]||(S.chk[id]={});
  const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span>${s.q?`<b>${esc(s.q)}</b> `:''}${esc(s.rest)}</span></label></li>`}).join('');
- const steps=(r.steps||[]).map((s,i)=>{const x=stepTime(s);return`<li><span class="n">${i+1}</span><div><p>${esc(s)}</p>${x?`<button class="btn tbtn" data-tm="${x}" data-st="${i+1}">${ic('timer')}${t('timer')} ${fmtMin(x)}</button>`:''}</div></li>`}).join('');
+ const steps=(r.steps||[]).map((s,i)=>{const x=stepTime(s);return`<li><span class="n">${i+1}</span><div><p>${fmtStep(s)}</p>${x?`<button class="btn tbtn" data-tm="${x}" data-st="${i+1}">${ic('timer')}${t('timer')} ${fmtMin(x)}</button>`:''}</div></li>`}).join('');
  const src=r.sourceUrl?(/^https?:\/\//.test(r.sourceUrl)?`<a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(r.sourceLabel||r.sourceUrl)}</a>`:esc(r.sourceUrl)):esc(r.sourceLabel);
  const c=catOf(r.category);
  app.innerHTML=`<div class="tricolor"></div><article class="band"><div class="wrap">
@@ -534,7 +568,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
   <div class="ph rphoto" style="--c:${CATCOL[r.category]}">${photoHTML(r)}</div>
   <div class="rinfo">
    <p class="kicker red">${esc(c[1])} · ${esc(catDesc(c))}</p>
-   <h1>${esc(r.title)}</h1>${r.subtitle?`<p class="lede">${esc(r.subtitle)}</p>`:''}
+   ${r.tm?`<div class="badge">${ic('tm')}${esc(tmLabel(r.tm))}</div>`:''}<h1>${esc(r.title)}</h1>${r.subtitle?`<p class="lede">${esc(r.subtitle)}</p>`:''}
    <div class="facts"><div class="fact"><span>${t('prep')}</span><b>${fmtMin(r.prepMin)}</b></div><div class="fact"><span>${t('cook')}</span><b>${fmtMin(r.cookMin)}</b></div><div class="fact"><span>${t('diff')}</span><b>${esc(dname(r.difficulty))}</b></div><div class="fact"><span>${t('servings')}</span><div class="stepper"><button data-sv="-1" aria-label="${at('less')}">−</button><b>${sv}</b><button data-sv="1" aria-label="${at('more')}">+</button></div></div></div>
    ${(r.tags||[]).length?`<div class="tags">${r.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>`:'<div style="height:16px"></div>'}
    <div class="ractions">
@@ -542,6 +576,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
     <button class="btn ${r.favorite?'on':''}" id="favb">${ic('heart')}${r.favorite?t('favorited'):t('favorite')}</button>
     <a class="btn" href="#editar-${esc(r.id)}">${ic('edit')}${t('edit')}</a>
     <button class="btn" id="shop">${ic('copy')}${t('shop')}</button>
+    <button class="btn" id="ckd">${ic('tm')}${t('toCookidoo')}</button>
     <button class="btn" id="dlr">${ic('download')}${t('dlSheet')}</button>
     <button class="btn quiet" id="del">${ic('trash')}${t('del')}</button>
    </div>
@@ -564,6 +599,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  $('#favb').onclick=async()=>{const n={...r,favorite:!r.favorite};try{await persist(n);route(true,true)}catch(e){}};
  $('#shop').onclick=()=>{const x=`${t('shopTitle')} — ${r.title} (${sv} ${pl(sv)})\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+(s.q?s.q+' ':'')+s.rest}).join('\n');copyText(x,t('copied'))};
  $('#dlr').onclick=()=>downloadSheet(r,sv,f);
+ $('#ckd').onclick=()=>toCookidoo(r,sv,f);
  $('#del').onclick=async()=>{if(await ask(t('delQ'),t('delMsg',{t:r.title}),t('del'))){await remove(id);toast(t('deleted'));go('')}}}
 function copyText(x,ok){const fb=()=>{const m=modal(`<h3>${t('copyText')}</h3><textarea rows="10">${esc(x)}</textarea><div class="act"><button class="btn" data-x>${t('close')}</button></div>`);m.querySelector('[data-x]').onclick=()=>m.remove();m.querySelector('textarea').select()};
  try{navigator.clipboard.writeText(x).then(()=>toast(ok),fb)}catch(e){fb()}}
@@ -583,7 +619,7 @@ async function cookMode(r,f){const st=r.steps||[];if(!st.length){toast(t('noStep
  const close=()=>{ov.remove();document.body.style.overflow='';removeEventListener('keydown',key);try{lock&&lock.release()}catch(e){}};
  const key=e=>{if(e.key==='ArrowRight'&&i<st.length-1){i++;draw()}else if(e.key==='ArrowLeft'&&i>0){i--;draw()}else if(e.key==='Escape')close()};addEventListener('keydown',key);
  const draw=()=>{const x=stepTime(st[i]);ov.innerHTML=`<div class="ck-top"><b>${esc(r.title)}</b><span>${t('stepOf',{i:i+1,n:st.length})}</span><button class="btn" data-c>${t('close')}</button></div><div class="ck-bar"><i style="width:${(i+1)/st.length*100}%"></i></div>
-  <div class="ck-main"><span class="ck-n">${i+1}</span><p>${esc(st[i])}</p>${x?`<div><button class="btn green" data-t>${ic('timer')}${t('timer')} ${fmtMin(x)}</button></div>`:''}</div>
+  <div class="ck-main"><span class="ck-n">${i+1}</span><p>${fmtStep(st[i])}</p>${x?`<div><button class="btn green" data-t>${ic('timer')}${t('timer')} ${fmtMin(x)}</button></div>`:''}</div>
   <details class="ck-ing"><summary>${t('seeIng')}</summary><ul>${(r.ingredients||[]).map(l=>isGrp(l)?`<li><b>${esc(l)}</b></li>`:(s=>`<li>${esc((s.q?s.q+' ':'')+s.rest)}</li>`)(scaled(l,f))).join('')}${(r.equipment||[]).map(e=>`<li><i>${esc(e)}</i></li>`).join('')}</ul></details>
   <div class="ck-nav"><button class="btn" data-p ${i?'':'disabled'}>${t('prev')}</button>${i<st.length-1?`<button class="btn red" data-n>${t('next')}</button>`:`<button class="btn green" data-c>${t('buon')}</button>`}</div>`;
   ov.querySelectorAll('[data-c]').forEach(b=>b.onclick=close);ov.querySelector('[data-p]').onclick=()=>{i--;draw()};const n=ov.querySelector('[data-n]');if(n)n.onclick=()=>{i++;draw()};const tb=ov.querySelector('[data-t]');if(tb)tb.onclick=()=>startTimer(`${r.title} · ${t('step')} ${i+1}`,x)};
@@ -598,7 +634,7 @@ async function storePhoto(blob){const c=await toCanvas(blob,1200);if(!S.db)retur
 /* ---------- editor ---------- */
 function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
  if(id&&!ex){app.innerHTML=`<section class="band"><div class="wrap"><div class="empty">${S.ready?`<h3>${t('notFound')}</h3><a class="btn" href="#">${t('back')}</a>`:'<div class="spin" style="margin:0 auto"></div>'}</div></div></section>`;return}
- let b=ex||S.draft||{};if(keep)b={...b,...keep,tags:String(keep.tags||'').split(','),ingredients:keep.ingredients,equipment:keep.equipment,steps:keep.steps};
+ let b=ex||S.draft||{};if(keep)b={...b,...keep,tm:keep.tmOn?(keep.tmModel||'any'):'',tags:String(keep.tags||'').split(','),ingredients:keep.ingredients,equipment:keep.equipment,steps:keep.steps};
  const from=keep?S.edFrom:(!ex&&S.draft?S.draft._from:'');const pend=!keep&&!ex&&S.draft?S.draft._photoBlob:null;S.draft=null;S.edFrom=from;S.edId=id||null;
  let busy=false;S.edPhoto=safeImg(b.photo);
  const lines=v=>esc(Array.isArray(v)?v.join('\n'):(v||''));
@@ -622,6 +658,8 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
      <label>${t('tags')} <small>${t('tagsHint')}</small><input name="tags" value="${esc((b.tags||[]).map(x=>String(x).trim()).filter(Boolean).join(', '))}" placeholder="${at('tagsPh')}"></label></div>
    </div>
   </div>
+  <div class="r2"><label class="check"><input type="checkbox" name="tmOn" ${b.tm?'checked':''}>${ic('tm')}${t('tmFor')}</label>
+   <label>${t('tmModel')}<select name="tmModel">${opt(b.tm&&b.tm!=='any'?b.tm:'any',TMS.map(v=>[v,v==='any'?t('tmAny'):'Thermomix '+v]))}</select></label></div>
   <div class="r2">
    <label>${t('ingredients')} <small>${esc(t('ingHint'))}</small><textarea name="ingredients" rows="12" placeholder="${at('ingPh')}">${lines(b.ingredients)}</textarea></label>
    <label>${t('equipment')} <small>${t('eqHint')}</small><textarea name="equipment" rows="12" placeholder="${at('eqPh')}">${lines(b.equipment)}</textarea></label>
@@ -643,17 +681,19 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
  $('#phx').onclick=()=>{S.edPhoto='';show()};
  $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast(t('waitPhoto'));return}
   const d=Object.fromEntries(new FormData(e.target));
-  const r=normalize({...(ex||{}),...d,tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
+  const r=normalize({...(ex||{}),...d,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
   const btn=$('#save');btn.disabled=true;btn.textContent=t('saving');
   try{await persist(r);toast(t('saved'));go('receita-'+r.id)}catch(err){btn.disabled=false;btn.textContent=t('save')}}}
 
 /* ---------- importação ---------- */
-const SCHEMA='{"recipes":[{"title":"","subtitle":"","category":"primi","servings":6,"prepMin":40,"cookMin":90,"difficulty":"Média","ingredients":["…:","500 g …","2 …"],"equipment":["…"],"steps":["…"],"notes":"","tags":["…"]}]}';
+const SCHEMA='{"recipes":[{"title":"","subtitle":"","category":"primi","servings":6,"prepMin":40,"cookMin":90,"difficulty":"Média","tm":"","ingredients":["…:","500 g …","2 …"],"equipment":["…"],"steps":["…"],"notes":"","tags":["…"]}]}';
 function buildPrompt(task,material){const lg=S.lang==='it'?'italiano':'português do Brasil';return`Você organiza receitas para um caderno de receitas profissional. Escreva todo o conteúdo da receita (título, descrição, ingredientes, equipamentos, passos, dicas e tags) em ${lg}.
 Tarefa: ${task}
 Regras:
 - Responda somente com JSON neste formato: ${SCHEMA}
 - "category" deve ser uma destas chaves: antipasti (entradas), primi (massas, risotos, sopas), secondi (carnes, peixes, aves), contorni (acompanhamentos, saladas), pizze (pães, pizzas, focaccias), salse (molhos), dolci (sobremesas, bolos), bevande (bebidas), altro.
+- "tm": "" se não for receita de Thermomix/Bimby; se for, "TM31", "TM5", "TM6" ou "TM7" quando o modelo estiver indicado, senão "any".
+- Em receitas de Thermomix/Bimby, mantenha os ajustes da máquina dentro do passo, no formato do livro: ${S.lang==='it'?'"5 min./100°/vel. 1", "10 sec./vel. 5", "antiorario", "Varoma", "vel. cucchiaio"':'"5 min/100 °C/vel. 1", "10 seg/vel. 5", "colher inversa", "Varoma", "vel. colher"'}. Inclua o Thermomix/Bimby (e o cesto, a borboleta ou o Varoma, se usados) nos equipamentos.
 - "difficulty" é exatamente "Fácil", "Média" ou "Difícil" (sempre em português, é uma chave interna).
 - Traduza para ${lg} se preciso. Use gramas, ml e medidas caseiras usuais.
 - Cada ingrediente começa pela quantidade numérica, depois a unidade e o ingrediente. Títulos de grupo terminam com ":".
@@ -662,9 +702,9 @@ Regras:
 - Estime porções, tempos e dificuldade se não estiverem informados.
 - Até 10 receitas. Se não houver receita no material, responda {"recipes":[]}.
 ${material?'Material:\n"""\n'+material.slice(0,80000)+'\n"""':''}`}
-const TILES=[['pdf','pdf','#d63a2c'],['video','video','#c2577f'],['photo','camera','#e0702a'],['text','text','#2f7aa8'],['spark','spark','#2f8a4b'],['box','box','#6e5c54']];
+const TILES=[['tm','tm','#1f5e34'],['pdf','pdf','#d63a2c'],['video','video','#c2577f'],['photo','camera','#e0702a'],['text','text','#2f7aa8'],['spark','spark','#2f8a4b'],['box','box','#6e5c54']];
 const cap=s=>s[0].toUpperCase()+s.slice(1);
-let impTab='pdf',ctl=null;
+let impTab='tm',ctl=null;
 function renderImport(){
  app.innerHTML=`<div class="tricolor"></div><section class="band imp"><div class="wrap">
   <a class="back" href="#">${ic('back')}${t('backBook')}</a>
@@ -688,6 +728,11 @@ function panel(){const p=$('#panel');const which=`<label>${t('which')} <small>${
   <label>${t('vidFiles')} <small>${t('vidHint')}</small><input type="file" id="file" accept="video/*,image/*" multiple></label><div class="thumbs" id="th"></div>${run}`;
  if(impTab==='photo')p.innerHTML=`<h2>${t('photoT')}</h2><p>${t('photoP')}</p><label>${t('images')}<input type="file" id="file" accept="image/*" multiple></label><div class="thumbs" id="th"></div>${which}${run}`;
  if(impTab==='text')p.innerHTML=`<h2>${t('textT')}</h2><p>${t('textP')}</p><label>${t('pageLink')} <small>${t('optSource')}</small><input id="url" type="url" placeholder="https://…"></label><label>${t('text')}<textarea id="txt" rows="10" placeholder="${at('pasteHere')}"></textarea></label>${run}`;
+ if(impTab==='tm')p.innerHTML=`<h2>${t('tmT')}</h2><p>${t('tmP')}</p>
+  <div class="howto"><b>${t('tmHow')}</b><ol><li>${esc(t('tmHow1'))}</li><li>${esc(t('tmHow2'))}</li><li>${esc(t('tmHow3'))}</li></ol></div>
+  <label>${t('tmLink')} <small>${t('keptSource')}</small><input id="url" type="url" placeholder="https://cookidoo.com.br/recipes/recipe/…"></label>
+  <label>${t('tmText')}<textarea id="txt" rows="8" placeholder="${at('pasteHere')}"></textarea></label>
+  <label>${t('tmImgs')}<input type="file" id="file" accept="image/*" multiple></label><div class="thumbs" id="th"></div>${run}`;
  if(impTab==='spark')p.innerHTML=`<h2>${t('sparkT')}</h2><p>${t('sparkP')}</p><label>${t('request')}<textarea id="txt" rows="4" placeholder="${at('sparkPh')}"></textarea></label>${run}`;
  if(impTab==='box'){p.innerHTML=`<h2>${t('boxT')}</h2><p>${t('boxP')}</p><p>${t('boxP2')}</p>
   <div class="hero-act" style="justify-content:flex-start"><button class="btn green" id="exp">${ic('download')}${t('exp')}</button><label class="btn">${ic('upload')}${t('imp')}<input type="file" id="bk" accept=".json,application/json" hidden></label></div><div id="st"></div>`;
@@ -722,12 +767,13 @@ async function startImport(){if(!aiReady()){aiSettings();return}
    task='Extraia a receita deste vídeo de culinária a partir da legenda e dos quadros/prints (leia o texto que aparece na tela). Se faltar quantidade, estime e avise em "notes".'+(which?` Receita: "${which}".`:'')}
   else if(impTab==='photo'){images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!images.length)throw{msg:t('eNeedImg')};from=t('fPhoto');task+=' Leia o texto das imagens (pode ser manuscrito). Ignore fotos que não sejam texto.'}
   else if(impTab==='text'){material=val('#txt');if(!material)throw{msg:t('eNeedText')};from=url?t('fSite')+' · '+url:t('fText')}
+  else if(impTab==='tm'){material=val('#txt');images=[...($('#file').files||[])].filter(f=>/^image\//.test(f.type));if(!material&&!images.length)throw{msg:t('eNeedCap')};from=url?t('fTm')+' · '+url:t('fTm');task='Extraia esta receita de Thermomix/Bimby (texto copiado do Cookidoo, do livro ou prints do app/da máquina). Ignore menus, avaliações e textos do site. Preencha "tm" e mantenha todos os ajustes da máquina em cada passo.'}
   else if(impTab==='spark'){const x=val('#txt');if(!x)throw{msg:t('eNeedWish')};task='Crie UMA receita original, testável e bem detalhada, de inspiração italiana quando fizer sentido, para este pedido: '+x;from=t('fAi')}
   if(images.length){if(!maxImg)throw{msg:t('eNoImgs')};images=images.slice(0,maxImg)}
   status(spinMsg(t('thinking')));
   ctl=new AbortController();
   const j=await aiJson(buildPrompt(task,material),images,ctl.signal);
-  const list=(Array.isArray(j)?j:(j&&j.recipes)||[]).map(r=>{const n=normalize(r);if(url&&/^https?:\/\//.test(url)){n.sourceUrl=url;n.sourceLabel=n.sourceLabel||(url.includes('instagram')?'Instagram':url.includes('tiktok')?'TikTok':url.includes('youtu')?'YouTube':'Site')}return n});
+  const list=(Array.isArray(j)?j:(j&&j.recipes)||[]).map(r=>{const n=normalize(r);if(url&&/^https?:\/\//.test(url)){n.sourceUrl=url;n.sourceLabel=n.sourceLabel||(url.includes('cookidoo')?'Cookidoo':url.includes('instagram')?'Instagram':url.includes('tiktok')?'TikTok':url.includes('youtu')?'YouTube':'Site')}return n});
   status('');showFound(list,from,cover)}
  catch(e){status('');const c=e?.code;if(c!=='cancelled')toast(e?.msg||(c==='not_granted'?t('eDenied'):c==='rate_limited'?t('eRate'):c==='invalid_json'?t('eJson'):c==='image_rejected'?t('eImg'):c==='prompt_too_large'?t('eBig'):t('eGeneric')))}
  finally{gob.disabled=false;stop.hidden=true;ctl=null}}
@@ -738,6 +784,19 @@ function showFound(list,from,cover){const box=$('#result');
  box.querySelectorAll('[data-rev]').forEach(b=>b.onclick=e=>{e.preventDefault();S.draft={...list[+b.dataset.rev],_from:from};go('nova')});
  $('#saveall').onclick=()=>saveMany([...box.querySelectorAll('[data-i]:checked')].map(c=>list[+c.dataset.i]))}
 async function saveMany(list){if(!list.length){toast(t('nothingSave'));return}let ok=0;for(const r of list){try{await persist(r);ok++}catch(e){break}}toast(t('savedN',{n:ok}));if(ok)go('')}
+
+/* ---------- Cookidoo ---------- */
+function toCookidoo(r,sv,f){const ing=(r.ingredients||[]).map(l=>isGrp(l)?l:(s=>(s.q?s.q+' ':'')+s.rest)(scaled(l,f)));const st=r.steps||[];
+ const info=`${t('servings')}: ${sv}\n${t('prep')}: ${fmtMin(r.prepMin)}\n${t('cook')}: ${fmtMin(r.cookMin)}\n${t('diff')}: ${dname(r.difficulty)}`;
+ const all=`${r.title}\n\n${info}\n\n${t('ckIng')}:\n${ing.join('\n')}\n\n${t('ckSteps')}:\n${st.map((s,i)=>(i+1)+'. '+s).join('\n')}${r.notes?'\n\n'+t('tip')+':\n'+r.notes:''}`;
+ const parts=[r.title,info,ing.join('\n'),st.join('\n\n'),all,...st];
+ const blk=(k,label,text)=>`<div class="blk"><header><b>${esc(label)}</b><button class="btn cp" data-cp="${k}">${ic('copy')}${t('copy')}</button></header><pre>${esc(text)}</pre></div>`;
+ const m=modal(`<h3>${ic('tm')} ${t('ckT')}</h3><p>${esc(t('ckP',{n:sv,p:pl(sv)}))}</p><div class="ckb">${blk(0,t('ckName'),r.title)}${blk(1,t('ckInfo'),info)}${blk(2,t('ckIng'),ing.join('\n'))}
+  <div class="blk"><header><b>${t('ckSteps')}</b><button class="btn cp" data-cp="3">${ic('copy')}${t('copy')}</button></header>${st.map((s,i)=>`<div class="stp"><span><b>${i+1}.</b> ${fmtStep(s)}</span><button class="btn cp quiet" data-cp="${5+i}" aria-label="${at('copy')} ${t('ckStep')} ${i+1}">${ic('copy')}</button></div>`).join('')}</div>
+  <p style="font-size:14px">${t('ckNote')}</p></div>
+  <div class="act"><a class="btn" href="https://cookidoo.${S.lang==='it'?'it':'com.br'}/" target="_blank" rel="noopener">Cookidoo ↗</a><button class="btn green" data-cp="4">${ic('copy')}${t('ckAll')}</button><button class="btn" data-x>${t('close')}</button></div>`,'help');
+ m.querySelector('[data-x]').onclick=()=>m.remove();
+ m.querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>copyText(parts[+b.dataset.cp],t('copiedOk')))}
 
 /* ---------- ficha para imprimir ---------- */
 async function downloadSheet(r,sv,f){let ph=safeImg(r.photo);
