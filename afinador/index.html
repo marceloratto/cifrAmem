@@ -365,7 +365,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
       <div>
         <button class="btn" id="startBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-          <span data-t="start">Ativar o microfone</span>
+          <span data-t="start" id="startTxt">Ativar o microfone</span>
         </button>
         <p id="startMsg" data-t="startMsg">O som é analisado só no seu aparelho. Nada é gravado nem enviado.</p>
       </div>
@@ -566,6 +566,7 @@ var T = {
     title: 'Accordatore, o afinador do cifrAmem', help: 'Como usar', settings: 'Ajustes', close: 'Fechar',
     instrument: 'Instrumento', tuning: 'Afinação', refFreq: 'Frequência de referência', la: 'Lá', less: 'Diminuir', more: 'Aumentar',
     refLbl: 'Referência (Lá 4)', refHint: 'Use 440 Hz no padrão. Ajuste para acompanhar um órgão ou piano que esteja um pouco diferente.',
+    tapToStart: 'Toque para começar', tapToStartMsg: 'O microfone está ligado. Toque na tela para o afinador começar a ouvir.',
     doneTitle: 'Parabéns!', doneMsg: 'Instrumento afinado!', doneOk: 'Tocar!', doneAgain: 'Conferir de novo',
     smooth: 'Ponteiro', sm0: 'Rápido', sm1: 'Normal', sm2: 'Suave', sm3: 'Muito suave', smoothHint: 'Quanto mais suave, mais calmo o ponteiro, mas ele demora um pouco mais para responder.',
     names: 'Nomes das notas', namesLetters: 'C D E (cifra)', namesSolf: 'Dó Ré Mi', tol: 'Tolerância para “afinado”',
@@ -590,6 +591,7 @@ var T = {
     title: 'Accordatore, l’accordatore di cifrAmem', help: 'Come si usa', settings: 'Impostazioni', close: 'Chiudi',
     instrument: 'Strumento', tuning: 'Accordatura', refFreq: 'Frequenza di riferimento', la: 'La', less: 'Diminuisci', more: 'Aumenta',
     refLbl: 'Riferimento (La 4)', refHint: 'Lo standard è 440 Hz. Cambialo per suonare con un organo o un pianoforte accordato un po’ diversamente.',
+    tapToStart: 'Tocca per iniziare', tapToStartMsg: 'Il microfono è attivo. Tocca lo schermo perché l’accordatore inizi ad ascoltare.',
     doneTitle: 'Complimenti!', doneMsg: 'Strumento accordato!', doneOk: 'Suoniamo!', doneAgain: 'Ricontrolla',
     smooth: 'Lancetta', sm0: 'Rapida', sm1: 'Normale', sm2: 'Morbida', sm3: 'Molto morbida', smoothHint: 'Più è morbida, più la lancetta è calma, ma impiega un po’ di più a rispondere.',
     names: 'Nomi delle note', namesLetters: 'C D E (sigle)', namesSolf: 'Do Re Mi', tol: 'Tolleranza per “accordato”',
@@ -872,6 +874,9 @@ function analysisConfigChanged() {
 $('startBtn').addEventListener('click', start);
 function start() {
   var msg = $('startMsg');
+  if (stream && ctx) { resumeAudio(); return; }      // microfone já ligado: só falta liberar o som
+  if (starting) return;
+  starting = true;
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.innerHTML = L().errApi; return; }
   var AC = window.AudioContext || window.webkitAudioContext;
   try { ctx = ctx || new AC({ latencyHint: 'interactive' }); } catch (e) { try { ctx = new AC(); } catch (e2) { msg.innerHTML = L().errAudio; return; } }
@@ -890,12 +895,45 @@ function start() {
           connectMic(s);
         } catch (e4) { showErr(e4); return; }
       }
-      $('start').hidden = true; $('card').setAttribute('aria-live', 'polite');
+      starting = false;
       running = true; applyWake();
+      $('card').setAttribute('aria-live', 'polite');
+      resumeAudio();
     }, function (err) {
+      starting = false;
       var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError' || err.name === 'PermissionDeniedError');
       msg.innerHTML = denied ? L().errDenied : L().errNoMic + ' <small>(' + (err && err.name || '') + ')</small>';
     });
+}
+// O navegador pode deixar o áudio "pausado" até o primeiro toque (iPhone, por exemplo)
+var starting = false;
+function resumeAudio() {
+  if (!ctx) return;
+  var upd = function () {
+    var ok = ctx.state === 'running';
+    $('start').hidden = ok;
+    if (!ok && stream) {
+      $('startTxt').textContent = L().tapToStart;
+      $('startMsg').textContent = L().tapToStartMsg;
+    }
+  };
+  var p = ctx.resume ? ctx.resume() : null;
+  if (p && p.then) p.then(upd, upd); else upd();
+  setTimeout(upd, 400);
+}
+['pointerdown', 'keydown', 'touchend'].forEach(function (ev) {
+  document.addEventListener(ev, function () { if (ctx && stream && ctx.state !== 'running') resumeAudio(); }, true);
+});
+// Abre já ligando o microfone (se a permissão não foi negada antes)
+function autoStart() {
+  if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+  var go = function () { start(); };
+  try {
+    navigator.permissions.query({ name: 'microphone' }).then(function (st) {
+      if (st.state === 'denied') { $('startMsg').innerHTML = L().errDenied; return; }
+      go();
+    }, go);
+  } catch (e) { go(); }
 }
 function connectMic(s) {
   var src = ctx.createMediaStreamSource(s);
@@ -1257,6 +1295,7 @@ helpDlg.addEventListener('click', function (e) { if (e.target === helpDlg && hel
 setA4(prefs.a4);
 selectInstrument(prefs.inst);
 applyLang(prefs.lang);
+autoStart();
 
 // Tela de abertura: some sozinha (ou com um toque); só uma vez por sessão
 (function () {
