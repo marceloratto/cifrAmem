@@ -185,6 +185,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--tomato);animation:sp 1s linear infinite;flex:none}
 @keyframes sp{to{transform:rotate(360deg)}}
 [hidden]{display:none!important}
+.trbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:color-mix(in srgb,#2f7aa8 12%,var(--paper));border:1px solid color-mix(in srgb,#2f7aa8 35%,transparent);border-radius:14px;padding:10px 14px;margin:0 0 16px;font-weight:700;font-size:calc(14px*var(--fs))}.trbar span{flex:1 1 200px;display:flex;gap:8px;align-items:center}.trbar .btn{min-height:38px;font-size:calc(14px*var(--fs));padding:0 12px}
 .tmp{display:inline-flex;gap:6px;vertical-align:middle;margin:2px 2px;padding:4px;border-radius:14px;background:color-mix(in srgb,var(--basil) 12%,transparent);border:1px solid color-mix(in srgb,var(--basil) 30%,transparent)}
 .tmk{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:54px;padding:4px 8px;border-radius:11px;background:var(--paper);box-shadow:0 1px 2px rgb(0 0 0/.08);line-height:1.15}
 .tmk i{display:grid;place-items:center;color:var(--basil);font-style:normal}.tmk i svg{width:18px;height:18px}
@@ -356,6 +357,7 @@ h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compart
 h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
 gotIt:`Entendi`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+lpt:`português`,lit:`italiano`,trBusy:`Traduzindo para o {l}…`,trNeedAi:`Esta receita está em {l}. Configure a IA para traduzir.`,trFail:`Não foi possível traduzir agora.`,trRetry:`Tentar de novo`,trAll:`Traduzir todas`,trCount:`{n} receita(s) ainda sem tradução.`,trDone:`Tradução concluída`,trAuto:`Tradução automática.`,trSeeOrig:`Ver original`,trSeeTr:`Ver tradução`,editOrig:`Você está editando o texto original em {l}. A tradução será refeita depois de salvar.`,
 info:`Informações úteis`,infoP:`Pesos de referência, conversões e ajustes da Thermomix. Edite à vontade e acrescente as suas.`,ts_peso:`Pesos e medidas`,ts_tm:`Thermomix / Bimby`,ts_outros:`Outras`,tNew:`Nova informação`,tEditT:`Editar informação`,tSec:`Seção`,tTitle:`Título`,tText:`Detalhes`,tTime:`Tempo`,tTemp:`Temperatura`,tSpeed:`Velocidade`,tRev:`Colher inversa`,tDelQ:`Excluir esta informação?`,tSaved:`Informação salva`,tEmpty:`Nenhuma informação nesta seção.`,tTitlePh:`Desfiar 350 g de peito de frango`,tTimePh:`5 seg`,tTempPh:`– ou 100 °C`,tSpeedPh:`4`,tLoadFail:`Não foi possível carregar as informações.`,
 qtyMode:`Quantidades`,bakerMode:`% do padeiro`,flourTot:`Farinha`,hydr:`Hidratação`,doughTot:`Massa total`,eggNote:`~ valores estimados: ovo padrão 50 g (gema 15 g + clara 35 g); azeite 15 g por colher de sopa, 5 g por colher de chá.`,noFlour:`Para usar o % do padeiro, a receita precisa ter farinha em gramas.`,tapHint:`Toque num ingrediente para mudar a quantidade e recalcular a receita toda na mesma proporção. O quadradinho marca o que já foi separado.`,adjT:`Ajustar quantidade`,adjP:`As outras quantidades mudam na mesma proporção.`,apply:`Aplicar`,badNum:`Digite um número maior que zero, por exemplo 700 ou 0,5.`,adjusted:`Quantidades ajustadas (×{x})`,saveFor:`Salvar para {n} {p}`,backOrig:`Voltar`,saveQ:`Salvar a receita com estas quantidades?`,saveMsg:`A receita passa a ser para {n} {p}, com todas as quantidades recalculadas na mesma proporção. Você pode restaurar as originais depois.`,savedScale:`Quantidades salvas`,restore:`Restaurar quantidades originais ({n} {p})`,restored:`Quantidades originais restauradas`,
 takePhoto:`Tirar foto`,fromGallery:`Escolher da galeria`,photoAdded:`Foto adicionada. Se a receita continuar em outra página, tire mais uma.`,removeImg:`Remover imagem`,fillPhoto:`Preencher com foto da receita`,filled:`Campos preenchidos. Confira e salve.`,replaceQ:`Substituir o que já foi escrito?`,replaceMsg:`Os campos serão preenchidos com a receita da foto.`,replaceBtn:`Substituir`,
@@ -419,6 +421,7 @@ h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condivi
 h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
 gotIt:`Ho capito`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+lpt:`portoghese`,lit:`italiano`,trBusy:`Traduzione in {l}…`,trNeedAi:`Questa ricetta è in {l}. Configura l'IA per tradurla.`,trFail:`Impossibile tradurre ora.`,trRetry:`Riprova`,trAll:`Traduci tutte`,trCount:`{n} ricetta/e ancora da tradurre.`,trDone:`Traduzione completata`,trAuto:`Traduzione automatica.`,trSeeOrig:`Vedi originale`,trSeeTr:`Vedi traduzione`,editOrig:`Stai modificando il testo originale in {l}. La traduzione verrà rifatta dopo il salvataggio.`,
 info:`Informazioni utili`,infoP:`Pesi di riferimento, conversioni e impostazioni del Bimby. Modificale e aggiungi le tue.`,ts_peso:`Pesi e misure`,ts_tm:`Bimby / Thermomix`,ts_outros:`Altre`,tNew:`Nuova informazione`,tEditT:`Modifica informazione`,tSec:`Sezione`,tTitle:`Titolo`,tText:`Dettagli`,tTime:`Tempo`,tTemp:`Temperatura`,tSpeed:`Velocità`,tRev:`Antiorario`,tDelQ:`Eliminare questa informazione?`,tSaved:`Informazione salvata`,tEmpty:`Nessuna informazione in questa sezione.`,tTitlePh:`Sfilacciare 350 g di petto di pollo`,tTimePh:`5 sec`,tTempPh:`– o 100°`,tSpeedPh:`4`,tLoadFail:`Impossibile caricare le informazioni.`,
 qtyMode:`Quantità`,bakerMode:`% del fornaio`,flourTot:`Farina`,hydr:`Idratazione`,doughTot:`Impasto totale`,eggNote:`~ valori stimati: uovo standard 50 g (tuorlo 15 g + albume 35 g); olio 15 g per cucchiaio, 5 g per cucchiaino.`,noFlour:`Per usare le percentuali del fornaio, la ricetta deve avere la farina in grammi.`,tapHint:`Tocca un ingrediente per cambiare la quantità e ricalcolare tutta la ricetta nella stessa proporzione. Il quadratino segna ciò che hai già preparato.`,adjT:`Modifica quantità`,adjP:`Le altre quantità cambiano nella stessa proporzione.`,apply:`Applica`,badNum:`Inserisci un numero maggiore di zero, per esempio 700 o 0,5.`,adjusted:`Quantità modificate (×{x})`,saveFor:`Salva per {n} {p}`,backOrig:`Annulla`,saveQ:`Salvare la ricetta con queste quantità?`,saveMsg:`La ricetta diventa per {n} {p}, con tutte le quantità ricalcolate nella stessa proporzione. Potrai ripristinare quelle originali.`,savedScale:`Quantità salvate`,restore:`Ripristina le quantità originali ({n} {p})`,restored:`Quantità originali ripristinate`,
 takePhoto:`Scatta foto`,fromGallery:`Scegli dalla galleria`,photoAdded:`Foto aggiunta. Se la ricetta continua su un'altra pagina, scattane un'altra.`,removeImg:`Rimuovi immagine`,fillPhoto:`Compila dalla foto della ricetta`,filled:`Campi compilati. Controlla e salva.`,replaceQ:`Sostituire quanto già scritto?`,replaceMsg:`I campi verranno compilati con la ricetta della foto.`,replaceBtn:`Sostituisci`,
@@ -497,20 +500,26 @@ function defaultTips(){const it=S.lang==='it';return[
  {id:'d-ferm',sec:'peso',title:it?'Lievito':'Fermento biológico',text:it?'Secco = 1/3 del fresco (10 g secco ≈ 30 g fresco)':'Seco = 1/3 do fresco (10 g seco ≈ 30 g fresco)'},
  {id:'d-frango',sec:'tm',title:it?'Sfilacciare 350 g di petto di pollo':'Desfiar 350 g de peito de frango',time:it?'5 sec':'5 seg',temp:'',speed:'4',rev:true,text:''}]}
 async function loadTips(){if(S.mode==='db'){const snap=await S.db.collection('tips').get();let l=snap.docs.map(d=>({...d.data(),id:d.id}));
-  if(!l.length){const meta=await S.db.doc('meta/tips').get();if(!meta.exists){l=defaultTips();for(const x of l)await S.db.collection('tips').doc(x.id).set(x);await S.db.doc('meta/tips').set({init:true})}}return l}
+  if(!l.length){const meta=await S.db.doc('meta/tips').get();if(!meta.exists){l=defaultTips().map(x=>({...x,lang:S.lang}));for(const x of l)await S.db.collection('tips').doc(x.id).set(x);await S.db.doc('meta/tips').set({init:true})}}return l}
  let l=null;try{l=await idbGet('tips')}catch(e){}if(!Array.isArray(l)){l=defaultTips();try{await idbSet('tips',l)}catch(e){}}return l}
 async function storeTips(x,del){if(del)S.tips=S.tips.filter(y=>y.id!==x.id);else{const i=S.tips.findIndex(y=>y.id===x.id);if(i>=0)S.tips[i]=x;else S.tips.push(x)}
  if(S.mode==='db'){const ref=S.db.collection('tips').doc(x.id);if(del)await ref.delete();else await ref.set(JSON.parse(JSON.stringify(x)));try{await S.db.doc('meta/tips').set({init:true})}catch(e){}}else await idbSet('tips',JSON.parse(JSON.stringify(S.tips)))}
+function tipView(x){if(/^d-/.test(x.id)&&!x.edited){const d=defaultTips().find(y=>y.id===x.id);if(d)return{...x,...d}}
+ if((x.lang||'pt')!==S.lang&&x.tr&&x.tr[S.lang])return{...x,...x.tr[S.lang]};return x}
+async function translateTips(){const need=S.tips.filter(x=>!(/^d-/.test(x.id)&&!x.edited)&&(x.lang||'pt')!==S.lang&&!(x.tr&&x.tr[S.lang]));if(!need.length||!aiReady())return false;const L=S.lang;
+ const j=await aiJson(`Traduza para ${L==='it'?'italiano':'português do Brasil'} estas dicas de cozinha. Responda somente com um JSON array de objetos {"id","title","text","time"} com os mesmos ids. Mantenha números e unidades; "time" é um tempo da Thermomix/Bimby (ex.: ${L==='it'?'"5 sec"':'"5 seg"'}).
+${JSON.stringify(need.map(x=>({id:x.id,title:x.title,text:x.text||'',time:x.time||''})))}`,[],null);
+ for(const y of (Array.isArray(j)?j:[])){const x=S.tips.find(z=>z.id===y.id);if(!x||!y.title)continue;const n={...x,tr:{...(x.tr||{}),[L]:{title:String(y.title),text:String(y.text||''),time:String(y.time||x.time||'')}}};try{await storeTips(n)}catch(e){}}return true}
 async function showTips(){closePop();const m=modal('<div id="tipsb"><div class="spin"></div></div>','help');const box=m.querySelector('#tipsb');
  if(!S.tips){try{S.tips=await loadTips()}catch(e){S.tips=defaultTips();toast(t('tLoadFail'))}}
- const item=x=>`<div class="tipi"><header><b>${esc(x.title)}</b><button class="ib sm" data-te="${esc(x.id)}" aria-label="${at('edit')}">${ic('edit')}</button><button class="ib sm" data-td="${esc(x.id)}" aria-label="${at('del')}">${ic('trash')}</button></header>${x.sec==='tm'?`<div>${tmPanel(x,x.title)}</div>`:''}${x.text?`<p>${esc(x.text)}</p>`:''}</div>`;
+ const item=x0=>{const x=tipView(x0);return`<div class="tipi"><header><b>${esc(x.title)}</b><button class="ib sm" data-te="${esc(x.id)}" aria-label="${at('edit')}">${ic('edit')}</button><button class="ib sm" data-td="${esc(x.id)}" aria-label="${at('del')}">${ic('trash')}</button></header>${x.sec==='tm'?`<div>${tmPanel(x,x.title)}</div>`:''}${x.text?`<p>${esc(x.text)}</p>`:''}</div>`};
  const list=()=>{const l=S.tips.filter(x=>(x.sec||'outros')===tipSec);
   box.innerHTML=`<h3>${ic('info')} ${t('info')}</h3><p>${t('infoP')}</p><div class="segm" role="group">${TSEC.map(k=>`<button type="button" data-ts="${k}" aria-pressed="${tipSec===k}">${t('ts_'+k)} · ${S.tips.filter(x=>(x.sec||'outros')===k).length}</button>`).join('')}</div>
   <div class="tipl">${l.length?l.map(item).join(''):`<p>${t('tEmpty')}</p>`}</div>
   <div class="act"><button class="btn green" data-tn>${ic('plus')}${t('tNew')}</button><button class="btn" data-x>${t('close')}</button></div>`;
   box.querySelectorAll('[data-ts]').forEach(b=>b.onclick=()=>{tipSec=b.dataset.ts;list()});
   box.querySelector('[data-x]').onclick=()=>m.remove();box.querySelector('[data-tn]').onclick=()=>form({id:'u'+uid(),sec:tipSec,title:'',text:'',time:'',temp:'',speed:'',rev:false},true);
-  box.querySelectorAll('[data-te]').forEach(b=>b.onclick=()=>form({...S.tips.find(x=>x.id===b.dataset.te)}));
+  box.querySelectorAll('[data-te]').forEach(b=>b.onclick=()=>form({...tipView(S.tips.find(x=>x.id===b.dataset.te))}));
   box.querySelectorAll('[data-td]').forEach(b=>b.onclick=async()=>{const x=S.tips.find(y=>y.id===b.dataset.td);if(x&&await ask(t('tDelQ'),x.title,t('del'))){try{await storeTips(x,true)}catch(e){dbErr(e)}list()}})};
  const form=(x,isNew)=>{box.innerHTML=`<h3>${ic('info')} ${isNew?t('tNew'):t('tEditT')}</h3><form class="tform" id="tf">
   <label>${t('tSec')}<select name="sec">${TSEC.map(k=>`<option value="${k}" ${x.sec===k?'selected':''}>${t('ts_'+k)}</option>`).join('')}</select></label>
@@ -522,9 +531,11 @@ async function showTips(){closePop();const m=modal('<div id="tipsb"><div class="
   const f=box.querySelector('#tf');const pv=()=>{const d=Object.fromEntries(new FormData(f));box.querySelector('#prev').innerHTML=tmPanel({time:d.time,temp:d.temp,speed:d.speed,rev:!!d.rev})};
   f.oninput=pv;f.onchange=()=>{box.querySelector('#tmf').hidden=f.elements.sec.value!=='tm';pv()};pv();
   box.querySelector('[data-c]').onclick=list;
-  f.onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));const y={id:x.id,sec:TSEC.includes(d.sec)?d.sec:'outros',title:d.title.trim(),text:d.text.trim(),time:d.time?.trim()||'',temp:d.temp?.trim()||'',speed:d.speed?.trim()||'',rev:!!d.rev};
+  f.onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));const y={id:x.id,lang:S.lang,edited:true,tr:{},sec:TSEC.includes(d.sec)?d.sec:'outros',title:d.title.trim(),text:d.text.trim(),time:d.time?.trim()||'',temp:d.temp?.trim()||'',speed:d.speed?.trim()||'',rev:!!d.rev};
    try{await storeTips(y);tipSec=y.sec;toast(t('tSaved'))}catch(err){dbErr(err)}list()}};
- list()}
+ list();
+ if(aiReady())translateTips().then(ch=>{if(ch&&box.isConnected)list()},()=>{});
+}
 
 /* ---------- toast, modal ---------- */
 let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3200)}
@@ -541,11 +552,34 @@ function lsSave(){idbSet('recipes',JSON.parse(JSON.stringify(S.recipes))).catch(
 async function saveFile(name,data,type){if(S.dl)return S.dl.save({filename:name,data});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
 function numServ(v){const x=parseFloat(String(v??'').replace(',','.'));return x>0?Math.max(.5,Math.round(x*10)/10):4}
 const fmtN=x=>String(Math.round(x*10)/10).replace('.',',');
+function normTr(x){const o={};if(x&&typeof x==='object')for(const k of ['pt','it']){const v=x[k];if(v&&typeof v==='object')o[k]={title:String(v.title||''),subtitle:String(v.subtitle||''),ingredients:arr(v.ingredients),equipment:arr(v.equipment),steps:arr(v.steps),notes:String(v.notes||''),tags:arr(v.tags),h:String(v.h||'')}}return o}
+function rHash(r){const x=JSON.stringify([r.title,r.subtitle,r.ingredients,r.equipment,r.steps,r.notes,r.tags]);let h=0;for(let i=0;i<x.length;i++)h=(h*31+x.charCodeAt(i))|0;return String(h)}
+const lname=l=>t(l==='it'?'lit':'lpt');
+S.orig={};
+function view(r){if((r.lang||'pt')===S.lang||S.orig[r.id])return r;const x=r.tr&&r.tr[S.lang];if(!x||x.h!==rHash(r))return r;
+ const same=k=>Array.isArray(x[k])&&x[k].length===(r[k]||[]).length?x[k]:r[k];
+ return{...r,title:x.title||r.title,subtitle:x.subtitle||r.subtitle,ingredients:same('ingredients'),equipment:same('equipment'),steps:same('steps'),notes:x.notes||r.notes,tags:x.tags.length?x.tags:r.tags,_tr:true}}
+const needsTr=r=>(r.lang||'pt')!==S.lang&&!(r.tr&&r.tr[S.lang]&&r.tr[S.lang].h===rHash(r));
+const trBusy=new Set(),trFail=new Set();
+async function translateRecipe(r){if(trBusy.has(r.id))return;trBusy.add(r.id);trFail.delete(r.id);const L=S.lang;
+ try{const src={title:r.title,subtitle:r.subtitle,ingredients:r.ingredients,equipment:r.equipment,steps:r.steps,notes:r.notes,tags:r.tags};
+  const j=await aiJson(`Traduza para ${L==='it'?'italiano':'português do Brasil'} o conteúdo desta receita de um caderno de receitas. Responda somente com JSON com as mesmas chaves: title, subtitle, ingredients, equipment, steps, notes, tags.
+Regras:
+- ingredients, equipment, steps e tags são listas: mantenha EXATAMENTE o mesmo número de itens e a mesma ordem.
+- Mantenha números, quantidades e unidades como estão, no mesmo lugar (a quantidade continua no começo da linha). Linhas que terminam com ":" são títulos de grupo e continuam terminando com ":".
+- Ajustes de Thermomix/Bimby ficam no formato ${L==='it'?'"5 min./100°/vel. 1", "10 sec./vel. 5", "antiorario", "Varoma", "vel. cucchiaio"':'"5 min/100 °C/vel. 1", "10 seg/vel. 5", "colher inversa", "Varoma", "vel. colher"'}.
+- Nomes consagrados de pratos e ingredientes que se usam no original (tiramisù, focaccia, farinha 00, mascarpone) podem ficar como estão.
+Receita:
+${JSON.stringify(src)}`,[],null);
+  const cur=S.recipes.find(x=>x.id===r.id)||r;const tr={...(cur.tr||{})};tr[L]={...normTr({[L]:j})[L],h:rHash(cur)};
+  if(!tr[L].title)throw{code:'invalid_json'};
+  await persist(normalize({...cur,tr},true),true)}
+ catch(e){trFail.add(r.id);throw e}finally{trBusy.delete(r.id)}}
 function normalize(r,keepId){r=r||{};const cat=CATS.some(c=>c[0]===r.category)?r.category:'altro';
  const id=keepId&&/^[a-z0-9-]{3,40}$/i.test(r.id||'')?r.id:uid();
  const df={Facile:'Fácil',Media:'Média',Difficile:'Difícil',Easy:'Fácil',Medium:'Média',Hard:'Difícil'};const d=df[r.difficulty]||r.difficulty;
- return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:numServ(r.servings),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),orig:r.orig&&Array.isArray(r.orig.ingredients)?{ingredients:arr(r.orig.ingredients),servings:numServ(r.orig.servings)}:null,favorite:!!r.favorite,tm:TMS.includes(r.tm)?r.tm:(r.tm===true||/thermomix|bimby/i.test(String(r.tm||''))?'any':''),createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
-async function persist(r){r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
+ return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:numServ(r.servings),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),lang:r.lang==='it'?'it':'pt',tr:normTr(r.tr),orig:r.orig&&Array.isArray(r.orig.ingredients)?{ingredients:arr(r.orig.ingredients),servings:numServ(r.orig.servings)}:null,favorite:!!r.favorite,tm:TMS.includes(r.tm)?r.tm:(r.tm===true||/thermomix|bimby/i.test(String(r.tm||''))?'any':''),createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
+async function persist(r,keepTime){if(!keepTime)r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
  if(S.mode==='db'){try{await S.db.collection('recipes').doc(r.id).set(JSON.parse(JSON.stringify(r)))}catch(e){dbErr(e);throw e}}else lsSave()}
 async function remove(id){S.recipes=S.recipes.filter(x=>x.id!==id);if(S.mode==='db'){try{await S.db.collection('recipes').doc(id).delete()}catch(e){dbErr(e)}}else lsSave()}
 function dbErr(e){const c=e&&e.code;toast(c==='quota_exceeded'?t('dbQuota'):c==='invalid_argument'?t('dbRO'):t('dbFail'))}
@@ -613,10 +647,10 @@ const go=h=>{if(location.hash.slice(1)===h)route();else location.hash=h};
 
 /* ---------- início ---------- */
 function photoHTML(r){const u=safeImg(r.photo);return u?`<img src="${esc(u)}" alt="${esc(r.title)}" loading="lazy">`:`<div class="noph"><img src="mascote-mini.jpg" alt=""></div>`}
-function filtered(){const q=S.q.trim().toLowerCase();let l=S.recipes.filter(r=>(!S.cat||r.category===S.cat)&&(!S.fav||r.favorite)&&(!S.tmOnly||r.tm)&&(!q||[r.title,r.subtitle,...(r.ingredients||[]),...(r.tags||[])].join(' ').toLowerCase().includes(q)));
+function filtered(){const q=S.q.trim().toLowerCase();let l=S.recipes.filter(r=>(!S.cat||r.category===S.cat)&&(!S.fav||r.favorite)&&(!S.tmOnly||r.tm)&&(!q||(v=>[r.title,r.subtitle,...(r.ingredients||[]),...(r.tags||[]),v.title,v.subtitle,...(v.ingredients||[]),...(v.tags||[])])(view(r)).join(' ').toLowerCase().includes(q)));
  const tot=r=>n0(r.prepMin)+n0(r.cookMin);
- if(S.sort==='az')l.sort((a,b)=>a.title.localeCompare(b.title,S.lang));else if(S.sort==='fast')l.sort((a,b)=>(tot(a)||1e9)-(tot(b)||1e9));else l.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));return l}
-const card=r=>`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.tm?`<span class="tmb">${ic('tm')}${r.tm==='any'?t('tmOnly'):r.tm}</span>`:''}${r.favorite?`<span class="favd" aria-label="${at('fav')}">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} ${pl(r.servings)}</span><span>${ic('chef')}${esc(dname(r.difficulty))}</span></div></div></a>`;
+ if(S.sort==='az')l.sort((a,b)=>view(a).title.localeCompare(view(b).title,S.lang));else if(S.sort==='fast')l.sort((a,b)=>(tot(a)||1e9)-(tot(b)||1e9));else l.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));return l}
+const card=r0=>{const r=view(r0);return`<a class="card" href="#receita-${esc(r.id)}"><div class="ph" style="--c:${CATCOL[r.category]||'#6e5c54'}">${photoHTML(r)}<span class="cat">${esc(catOf(r.category)[1])}</span>${r.tm?`<span class="tmb">${ic('tm')}${r.tm==='any'?t('tmOnly'):r.tm}</span>`:''}${r.favorite?`<span class="favd" aria-label="${at('fav')}">${ic('heart')}</span>`:''}</div><div class="cb"><h3>${esc(r.title)}</h3><p>${esc(r.subtitle)}</p><div class="meta"><span>${ic('clock')}${fmtMin(n0(r.prepMin)+n0(r.cookMin))}</span><span>${ic('users')}${r.servings||'—'} ${pl(r.servings)}</span><span>${ic('chef')}${esc(dname(r.difficulty))}</span></div></div></a>`};
 function gridHTML(){if(!S.ready&&!S.recipes.length)return`<div class="empty"><div class="spin" style="margin:0 auto 12px"></div><p>${t('loading')}</p></div>`;
  const l=filtered();if(l.length)return l.map(card).join('');
  if(S.recipes.length)return`<div class="empty"><h3>${t('nothing')}</h3><p>${t('tryOther')}</p></div>`;
@@ -642,7 +676,7 @@ function renderHome(){const favs=S.recipes.filter(r=>r.favorite).length,cats=new
   <div class="chipsw"><button class="arr" id="arl" aria-label="${at('prevCats')}">${ic('back')}</button>
    <div class="chips" id="chips"><button class="chip ${!S.cat?'on':''}" data-cat="">${t('all')} <small>${S.recipes.length}</small></button>${CATS.map(c=>`<button class="chip ${S.cat===c[0]?'on':''}" data-cat="${c[0]}">${c[1]} <small>${esc(catDesc(c))} · ${cnt(c[0])}</small></button>`).join('')}</div>
    <button class="arr" id="arr" aria-label="${at('nextCats')}">${ic('fwd')}</button></div>
-  <div class="grid" id="grid">${gridHTML()}</div>
+  <div id="trall"></div><div class="grid" id="grid">${gridHTML()}</div>
  </div></section>`;
  $('#sort').value=S.sort;
  $('#q').oninput=e=>{S.q=e.target.value;$('#grid').innerHTML=gridHTML()};
@@ -651,13 +685,22 @@ function renderHome(){const favs=S.recipes.filter(r=>r.favorite).length,cats=new
  const ch=$('#chips');ch.style.scrollBehavior='auto';ch.scrollLeft=S.chipX;ch.style.scrollBehavior='';
  ch.onscroll=()=>{S.chipX=ch.scrollLeft;updArrows()};
  $('#arl').onclick=()=>ch.scrollBy({left:-ch.clientWidth*.7});$('#arr').onclick=()=>ch.scrollBy({left:ch.clientWidth*.7});
- requestAnimationFrame(updArrows);
+ requestAnimationFrame(updArrows);drawTrAll();
  app.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;route(true,true)})}
 addEventListener('resize',updArrows);
+let trAllRun=false;
+function drawTrAll(){const el=$('#trall');if(!el)return;const n=S.recipes.filter(needsTr).length;if(!n){el.innerHTML='';return}
+ el.innerHTML=`<div class="trbar"><span>${trAllRun?'<span class="spin"></span>':ic('spark')}${t('trCount',{n})}</span>${trAllRun?'':aiReady()?`<button class="btn" id="trallb">${t('trAll')}</button>`:`<button class="btn" id="trallc">${t('aiCfg')}</button>`}</div>`;
+ const b=$('#trallb');if(b)b.onclick=translateAll;const c=$('#trallc');if(c)c.onclick=aiSettings}
+async function translateAll(){if(trAllRun)return;trAllRun=true;drawTrAll();let ok=0,fail=0;
+ for(const r of S.recipes.filter(needsTr)){try{await translateRecipe(r);ok++}catch(e){fail++;if(e?.code==='not_granted'||e?.code==='rate_limited')break}if(S.view==='home'){$('#grid').innerHTML=gridHTML();drawTrAll()}}
+ trAllRun=false;if(S.view==='home'){$('#grid').innerHTML=gridHTML();drawTrAll()}toast(fail?t('trFail'):t('trDone'))}
 
 /* ---------- receita ---------- */
-function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
- if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
+function renderRecipe(id){const r0=S.recipes.find(x=>x.id===id);
+ if(!r0){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
+ const r=view(r0);
+ const trb=(r0.lang||'pt')!==S.lang?(r._tr?`<div class="trbar"><span>${ic('spark')}${t('trAuto')}</span><button class="btn quiet" id="seeorig">${t('trSeeOrig')}</button></div>`:S.orig[id]?`<div class="trbar"><span>${ic('spark')}${lname(r0.lang)}</span><button class="btn quiet" id="seeorig">${t('trSeeTr')}</button></div>`:!aiReady()?`<div class="trbar"><span>${ic('spark')}${t('trNeedAi',{l:lname(r0.lang)})}</span><button class="btn" id="tracfg">${t('aiCfg')}</button></div>`:trFail.has(id)&&!trBusy.has(id)?`<div class="trbar"><span>${ic('spark')}${t('trFail')}</span><button class="btn" id="trretry">${t('trRetry')}</button></div>`:`<div class="trbar"><span><span class="spin"></span>${t('trBusy',{l:lname(S.lang)})}</span></div>`):'';
  const base=r.servings||1,f=S.fac[id]||1,sv=Math.round(base*f*10)/10,chk=S.chk[id]||(S.chk[id]={});
  const bk=bakerInfo(r.ingredients||[],f),bkOn=S.baker&&bk.flour>0;
  const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);
@@ -673,7 +716,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  const c=catOf(r.category);
  app.innerHTML=`<div class="tricolor"></div><article class="band"><div class="wrap">
  <a class="back" href="#">${ic('back')}${t('backAll')}</a>
- <header class="rhead">
+ ${trb}<header class="rhead">
   <div class="ph rphoto" style="--c:${CATCOL[r.category]}">${photoHTML(r)}</div>
   <div class="rinfo">
    <p class="kicker red">${esc(c[1])} · ${esc(catDesc(c))}</p>
@@ -705,15 +748,18 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  app.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>{S.baker=b.dataset.bk==='1';pref('baker',S.baker?'1':'0');route(true,true)});
  app.querySelectorAll('[data-adj]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();adjustQty(r,+b.dataset.adj,f)});
  const ss=$('#savescale');if(ss)ss.onclick=async()=>{if(!await ask(t('saveQ'),t('saveMsg',{n:fmtN(sv),p:pl(sv)}),t('saveFor',{n:fmtN(sv),p:pl(sv)})))return;
-  const n={...r,ingredients:(r.ingredients||[]).map(l=>isGrp(l)?l:ln(scaled(l,f))),servings:sv,orig:r.orig||{ingredients:r.ingredients,servings:r.servings}};
+  const sc=a=>(a||[]).map(l=>isGrp(l)?l:ln(scaled(l,f)));const n={...r0,ingredients:sc(r0.ingredients),servings:sv,orig:r0.orig||{ingredients:r0.ingredients,servings:r0.servings}};
+  const tr={};for(const k in (r0.tr||{})){const o=r0.tr[k];tr[k]={...o,ingredients:sc(o.ingredients)}}n.tr=tr;const nh=rHash(n);for(const k in tr)if(r0.tr[k].h===rHash(r0))tr[k].h=nh;
   try{await persist(normalize(n,true));S.fac[id]=1;toast(t('savedScale'));route(true,true)}catch(e){}};
  const rs=$('#resetscale');if(rs)rs.onclick=()=>{S.fac[id]=1;route(true,true)};
  const il=$('#infol');if(il)il.onclick=showTips;
- const ro=$('#restore');if(ro)ro.onclick=async()=>{try{await persist(normalize({...r,ingredients:r.orig.ingredients,servings:r.orig.servings,orig:null},true));toast(t('restored'));route(true,true)}catch(e){}};
+ const so=$('#seeorig');if(so)so.onclick=()=>{S.orig[id]=!S.orig[id];route(true,true)};const tc=$('#tracfg');if(tc)tc.onclick=aiSettings;const trr=$('#trretry');if(trr)trr.onclick=()=>{trFail.delete(id);route(true,true)};
+ if(needsTr(r0)&&!S.orig[id]&&aiReady()&&!trBusy.has(id)&&!trFail.has(id)){translateRecipe(r0).then(()=>{if(S.view==='recipe')route(true,true)},()=>{if(S.view==='recipe')route(true,true)})}
+ const ro=$('#restore');if(ro)ro.onclick=async()=>{try{await persist(normalize({...r0,ingredients:r0.orig.ingredients,servings:r0.orig.servings,orig:null},true));toast(t('restored'));route(true,true)}catch(e){}};
  app.querySelectorAll('[data-ck]').forEach(x=>x.onchange=()=>{chk[x.dataset.ck]=x.checked});
  app.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(`${r.title} · ${t('step')} ${b.dataset.st}`,+b.dataset.tm));
  $('#cook').onclick=()=>cookMode(r,f);
- $('#favb').onclick=async()=>{const n={...r,favorite:!r.favorite};try{await persist(n);route(true,true)}catch(e){}};
+ $('#favb').onclick=async()=>{const n={...r0,favorite:!r0.favorite};try{await persist(n,true);route(true,true)}catch(e){}};
  $('#shop').onclick=()=>{const x=`${t('shopTitle')} — ${r.title} (${sv} ${pl(sv)})\n`+(r.ingredients||[]).filter(l=>!isGrp(l)).map(l=>{const s=scaled(l,f);return'☐ '+ln(s)}).join('\n');copyText(x,t('copied'))};
  $('#dlr').onclick=()=>downloadSheet(r,sv,f);
  $('#ckd').onclick=()=>toCookidoo(r,sv,f);
@@ -767,7 +813,7 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
  const backH=ex?'#receita-'+esc(ex.id):'#';
  app.innerHTML=`<div class="tricolor"></div><section class="band ed"><div class="wrap">
  <a class="back" href="${backH}">${ic('back')}${t('back')}</a>
- <h1>${ex?t('editT'):t('newT')}</h1>
+ <h1>${ex?t('editT'):t('newT')}</h1>${ex&&(ex.lang||'pt')!==S.lang?`<p class="note">${t('editOrig',{l:lname(ex.lang||'pt')})}</p>`:''}
  <div class="hero-act" style="justify-content:flex-start;margin-top:12px"><label class="btn green">${ic('camera')}${t('fillPhoto')}<input type="file" id="fillph" accept="image/*" multiple hidden></label><span id="fillst"></span></div>${from?`<p class="note">${esc(t('importedFrom',{f:from}))}</p>`:''}
  <form id="f" class="form" autocomplete="off">
   <div class="ed-grid">
@@ -819,7 +865,7 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
   finally{st.innerHTML=''}};
  $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast(t('waitPhoto'));return}
   const d=Object.fromEntries(new FormData(e.target));
-  const r=normalize({...(ex||{}),...d,orig:ex&&ex.orig&&d.ingredients.trim()===(ex.ingredients||[]).join('\n').trim()?ex.orig:null,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
+  const r=normalize({...(ex||{}),...d,lang:ex?(ex.lang||'pt'):S.lang,orig:ex&&ex.orig&&d.ingredients.trim()===(ex.ingredients||[]).join('\n').trim()?ex.orig:null,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
   const btn=$('#save');btn.disabled=true;btn.textContent=t('saving');
   try{await persist(r);toast(t('saved'));go('receita-'+r.id)}catch(err){btn.disabled=false;btn.textContent=t('save')}}}
 
@@ -916,7 +962,7 @@ async function startImport(){if(!aiReady()){aiSettings();return}
   status(spinMsg(t('thinking')));
   ctl=new AbortController();
   const j=await aiJson(buildPrompt(task,material),images,ctl.signal);
-  const list=(Array.isArray(j)?j:(j&&j.recipes)||[]).map(r=>{const n=normalize(r);if(url&&/^https?:\/\//.test(url)){n.sourceUrl=url;n.sourceLabel=n.sourceLabel||(url.includes('cookidoo')?'Cookidoo':url.includes('instagram')?'Instagram':url.includes('tiktok')?'TikTok':url.includes('youtu')?'YouTube':'Site')}return n});
+  const list=(Array.isArray(j)?j:(j&&j.recipes)||[]).map(r=>{const n=normalize({...r,lang:S.lang});if(url&&/^https?:\/\//.test(url)){n.sourceUrl=url;n.sourceLabel=n.sourceLabel||(url.includes('cookidoo')?'Cookidoo':url.includes('instagram')?'Instagram':url.includes('tiktok')?'TikTok':url.includes('youtu')?'YouTube':'Site')}return n});
   status('');showFound(list,from,cover)}
  catch(e){status('');const c=e?.code;if(c!=='cancelled')toast(e?.msg||(c==='not_granted'?t('eDenied'):c==='rate_limited'?t('eRate'):c==='invalid_json'?t('eJson'):c==='image_rejected'?t('eImg'):c==='prompt_too_large'?t('eBig'):t('eGeneric')))}
  finally{gob.disabled=false;stop.hidden=true;ctl=null}}
