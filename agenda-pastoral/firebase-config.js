@@ -1,15 +1,11 @@
 // Agenda Pastoral — configuração do Firebase (base compartilhada).
-// Enquanto AGP_FIREBASE for null, a agenda funciona só no aparelho (modo local).
-// Para ativar: cole aqui o objeto firebaseConfig do console do Firebase e o e-mail do coordenador.
-window.AGP_FIREBASE = null;
-/* exemplo:
+// Projeto: agenda-pastoral-familiar. Estes dados não são senhas: a proteção está nas regras do Firestore.
 window.AGP_FIREBASE = {
-  apiKey: "AIza...",
-  authDomain: "agenda-pastoral-xxxx.firebaseapp.com",
-  projectId: "agenda-pastoral-xxxx",
-  storageBucket: "agenda-pastoral-xxxx.firebasestorage.app",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:abc123"
+  apiKey: "AIzaSyD0E1-EfhXW86_C-aN_-g4MsUQ-7ZYH-nI",
+  authDomain: "agenda-pastoral-familiar.firebaseapp.com",
+  projectId: "agenda-pastoral-familiar",
+  storageBucket: "agenda-pastoral-familiar.firebasestorage.app",
+  messagingSenderId: "425889618925",
+  appId: "1:425889618925:web:ce31e1a47a46e871c325e4"
 };
-*/
 window.AGP_DONO = ""; // e-mail Google do coordenador (o mesmo das regras)
