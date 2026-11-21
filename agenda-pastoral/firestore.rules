@@ -46,6 +46,28 @@ service cloud.firestore {
         && request.resource.data.resp in ['sim', 'talvez', 'nao'];
       allow delete: if (dono() || membro()) && resource.data.uid == email();
     }
+    // mural de avisos: vê quem vê o grupo; publica quem pode lançar eventos no grupo
+    match /avisos/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email()
+        && request.resource.data.titulo is string && request.resource.data.titulo.size() <= 100
+        && request.resource.data.texto is string && request.resource.data.texto.size() <= 3000;
+      allow update: if (admin() || (podeAgenda(resource.data.ag) && resource.data.autor == email()))
+        && podeAgenda(request.resource.data.ag);
+      allow delete: if admin() || (podeAgenda(resource.data.ag) && resource.data.autor == email());
+    }
+    match /cientes/{id} {
+      allow read: if dono() || membro();
+      allow create, update: if (dono() || membro()) && request.resource.data.uid == email()
+        && id == request.resource.data.aviso + '~' + email();
+      allow delete: if (dono() || membro()) && resource.data.uid == email();
+    }
+    match /respostas/{id} {
+      allow read: if dono() || membro();
+      allow create: if (dono() || membro()) && request.resource.data.uid == email()
+        && request.resource.data.texto is string && request.resource.data.texto.size() <= 500;
+      allow delete: if admin() || resource.data.uid == email();
+    }
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create: if eventoValido() && podeAgenda(request.resource.data.ag);
