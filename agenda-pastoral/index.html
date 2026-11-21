@@ -39,9 +39,10 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .bar{max-width:1240px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.6rem max(4vw,12px)}
-.brand{font:600 .8rem Inter;color:var(--mut);width:100%;display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap}
+.brand{font:600 .8rem Inter;color:var(--mut);display:flex;align-items:center;gap:.5rem;order:1}.tools{order:2;margin-left:auto}.nav{order:4;width:100%}
 .brand b{color:var(--acc);font-weight:700;letter-spacing:.01em}
-#mt{font:600 clamp(1.6rem,4.5vw,2.4rem)/1.05 Spectral,Georgia,serif;margin:0;text-transform:capitalize;flex:1 1 auto}
+#mt{font:600 clamp(1.6rem,4.5vw,2.4rem)/1.05 Spectral,Georgia,serif;margin:0;text-transform:capitalize;order:3;flex:1 1 100%}
+@media(min-width:760px){#mt{order:2;flex:1 1 auto;padding-left:1.1rem;margin-left:.3rem;border-left:1px solid var(--line)}.tools{order:3}}
 #mt span{color:var(--mut);font-weight:500}
 .nav{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
 .btn{min-height:44px;padding:0 1rem;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:600;font-size:.92rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;text-decoration:none;color:var(--ink);white-space:nowrap}
@@ -157,10 +158,10 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 @media(max-width:600px){.hide-s{display:none}.c{min-height:3.9rem}}
 </style></head><body>
 <header class="top"><div class="bar">
- <div class="brand"><span style="display:inline-flex;align-items:center;gap:.75rem"><img src="icon-192.png" alt="Pastoral Familiar" width="84" height="84" style="width:clamp(60px,8vw,84px);height:auto;border-radius:50%"><span style="font-size:1.15rem;line-height:1.25"><b>Agenda Pastoral</b><br>Pastoral Familiar</span></span>
-  <span class="tools"><span class="seg" role="group" aria-label="Tema"><button data-th="auto">Auto</button><button data-th="light">Claro</button><button data-th="dark">Escuro</button></span>
-  <span class="seg" role="group" aria-label="Tamanho da letra"><button id="fsm" aria-label="Diminuir letra">A−</button><span id="fsv" aria-live="polite">100%</span><button id="fsp" aria-label="Aumentar letra">A+</button></span></span></div>
+ <div class="brand"><span style="display:inline-flex;align-items:center;gap:.75rem"><img src="icon-192.png" alt="Pastoral Familiar" width="84" height="84" style="width:clamp(60px,8vw,84px);height:auto;border-radius:50%"><span style="font-size:1.15rem;line-height:1.25"><b>Agenda Pastoral</b><br>Pastoral Familiar</span></span></div>
  <h1 id="mt">mês</h1>
+ <span class="tools"><span class="seg" role="group" aria-label="Tema"><button data-th="auto">Auto</button><button data-th="light">Claro</button><button data-th="dark">Escuro</button></span>
+  <span class="seg" role="group" aria-label="Tamanho da letra"><button id="fsm" aria-label="Diminuir letra">A−</button><span id="fsv" aria-live="polite">100%</span><button id="fsp" aria-label="Aumentar letra">A+</button></span></span>
  <div class="nav"><button class="btn ic" id="prev" aria-label="Mês anterior">‹</button><button class="btn" id="today">Hoje</button><button class="btn ic" id="next" aria-label="Próximo mês">›</button>
   <span class="seg" role="group" aria-label="Visualização"><button data-v="mes">Mês</button><button data-v="lista">Lista</button></span>
   <button class="btn" id="avbtn" hidden>Avisos</button><button class="btn" id="ags">Agendas</button><button class="btn" id="imp">Importar</button><button class="btn" id="exp">Exportar</button><button class="btn" id="pick" aria-pressed="false">Selecionar</button><button class="btn pri" data-new>+ <span class="hide-s">Evento</span></button></div>
