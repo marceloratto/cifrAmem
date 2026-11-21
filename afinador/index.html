@@ -110,6 +110,40 @@ dialog.help::backdrop { background: rgb(20 18 15 / .45); }
 .helpfoot { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--line); font-size: .84rem; }
 .helpfoot a { color: var(--accent); }
 
+/* Controles rápidos ao lado da nota */
+.noterow { display: grid; grid-template-columns: 72px 1fr 72px; align-items: center; gap: 6px; margin-top: 2px; }
+.qctl { display: grid; justify-items: center; gap: 4px; padding: 7px 2px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); min-height: 96px; }
+.qctl:active { transform: scale(.97); }
+.qctl small { font-size: .62rem; color: var(--muted); font-weight: 600; letter-spacing: 0; text-transform: uppercase; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.qlbl { font-size: .74rem; font-weight: 650; line-height: 1.15; text-align: center; color: var(--accent); }
+.qviz { display: block; width: 34px; height: 40px; position: relative; }
+.qmeter { width: 12px; border-radius: 4px; background: var(--subtle); border: 1px solid var(--line-strong); overflow: hidden; }
+.qmeter i { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--accent); opacity: .75; }
+.qmeter i.low { background: var(--muted); opacity: .45; }
+.qmeter b { position: absolute; left: -1px; right: -1px; height: 2px; background: var(--sharp); bottom: 50%; }
+.qdots { display: flex; align-items: flex-end; justify-content: center; gap: 3px; }
+.qdots i { width: 6px; border-radius: 2px; background: var(--line-strong); }
+.qdots i:nth-child(1) { height: 25%; } .qdots i:nth-child(2) { height: 50%; } .qdots i:nth-child(3) { height: 75%; } .qdots i:nth-child(4) { height: 100%; }
+.qdots i.on { background: var(--accent); }
+.noterow .notebox { margin-top: 0; min-width: 0; }
+
+/* Painel do microfone */
+.qpop { position: absolute; z-index: 4; left: 10px; right: 10px; top: 150px; max-width: 360px; margin-inline: auto; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: var(--shadow); padding: 12px 14px 14px; display: grid; gap: 10px; }
+.qpop[hidden] { display: none; }
+.qpop-h { display: flex; justify-content: space-between; align-items: center; }
+.qpop-h b { font: 600 1.05rem 'Source Serif', Georgia, serif; }
+.qpop-h .iconbtn { width: 34px; height: 34px; }
+.hmeter { position: relative; height: 14px; border-radius: 7px; background: var(--subtle); border: 1px solid var(--line-strong); overflow: hidden; }
+.hmeter i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); opacity: .8; }
+.hmeter i.low { background: var(--muted); opacity: .45; }
+.hmeter b { position: absolute; top: -1px; bottom: -1px; width: 3px; background: var(--sharp); left: 50%; }
+.calbtn { min-height: 46px; padding: 10px 16px; font-size: .95rem; }
+.calbtn[disabled] { opacity: .7; }
+.calmsg { margin: 0; font-size: .84rem; color: var(--muted); min-height: 2.6em; }
+.calmsg b { color: var(--accent); }
+.rangelbls { display: flex; justify-content: space-between; font-size: .74rem; color: var(--muted); margin-top: -6px; }
+.qctl[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); }
+
 /* Tela de abertura */
 .splash { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; transition: opacity .45s ease, visibility .45s; }
 .splash.out { opacity: 0; visibility: hidden; }
@@ -309,7 +343,28 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
 <main class="wrap app">
   <section class="card idle" id="card" data-state="none" aria-live="off">
     <div class="status" id="status">Toque uma corda</div>
-    <div class="notebox"><span class="note" id="note">–</span><span class="oct" id="oct"></span></div>
+    <div class="noterow">
+      <button class="qctl" id="qSens">
+        <small data-t="qMic">Microfone</small>
+        <span class="qviz qmeter" aria-hidden="true"><i id="qLevel"></i><b id="qGate"></b></span>
+        <span class="qlbl" id="qSensLbl">Alta</span>
+      </button>
+      <div class="notebox"><span class="note" id="note">–</span><span class="oct" id="oct"></span></div>
+      <button class="qctl" id="qSmooth">
+        <small data-t="smooth">Ponteiro</small>
+        <span class="qviz qdots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="qlbl" id="qSmoothLbl">Suave</span>
+      </button>
+    </div>
+    <div class="qpop" id="micPop" hidden role="dialog" aria-labelledby="micPopT">
+      <div class="qpop-h"><b id="micPopT" data-t="qMic">Microfone</b><button class="iconbtn" id="micPopClose" data-t-aria="close" aria-label="Fechar">✕</button></div>
+      <div class="hmeter" aria-hidden="true"><i id="pLevel"></i><b id="pGate"></b></div>
+      <button class="btn calbtn" id="calBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 12h3l3-8 4 16 3-10 2 2h5"/></svg><span data-t="calBtn">Medir o ruído do lugar</span></button>
+      <p class="calmsg" id="calMsg" data-t="calHint">Fique em silêncio e toque no botão: o afinador mede o barulho do ambiente e ajusta a sensibilidade sozinho.</p>
+      <label class="lbl" for="sens2" data-t="sensManual">Ajuste manual</label>
+      <input type="range" id="sens2" min="0" max="100" step="1">
+      <div class="rangelbls"><span data-t="lessSens">menos sensível</span><span data-t="moreSens">mais sensível</span></div>
+    </div>
     <div class="alt" id="alt">&nbsp;</div>
     <div class="meterbox"><canvas class="meter" id="meter" width="600" height="320" aria-hidden="true"></canvas></div>
     <div class="readout">
@@ -317,7 +372,6 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
       <span class="hz" id="hz">&nbsp;</span>
     </div>
     <canvas class="strobe" id="strobe" width="600" height="34" aria-hidden="true"></canvas>
-    <div class="level"><i id="level"></i></div>
 
     <div class="done" id="done" hidden role="status">
       <div class="confetti" id="confetti" aria-hidden="true"></div>
@@ -453,7 +507,8 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li><b>Referência:</b> 440 Hz é o padrão. Mude só para acompanhar um órgão ou piano afinado diferente.</li>
         <li><b>Nomes das notas:</b> cifra (C D E) ou Dó Ré Mi.</li>
         <li><b>Tolerância:</b> o quanto perto precisa ficar para contar como afinado.</li>
-        <li><b>Ponteiro:</b> se ele estiver muito “nervoso”, escolha Suave ou Muito suave.</li>
+        <li><b>Ponteiro:</b> se ele estiver muito “nervoso”, escolha Suave ou Muito suave. Também dá para trocar direto no botão à direita da nota.</li>
+        <li><b>Microfone (botão à esquerda da nota):</b> a barrinha mostra o som que chega e a marca vermelha mostra o limite. Toque no botão e use <b>Medir o ruído do lugar</b>: fique 2 segundos em silêncio e a sensibilidade se ajusta sozinha. Depois, se quiser, faça o ajuste manual ali mesmo. A barra precisa passar da marca quando você toca a corda.</li>
         <li><b>Sensibilidade:</b> aumente em lugar silencioso; diminua se houver barulho.</li>
       </ul>
       <h3>Dicas</h3>
@@ -493,7 +548,8 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li><b>Riferimento:</b> 440 Hz è lo standard. Cambialo solo per suonare con un organo o un pianoforte accordato diversamente.</li>
         <li><b>Nomi delle note:</b> sigle (C D E) o Do Re Mi.</li>
         <li><b>Tolleranza:</b> quanto vicino bisogna arrivare per considerarla accordata.</li>
-        <li><b>Lancetta:</b> se è troppo “nervosa”, scegli Morbida o Molto morbida.</li>
+        <li><b>Lancetta:</b> se è troppo “nervosa”, scegli Morbida o Molto morbida. Puoi cambiarla anche con il pulsante a destra della nota.</li>
+        <li><b>Microfono (pulsante a sinistra della nota):</b> la barretta mostra il suono che arriva e il segno rosso mostra la soglia. Tocca il pulsante e usa <b>Misura il rumore del luogo</b>: resta 2 secondi in silenzio e la sensibilità si regola da sola. Poi, se vuoi, fai la regolazione manuale lì stesso. La barra deve superare il segno quando suoni la corda.</li>
         <li><b>Sensibilità:</b> aumentala in un luogo silenzioso; diminuiscila se c’è rumore.</li>
       </ul>
       <h3>Consigli</h3>
@@ -605,7 +661,12 @@ var T = {
     start: 'Ativar o microfone', startMsg: 'O som é analisado só no seu aparelho. Nada é gravado nem enviado.',
     listen: 'Ouvir a nota', auto: 'Automático', fixed: 'Fixo (toque p/ automático)',
     splashSub: 'O afinador do cifrAmem', splashMade: 'Gratuito · sem cadastro · funciona sem internet',
-    language: 'Idioma', la: 'Lá',
+    language: 'Idioma', la: 'Lá', qMic: 'Microfone', sensLv: ['Baixa', 'Média', 'Alta', 'Máxima'],
+    qSensAria: 'Microfone: sensibilidade {v}. Toque para ajustar.',
+    calBtn: 'Medir o ruído do lugar', calHint: 'Fique em silêncio e toque no botão: o afinador mede o barulho do ambiente e ajusta a sensibilidade sozinho.',
+    calRun: 'Medindo… fique em silêncio ({n})', calDone: 'Pronto! Sensibilidade ajustada para este lugar: <b>{v}</b>. Se quiser, faça o ajuste fino abaixo.',
+    calNoisy: 'O lugar está barulhento. Ajustei para <b>{v}</b>; aproxime o instrumento do microfone.', calNeedMic: 'Ative o microfone primeiro.',
+    sensManual: 'Ajuste manual', lessSens: 'menos sensível', moreSens: 'mais sensível', qSmoothAria: 'Ponteiro: {v}. Toque para mudar.',
     foot1: 'Accordatore, o afinador do', foot2: 'Gratuito, sem cadastro e sem anúncios', helpTitle: 'Como usar o Accordatore',
     cents: 'cents', string: 'corda', octave: '(oitava)', withOctave: 'com oitava',
     chromEq: 'Cromático, temperamento igual', chromStretch: 'Cromático, com afinação esticada', chromAll: 'Todas as notas (cromático)',
@@ -631,7 +692,12 @@ var T = {
     start: 'Attiva il microfono', startMsg: 'Il suono viene analizzato solo sul tuo dispositivo. Niente viene registrato né inviato.',
     listen: 'Ascolta la nota', auto: 'Automatico', fixed: 'Fisso (tocca per automatico)',
     splashSub: 'L’accordatore di cifrAmem', splashMade: 'Gratuito · senza registrazione · funziona senza internet',
-    language: 'Lingua', la: 'La',
+    language: 'Lingua', la: 'La', qMic: 'Microfono', sensLv: ['Bassa', 'Media', 'Alta', 'Massima'],
+    qSensAria: 'Microfono: sensibilità {v}. Tocca per regolare.',
+    calBtn: 'Misura il rumore del luogo', calHint: 'Resta in silenzio e tocca il pulsante: l’accordatore misura il rumore dell’ambiente e regola la sensibilità da solo.',
+    calRun: 'Misurazione… resta in silenzio ({n})', calDone: 'Fatto! Sensibilità regolata per questo luogo: <b>{v}</b>. Se vuoi, fai la regolazione fine qui sotto.',
+    calNoisy: 'Il luogo è rumoroso. Ho impostato <b>{v}</b>; avvicina lo strumento al microfono.', calNeedMic: 'Attiva prima il microfono.',
+    sensManual: 'Regolazione manuale', lessSens: 'meno sensibile', moreSens: 'più sensibile', qSmoothAria: 'Lancetta: {v}. Tocca per cambiare.',
     foot1: 'Accordatore, l’accordatore di', foot2: 'Gratuito, senza registrazione e senza pubblicità', helpTitle: 'Come si usa l’Accordatore',
     cents: 'cent', string: 'corda', octave: '(ottava)', withOctave: 'con ottava',
     chromEq: 'Cromatico, temperamento equabile', chromStretch: 'Cromatico, con accordatura allargata', chromAll: 'Tutte le note (cromatico)',
@@ -723,7 +789,7 @@ function selectInstrument(id) {
 }
 
 function buildTargets() {
-  lockIdx = -1; tunedSet = {}; celebrated = false; if ($('done')) $('done').hidden = true; resetReading(); shownMidi = null; curIdx = -2;
+  lockIdx = -1; tunedSet = {}; celebrated = false; clearTimeout(celebrateTimer); if ($('done')) $('done').hidden = true; resetReading(); shownMidi = null; curIdx = -2;
   var box = $('strings'); box.innerHTML = '';
   targets = [];
   if (inst.tunings) {
@@ -877,9 +943,61 @@ function segment(id, prop, parse, after) {
 }
 segment('namesSeg', 'names', String, function () { selectInstrument(inst.id); });
 segment('tolSeg', 'tol', Number, function () { tunedSet = {}; updateLockUI(); });
-segment('smoothSeg', 'smooth', Number, function () { prefs.smoothChosen = true; save(); });
+segment('smoothSeg', 'smooth', Number, function () { prefs.smoothChosen = true; save(); updateQuick(); });
 $('sens').value = prefs.sens;
-$('sens').addEventListener('input', function () { prefs.sens = +this.value; save(); });
+$('sens').addEventListener('input', function () { prefs.sens = +this.value; save(); updateQuick(); });
+
+/* Controles rápidos: sensibilidade (esquerda) e ponteiro (direita) */
+var SENS_LV = [25, 55, 75, 95];
+function sensLevel() { var b = 0; SENS_LV.forEach(function (v, i) { if (Math.abs(prefs.sens - v) < Math.abs(prefs.sens - SENS_LV[b])) b = i; }); return b; }
+function updateQuick() {
+  var d = L(), sl = d.sensLv[sensLevel()], sm0 = [d.sm0, d.sm1, d.sm2, d.sm3][prefs.smooth] || d.sm1;
+  $('qSensLbl').textContent = sl; $('qSens').setAttribute('aria-label', d.qSensAria.replace('{v}', sl));
+  $('qSmoothLbl').textContent = sm0; $('qSmooth').setAttribute('aria-label', d.qSmoothAria.replace('{v}', sm0));
+  [].forEach.call(document.querySelectorAll('.qdots i'), function (el, i) { el.classList.toggle('on', i <= prefs.smooth); });
+  var gateDb = -30 - 45 * prefs.sens / 100;
+  $('qGate').style.bottom = Math.max(0, Math.min(100, (gateDb + 70) / 60 * 100)) + '%';
+  $('sens').value = prefs.sens; $('sens2').value = prefs.sens;
+  $('pGate').style.left = Math.max(0, Math.min(100, (gateDb + 70) / 60 * 100)) + '%';
+  [].forEach.call($('smoothSeg').children, function (b) { b.setAttribute('aria-pressed', String(b.dataset.v) === String(prefs.smooth)); });
+}
+function updateQuickLevel() {
+  var el = $('qLevel'), v = running ? levelVal : 0;
+  el.style.height = (v * 100) + '%';
+  var gatePos = ((-30 - 45 * prefs.sens / 100) + 70) / 60;
+  el.classList.toggle('low', v < gatePos);
+  if (!$('micPop').hidden) { var pl = $('pLevel'); pl.style.width = (v * 100) + '%'; pl.classList.toggle('low', v < gatePos); }
+}
+function micPopOpen(open) {
+  $('micPop').hidden = !open; $('qSens').setAttribute('aria-expanded', open);
+  if (open) { var t = $('qSens').offsetTop + $('qSens').offsetHeight + 8; $('micPop').style.top = t + 'px'; }
+}
+$('qSens').addEventListener('click', function () { micPopOpen($('micPop').hidden); });
+$('micPopClose').addEventListener('click', function () { micPopOpen(false); });
+$('sens2').addEventListener('input', function () { prefs.sens = +this.value; save(); updateQuick(); });
+// Calibração automática: mede 2 s de ambiente e põe o limite ~9 dB acima do ruído
+var calibrating = false, calSamples = [];
+$('calBtn').addEventListener('click', function () {
+  var msg = $('calMsg'), btn = this;
+  if (!running) { msg.textContent = L().calNeedMic; return; }
+  calibrating = true; calSamples = []; btn.disabled = true;
+  var left = 2;
+  msg.textContent = L().calRun.replace('{n}', left);
+  var iv = setInterval(function () { left--; if (left > 0) msg.textContent = L().calRun.replace('{n}', left); }, 1000);
+  setTimeout(function () {
+    clearInterval(iv); calibrating = false; btn.disabled = false;
+    var a = calSamples.slice().sort(function (x, y) { return x - y; });
+    var noise = a.length ? a[Math.min(a.length - 1, Math.floor(a.length * 0.9))] : -70;
+    var gate = Math.max(-75, Math.min(-30, noise + 9));
+    prefs.sens = Math.round(Math.max(0, Math.min(100, (-30 - gate) / 45 * 100)));
+    save(); updateQuick();
+    var lv = L().sensLv[sensLevel()] + ' (' + prefs.sens + '%)';
+    msg.innerHTML = (noise + 9 > -30 ? L().calNoisy : L().calDone).replace('{v}', lv);
+  }, 2000);
+});
+$('qSmooth').addEventListener('click', function () {
+  prefs.smooth = (prefs.smooth + 1) % 4; prefs.smoothChosen = true; save(); updateQuick();
+});
 $('stretch').checked = prefs.stretch;
 $('stretch').addEventListener('change', function () { prefs.stretch = this.checked; save(); selectInstrument(inst.id); });
 $('wake').checked = prefs.wake;
@@ -1077,6 +1195,7 @@ function analyse(now) {
   var gateDb = -30 - 45 * prefs.sens / 100, minRms = Math.pow(10, gateDb / 20);
   var r = detector.detect(buf, { sampleRate: ctx.sampleRate, minFreq: cfg.minF, maxFreq: cfg.maxF, minClarity: cfg.clarity, threshold: 0.9, minRms: minRms });
   levelVal = Math.max(0, Math.min(1, (20 * Math.log10(r.rms + 1e-9) + 70) / 60));
+  if (calibrating) calSamples.push(20 * Math.log10(r.rms + 1e-9));
   if (now < toneUntil) return;                 // ignorando o próprio som de referência
   // Ataque: a corda acabou de ser tocada?
   var onset = r.rms > minRms * 1.5 && r.rms > envSlow * 1.8;
@@ -1178,7 +1297,7 @@ function frame(now) {
     }
   }
   card.dataset.state = state;
-  $('level').style.width = (running ? levelVal * 100 : 0) + '%';
+  updateQuickLevel();
   drawMeter(fresh ? dispCents : null, state);
   drawStrobe(now, fresh ? dispCents : null, state);
   requestAnimationFrame(frame);
@@ -1291,6 +1410,12 @@ function checkAllTuned() {
   if (celebrated || !inst.tunings || !targets.length) return;
   for (var i = 0; i < targets.length; i++) if (!tunedSet[i]) return;
   celebrated = true;
+  clearTimeout(celebrateTimer);
+  celebrateTimer = setTimeout(showCelebration, 2000);   // espera 2 s antes de comemorar
+}
+var celebrateTimer = 0;
+function showCelebration() {
+  if (!celebrated || !inst.tunings) return;
   var ti = parseInt($('tuning').value, 10) || 0;
   $('doneSub').textContent = inst.name[prefs.lang === 'it' ? 1 : 0] + ' · ' + inst.tunings[ti][prefs.lang === 'it' ? 1 : 0];
   var cf = $('confetti'); cf.innerHTML = '';
@@ -1324,7 +1449,7 @@ function playChime() {
   } catch (e) {}
 }
 $('doneOk').addEventListener('click', function () { $('done').hidden = true; });
-$('doneAgain').addEventListener('click', function () { $('done').hidden = true; tunedSet = {}; celebrated = false; updateLockUI(); });
+$('doneAgain').addEventListener('click', function () { clearTimeout(celebrateTimer); $('done').hidden = true; tunedSet = {}; celebrated = false; updateLockUI(); });
 
 /* ---------- Idioma e ajuda ---------- */
 function applyLang(lang) {
@@ -1337,6 +1462,7 @@ function applyLang(lang) {
   [].forEach.call(document.querySelectorAll('.flag'), function (b) { b.setAttribute('aria-pressed', b.dataset.lang === prefs.lang); });
   [].forEach.call(document.querySelectorAll('[data-lang-block]'), function (b) { b.hidden = b.dataset.langBlock !== prefs.lang; });
   fillInstSel();
+  if (typeof updateQuick === 'function' && $('qSensLbl')) updateQuick();
   var keepLock = lockIdx;
   if (inst) { selectInstrument(inst.id); if (inst.keyboard && keepLock !== -1) { lockIdx = keepLock; updateLockUI(); } }
   if (running) $('card').classList.add('idle');
@@ -1355,6 +1481,7 @@ helpDlg.addEventListener('click', function (e) { if (e.target === helpDlg && hel
 setA4(prefs.a4);
 selectInstrument(prefs.inst);
 applyLang(prefs.lang);
+updateQuick();
 autoStart();
 
 // Tela de abertura: some sozinha (ou com um toque); só uma vez por sessão
