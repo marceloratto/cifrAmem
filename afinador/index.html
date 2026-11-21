@@ -306,6 +306,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 footer a { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+<!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em https://ciframem.goatcounter.com -->
+<script data-goatcounter="https://ciframem.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="splash" id="splash" role="presentation">
@@ -1445,6 +1447,7 @@ function showCelebration() {
     cf.appendChild(c);
   }
   $('done').hidden = false;
+  try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'afinador/instrumento-afinado/' + inst.id, title: 'Instrumento afinado: ' + inst.name[0], event: true }); } catch (e) {}
   if (navigator.vibrate) try { navigator.vibrate([40, 60, 40, 60, 120]); } catch (e) {}
   playChime();
   try { $('doneOk').focus({ preventScroll: true }); } catch (e) {}

@@ -1,5 +1,5 @@
 /* Accordatore (afinador do cifrAmem): funciona sem internet depois da primeira visita */
-var CACHE = 'afinador-v12';
+var CACHE = 'afinador-v13';
 var FILES = ['./', 'index.html', 'pitch.js?v=6', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
   'icone-accordatore.png', '../fonts/inter-latin-wght-normal.woff2', '../fonts/source-serif-4-latin-wght-normal.woff2'];
 
@@ -14,6 +14,7 @@ self.addEventListener('activate', function (e) {
 // Rede primeiro (para receber atualizações); sem internet, usa a cópia guardada.
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
+  if (new URL(e.request.url).origin !== location.origin) return;   // contador e outros sites: direto pela rede
   e.respondWith(fetch(e.request, { cache: 'no-cache' }).then(function (res) {
     if (res && res.ok && new URL(e.request.url).origin === location.origin) {
       var copy = res.clone();
