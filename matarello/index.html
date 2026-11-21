@@ -182,6 +182,20 @@ input:focus,select:focus,textarea:focus{border-color:var(--tomato);outline:none;
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--tomato);animation:sp 1s linear infinite;flex:none}
 @keyframes sp{to{transform:rotate(360deg)}}
 [hidden]{display:none!important}
+.segm{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:3px;margin:-2px 0 12px}
+.segm button{flex:1;min-height:38px;border:0;border-radius:9px;background:transparent;font-weight:800;font-size:calc(14px*var(--fs));cursor:pointer;color:var(--mute)}
+.segm button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.qbtn{border:0;background:none;padding:0;font:inherit;font-weight:800;color:var(--tomato-d);border-bottom:1.5px dotted currentColor;cursor:pointer;white-space:nowrap}
+.pct{display:inline-block;min-width:3.6em;color:var(--basil);font-weight:800;white-space:nowrap}
+.ing .g{color:var(--mute);font-size:calc(14px*var(--fs));white-space:nowrap}
+.bkr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 10px}
+.bkr div{background:var(--paper);border-radius:12px;padding:8px 10px;border:1px solid var(--line)}
+.bkr span{display:block;font-size:calc(12px*var(--fs));color:var(--mute);font-weight:700}.bkr b{font:800 calc(17px*var(--fs)) Fraunces,serif;white-space:nowrap}
+.hint{font-size:calc(13px*var(--fs));color:var(--mute);margin:10px 0 0}
+.adj{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:color-mix(in srgb,var(--pasta) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--pasta) 55%,transparent);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-weight:700;font-size:calc(14px*var(--fs))}
+.adj span{flex:1 1 140px}.adj .btn{min-height:38px;font-size:calc(14px*var(--fs));padding:0 12px}
+.restore{border:0;background:none;color:var(--mute);font-weight:700;text-decoration:underline;cursor:pointer;padding:8px 0 0;font-size:calc(13px*var(--fs))}
+.adjrow{display:flex!important;align-items:center;gap:10px;font-weight:700}.adjrow input{max-width:140px;font-size:20px;font-weight:800}
 .panel label.btn,.ed label.btn{display:inline-flex}
 @media(max-width:600px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.tile{padding:12px;gap:2px}.tile .ico{width:38px;height:38px;margin-bottom:4px}.tile>span:last-child{display:none}.tile b{font-size:calc(16px*var(--fs))}}
 .thumbs .th{position:relative}.thumbs .th button{position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);cursor:pointer;font-weight:800;line-height:1}
@@ -315,7 +329,7 @@ dbQuota:`O caderno atingiu o limite de armazenamento.`,dbRO:`Não foi possível 
 foot:`Matarello · caderno de receitas`,noAi:`A leitura com o Claude não está disponível aqui.`,
 helpT:`Como usar o Matarello`,helpIntro:`Seu caderno de receitas com foto, ingredientes, equipamentos e passo a passo.`,
 h1t:`Criar uma receita`,h1:`Toque em <b>Nova receita</b>, escolha uma foto do prato e preencha nome, categoria, porções, tempos, ingredientes, equipamentos e passos. Toque em <b>Salvar receita</b>.`,
-h2t:`Escrever os ingredientes`,h2:`<ul><li>Um ingrediente por linha, com a quantidade na frente: <i>200 g de farinha</i>, <i>1/2 xícara de açúcar</i>, <i>2 a 3 dentes de alho</i>.</li><li>Uma linha que termina com dois-pontos cria um grupo: <i>Para o molho:</i></li><li>Assim, ao mudar as porções, as quantidades são recalculadas.</li></ul>`,
+h2t:`Escrever os ingredientes`,h2:`<ul><li>Um ingrediente por linha, com a quantidade na frente: <i>200 g de farinha</i>, <i>1/2 xícara de açúcar</i>, <i>2 a 3 dentes de alho</i>.</li><li>Uma linha que termina com dois-pontos cria um grupo: <i>Para o molho:</i></li><li>Assim, ao mudar as porções, as quantidades são recalculadas.</li><li>Na ficha, toque numa quantidade (por exemplo, a farinha que você tem) e a receita toda se ajusta. Use <b>Salvar para N porções</b> para guardar assim; dá para restaurar as originais depois.</li><li><b>% do padeiro</b> mostra cada ingrediente em relação ao peso da farinha (100%), com hidratação e massa total.</li></ul>`,
 h3t:`Ver e cozinhar`,h3:`<ul><li>Na ficha, use <b>−</b> e <b>+</b> nas porções para ajustar as quantidades.</li><li>Marque os ingredientes conforme for separando.</li><li>Tempos escritos nos passos, como <i>10 min</i> ou <i>1 hora</i>, viram botões de <b>cronômetro</b> com alarme.</li><li><b>Modo cozinha</b> mostra um passo por vez em letra grande e mantém a tela acesa. No PC, use as setas do teclado.</li></ul>`,
 h4t:`Importar receitas`,h4:`<ul><li><b>PDF</b>: livros e apostilas, inclusive escaneados. Se houver várias receitas, escolha quais salvar.</li><li><b>Vídeo</b>: cole o link e a legenda do Instagram, TikTok ou YouTube; opcionalmente envie o vídeo salvo ou prints.</li><li><b>Foto ou print</b>: página de livro, caderno escrito à mão, print de site.</li><li><b>Texto ou site</b>: copie e cole a receita.</li><li><b>Criar com IA</b>: diga o que tem em casa.</li></ul>Sempre confira a ficha antes de salvar. No site, configure a IA uma vez com a sua chave da API da Anthropic (console.anthropic.com).`,
 h5t:`Buscar e organizar`,h5:`Busque por nome, ingrediente ou tag. Filtre por categoria (no PC, use as setas ao lado da lista), mostre só as favoritas e ordene por recentes, A–Z ou mais rápidas.`,
@@ -326,6 +340,7 @@ h8t:`Instalar no celular`,h8:`<ul><li><b>iPhone</b>: no Safari, toque em Compart
 h9t:`Aparência`,h9:`As <b>bandeiras</b> trocam o idioma entre português e italiano. O botão de <b>sol/lua</b> alterna entre modo claro e escuro, e <b>A−</b> / <b>A+</b> diminuem ou aumentam a letra. No celular, essas opções ficam no botão <b>Aa</b>.`,
 gotIt:`Entendi`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+qtyMode:`Quantidades`,bakerMode:`% do padeiro`,flourTot:`Farinha`,hydr:`Hidratação`,doughTot:`Massa total`,eggNote:`~ ovos estimados: ovo 50 g, gema 18 g, clara 30 g.`,noFlour:`Para usar o % do padeiro, a receita precisa ter farinha em gramas.`,tapHint:`Toque numa quantidade para recalcular a receita toda na mesma proporção.`,adjT:`Ajustar quantidade`,adjP:`As outras quantidades mudam na mesma proporção.`,apply:`Aplicar`,adjusted:`Quantidades ajustadas (×{x})`,saveFor:`Salvar para {n} {p}`,backOrig:`Voltar`,saveQ:`Salvar a receita com estas quantidades?`,saveMsg:`A receita passa a ser para {n} {p}, com todas as quantidades recalculadas na mesma proporção. Você pode restaurar as originais depois.`,savedScale:`Quantidades salvas`,restore:`Restaurar quantidades originais ({n} {p})`,restored:`Quantidades originais restauradas`,
 takePhoto:`Tirar foto`,fromGallery:`Escolher da galeria`,photoAdded:`Foto adicionada. Se a receita continuar em outra página, tire mais uma.`,removeImg:`Remover imagem`,fillPhoto:`Preencher com foto da receita`,filled:`Campos preenchidos. Confira e salve.`,replaceQ:`Substituir o que já foi escrito?`,replaceMsg:`Os campos serão preenchidos com a receita da foto.`,replaceBtn:`Substituir`,
 tmName:`Thermomix / Bimby`,tmOnly:`Thermomix`,tmFor:`Receita para Thermomix / Bimby`,tmModel:`Modelo`,tmAny:`Qualquer modelo`,tmNo:`Não é receita de Thermomix`,
 tTm:`Thermomix / Bimby`,dTm:`Receitas do Cookidoo, do livro da Thermomix ou da tela da máquina`,
@@ -375,7 +390,7 @@ dbQuota:`Il quaderno ha raggiunto il limite di spazio.`,dbRO:`Impossibile salvar
 foot:`Matarello · il quaderno di ricette`,noAi:`La lettura con Claude non è disponibile qui.`,
 helpT:`Come si usa il Matarello`,helpIntro:`Il tuo quaderno di ricette con foto, ingredienti, attrezzatura e procedimento.`,
 h1t:`Creare una ricetta`,h1:`Tocca <b>Nuova ricetta</b>, scegli una foto del piatto e compila nome, categoria, porzioni, tempi, ingredienti, attrezzatura e passaggi. Tocca <b>Salva ricetta</b>.`,
-h2t:`Scrivere gli ingredienti`,h2:`<ul><li>Un ingrediente per riga, con la quantità davanti: <i>200 g di farina</i>, <i>1/2 tazza di zucchero</i>, <i>2 a 3 spicchi d'aglio</i>.</li><li>Una riga che termina con i due punti crea un gruppo: <i>Per il sugo:</i></li><li>Così, cambiando le porzioni, le quantità vengono ricalcolate.</li></ul>`,
+h2t:`Scrivere gli ingredienti`,h2:`<ul><li>Un ingrediente per riga, con la quantità davanti: <i>200 g di farina</i>, <i>1/2 tazza di zucchero</i>, <i>2 a 3 spicchi d'aglio</i>.</li><li>Una riga che termina con i due punti crea un gruppo: <i>Per il sugo:</i></li><li>Così, cambiando le porzioni, le quantità vengono ricalcolate.</li><li>Nella scheda tocca una quantità (per esempio la farina che hai) e tutta la ricetta si adatta. Usa <b>Salva per N porzioni</b> per conservarla così; potrai ripristinare le quantità originali.</li><li><b>% del fornaio</b> mostra ogni ingrediente rispetto al peso della farina (100%), con idratazione e impasto totale.</li></ul>`,
 h3t:`Consultare e cucinare`,h3:`<ul><li>Nella scheda usa <b>−</b> e <b>+</b> sulle porzioni per adattare le quantità.</li><li>Spunta gli ingredienti man mano che li prepari.</li><li>I tempi scritti nei passaggi, come <i>10 min</i> o <i>1 ora</i>, diventano pulsanti <b>timer</b> con allarme.</li><li>La <b>Modalità cucina</b> mostra un passaggio alla volta a caratteri grandi e tiene lo schermo acceso. Sul PC usa le frecce della tastiera.</li></ul>`,
 h4t:`Importare ricette`,h4:`<ul><li><b>PDF</b>: libri e dispense, anche scansionati. Se ci sono più ricette, scegli quali salvare.</li><li><b>Video</b>: incolla il link e la didascalia di Instagram, TikTok o YouTube; se vuoi invia il video salvato o degli screenshot.</li><li><b>Foto o screenshot</b>: pagina di libro, quaderno scritto a mano, screenshot di un sito.</li><li><b>Testo o sito</b>: copia e incolla la ricetta.</li><li><b>Crea con l'IA</b>: di' cosa hai in casa.</li></ul>Controlla sempre la scheda prima di salvare. Sul sito, configura l'IA una volta con la tua chiave API di Anthropic (console.anthropic.com).`,
 h5t:`Cercare e organizzare`,h5:`Cerca per nome, ingrediente o tag. Filtra per categoria (sul PC usa le frecce accanto all'elenco), mostra solo le preferite e ordina per più recenti, A–Z o più veloci.`,
@@ -386,6 +401,7 @@ h8t:`Installare sul telefono`,h8:`<ul><li><b>iPhone</b>: in Safari tocca Condivi
 h9t:`Aspetto`,h9:`Le <b>bandiere</b> cambiano la lingua tra portoghese e italiano. Il pulsante <b>sole/luna</b> passa dal tema chiaro a quello scuro, e <b>A−</b> / <b>A+</b> riducono o ingrandiscono il testo. Sul telefono queste opzioni sono nel pulsante <b>Aa</b>.`,
 gotIt:`Ho capito`,
 sheetCat:`Categoria`,sheetSrc:`Fonte`,
+qtyMode:`Quantità`,bakerMode:`% del fornaio`,flourTot:`Farina`,hydr:`Idratazione`,doughTot:`Impasto totale`,eggNote:`~ uova stimate: uovo 50 g, tuorlo 18 g, albume 30 g.`,noFlour:`Per usare le percentuali del fornaio, la ricetta deve avere la farina in grammi.`,tapHint:`Tocca una quantità per ricalcolare tutta la ricetta nella stessa proporzione.`,adjT:`Modifica quantità`,adjP:`Le altre quantità cambiano nella stessa proporzione.`,apply:`Applica`,adjusted:`Quantità modificate (×{x})`,saveFor:`Salva per {n} {p}`,backOrig:`Annulla`,saveQ:`Salvare la ricetta con queste quantità?`,saveMsg:`La ricetta diventa per {n} {p}, con tutte le quantità ricalcolate nella stessa proporzione. Potrai ripristinare quelle originali.`,savedScale:`Quantità salvate`,restore:`Ripristina le quantità originali ({n} {p})`,restored:`Quantità originali ripristinate`,
 takePhoto:`Scatta foto`,fromGallery:`Scegli dalla galleria`,photoAdded:`Foto aggiunta. Se la ricetta continua su un'altra pagina, scattane un'altra.`,removeImg:`Rimuovi immagine`,fillPhoto:`Compila dalla foto della ricetta`,filled:`Campi compilati. Controlla e salva.`,replaceQ:`Sostituire quanto già scritto?`,replaceMsg:`I campi verranno compilati con la ricetta della foto.`,replaceBtn:`Sostituisci`,
 tmName:`Bimby / Thermomix`,tmOnly:`Bimby`,tmFor:`Ricetta per Bimby / Thermomix`,tmModel:`Modello`,tmAny:`Qualsiasi modello`,tmNo:`Non è una ricetta Bimby`,
 tTm:`Bimby / Thermomix`,dTm:`Ricette di Cookidoo, del ricettario Bimby o dello schermo della macchina`,
@@ -395,7 +411,7 @@ tmLink:`Link della ricetta su Cookidoo`,tmText:`Testo copiato`,tmImgs:`Screensho
 toCookidoo:`Copia per Cookidoo`,ckT:`Portare su Cookidoo`,ckP:`Su Cookidoo vai in Le mie ricette › Ricette create › pulsante verde › Crea ricetta. Copia ogni parte qui sotto e incollala nel campo corrispondente. Le quantità sono per {n} {p}.`,
 ckName:`Nome`,ckInfo:`Porzioni e tempi`,ckIng:`Ingredienti`,ckSteps:`Passaggi`,ckStep:`Passo`,ckAll:`Copia tutto`,copy:`Copia`,copiedOk:`Copiato`,ckNote:`Le impostazioni della macchina (come 5 min./100°/vel. 1) restano nel testo del passaggio. Su Cookidoo puoi trasformarle in pulsanti di cottura guidata.`,
 h10t:`Bimby / Thermomix`,h10:`<ul><li>Quando modifichi, spunta <b>Ricetta per Bimby / Thermomix</b> e scegli il modello. La ricetta riceve il bollino e compare nel filtro <b>Bimby</b>.</li><li>Scrivi le impostazioni come nel ricettario: <i>10 sec./vel. 5</i>, <i>5 min./100°/vel. 1</i>, <i>20 min./Varoma/antiorario/vel. 1</i>. Vengono evidenziate in verde.</li><li>Per importare da Cookidoo usa <b>Importa › Bimby / Thermomix</b> e incolla il testo della pagina o invia degli screenshot.</li><li>Per portare una ricetta sulla macchina usa <b>Copia per Cookidoo</b> nella scheda e incolla ogni parte in Ricette create su Cookidoo (serve l'abbonamento Cookidoo).</li></ul>`}};
-const S={recipes:[],q:'',cat:'',fav:false,tmOnly:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home',chipX:0,
+const S={fac:{},baker:pref('baker')==='1',recipes:[],q:'',cat:'',fav:false,tmOnly:false,sort:'rec',db:null,assets:null,sample:null,dl:null,mode:'local',ready:false,draft:null,serv:{},chk:{},view:'home',chipX:0,
  lang:pref('lang')||((navigator.language||'').toLowerCase().startsWith('it')?'it':'pt'),theme:pref('theme')||'auto',fs:Math.min(1.6,Math.max(.8,parseFloat(pref('fs'))||1))};
 const t=(k,v)=>{let s=T[S.lang][k]??T.pt[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const at=(k,v)=>esc(t(k,v)).replace(/\n/g,'&#10;');
@@ -465,10 +481,12 @@ async function idbSet(k,v){const d=await idb();return new Promise((res,rej)=>{co
 async function lsLoad(){try{const v=await idbGet('recipes');if(Array.isArray(v))return v}catch(e){}try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return[]}}
 function lsSave(){idbSet('recipes',JSON.parse(JSON.stringify(S.recipes))).catch(()=>{try{localStorage.setItem(LS,JSON.stringify(S.recipes))}catch(e){toast(t('noSpace'))}})}
 async function saveFile(name,data,type){if(S.dl)return S.dl.save({filename:name,data});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+function numServ(v){const x=parseFloat(String(v??'').replace(',','.'));return x>0?Math.max(.5,Math.round(x*10)/10):4}
+const fmtN=x=>String(Math.round(x*10)/10).replace('.',',');
 function normalize(r,keepId){r=r||{};const cat=CATS.some(c=>c[0]===r.category)?r.category:'altro';
  const id=keepId&&/^[a-z0-9-]{3,40}$/i.test(r.id||'')?r.id:uid();
  const df={Facile:'Fácil',Media:'Média',Difficile:'Difícil',Easy:'Fácil',Medium:'Média',Hard:'Difícil'};const d=df[r.difficulty]||r.difficulty;
- return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:Math.max(1,n0(r.servings)||4),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),favorite:!!r.favorite,tm:TMS.includes(r.tm)?r.tm:(r.tm===true||/thermomix|bimby/i.test(String(r.tm||''))?'any':''),createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
+ return{id,title:String(r.title||'—').slice(0,140),subtitle:String(r.subtitle||'').slice(0,300),category:cat,servings:numServ(r.servings),prepMin:n0(r.prepMin),cookMin:n0(r.cookMin),difficulty:['Fácil','Média','Difícil'].includes(d)?d:'Média',ingredients:arr(r.ingredients),equipment:arr(r.equipment),steps:arr(r.steps),notes:String(r.notes||''),tags:arr(Array.isArray(r.tags)?r.tags:String(r.tags||'').split(',')).slice(0,12),photo:safeImg(r.photo),sourceUrl:String(r.sourceUrl||''),sourceLabel:String(r.sourceLabel||''),orig:r.orig&&Array.isArray(r.orig.ingredients)?{ingredients:arr(r.orig.ingredients),servings:numServ(r.orig.servings)}:null,favorite:!!r.favorite,tm:TMS.includes(r.tm)?r.tm:(r.tm===true||/thermomix|bimby/i.test(String(r.tm||''))?'any':''),createdAt:r.createdAt||Date.now(),updatedAt:r.updatedAt||Date.now()}}
 async function persist(r){r.updatedAt=Date.now();const i=S.recipes.findIndex(x=>x.id===r.id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);
  if(S.mode==='db'){try{await S.db.collection('recipes').doc(r.id).set(JSON.parse(JSON.stringify(r)))}catch(e){dbErr(e);throw e}}else lsSave()}
 async function remove(id){S.recipes=S.recipes.filter(x=>x.id!==id);if(S.mode==='db'){try{await S.db.collection('recipes').doc(id).delete()}catch(e){dbErr(e)}}else lsSave()}
@@ -498,11 +516,22 @@ function aiSettings(){const m=modal(`<h3>${t('aiT')}</h3><p>${t('aiP')}</p>
 
 /* ---------- ingredientes ---------- */
 const FR={'½':.5,'¼':.25,'¾':.75,'⅓':1/3,'⅔':2/3};
-function num(s){s=s.trim();if(FR[s])return FR[s];if(s.includes('/')){let x=0;for(const p of s.split(/\s+/)){if(p.includes('/')){const[a,b]=p.split('/');x+=(+a)/(+b||1)}else x+=+p}return x}return parseFloat(s.replace(',','.'))}
-function parseIng(l){const m=l.match(/^\s*(\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:[.,]\d+)?|[½¼¾⅓⅔])(?:\s*(?:a|-|–)\s*(\d+(?:[.,]\d+)?)(?=\s))?\s*(.*)$/);if(!m)return{q:null,rest:l};return{q:num(m[1]),q2:m[2]?num(m[2]):null,rest:m[3]}}
+function num(s){s=s.trim().replace(/(\d)([½¼¾⅓⅔])/,'$1 $2');let x=0;for(const p of s.split(/\s+/)){if(FR[p]!=null)x+=FR[p];else if(p.includes('/')){const[a,b]=p.split('/');x+=(+a)/(+b||1)}else x+=parseFloat(p.replace(',','.'))}return x}
+function parseIng(l){const m=l.match(/^\s*(\d+\s+\d+\/\d+|\d+\s*[½¼¾⅓⅔]|\d+\/\d+|\d+(?:[.,]\d+)?|[½¼¾⅓⅔])(?:\s*(?:a|-|–)\s*(\d+(?:[.,]\d+)?)(?=\s))?\s*(.*)$/);if(!m)return{q:null,rest:l};return{q:num(m[1]),q2:m[2]?num(m[2]):null,rest:m[3]}}
 function fq(q){if(q==null||!isFinite(q))return'';const r=Math.round(q*100)/100,w=Math.floor(r),d=Math.round((r-w)*100)/100,F={.25:'¼',.5:'½',.75:'¾',.33:'⅓',.67:'⅔'};if(F[d]&&r<20)return(w?w+' ':'')+F[d];return(r>=20?Math.round(r):r).toString().replace('.',',')}
-function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l};return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest}}
+function scaled(l,f){const p=parseIng(l);if(p.q==null)return{q:'',rest:l};
+ const um=p.rest.match(/^(kg|g|gr|l|ml)\b\.?/i);if(um&&p.q2==null){let q=p.q*f,u=um[1].toLowerCase(),rest=p.rest.slice(um[0].length);
+  if((u==='kg'||u==='l')&&q<1){q*=1000;u=u==='kg'?'g':'ml'}else if((u==='g'||u==='gr')&&q>=1000&&f!==1){q/=1000;u='kg'}else if(u==='ml'&&q>=1000&&f!==1){q/=1000;u='l'}
+  const d=q>=100||u==='g'&&q>=20||u==='ml'&&q>=20?Math.round(q):Math.round(q*10)/10;return{q:String(d).replace('.',','),rest:u+rest}}return{q:fq(p.q*f)+(p.q2!=null?' a '+fq(p.q2*f):''),rest:p.rest}}
 const isGrp=l=>/:\s*$/.test(l)&&l.length<70;
+function grams(l,f){const p=parseIng(l);if(p.q==null)return null;const q=p.q*f,r=p.rest;let m;
+ if(m=r.match(/^(kg|quilos?|quilogramas?|chili|chilogrammi)\b/i))return{g:q*1000,r};if(m=r.match(/^(g|gr|grs|gramas?|grammi|grammo)\b\.?/i))return{g:q,r};if(m=r.match(/^(l|litros?|litri|litro)\b/i))return{g:q*1000,r};if(m=r.match(/^(ml|mililitros?|millilitri)\b/i))return{g:q,r};
+ if(/^(ovos?|uovo|uova)\b/i.test(r))return{g:q*50,r,approx:1};if(/^(gemas?|tuorl[oi])\b/i.test(r))return{g:q*18,r,approx:1};if(/^(claras?|album[ei])\b/i.test(r))return{g:q*30,r,approx:1};return null}
+function bakerInfo(lines,f){let flour=0,liq=0,sum=0,approx=false;const items=lines.map(l=>{if(isGrp(l))return null;const x=grams(l,f);if(!x)return null;sum+=x.g;if(x.approx)approx=true;
+  if(!x.approx&&/farinha|farina|flour|s[eê]mola|semolina|fubá|manitoba|polvilho/i.test(x.r))flour+=x.g;else if(/água|agua|acqua|leite|latte|water|milk/i.test(x.r))liq+=x.g;return x});
+ return{flour,liq,sum,approx,items}}
+const fmtG=g=>g>=1000?(Math.round(g/10)/100).toLocaleString('pt-BR')+' kg':(g<10?String(Math.round(g*10)/10).replace('.',','):Math.round(g).toLocaleString('pt-BR'))+' g';
+const fmtP=p=>(p<10?String(Math.round(p*10)/10).replace('.',','):Math.round(p))+'%';
 const TMTOK=String.raw`(?:\d+(?:[.,]\d+)?\s*(?:seg|sec|s|min|h)\.?|\d{2,3}\s*°\s*C?|Varoma|⟲|colher inversa|sentido inverso|reverse|antiorario|vel(?:ocidade|ocità)?\.?\s*(?:colher|cucchiaio|soft|turbo|\d+(?:[.,]\d+)?(?:\s*[-–]\s*\d+(?:[.,]\d+)?)?)|turbo)`;
 const TMRE=new RegExp(TMTOK+String.raw`(?:\s*\/\s*`+TMTOK+')*','gi');
 function fmtStep(s){let out='',last=0;s=String(s);for(const m of s.matchAll(TMRE)){const v=m[0];if(!(/vel|varoma|turbo/i.test(v)||(/\//.test(v)&&/°|colher|antiorario|⟲|inverso/i.test(v))))continue;out+=esc(s.slice(last,m.index))+`<span class="tm">${ic('tm')}${esc(v)}</span>`;last=m.index+v.length}return out+esc(s.slice(last))}
@@ -565,8 +594,15 @@ addEventListener('resize',updArrows);
 /* ---------- receita ---------- */
 function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  if(!r){app.innerHTML=`<section class="band"><div class="wrap">${S.ready?`<div class="empty"><h3>${t('notFound')}</h3><p>${t('maybeDel')}</p><a class="btn" href="#">${t('backBook')}</a></div>`:`<div class="empty"><div class="spin" style="margin:0 auto"></div></div>`}</div></section>`;return}
- const sv=S.serv[id]||r.servings||1,f=sv/(r.servings||1),chk=S.chk[id]||(S.chk[id]={});
- const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span>${s.q?`<b>${esc(s.q)}</b> `:''}${esc(s.rest)}</span></label></li>`}).join('');
+ const base=r.servings||1,f=S.fac[id]||1,sv=Math.round(base*f*10)/10,chk=S.chk[id]||(S.chk[id]={});
+ const bk=bakerInfo(r.ingredients||[],f),bkOn=S.baker&&bk.flour>0;
+ const ings=(r.ingredients||[]).map((l,i)=>{if(isGrp(l))return`<li class="grp">${esc(l.replace(/:\s*$/,''))}</li>`;const s=scaled(l,f);const q=s.q?`<button type="button" class="qbtn" data-adj="${i}">${esc(s.q)}</button> `:'';
+  if(bkOn){const x=bk.items[i];return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span><span class="pct">${x?(x.approx?'~':'')+fmtP(x.g/bk.flour*100):'—'}</span>${q}${esc(s.rest)}</span></label></li>`}
+  return`<li><label><input type="checkbox" data-ck="${i}" ${chk[i]?'checked':''}><span>${q}${esc(s.rest)}</span></label></li>`}).join('');
+ const segm=bk.flour>0?`<div class="segm" role="group" aria-label="${at('bakerMode')}"><button type="button" data-bk="0" aria-pressed="${!bkOn}">${t('qtyMode')}</button><button type="button" data-bk="1" aria-pressed="${bkOn}">${t('bakerMode')}</button></div>`:'';
+ const bkr=bkOn?`<div class="bkr"><div><span>${t('flourTot')} = 100%</span><b>${fmtG(bk.flour)}</b></div><div><span>${t('hydr')}</span><b>${fmtP(bk.liq/bk.flour*100)}</b></div><div><span>${t('doughTot')}</span><b>${bk.approx?'~':''}${fmtG(bk.sum)}</b></div></div>`:'';
+ const adj=Math.abs(f-1)>1e-9?`<div class="adj"><span>${t('adjusted',{x:String(Math.round(f*100)/100).replace('.',',')})}</span><button class="btn green" id="savescale">${t('saveFor',{n:fmtN(sv),p:pl(sv)})}</button><button class="btn quiet" id="resetscale">${t('backOrig')}</button></div>`:'';
+ const foot=ings?`<p class="hint">${t('tapHint')}${bkOn&&bk.approx?' '+t('eggNote'):''}</p>${r.orig&&Math.abs(f-1)<1e-9?`<button class="restore" id="restore">${t('restore',{n:fmtN(r.orig.servings),p:pl(r.orig.servings)})}</button>`:''}`:'';
  const steps=(r.steps||[]).map((s,i)=>{const x=stepTime(s);return`<li><span class="n">${i+1}</span><div><p>${fmtStep(s)}</p>${x?`<button class="btn tbtn" data-tm="${x}" data-st="${i+1}">${ic('timer')}${t('timer')} ${fmtMin(x)}</button>`:''}</div></li>`}).join('');
  const src=r.sourceUrl?(/^https?:\/\//.test(r.sourceUrl)?`<a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(r.sourceLabel||r.sourceUrl)}</a>`:esc(r.sourceUrl)):esc(r.sourceLabel);
  const c=catOf(r.category);
@@ -577,7 +613,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
   <div class="rinfo">
    <p class="kicker red">${esc(c[1])} · ${esc(catDesc(c))}</p>
    ${r.tm?`<div class="badge">${ic('tm')}${esc(tmLabel(r.tm))}</div>`:''}<h1>${esc(r.title)}</h1>${r.subtitle?`<p class="lede">${esc(r.subtitle)}</p>`:''}
-   <div class="facts"><div class="fact"><span>${t('prep')}</span><b>${fmtMin(r.prepMin)}</b></div><div class="fact"><span>${t('cook')}</span><b>${fmtMin(r.cookMin)}</b></div><div class="fact"><span>${t('diff')}</span><b>${esc(dname(r.difficulty))}</b></div><div class="fact"><span>${t('servings')}</span><div class="stepper"><button data-sv="-1" aria-label="${at('less')}">−</button><b>${sv}</b><button data-sv="1" aria-label="${at('more')}">+</button></div></div></div>
+   <div class="facts"><div class="fact"><span>${t('prep')}</span><b>${fmtMin(r.prepMin)}</b></div><div class="fact"><span>${t('cook')}</span><b>${fmtMin(r.cookMin)}</b></div><div class="fact"><span>${t('diff')}</span><b>${esc(dname(r.difficulty))}</b></div><div class="fact"><span>${t('servings')}</span><div class="stepper"><button data-sv="-1" aria-label="${at('less')}">−</button><b>${fmtN(sv)}</b><button data-sv="1" aria-label="${at('more')}">+</button></div></div></div>
    ${(r.tags||[]).length?`<div class="tags">${r.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>`:'<div style="height:16px"></div>'}
    <div class="ractions">
     <button class="btn red" id="cook">${ic('play')}${t('cookMode')}</button>
@@ -592,7 +628,7 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  </header>
  <div class="rbody">
   <aside>
-   <section class="box"><h2>${t('ingredients')} <small>${sv} ${pl(sv)}</small></h2>${ings?`<ul class="ing">${ings}</ul>`:`<p>${t('noIng')}</p>`}</section>
+   <section class="box"><h2>${t('ingredients')} <small>${fmtN(sv)} ${pl(sv)}</small></h2>${segm}${adj}${bkr}${ings?`<ul class="ing">${ings}</ul>`:`<p>${t('noIng')}</p>`}${foot}</section>
    <section class="box"><h2>${t('equipment')}</h2>${(r.equipment||[]).length?`<ul class="eq">${r.equipment.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>`:`<p>${t('noEq')}</p>`}</section>
   </aside>
   <section class="col-steps"><h2>${t('method')}</h2>${steps?`<ol class="steps">${steps}</ol>`:`<p>${t('noSteps')}</p>`}
@@ -600,7 +636,14 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
    ${src?`<p class="src">${ic('link')}${t('source')}: ${src}</p>`:''}
   </section>
  </div></div></article>`;
- app.querySelectorAll('[data-sv]').forEach(b=>b.onclick=()=>{S.serv[id]=Math.max(1,sv+ +b.dataset.sv);route(true,true)});
+ app.querySelectorAll('[data-sv]').forEach(b=>b.onclick=()=>{const d=+b.dataset.sv,n=Number.isInteger(sv)?sv+d:(d>0?Math.ceil(sv):Math.floor(sv));S.fac[id]=Math.max(1,n)/base;route(true,true)});
+ app.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>{S.baker=b.dataset.bk==='1';pref('baker',S.baker?'1':'0');route(true,true)});
+ app.querySelectorAll('[data-adj]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();adjustQty(r,+b.dataset.adj,f)});
+ const ss=$('#savescale');if(ss)ss.onclick=async()=>{if(!await ask(t('saveQ'),t('saveMsg',{n:fmtN(sv),p:pl(sv)}),t('saveFor',{n:fmtN(sv),p:pl(sv)})))return;
+  const n={...r,ingredients:(r.ingredients||[]).map(l=>isGrp(l)?l:(x=>(x.q?x.q+' ':'')+x.rest)(scaled(l,f))),servings:sv,orig:r.orig||{ingredients:r.ingredients,servings:r.servings}};
+  try{await persist(normalize(n,true));S.fac[id]=1;toast(t('savedScale'));route(true,true)}catch(e){}};
+ const rs=$('#resetscale');if(rs)rs.onclick=()=>{S.fac[id]=1;route(true,true)};
+ const ro=$('#restore');if(ro)ro.onclick=async()=>{try{await persist(normalize({...r,ingredients:r.orig.ingredients,servings:r.orig.servings,orig:null},true));toast(t('restored'));route(true,true)}catch(e){}};
  app.querySelectorAll('[data-ck]').forEach(x=>x.onchange=()=>{chk[x.dataset.ck]=x.checked});
  app.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(`${r.title} · ${t('step')} ${b.dataset.st}`,+b.dataset.tm));
  $('#cook').onclick=()=>cookMode(r,f);
@@ -609,6 +652,14 @@ function renderRecipe(id){const r=S.recipes.find(x=>x.id===id);
  $('#dlr').onclick=()=>downloadSheet(r,sv,f);
  $('#ckd').onclick=()=>toCookidoo(r,sv,f);
  $('#del').onclick=async()=>{if(await ask(t('delQ'),t('delMsg',{t:r.title}),t('del'))){await remove(id);toast(t('deleted'));go('')}}}
+function adjustQty(r,i,f){const p=parseIng(r.ingredients[i]);if(p.q==null||!p.q)return;
+ const um=p.rest.match(/^(kg|g|gr|l|ml)\b\.?\s*/i);const u=um?um[1].toLowerCase().replace('gr','g'):'';const big=u==='kg'||u==='l';const pair=u==='kg'||u==='g'?['g','kg']:u==='l'||u==='ml'?['ml','l']:null;
+ const rest=um?p.rest.slice(um[0].length):p.rest;const cur=p.q*f;
+ const showU=pair?(big&&cur<1?pair[0]:u):'';const val=v=>Math.round(v*100)/100;const inU=showU&&showU!==u?(big?cur*1000:cur/1000):cur;
+ const m=modal(`<h3>${t('adjT')}</h3><p>${t('adjP')}</p><label class="adjrow"><input id="nq" type="number" inputmode="decimal" step="any" min="0" value="${val(inU)}">${pair?`<select id="nu" style="width:auto">${pair.map(x=>`<option ${x===showU?'selected':''}>${x}</option>`).join('')}</select>`:''}<span>${esc(pair?rest:p.rest)}</span></label><div class="act"><button class="btn" data-x>${t('cancel')}</button><button class="btn red" data-ok>${t('apply')}</button></div>`);
+ const inp=m.querySelector('#nq');setTimeout(()=>{inp.focus();inp.select()},50);
+ const ok=()=>{let v=parseFloat(String(inp.value).replace(',','.'));if(!(v>0))return;if(pair){const su=m.querySelector('#nu').value;if(su!==u)v=big?v/1000:v*1000}S.fac[r.id]=v/p.q;m.remove();route(true,true)};
+ m.querySelector('[data-ok]').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};m.querySelector('[data-x]').onclick=()=>m.remove()}
 function copyText(x,ok){const fb=()=>{const m=modal(`<h3>${t('copyText')}</h3><textarea rows="10">${esc(x)}</textarea><div class="act"><button class="btn" data-x>${t('close')}</button></div>`);m.querySelector('[data-x]').onclick=()=>m.remove();m.querySelector('textarea').select()};
  try{navigator.clipboard.writeText(x).then(()=>toast(ok),fb)}catch(e){fb()}}
 
@@ -660,7 +711,7 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
     <label>${t('name')}<input name="title" required maxlength="140" value="${esc(b.title||'')}" placeholder="${at('namePh')}"></label>
     <label>${t('desc')}<input name="subtitle" maxlength="300" value="${esc(b.subtitle||'')}" placeholder="${at('descPh')}"></label>
     <div class="r4"><label>${t('category')}<select name="category">${opt(b.category||'primi',CATS.map(c=>[c[0],c[1]+' · '+catDesc(c)]))}</select></label>
-     <label>${t('servings')}<input name="servings" type="number" min="1" inputmode="numeric" value="${esc(b.servings||4)}"></label>
+     <label>${t('servings')}<input name="servings" type="number" min="0.5" step="any" inputmode="decimal" value="${esc(b.servings||4)}"></label>
      <label>${t('prepMin')}<input name="prepMin" type="number" min="0" inputmode="numeric" value="${esc(b.prepMin||'')}"></label>
      <label>${t('cookMin')}<input name="cookMin" type="number" min="0" inputmode="numeric" value="${esc(b.cookMin||'')}"></label></div>
     <div class="r2"><label>${t('diff')}<select name="difficulty">${opt(b.difficulty||'Média',['Fácil','Média','Difícil'].map(d=>[d,dname(d)]))}</select></label>
@@ -702,7 +753,7 @@ function renderEdit(id,keep){const ex=id?S.recipes.find(x=>x.id===id):null;
   finally{st.innerHTML=''}};
  $('#f').onsubmit=async e=>{e.preventDefault();if(busy){toast(t('waitPhoto'));return}
   const d=Object.fromEntries(new FormData(e.target));
-  const r=normalize({...(ex||{}),...d,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
+  const r=normalize({...(ex||{}),...d,orig:ex&&ex.orig&&d.ingredients.trim()===(ex.ingredients||[]).join('\n').trim()?ex.orig:null,tm:d.tmOn?(d.tmModel||'any'):'',tags:d.tags.split(','),photo:S.edPhoto,favorite:ex?.favorite,createdAt:ex?.createdAt},!!ex);
   const btn=$('#save');btn.disabled=true;btn.textContent=t('saving');
   try{await persist(r);toast(t('saved'));go('receita-'+r.id)}catch(err){btn.disabled=false;btn.textContent=t('save')}}}
 
