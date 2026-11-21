@@ -159,19 +159,34 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 .px{display:flex;gap:.7rem;align-items:center;text-align:left;width:100%;border:1px solid var(--line);border-left:4px solid var(--c);background:var(--bg);border-radius:12px;padding:.5rem .7rem;min-height:52px}.px:hover{border-color:var(--mut);border-left-color:var(--c)}
 .pd{flex:none;width:3.4rem;display:flex;flex-direction:column;align-items:center;line-height:1.15}.pd b{font-size:1.05rem;font-variant-numeric:tabular-nums}.pd small{color:var(--mut);font-size:.75rem}
 .pt{display:flex;flex-direction:column;min-width:0}.pt strong{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pt small{color:var(--mut);font-size:.8rem}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand hact" "mrow mrow";gap:.55rem .6rem;align-items:center;padding:.55rem max(4vw,12px)}
+.brand{grid-area:brand;order:0}.hact{grid-area:hact;display:flex;gap:.4rem}.mrow{grid-area:mrow;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tb{display:none}
+.hb{min-width:48px;padding:0 .7rem}.hb .lbl{display:none}#helpbtn{font:700 1.3rem Inter;width:48px}#menubtn{position:relative}.dot{position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 2px var(--bg)}
+.mth{margin:0;flex:1 1 auto;min-width:0}#mt{all:unset;cursor:pointer;display:inline-flex;align-items:baseline;gap:.35rem;font:600 clamp(1.45rem,5.2vw,2.3rem)/1.1 Spectral,Georgia,serif;text-transform:capitalize;padding:.15rem .4rem;border-radius:10px}#mt:hover,#mt:focus-visible{background:var(--card)}#mt span{color:var(--mut);font-weight:500}#mt .chev{color:var(--mut);align-self:center}
+.mrow .vw{order:5}
+@media(max-width:759px){.top{position:static}.mrow .btn.ic{width:44px}.mth{flex:0 1 auto}#mt{font-size:clamp(1.25rem,5.6vw,1.6rem);padding:.15rem .2rem}#today{margin-left:auto}#day .dh [data-new]{display:none}.brand img{width:46px !important}.brand>span>span{font-size:.95rem !important}.mrow .vw{flex:1 1 100%;display:grid;grid-template-columns:1fr 1fr}.mrow .vw button{min-height:44px;font-size:.95rem}
+ #rib{padding:.45rem max(4vw,12px)}#rib b{font-size:1rem}#rib span{font-size:.8rem}#note.ok{display:none}main{padding-bottom:7rem}
+ .fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:15;min-height:56px;padding:0 1.3rem;border-radius:28px;border:0;background:var(--acc);color:var(--onacc);font:700 1.05rem Inter;box-shadow:0 6px 18px rgba(0,0,0,.25)}}
+@media(min-width:760px){.bar{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"brand mrow hact" "tb tb tb"}.mth{flex:0 1 auto;padding-left:.8rem;border-left:1px solid var(--line)}.mrow{flex-wrap:nowrap}.hb .lbl{display:none}.seg button{white-space:nowrap}.tb{grid-area:tb;display:flex;gap:.4rem;flex-wrap:wrap}.tb [data-new]{margin-left:auto}.fab{display:none}}
+.mis{display:grid;gap:.45rem}.mi{display:grid;gap:.15rem;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:.75rem .9rem;min-height:56px}.mi b{font-size:1.02rem}.mi small{color:var(--mut);font-size:.88rem}.mi:hover{border-color:var(--mut)}
+.fsr{display:flex;align-items:center;gap:.6rem}.fsr .btn{min-width:64px;font-size:1.1rem}#mfsv{min-width:3.5em;text-align:center;font-weight:600}
+.yr{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:.6rem}.yr b{font:600 1.4rem Spectral,Georgia,serif}.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}.mgrid .btn{min-height:52px}
+.hl{margin:0;font-size:1rem}.hs{border:1px solid var(--line);border-radius:12px;background:var(--card)}.hs summary{cursor:pointer;padding:.85rem 1rem;font-weight:700;font-size:1.05rem;min-height:48px}.hs>div{padding:0 1rem .8rem;font-size:1.02rem;line-height:1.6}.hs p{margin:.4rem 0}
+#hint{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.6rem max(4vw,12px);background:var(--lw);color:#2a2115;font-weight:600}#hint span{flex:1 1 12rem}#hint .btn:not(.pri){background:transparent;color:#2a2115;border-color:rgba(0,0,0,.2)}
+@media(min-width:1500px){.hb .lbl{display:inline;margin-left:.35rem}}.mrow>*{flex-shrink:0}.mrow>.mth{flex-shrink:1}
 #toast{position:fixed;left:50%;bottom:5.5rem;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:12px;font-size:.9rem;opacity:0;pointer-events:none;transition:.2s;z-index:30;max-width:90vw}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media(max-width:600px){.hide-s{display:none}.c{min-height:3.9rem}}
 </style></head><body>
 <header class="top"><div class="bar">
  <div class="brand"><span style="display:inline-flex;align-items:center;gap:.75rem"><img src="icon-192.png" alt="Pastoral Familiar" width="84" height="84" style="width:clamp(60px,8vw,84px);height:auto;border-radius:50%"><span style="font-size:1.15rem;line-height:1.25"><b>Agenda Pastoral</b><br>Pastoral Familiar</span></span></div>
- <h1 id="mt">mês</h1>
- <span class="tools"><span class="seg" role="group" aria-label="Tema"><button data-th="auto">Auto</button><button data-th="light">Claro</button><button data-th="dark">Escuro</button></span>
-  <span class="seg" role="group" aria-label="Tamanho da letra"><button id="fsm" aria-label="Diminuir letra">A−</button><span id="fsv" aria-live="polite">100%</span><button id="fsp" aria-label="Aumentar letra">A+</button></span></span>
- <div class="nav"><button class="btn ic" id="prev" aria-label="Mês anterior">‹</button><button class="btn" id="today">Hoje</button><button class="btn ic" id="next" aria-label="Próximo mês">›</button>
-  <span class="seg" role="group" aria-label="Visualização"><button data-v="mes">Mês</button><button data-v="lista">Lista</button></span>
-  <button class="btn" id="avbtn" hidden>Avisos</button><button class="btn" id="ags">Agendas</button><button class="btn" id="imp">Importar</button><button class="btn" id="exp">Exportar</button><button class="btn" id="pick" aria-pressed="false">Selecionar</button><button class="btn pri" data-new>+ <span class="hide-s">Evento</span></button></div>
+ <div class="hact"><button class="btn ic hb" id="helpbtn" aria-label="Ajuda: como usar a agenda" title="Como usar">?</button><button class="btn hb" id="thbtn" aria-label="Tema"></button><button class="btn hb" id="menubtn" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lbl">Menu</span><i class="dot" id="mdot" hidden></i></button></div>
+ <div class="mrow"><button class="btn ic" id="prev" aria-label="Mês anterior">‹</button><h1 class="mth"><button id="mt" aria-label="Escolher o mês">mês</button></h1><button class="btn ic" id="next" aria-label="Próximo mês">›</button><button class="btn" id="today">Hoje</button>
+  <span class="seg vw" role="group" aria-label="Forma de ver"><button data-v="mes">Calendário</button><button data-v="lista">Lista</button></span></div>
+ <div class="tb"><button class="btn" id="avbtn" hidden>Avisos</button><button class="btn" id="ags">Agendas</button><button class="btn" id="imp">Importar</button><button class="btn" id="exp">Exportar</button><button class="btn" id="pick" aria-pressed="false">Selecionar</button><span class="seg" role="group" aria-label="Tamanho da letra"><button id="fsm" aria-label="Diminuir letra">A−</button><span id="fsv" aria-live="polite">100%</span><button id="fsp" aria-label="Aumentar letra">A+</button></span><button class="btn pri" data-new>+ Evento</button></div>
 </div><div id="rib"></div><p id="note" hidden></p></header>
+<div id="hint" hidden><span>Primeira vez aqui? Veja como usar a agenda.</span><button class="btn sm pri" id="hintok">Como usar</button><button class="btn sm" id="hintx" aria-label="Fechar aviso">✕</button></div>
+<button class="fab" data-new aria-label="Novo evento">+ Evento</button>
 <main><div id="mview"><div><div class="wd"><span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span></div><div id="grid"></div></div><div class="side"><aside id="day" aria-live="polite"></aside><section id="prox" aria-label="Próximos eventos"></section><section id="mural" aria-label="Mural de avisos"></section></div></div>
 <div id="lview" hidden></div></main>
 <div id="pbar" hidden><div><span id="pn"></span><button class="btn" id="pall">Marcar todos visíveis</button><button class="btn pri" id="psend" disabled>Enviar para o celular</button></div></div>
@@ -276,16 +291,16 @@ function expand(from,to,all){const out={},vis=new Set(AGS().filter(a=>all||!hidd
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)}
 const mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
 function mode_(){const r=document.documentElement,h=r.getAttribute('data-theme');r.dataset.mode=theme!=='auto'?theme:(h==='dark'||h==='light')?h:(mq&&mq.matches?'dark':'light')}
-function applyUi(){document.documentElement.style.fontSize=fs+'px';mode_();$('#fsv').textContent=Math.round(fs/16*100)+'%';
+function applyUi(){document.documentElement.style.fontSize=fs+'px';mode_();thUi();$('#fsv').textContent=Math.round(fs/16*100)+'%';
  document.querySelectorAll('[data-th]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.th===theme))}
 function render(){
- $('#mt').innerHTML=`${MES[cm]} <span>${cy}</span>`;
+ $('#mt').innerHTML=`${MES[cm]} <span>${cy}</span><svg class="chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>`;
  document.querySelectorAll('[data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
  const L=lit(sel);$('#rib').style.setProperty('--lc',LC[L.c].v);$('#rib').dataset.c=L.c;
  $('#rib').innerHTML=`<b>${L.s}</b><span>${L.w?esc(L.w)+' · ':''}Ano ${L.ano} · cor ${LC[L.c].n.toLowerCase()}</span>`;
  $('#ags').textContent=mode==='fb'&&ME?.papel==='admin'&&PED.length?`Agendas · ${PED.length} pedido${PED.length>1?'s':''}`:'Agendas';$('#note').hidden=false;$('#note').dataset.m=mode;if(mode==='fb')$('#note').innerHTML=fbNote();else $('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
  $('#mview').hidden=view!=='mes';$('#lview').hidden=view!=='lista';
- view==='mes'?(grid(),day(),prox(),mural()):list();bar();const nv=shared()?avNovos():0;$('#avbtn').hidden=!shared();$('#avbtn').textContent=nv?`Avisos · ${nv} novo${nv>1?'s':''}`:'Avisos';$('#avbtn').classList.toggle('pri',!!nv)}
+ view==='mes'?(grid(),day(),prox(),mural()):list();bar();const nv=shared()?avNovos():0;$('#avbtn').hidden=!shared();$('#avbtn').textContent=nv?`Avisos · ${nv} novo${nv>1?'s':''}`:'Avisos';$('#avbtn').classList.toggle('pri',!!nv);$('#mdot').hidden=!(nv||(mode==='fb'&&ME?.papel==='admin'&&PED.length));$('#note').classList.toggle('ok',(mode==='fb'&&!!ME)||mode==='db');document.querySelectorAll('[data-new]').forEach(x=>x.hidden=ro);$('#hint').hidden=!!LS.get('agp-hint',0)||!!$('#sh:not([hidden])')}
 function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate(),wk=Math.ceil((dow(first)+dim)/7),oc=expand(start,start+(wk*7-1)*DAY);let h='';
  for(let i=0;i<wk*7;i++){const t=start+i*DAY,L=lit(t),d=new Date(t),ev=oc[iso(t)]||[],big=L.cel&&(L.cel.r==='S'||L.cel.r==='F');
   h+=`<button class="c${d.getUTCMonth()!==cm?' out':''}${t===TODAY?' today':''}${t===sel?' sel':''}" data-t="${t}" aria-label="${d.getUTCDate()} de ${MES[d.getUTCMonth()]}${L.cel?', '+esc(L.cel.n):''}${ev.length?', '+ev.length+' evento(s)':''}">
@@ -404,7 +419,7 @@ document.addEventListener('change',ev=>{const D=ev.target.dataset;
 $('#prev').onclick=()=>shift(-1);$('#next').onclick=()=>shift(1);$('#today').onclick=()=>{go(TODAY);render()};
 $('#ags').onclick=openAg;$('#pick').onclick=()=>{picking=!picking;if(!picking)picked.clear();render()};$('#psend').onclick=openSend;
 $('#pall').onclick=()=>{document.querySelectorAll('[data-pick]').forEach(c=>{c.checked=true;picked.add(c.dataset.pick)});bar()};
-$('#fsm').onclick=()=>{fs=Math.max(13,fs-1);LS.set('agp-fs',fs);applyUi()};$('#fsp').onclick=()=>{fs=Math.min(22,fs+1);LS.set('agp-fs',fs);applyUi()};
+$('#fsm').onclick=()=>{fs=Math.max(13,fs-1);LS.set('agp-fs',fs);applyUi()};$('#fsp').onclick=()=>{fs=Math.min(24,fs+1);LS.set('agp-fs',fs);applyUi()};
 $('#sh').onclick=ev=>{if(ev.target.id==='sh')close()};document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!$('#sh').hidden)close()});
 let tx=null;$('#mview').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});$('#mview').addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>60&&!e.target.closest('#day'))shift(dx<0?1:-1)});
 mq&&mq.addEventListener&&mq.addEventListener('change',mode_);new MutationObserver(mode_).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
@@ -779,6 +794,47 @@ document.addEventListener('click',ev=>{const t=ev.target,b=t.closest('[data-avne
  else if(b.id==='avbtn'){if(view!=='mes'){view='mes';render()}$('#mural')?.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>{LS.set('agp-avseen',new Date().toISOString());render()},1500)}});
 document.addEventListener('submit',async ev=>{const f=ev.target.closest('[data-rf]');if(!f)return;ev.preventDefault();const inp=f.querySelector('input'),txt=inp.value.trim();if(!txt)return;
  try{await db.collection('respostas').doc(nid()).set({aviso:f.dataset.rf,uid:myId(),texto:txt,quando:new Date().toISOString(),...(mode==='fb'?{nome:ME?.nome||FBU?.displayName||''}:{})});inp.value=''}catch{toast('Não foi possível enviar.')}});
+
+// cabeçalho simplificado: tema (1 botão), menu, ajuda, escolha de mês
+var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
+function thUi(){const b=$('#thbtn');if(b&&THI){b.innerHTML=THI[theme]+`<span class="lbl">${THN[theme]}</span>`;b.setAttribute('aria-label',`Tema: ${THN[theme]}. Toque para trocar`);b.title=`Tema: ${THN[theme]} (toque para trocar)`}}
+thUi();
+function setFs(d){fs=Math.max(13,Math.min(24,fs+d));LS.set('agp-fs',fs);applyUi();const v=$('#mfsv');if(v)v.textContent=Math.round(fs/16*100)+'%'}
+function openMenu(){const nv=shared()?avNovos():0,it=(id,t,d,x='')=>`<button class="mi" data-mi="${id}"><b>${t}${x}</b><small>${d}</small></button>`;
+ sheet(`<div class="shh"><h3>Menu</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
+ <div class="mis">${shared()?it('avisos','Mural de avisos','Ler e escrever avisos para os grupos.',nv?` <span class="nv">${nv} novo${nv>1?'s':''}</span>`:''):''}
+ ${it('novo','Novo evento','Marcar uma reunião, missa, encontro ou festa.')}
+ ${it('agendas','Agendas e cores','Escolher quais grupos aparecem'+(mode==='fb'&&ME?.papel==='admin'?', cadastro de pessoas e pedidos de acesso.':'.'),mode==='fb'&&ME?.papel==='admin'&&PED.length?` <span class="nv">${PED.length} pedido${PED.length>1?'s':''}</span>`:'')}
+ ${it('exportar','Imprimir ou baixar (PDF)','Calendário do mês ou do ano em PDF, HTML ou para a agenda do celular.')}
+ ${it('selecionar','Mandar eventos para o celular','Marcar eventos e colocar na agenda do seu celular.')}
+ ${it('importar','Importar datas','Trazer datas de um documento Word, PDF, foto ou arquivo .ics.')}
+ ${it('ajuda','Como usar a agenda','Explicação passo a passo.')}</div>
+ <p class="sub">Tamanho da letra</p><div class="fsr"><button class="btn" data-fs="-1" aria-label="Diminuir letra">A−</button><span id="mfsv">${Math.round(fs/16*100)}%</span><button class="btn" data-fs="1" aria-label="Aumentar letra">A+</button></div>
+ <p class="sub">Tema</p><div class="seg">${Object.entries(THN).map(([k,v])=>`<button data-th="${k}" aria-pressed="${k===theme}">${v}</button>`).join('')}</div>
+ ${mode==='fb'&&FBU?`<p class="fine">Conectado como <b>${esc(ME?.nome||FBU.displayName||'')}</b> (${esc(FBU.email)})${ME?` · ${PAP[ME.papel]||''}`:''}</p><button class="btn" id="fbout">Sair desta conta</button>`:''}`)}
+function openMonth(){let y=cy;const draw=()=>{$('#mpk').innerHTML=`<div class="yr"><button class="btn ic" data-yr="-1" aria-label="Ano anterior">‹</button><b>${y}</b><button class="btn ic" data-yr="1" aria-label="Próximo ano">›</button></div><div class="mgrid">${MES.map((m,i)=>`<button class="btn${i===cm&&y===cy?' pri':''}" data-mo="${i}">${cap(m)}</button>`).join('')}</div>`;
+  $('#mpk').querySelectorAll('[data-yr]').forEach(b=>b.onclick=()=>{y+=+b.dataset.yr;draw()});$('#mpk').querySelectorAll('[data-mo]').forEach(b=>b.onclick=()=>{cy=y;cm=+b.dataset.mo;const dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate();sel=U(cy,cm+1,Math.min(new Date(sel).getUTCDate(),dim));close();render()})};
+ sheet(`<div class="shh"><h3>Escolher o mês</h3><button class="x" data-close aria-label="Fechar">✕</button></div><div id="mpk"></div><button class="btn" id="mhoje">Voltar para hoje</button>`);draw();$('#mhoje').onclick=()=>{close();$('#today').click()}}
+function openHelp(){const S=(t,b)=>`<details class="hs"><summary>${t}</summary><div>${b}</div></details>`;
+ sheet(`<div class="shh"><h3>Como usar a agenda</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
+ <p class="hl">Toque em cada assunto para abrir a explicação. Você pode voltar aqui a qualquer hora pelo botão <b>?</b> no alto da tela.</p>
+ ${S('1. Entrar na agenda',`<p>Toque em <b>Entrar com Google</b> e escolha a sua conta (o seu Gmail).</p><p>Na primeira vez, toque em <b>Pedir acesso</b>, preencha seu nome, telefone, função e paróquia e toque em <b>Enviar pedido</b>. O coordenador aprova e, a partir daí, você vê os eventos.</p>`)}
+ ${S('2. Ver os dias e os meses',`<p>As setas <b>‹</b> e <b>›</b> passam para o mês anterior ou o próximo. Também dá para arrastar o dedo para o lado em cima do calendário.</p><p>Toque no <b>nome do mês</b> para escolher outro mês ou ano. O botão <b>Hoje</b> volta para o dia de hoje.</p><p>Toque em um <b>dia</b> para ver, logo abaixo, o que acontece nele.</p>`)}
+ ${S('3. Calendário ou Lista',`<p><b>Calendário</b> mostra o mês inteiro em quadradinhos, como um calendário de parede.</p><p><b>Lista</b> mostra os próximos eventos um embaixo do outro, separados por mês. É mais fácil de ler no celular.</p>`)}
+ ${S('4. O que significam as cores',`<p>A <b>faixa colorida embaixo de cada dia</b> é a cor litúrgica: verde (Tempo Comum), roxo (Advento e Quaresma), branco/dourado (Natal, Páscoa e festas), vermelho (mártires, Pentecostes, Paixão) e rosa (Gaudete e Laetare).</p><p>O <b>losango</b> ao lado do número marca uma solenidade ou festa. A faixa verde no alto mostra o tempo litúrgico e o ano (A, B ou C).</p><p>Cada <b>grupo</b> (Pastoral Familiar, Decanato, Música…) tem a sua cor nos eventos. Os <b>ícones</b> mostram o tipo: cálice = missa, duas pessoas = reunião, coração = encontro, livro = formação, nota musical = ensaio, montanha = retiro, taças = confraternização.</p>`)}
+ ${S('5. Ver um evento e marcar presença',`<p>Toque no evento. Abre uma janela com todos os detalhes.</p><p>No alto aparecem os botões <b>Vou</b>, <b>Talvez</b> e <b>Não vou</b>. Toque no que for o seu caso. Para desfazer, toque de novo no mesmo botão. Embaixo aparece quem já respondeu.</p>`)}
+ ${S('6. Marcar um evento novo',`<p>Toque no botão <b>+ Evento</b> (no celular ele fica no canto de baixo da tela).</p><p>Preencha o <b>título</b>, escolha o <b>tipo</b> e o <b>grupo</b>, a <b>data</b> (digite só os números, ex.: 05032027) e o horário. Se o evento se repete (ex.: toda 2ª terça-feira), escolha em <b>Repetir</b>; aparecem as próximas datas para você conferir. Toque em <b>Salvar</b>.</p><p>Só aparece o botão para quem tem permissão de lançar eventos.</p>`)}
+ ${S('7. Mural de avisos',`<p>Fica embaixo do calendário (no computador, ao lado). Os avisos são separados por grupo, e cada pessoa só vê os do seu grupo.</p><p>Leu? Toque em <b>Marcar ciente</b>. Para comentar, toque em <b>Respostas</b>, escreva e toque em <b>Enviar</b>. O botão <b>WhatsApp</b> repassa o aviso para quem ainda não usa a agenda.</p><p>Quando há aviso novo, o botão <b>Avisos</b> (no Menu) mostra quantos são.</p>`)}
+ ${S('8. Colocar na agenda do celular',`<p>Abra o evento e toque em <b>Google Agenda</b> (Android ou iPhone com Google) ou <b>Outlook</b>.</p><p>Para vários de uma vez: <b>Menu › Mandar eventos para o celular</b>, marque os eventos e toque em <b>Enviar para o celular</b>. No iPhone, use “Todos num arquivo .ics” e depois “Adicionar tudo”.</p>`)}
+ ${S('9. Imprimir o calendário',`<p><b>Menu › Imprimir ou baixar (PDF)</b>. Escolha o mês de início e de fim (ou o ano inteiro) e toque em <b>Baixar PDF</b>.</p>`)}
+ ${S('10. Letra maior, tema escuro',`<p>No <b>Menu</b>, use <b>A+</b> para aumentar a letra e <b>A−</b> para diminuir.</p><p>O botão com o <b>círculo/sol/lua</b> no alto troca entre automático, claro e escuro a cada toque.</p>`)}
+ ${S('11. Deixar a agenda como um aplicativo',`<p><b>iPhone (Safari):</b> toque no botão de compartilhar (quadrado com seta para cima) e escolha <b>Adicionar à Tela de Início</b>.</p><p><b>Android (Chrome):</b> toque nos três pontinhos e escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</p><p>O ícone da Pastoral Familiar aparece junto dos outros aplicativos.</p>`)}
+ <p class="fine">Dúvidas? Fale com o coordenador da sua pastoral.</p>`)}
+document.addEventListener('click',ev=>{const t=ev.target,b=t.closest('#menubtn,#helpbtn,#thbtn,#mt,[data-mi],[data-fs],#hintx,#hintok');if(!b)return;
+ if(b.id==='menubtn')openMenu();else if(b.id==='helpbtn'||b.id==='hintok'){LS.set('agp-hint',1);$('#hint').hidden=true;openHelp()}else if(b.id==='hintx'){LS.set('agp-hint',1);$('#hint').hidden=true}
+ else if(b.id==='thbtn'){theme={auto:'light',light:'dark',dark:'auto'}[theme];LS.set('agp-theme',theme);applyUi();toast('Tema: '+THN[theme])}
+ else if(b.id==='mt')openMonth();else if(b.dataset.fs)setFs(+b.dataset.fs);
+ else if(b.dataset.mi){const k=b.dataset.mi;close();({avisos:()=>$('#avbtn').click(),novo:()=>openEv(null,sel),agendas:()=>$('#ags').click(),exportar:()=>$('#exp').click(),selecionar:()=>{if(!picking)$('#pick').click();view='lista';render();toast('Marque os eventos na lista e toque em “Enviar para o celular”.')},importar:()=>$('#imp').click(),ajuda:openHelp})[k]?.()}});
 
 // arquivos: salvar, .ics, backup
 async function saveFile(name,data,mime){let dl=null;try{dl=await window.claude?.use?.('downloads')}catch{}
