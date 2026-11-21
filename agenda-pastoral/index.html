@@ -574,11 +574,11 @@ function fbNote(){const em=esc(FBU?.email||'');if(!fbReady)return'Conectando à 
  if(!ME)return MYREQ?`Pedido de acesso enviado (${em}). Aguarde a aprovação do coordenador. <button class="btn sm" id="fbreq">Ver pedido</button> <button class="btn sm" id="fbout">Sair</button>`:`Conectado como ${em}. Você ainda não tem acesso a esta agenda. <button class="btn sm pri" id="fbreq">Pedir acesso</button> <button class="btn sm" id="fbout">Sair</button>`;
  return`Agenda compartilhada · ${esc(ME.nome||em)} · ${PAP[ME.papel]||ME.papel}${ME.papel==='editor'&&!(ME.agendas||[]).includes('todas')?' de '+esc(agList(ME.agendas)):''} <button class="btn sm" id="fbout">Sair</button>`}
 const FUNC0=['Casal coordenador','Casal vice-coordenador','Assessor eclesiástico','Secretário(a)','Tesoureiro(a)','Casal coordenador do Setor Pré-Matrimonial','Casal coordenador do Setor Pós-Matrimonial','Casal coordenador do Setor Casos Especiais','Agente do Setor Pré-Matrimonial','Agente do Setor Pós-Matrimonial','Agente do Setor Casos Especiais','Agente da Pastoral Familiar'];
-var FUNCX=null;const FUNCOES={map:f=>(FUNCX||FUNC0).map(f)},NIVF=['Paroquial','Decanal','Diocesano','Regional','Nacional'];
-function funcLabel(m){return[m.funcao&&(m.funcao+(m.nivelFuncao?` (${m.nivelFuncao.toLowerCase()})`:'')),m.paroquia].filter(Boolean).join(' · ')}
-function nivSel(id,v){return`<label>Nível da função<select id="${id}"><option value="">—</option>${NIVF.map(n=>`<option ${n===v?'selected':''}>${n}</option>`).join('')}</select></label>`}
+var FUNCX=null;const FUNCOES={map:f=>(FUNCX||FUNC0).map(f)},NIVF=['Paróquia','Decanato','Diocese','Regional','Brasil'],NIVOLD={Paroquial:'Paróquia',Decanal:'Decanato',Diocesano:'Diocese',Regional:'Regional',Nacional:'Brasil'},NIVDE={'Paróquia':'da paróquia','Decanato':'do decanato','Diocese':'da diocese','Regional':'do Regional','Brasil':'do Brasil'};
+function funcLabel(m){const n=NIVOLD[m.nivelFuncao]||m.nivelFuncao;return[m.funcao&&(m.funcao+(n?' '+(NIVDE[n]||n):'')),m.paroquia].filter(Boolean).join(' · ')}
+function nivSel(id,v){v=NIVOLD[v]||v;return`<label>Atua em qual nível?<select id="${id}"><option value="">Selecione</option>${NIVF.map(n=>`<option value="${n}" ${n===v?'selected':''}>${n==='Brasil'?'Brasil (nacional)':n}</option>`).join('')}</select></label>`}
 function openFunc(){sheet(`<form id="ff"><div class="shh"><h3>Funções da Pastoral</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
- <p class="fine">Uma função por linha. Elas aparecem como sugestão no cadastro e no pedido de acesso (a pessoa ainda pode digitar outra). O nível (paroquial, decanal, diocesano, regional, nacional) é escolhido à parte.</p>
+ <p class="fine">Uma função por linha. Elas aparecem como sugestão no cadastro e no pedido de acesso (a pessoa ainda pode digitar outra). O nível (paróquia, decanato, diocese, Regional ou Brasil) é escolhido à parte, no campo “Atua em qual nível?”.</p>
  <label>Funções<textarea id="f-list" rows="14">${esc((FUNCX||FUNC0).join('\n'))}</textarea></label><p id="f-st" class="fine" aria-live="polite"></p>
  <div class="act"><button type="button" class="btn" id="fdef">Restaurar padrão</button><span></span><button type="button" class="btn" data-back>Voltar</button><button class="btn pri">Salvar</button></div></form>`);
  $('#fdef').onclick=()=>{$('#f-list').value=FUNC0.join('\n')};
@@ -596,7 +596,7 @@ function openMem(id,pre){const m=MEMB.find(x=>x.id===id)||{id:pre?.email||'',nom
  sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar cadastro':pre?'Aprovar pedido':'Cadastrar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
  <label>Nome<input id="m-nome" maxlength="60" required value="${esc(m.nome||'')}" placeholder="Ex.: Ana Souza"></label>
  <div class="two"><label>E-mail da conta Google<input id="m-email" type="email" required ${id||pre?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label><label>Telefone / WhatsApp<input id="m-tel" inputmode="tel" maxlength="20" value="${esc(m.telefone||'')}" placeholder="(21) 9..."></label></div>
- <div class="two"><label>Função<input id="m-func" list="dl-func" maxlength="80" value="${esc(m.funcao||'')}" placeholder="Ex.: Casal coordenador"></label>${nivSel('m-nivf',m.nivelFuncao||'')}</div>
+ <div style="display:grid;gap:.75rem"><label>Função<input id="m-func" list="dl-func" maxlength="80" value="${esc(m.funcao||'')}" placeholder="Ex.: Casal coordenador"></label>${nivSel('m-nivf',m.nivelFuncao||'')}</div>
  <datalist id="dl-func">${FUNCOES.map(f=>`<option value="${esc(f)}">`).join('')}</datalist>
  ${locHTML('m')}
  <label>Permissão<select id="m-pap" ${self?'disabled':''}>${Object.entries(PAP).map(([k,v])=>`<option value="${k}" ${k===m.papel?'selected':''}>${v}</option>`).join('')}</select></label>
@@ -655,7 +655,7 @@ function openReq(){const u=FBU,r=MYREQ||{};sheet(`<form id="fr"><div class="shh"
  <p class="fine">Seu pedido vai para o coordenador da agenda. Assim que for aprovado, você vê os eventos ao entrar com <b>${esc(u.email)}</b>.</p>
  <label>Nome<input id="r-nome" required maxlength="60" value="${esc(r.nome||u.displayName||'')}"></label>
  <label>Telefone / WhatsApp<input id="r-tel" inputmode="tel" maxlength="20" value="${esc(r.telefone||'')}"></label>
- <div class="two"><label>Função<input id="r-func" list="dl-func2" maxlength="80" value="${esc(r.funcao||'')}" placeholder="Ex.: Agente da Pastoral Familiar"></label>${nivSel('r-nivf',r.nivelFuncao||'')}</div>
+ <div style="display:grid;gap:.75rem"><label>Função<input id="r-func" list="dl-func2" maxlength="80" value="${esc(r.funcao||'')}" placeholder="Ex.: Agente da Pastoral Familiar"></label>${nivSel('r-nivf',r.nivelFuncao||'')}</div>
  <datalist id="dl-func2">${FUNCOES.map(f=>`<option value="${esc(f)}">`).join('')}</datalist>
  ${locHTML('r')}
  <label>Recado ao coordenador (opcional)<textarea id="r-msg" rows="2" maxlength="300">${esc(r.msg||'')}</textarea></label><p id="r-st" class="fine" aria-live="polite"></p>
