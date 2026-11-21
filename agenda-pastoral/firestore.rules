@@ -8,11 +8,15 @@ service cloud.firestore {
     function membro() { return logado() && exists(/databases/$(database)/documents/membros/$(email())); }
     function eu() { return get(/databases/$(database)/documents/membros/$(email())).data; }
     function admin() { return dono() || (membro() && eu().papel == 'admin'); }
-    function ve(ag) { return admin() || (membro() && (!eu().keys().hasAll(['ver']) || 'todas' in eu().ver || ag in eu().ver)); }
-    function podeAgenda(ag) { return admin() || (membro() && eu().papel == 'editor' && ('todas' in eu().agendas || ag in eu().agendas)); }
+    function ve(ag) { return admin() || (membro() &&
+      (!eu().keys().hasAll(['ver']) || 'todas' in eu().ver || ag in eu().ver)); }
+    function podeAgenda(ag) { return admin() || (membro() && eu().papel == 'editor' &&
+      ('todas' in eu().agendas || ag in eu().agendas)); }
     function eventoValido() {
       let d = request.resource.data;
-      return d.title is string && d.title.size() <= 120 && d.date is string && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && d.ag is string;
+      return d.title is string && d.title.size() <= 120
+        && d.date is string && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && d.ag is string;
     }
 
     match /membros/{e} {
@@ -34,7 +38,8 @@ service cloud.firestore {
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create: if eventoValido() && podeAgenda(request.resource.data.ag);
-      allow update: if eventoValido() && podeAgenda(resource.data.ag) && podeAgenda(request.resource.data.ag);
+      allow update: if eventoValido() && podeAgenda(resource.data.ag)
+        && podeAgenda(request.resource.data.ag);
       allow delete: if podeAgenda(resource.data.ag);
     }
   }
