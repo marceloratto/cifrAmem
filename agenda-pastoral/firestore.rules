@@ -23,6 +23,12 @@ service cloud.firestore {
       allow read: if logado() && (e == email() || dono() || membro());
       allow write: if admin();
     }
+    // pedidos de acesso: a pessoa grava só o próprio pedido; o coordenador vê e apaga
+    match /pedidos/{e} {
+      allow read: if admin() || (logado() && e == email());
+      allow create, update: if logado() && e == email() && request.resource.data.email == email();
+      allow delete: if admin() || (logado() && e == email());
+    }
     match /agendas/{id} {
       allow read: if dono() || membro();
       allow write: if admin();

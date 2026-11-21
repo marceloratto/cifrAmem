@@ -253,7 +253,7 @@ function render(){
  document.querySelectorAll('[data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
  const L=lit(sel);$('#rib').style.setProperty('--lc',LC[L.c].v);$('#rib').dataset.c=L.c;
  $('#rib').innerHTML=`<b>${L.s}</b><span>${L.w?esc(L.w)+' · ':''}Ano ${L.ano} · cor ${LC[L.c].n.toLowerCase()}</span>`;
- $('#note').hidden=false;$('#note').dataset.m=mode;if(mode==='fb')$('#note').innerHTML=fbNote();else $('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
+ $('#ags').textContent=mode==='fb'&&ME?.papel==='admin'&&PED.length?`Agendas · ${PED.length} pedido${PED.length>1?'s':''}`:'Agendas';$('#note').hidden=false;$('#note').dataset.m=mode;if(mode==='fb')$('#note').innerHTML=fbNote();else $('#note').textContent=mode==='local'?(inClaude()?'Salvo só neste aparelho (a base compartilhada do Claude não abriu aqui). Use Agendas › Backup para passar os eventos.':'Site cifrAmem: eventos salvos só neste aparelho. Use Agendas › Backup para passar para outro aparelho ou para a versão no Claude.'):'Agenda compartilhada no Claude: quem tem acesso vê os mesmos eventos.';
  $('#mview').hidden=view!=='mes';$('#lview').hidden=view!=='lista';
  view==='mes'?(grid(),day()):list();bar()}
 function grid(){const first=U(cy,cm+1,1),start=first-dow(first)*DAY,dim=new Date(Date.UTC(cy,cm+1,0)).getUTCDate(),wk=Math.ceil((dow(first)+dim)/7),oc=expand(start,start+(wk*7-1)*DAY);let h='';
@@ -542,52 +542,110 @@ async function fbInit(){mode='fb';ro=true;render();
  try{await loadJs(FBS('app'));await loadJs(FBS('auth'));await loadJs(FBS('firestore'))}catch{fbReady=true;render();toast('Sem conexão com o servidor da agenda.');return}
  firebase.initializeApp(window.AGP_FIREBASE);fbAuth=firebase.auth();const fs=firebase.firestore();try{await fs.enablePersistence({synchronizeTabs:true})}catch{}
  db=fs;fbAuth.getRedirectResult().catch(e=>toast('Falha ao entrar ('+(e.code||'erro')+').'));
- fbAuth.onAuthStateChanged(u=>{FBU=u;fbReady=true;fbUn.forEach(f=>f());fbUn=[];fbSubOn=false;ME=null;EV=[];AGD=[];MEMB=[];RS=[];ro=true;render();if(u)fbStart(u)})}
+ fbAuth.onAuthStateChanged(u=>{FBU=u;fbReady=true;fbUn.forEach(f=>f());fbUn=[];fbSubOn=false;ME=null;EV=[];AGD=[];MEMB=[];RS=[];PED=[];MYREQ=null;myReqSub=false;ro=true;render();if(u)fbStart(u)})}
 function fbStart(u){const em=(u.email||'').toLowerCase(),dono=em&&em===String(window.AGP_DONO||'').toLowerCase();
  fbUn.push(db.collection('membros').doc(em).onSnapshot(d=>{ME=d.exists?d.data():dono?{nome:u.displayName||'',papel:'admin',agendas:['todas']}:null;
   if(dono&&!d.exists)db.collection('membros').doc(em).set({nome:u.displayName||'',papel:'admin',agendas:['todas']}).catch(()=>{});
-  ro=!ME||ME.papel==='leitor';if(ME&&!fbSubOn)fbSub();render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
+  ro=!ME||ME.papel==='leitor';if(ME&&!fbSubOn)fbSub();if(!ME&&!myReqSub){myReqSub=true;fbUn.push(db.collection('pedidos').doc(em).onSnapshot(d=>{MYREQ=d.exists?d.data():null;render()},()=>{}))}render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
 function fbSub(){fbSubOn=true;const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
  const ver=(ME.ver||['todas']),qe=ME.papel==='admin'||ver.includes('todas')?db.collection('events'):db.collection('events').where('ag','in',ver.length?ver.slice(0,30):['-']);
  fbUn.push(qe.onSnapshot(s=>{clearTimeout(tm);EV=s.docs.map(x=>({id:x.id,...x.data()}));render()},e=>{clearTimeout(tm);toast('Erro ao carregar eventos ('+e.code+').')}));
  fbUn.push(db.collection('agendas').onSnapshot(s=>{AGD=s.docs.map(x=>({id:x.id,...x.data()}));render()},()=>{}));
  rsSub();
+ if(ME.papel==='admin')fbUn.push(db.collection('pedidos').onSnapshot(s=>{PED=s.docs.map(x=>({email:x.id,...x.data()})).sort((a,b)=>(a.quando||'').localeCompare(b.quando||''));render()},()=>{}));
  if(ME.papel==='admin')fbUn.push(db.collection('membros').onSnapshot(s=>{MEMB=s.docs.map(x=>({id:x.id,...x.data()})).sort((a,b)=>(a.paroquia||'~').localeCompare(b.paroquia||'~')||(a.nome||a.id).localeCompare(b.nome||b.id))},()=>{}))}
 async function fbLogin(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
  try{await fbAuth.signInWithPopup(p)}catch(e){if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/web-storage-unsupported'].includes(e.code))return fbAuth.signInWithRedirect(p);if(!['auth/popup-closed-by-user','auth/cancelled-popup-request'].includes(e.code))toast('Falha ao entrar ('+e.code+').')}}
 function fbNote(){const em=esc(FBU?.email||'');if(!fbReady)return'Conectando à agenda compartilhada…';
  if(!fbAuth)return'Sem conexão com o servidor da agenda. Verifique a internet e recarregue.';
  if(!FBU)return`Agenda compartilhada da pastoral: entre com sua conta Google para ver e lançar eventos. <button class="btn sm pri" id="fbin">Entrar com Google</button>`;
- if(!ME)return`Conectado como ${em}. Seu acesso ainda não foi liberado: peça ao coordenador para incluir este e-mail. <button class="btn sm" id="fbout">Sair</button>`;
+ if(!ME)return MYREQ?`Pedido de acesso enviado (${em}). Aguarde a aprovação do coordenador. <button class="btn sm" id="fbreq">Ver pedido</button> <button class="btn sm" id="fbout">Sair</button>`:`Conectado como ${em}. Você ainda não tem acesso a esta agenda. <button class="btn sm pri" id="fbreq">Pedir acesso</button> <button class="btn sm" id="fbout">Sair</button>`;
  return`Agenda compartilhada · ${esc(ME.nome||em)} · ${PAP[ME.papel]||ME.papel}${ME.papel==='editor'&&!(ME.agendas||[]).includes('todas')?' de '+esc(agList(ME.agendas)):''} <button class="btn sm" id="fbout">Sair</button>`}
 const FUNCOES=['Coordenador(a)','Casal coordenador','Vice-coordenador(a)','Secretário(a)','Tesoureiro(a)','Assessor(a) eclesiástico','Padre','Diácono','Agente da Pastoral Familiar','Coordenador(a) do setor','Ministro(a) de música','Músico(a)','Cantor(a)','Membro'];
 const agList=l=>(l||[]).includes('todas')?'todas':(l||[]).map(id=>ag0name(id)).join(', ')||'nenhuma';
 function ag0name(id){const m=new Map(AG0.map(a=>[a.id,a]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return m.get(id)?.name||id}
 function allAgs(){const m=new Map(AG0.map(a=>[a.id,{...a}]));AGD.forEach(a=>m.set(a.id,{...(m.get(a.id)||{}),...a}));return[...m.values()].filter(a=>!a.off)}
 function memBlock(){if(mode!=='fb'||ME?.papel!=='admin')return'';
- return`<p class="sub">Cadastro de pessoas</p><div class="agl">${MEMB.map(m=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(m.nome||m.id)}</b>${m.funcao||m.paroquia?`<small><b style="font-weight:600;color:var(--ink)">${esc([m.funcao,m.paroquia].filter(Boolean).join(' · '))}</b></small>`:''}<small>${esc(m.id)}${m.telefone?' · '+esc(m.telefone):''}</small><small>${PAP[m.papel]||esc(m.papel)} · vê: ${esc(m.papel==='admin'?'todas':agList(m.ver||['todas']))}${m.papel==='editor'?' · altera: '+esc(agList(m.agendas)):''}</small></span><button class="btn sm" data-edm="${esc(m.id)}">Editar</button></div>`).join('')}</div><button class="btn" data-edm="">+ Cadastrar pessoa</button>`}
+ return`${pedBlock()}<p class="sub">Cadastro de pessoas</p><div class="agl">${MEMB.map(m=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(m.nome||m.id)}</b>${m.funcao||m.paroquia?`<small><b style="font-weight:600;color:var(--ink)">${esc([m.funcao,m.paroquia].filter(Boolean).join(' · '))}</b></small>`:''}${m.decanato||m.diocese?`<small>${esc([m.decanato,m.diocese].filter(Boolean).join(' · '))}</small>`:''}<small>${esc(m.id)}${m.telefone?' · '+esc(m.telefone):''}</small><small>${PAP[m.papel]||esc(m.papel)} · vê: ${esc(m.papel==='admin'?'todas':agList(m.ver||['todas']))}${m.papel==='editor'?' · altera: '+esc(agList(m.agendas)):''}</small></span><button class="btn sm" data-edm="${esc(m.id)}">Editar</button></div>`).join('')}</div><button class="btn" data-edm="">+ Cadastrar pessoa</button>`}
 function agChecks(key,list,dis){const all=(list||[]).includes('todas');return`<label class="tg"><input type="checkbox" data-all="${key}" ${all?'checked':''} ${dis?'disabled':''}> Todas as agendas</label>${allAgs().map(a=>`<label class="tg"><input type="checkbox" data-${key}="${a.id}" ${all||(list||[]).includes(a.id)?'checked':''} ${all||dis?'disabled':''}><i style="display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:${a.color}"></i> ${esc(a.name)}</label>`).join('')}`}
 function readChecks(key){if(document.querySelector(`[data-all="${key}"]`).checked)return['todas'];return[...document.querySelectorAll(`[data-${key}]:checked`)].map(c=>c.dataset[key])}
-function openMem(id){const m=MEMB.find(x=>x.id===id)||{id:'',nome:'',telefone:'',papel:'editor',ver:['todas'],agendas:[]},self=id&&id===(FBU?.email||'').toLowerCase();
- sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar cadastro':'Cadastrar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
+function openMem(id,pre){const m=MEMB.find(x=>x.id===id)||{id:pre?.email||'',nome:pre?.nome||'',telefone:pre?.telefone||'',funcao:pre?.funcao||'',regional:pre?.regional||'',diocese:pre?.diocese||'',decanato:pre?.decanato||'',paroquia:pre?.paroquia||'',papel:'leitor',ver:['todas'],agendas:[]},self=id&&id===(FBU?.email||'').toLowerCase();
+ sheet(`<form id="fm"><div class="shh"><h3>${id?'Editar cadastro':pre?'Aprovar pedido':'Cadastrar pessoa'}</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
  <label>Nome<input id="m-nome" maxlength="60" required value="${esc(m.nome||'')}" placeholder="Ex.: Ana Souza"></label>
- <div class="two"><label>E-mail da conta Google<input id="m-email" type="email" required ${id?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label><label>Telefone / WhatsApp<input id="m-tel" inputmode="tel" maxlength="20" value="${esc(m.telefone||'')}" placeholder="(21) 9..."></label></div>
- <div class="two"><label>Função<input id="m-func" list="dl-func" maxlength="60" value="${esc(m.funcao||'')}" placeholder="Ex.: Coordenador(a)"></label><label>Paróquia<input id="m-par" list="dl-par" maxlength="80" value="${esc(m.paroquia||'')}" placeholder="Ex.: Paróquia São José"></label></div>
- <datalist id="dl-func">${FUNCOES.map(f=>`<option value="${esc(f)}">`).join('')}</datalist><datalist id="dl-par">${[...new Set(MEMB.map(x=>x.paroquia).filter(Boolean))].sort().map(f=>`<option value="${esc(f)}">`).join('')}</datalist>
+ <div class="two"><label>E-mail da conta Google<input id="m-email" type="email" required ${id||pre?'readonly':''} value="${esc(m.id)}" placeholder="nome@gmail.com"></label><label>Telefone / WhatsApp<input id="m-tel" inputmode="tel" maxlength="20" value="${esc(m.telefone||'')}" placeholder="(21) 9..."></label></div>
+ <label>Função<input id="m-func" list="dl-func" maxlength="60" value="${esc(m.funcao||'')}" placeholder="Ex.: Coordenador(a)"></label>
+ <datalist id="dl-func">${FUNCOES.map(f=>`<option value="${esc(f)}">`).join('')}</datalist>
+ ${locHTML('m')}
  <label>Permissão<select id="m-pap" ${self?'disabled':''}>${Object.entries(PAP).map(([k,v])=>`<option value="${k}" ${k===m.papel?'selected':''}>${v}</option>`).join('')}</select></label>
  <div id="m-verb"><p class="sub">O que pode ver</p>${agChecks('ver',m.ver||['todas'])}</div>
  <div id="m-edb"><p class="sub">Onde pode lançar e alterar eventos</p>${agChecks('ed',m.agendas||[])}</div>
  <p class="fine">Todos os cadastrados podem marcar presença (Vou / Talvez / Não vou) nos eventos que veem. Leitor só vê. Editor lança e altera nas agendas marcadas. Administrador vê e altera tudo, inclusive agendas e cadastros.</p><p id="m-st" class="fine" aria-live="polite"></p>
  <div class="act">${id&&!self?'<button type="button" class="btn del" id="mdel">Remover acesso</button>':''}<span></span><button type="button" class="btn" data-back>Voltar</button><button class="btn pri">Salvar</button></div></form>`);
  const sync=()=>{const pp=self?'admin':$('#m-pap').value;$('#m-verb').hidden=pp==='admin';$('#m-edb').hidden=pp!=='editor';for(const k of['ver','ed']){const a=document.querySelector(`[data-all="${k}"]`);document.querySelectorAll(`[data-${k}]`).forEach(c=>{c.disabled=a.checked;if(a.checked)c.checked=true})}};
+ locBind('m',m);
  $('#fm').addEventListener('change',ev=>{const k=ev.target.dataset.all;if(k&&!ev.target.checked)document.querySelectorAll(`[data-${k}]`).forEach(c=>c.checked=false);sync()});sync();
  $('#fm').onsubmit=async ev=>{ev.preventDefault();const em=$('#m-email').value.trim().toLowerCase(),st=$('#m-st');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return st.textContent='E-mail inválido.';
   const papel=self?'admin':$('#m-pap').value,ver=papel==='admin'?['todas']:readChecks('ver'),agendas=papel==='admin'?['todas']:papel==='editor'?readChecks('ed'):[];
   if(!ver.length)return st.textContent='Marque ao menos uma agenda para ver.';if(papel==='editor'&&!agendas.length)return st.textContent='Marque onde a pessoa pode lançar eventos.';
   if(papel==='editor'&&!ver.includes('todas')){agendas.forEach(a=>{if(a!=='todas'&&!ver.includes(a))ver.push(a)})}
-  try{await db.collection('membros').doc(em).set({nome:$('#m-nome').value.trim(),telefone:$('#m-tel').value.trim(),funcao:$('#m-func').value.trim(),paroquia:$('#m-par').value.trim(),papel,ver,agendas});openAg();toast('Cadastro salvo. A pessoa entra com essa conta Google.')}catch(e){st.textContent='Não foi possível salvar ('+e.code+').'}};
+  try{await db.collection('membros').doc(em).set({nome:$('#m-nome').value.trim(),telefone:$('#m-tel').value.trim(),funcao:$('#m-func').value.trim(),...locRead('m'),papel,ver,agendas});if(pre)await db.collection('pedidos').doc(em).delete().catch(()=>{});openAg();toast('Cadastro salvo. A pessoa entra com essa conta Google.')}catch(e){st.textContent='Não foi possível salvar ('+e.code+').'}};
  const d=$('#mdel');if(d)d.onclick=async()=>{if(!d.dataset.ok){d.dataset.ok=1;d.textContent='Confirmar remoção';return}try{await db.collection('membros').doc(id).delete();openAg();toast('Acesso removido.')}catch(e){toast('Não foi possível remover ('+e.code+').')}}}
 document.addEventListener('click',ev=>{const t=ev.target;if(t.closest('#fbin'))fbLogin();else if(t.closest('#fbout'))fbAuth&&fbAuth.signOut();else{const b=t.closest('[data-edm]');if(b)openMem(b.dataset.edm)}});
+
+// Regional Leste 1: dioceses, decanatos e paróquias (fonte: cnbbleste1.org.br e diocesepetropolis.com.br, nov/2026)
+const REGIONAL='Leste 1 (RJ)';
+const LOC=[
+ {nome:'Arquidiocese de São Sebastião do Rio de Janeiro',decanatos:[]},
+ {nome:'Arquidiocese de Niterói',decanatos:[]},
+ {nome:'Diocese de Barra do Piraí – Volta Redonda',decanatos:[]},
+ {nome:'Diocese de Campos dos Goytacazes',decanatos:[]},
+ {nome:'Diocese de Duque de Caxias',decanatos:[]},
+ {nome:'Diocese de Itaguaí',decanatos:[]},
+ {nome:'Diocese de Nova Friburgo',decanatos:[]},
+ {nome:'Diocese de Nova Iguaçu',decanatos:[]},
+ {nome:'Diocese de Petrópolis',decanatos:[
+  {nome:'Decanato Nossa Senhora do Amor Divino',paroquias:['Paróquia Nossa Senhora da Conceição – Bemposta','Paróquia Nossa Senhora das Dores – Areal','Paróquia Nossa Senhora de Fátima – Madame Machado','Paróquia Nossa Senhora de Lourdes – Araras','Paróquia Nossa Senhora do Amor Divino – Corrêas','Paróquia Santana de Inconfidência – Sebollas (Paraíba do Sul)','Paróquia Santo Antônio e Santo Agostinho – Nogueira','Paróquia São João Batista – Posse','Paróquia São José – Itaipava','Paróquia São José – São José do Vale do Rio Preto','Paróquia São Pedro – Pedro do Rio','Paróquia São Sebastião – Contendas']},
+  {nome:'Decanato Santa Teresa',paroquias:['Paróquia Nossa Senhora da Conceição – Nhunguaçu','Paróquia Nossa Senhora do Bom Sucesso','Paróquia Sagrado Coração de Jesus de Barra – Imbuí','Paróquia Santa Rita de Cássia – Meudon','Paróquia Santa Teresa – Várzea','Paróquia Santo Antônio de Paquequer','Paróquia São Charbel de Pessegueiros','Paróquia São Cristóvão','Paróquia São José – Água Quente','Paróquia São Judas Tadeu – Teresópolis','Paróquia São Pedro – Teresópolis']},
+  {nome:'Decanato São José de Anchieta',paroquias:['Paróquia Nossa Senhora Aparecida – Parada Modelo','Paróquia Nossa Senhora Aparecida – Piabetá','Paróquia Nossa Senhora da Ajuda – Guapimirim','Paróquia Nossa Senhora da Conceição – Raiz da Serra','Paróquia Nossa Senhora da Conceição e Santo Aleixo','Paróquia Nossa Senhora da Guia de Pacobaíba – Magé','Paróquia Nossa Senhora da Piedade – Magé','Paróquia Santa Terezinha do Menino Jesus – Vila Inhomirim','Paróquia Santo Antônio – Nova Marília','Paróquia São Nicolau – Suruí','Paróquia São Sebastião – Piabetá']},
+  {nome:'Decanato São Pedro de Alcântara',paroquias:['Paróquia Nossa Senhora Aparecida – Quitandinha','Paróquia Nossa Senhora do Rosário – Centro','Paróquia Sagrado Coração de Jesus – Centro','Paróquia Sant’Ana e São Joaquim – Cascatinha','Paróquia Santa Clara – Valparaíso','Paróquia Santa Rita de Cássia – Castrioto','Paróquia Santo Antônio – Alto da Serra','Paróquia Santo Tomás de Aquino – Retiro','Paróquia São Charbel do Caxambu','Paróquia São Jorge – Independência','Paróquia São José – Itamarati','Paróquia São Judas Tadeu – Mosela','Paróquia São Pedro de Alcântara – Catedral','Paróquia São Sebastião – Carangola','Paróquia São Sebastião – Indaiá']}]},
+ {nome:'Diocese de Valença',decanatos:[]},
+ {nome:'Administração Apostólica Pessoal São João Maria Vianney',decanatos:[]}];
+const OUT='__outra',lopt=(arr,v,ph)=>`<option value="">${ph}</option>`+arr.map(x=>`<option ${x===v?'selected':''}>${esc(x)}</option>`).join('');
+function locHTML(p){return`<p class="sub">Onde participa</p>
+ <label>Diocese<select id="${p}-dio"></select><input id="${p}-diot" maxlength="80" placeholder="Digite a diocese" hidden></label>
+ <label>Decanato / vicariato<select id="${p}-dec"></select><input id="${p}-dect" maxlength="80" placeholder="Digite o decanato ou vicariato" hidden></label>
+ <label>Paróquia<select id="${p}-par"></select><input id="${p}-part" maxlength="100" placeholder="Digite o nome da paróquia" hidden></label>`}
+function locBind(p,v0){const v={...(v0||{})},g=s=>$('#'+p+'-'+s),dio=g('dio'),diot=g('diot'),dec=g('dec'),dect=g('dect'),par=g('par'),part=g('part');
+ const D=()=>LOC.find(d=>d.nome===dio.value);
+ const sel=(s,t,list,val,ph)=>{if(list.length){s.hidden=false;const inl=!val||list.includes(val);s.innerHTML=lopt(list,inl?val:'',ph)+`<option value="${OUT}" ${!inl?'selected':''}>Outra (digitar)</option>`;t.hidden=inl;t.value=inl?'':val}else{s.hidden=true;s.innerHTML='';t.hidden=false;t.value=val||''}};
+ const fPar=()=>{const d=D(),x=d?.decanatos.find(k=>k.nome===dec.value),ps=x?x.paroquias:(d?.decanatos||[]).flatMap(k=>k.paroquias);sel(par,part,ps,v.paroquia,'Selecione a paróquia')};
+ const fDec=()=>{const d=D();sel(dec,dect,(d?.decanatos||[]).map(k=>k.nome),v.decanato,'Selecione o decanato');fPar()};
+ sel(dio,diot,LOC.map(d=>d.nome),v.diocese,'Selecione a diocese');fDec();
+ dio.onchange=()=>{diot.hidden=dio.value!==OUT;v.decanato='';v.paroquia='';fDec()};
+ dec.onchange=()=>{dect.hidden=dec.value!==OUT;v.paroquia='';fPar()};
+ par.onchange=()=>{part.hidden=par.value!==OUT}}
+function locRead(p){const g=s=>$('#'+p+'-'+s),val=(s,t)=>s.hidden||s.value===OUT?t.value.trim():s.value;
+ const diocese=val(g('dio'),g('diot'));return{regional:LOC.some(d=>d.nome===diocese)?REGIONAL:'',diocese,decanato:val(g('dec'),g('dect')),paroquia:val(g('par'),g('part'))}}
+// pedidos de acesso
+var PED=[],MYREQ=null,myReqSub=false;
+function openReq(){const u=FBU,r=MYREQ||{};sheet(`<form id="fr"><div class="shh"><h3>Pedir acesso</h3><button type="button" class="x" data-close aria-label="Fechar">✕</button></div>
+ <p class="fine">Seu pedido vai para o coordenador da agenda. Assim que for aprovado, você vê os eventos ao entrar com <b>${esc(u.email)}</b>.</p>
+ <label>Nome<input id="r-nome" required maxlength="60" value="${esc(r.nome||u.displayName||'')}"></label>
+ <div class="two"><label>Telefone / WhatsApp<input id="r-tel" inputmode="tel" maxlength="20" value="${esc(r.telefone||'')}"></label><label>Função<input id="r-func" list="dl-func2" maxlength="60" value="${esc(r.funcao||'')}" placeholder="Ex.: Agente da Pastoral Familiar"></label></div>
+ <datalist id="dl-func2">${FUNCOES.map(f=>`<option value="${esc(f)}">`).join('')}</datalist>
+ ${locHTML('r')}
+ <label>Recado ao coordenador (opcional)<textarea id="r-msg" rows="2" maxlength="300">${esc(r.msg||'')}</textarea></label><p id="r-st" class="fine" aria-live="polite"></p>
+ <div class="act">${MYREQ?'<button type="button" class="btn del" id="rdel">Cancelar pedido</button>':''}<span></span><button type="button" class="btn" data-close>Voltar</button><button class="btn pri">${MYREQ?'Atualizar pedido':'Enviar pedido'}</button></div></form>`);
+ locBind('r',r);
+ $('#fr').onsubmit=async ev=>{ev.preventDefault();const em=(u.email||'').toLowerCase(),l=locRead('r');if(!l.paroquia)return $('#r-st').textContent='Informe a sua paróquia.';
+  try{await db.collection('pedidos').doc(em).set({email:em,nome:$('#r-nome').value.trim(),telefone:$('#r-tel').value.trim(),funcao:$('#r-func').value.trim(),...l,msg:$('#r-msg').value.trim(),quando:new Date().toISOString()});close();toast('Pedido enviado ao coordenador.')}catch(e){$('#r-st').textContent='Não foi possível enviar ('+(e.code||'erro')+').'}};
+ const d=$('#rdel');if(d)d.onclick=async()=>{try{await db.collection('pedidos').doc((u.email||'').toLowerCase()).delete();close();toast('Pedido cancelado.')}catch{}}}
+function pedBlock(){if(mode!=='fb'||ME?.papel!=='admin'||!PED.length)return'';
+ return`<p class="sub" style="color:var(--acc)">Pedidos de acesso (${PED.length})</p><div class="agl">${PED.map(r=>`<div class="agr"><span style="flex:1;display:flex;flex-direction:column"><b>${esc(r.nome||r.email)}</b><small><b style="font-weight:600;color:var(--ink)">${esc([r.funcao,r.paroquia].filter(Boolean).join(' · '))}</b></small><small>${esc(r.email)}${r.telefone?' · '+esc(r.telefone):''}${r.quando?' · pedido em '+fd(parse(r.quando.slice(0,10))):''}</small>${r.msg?`<small>“${esc(r.msg)}”</small>`:''}</span><span style="display:flex;flex-direction:column;gap:.3rem"><button class="btn sm pri" data-apr="${esc(r.email)}">Aprovar</button><button class="btn sm" data-rec="${esc(r.email)}">Recusar</button></span></div>`).join('')}</div>`}
+document.addEventListener('click',async ev=>{const t=ev.target;
+ if(t.closest('#fbreq'))return openReq();
+ const a=t.closest('[data-apr]');if(a){const r=PED.find(x=>x.email===a.dataset.apr);if(r)openMem('',r);return}
+ const rc=t.closest('[data-rec]');if(rc){if(!rc.dataset.ok){rc.dataset.ok=1;rc.textContent='Confirmar';return}try{await db.collection('pedidos').doc(rc.dataset.rec).delete();openAg();toast('Pedido recusado.')}catch(e){toast('Não foi possível ('+e.code+').')}}});
 
 // presença (Vou / Talvez / Não vou)
 var RS=[],UID=null,USR=null,NAMES={},CURRS=null;
