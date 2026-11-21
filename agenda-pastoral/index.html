@@ -256,8 +256,9 @@ const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const AG0=[
  {id:'paroquia',name:'Paróquia (geral)',pastoral:'Paróquia',nivel:'Paroquial',color:'#7a5c3e'},
- {id:'pf-paroquia',name:'Pastoral Familiar',pastoral:'Pastoral Familiar',nivel:'Paroquial',color:'#1f6fd1'},
+ {id:'pf-paroquia',name:'Pastoral Familiar · Paróquia',pastoral:'Pastoral Familiar',nivel:'Paroquial',color:'#1f6fd1'},
  {id:'pf-decanato',name:'Pastoral Familiar · Decanato',pastoral:'Pastoral Familiar',nivel:'Decanato',color:'#0b8a8f'},
+ {id:'pf-diocese',name:'Pastoral Familiar · Diocese',pastoral:'Pastoral Familiar',nivel:'Diocesano',color:'#a16207'},
  {id:'pf-regional',name:'Pastoral Familiar · Regional',pastoral:'Pastoral Familiar',nivel:'Regional',color:'#4a3fc4'},
  {id:'pf-brasil',name:'Pastoral Familiar · Brasil (CNPF)',pastoral:'Pastoral Familiar',nivel:'Nacional',color:'#b0237e'},
  {id:'musica',name:'Pastoral da Música',pastoral:'Música',nivel:'Paroquial',color:'#d9730d'}];
