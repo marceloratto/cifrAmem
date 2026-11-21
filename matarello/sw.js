@@ -1,5 +1,5 @@
 /* Matarello: abre sem internet depois da primeira visita */
-var CACHE = 'matarello-v8';
+var CACHE = 'matarello-v9';
 var FILES = ['./', 'index.html', 'manifest.webmanifest', 'mascote.jpg', 'mascote-mini.jpg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 
 self.addEventListener('install', function (e) {
