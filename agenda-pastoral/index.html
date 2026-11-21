@@ -445,7 +445,7 @@ function review(){markDups();const nd=found.filter(e=>e.dup).length;sheet(`<div 
  <p id="rst" class="fine" aria-live="polite"></p><div class="act"><span></span><button class="btn" data-close>Cancelar</button>${ro?'':'<button class="btn pri" id="rgo">Importar selecionados</button>'}</div>`);
  document.querySelectorAll('[data-rva]').forEach(s=>s.onchange=()=>{found[+s.dataset.rva].ag=s.value;s.closest('.rvr').style.setProperty('--c',col(found[+s.dataset.rva]))});
  const g=$('#rgo');if(g)g.onclick=async()=>{const pick=[...document.querySelectorAll('[data-rv]')].filter(c=>c.checked).map(c=>found[+c.dataset.rv]);if(!pick.length)return;g.disabled=true;let n=0;
-  for(const e of pick){if(!(await put('events',nid(),e)))break;n++;$('#rst').textContent=`Salvando ${n} de ${pick.length}…`}
+  for(const e0 of pick){const{dup,on,...e}=e0;if(!(await put('events',nid(),e)))break;n++;$('#rst').textContent=`Salvando ${n} de ${pick.length}…`}
   close();if(n){go(parse(pick[0].date));render();toast(`${n} evento${n>1?'s':''} importado${n>1?'s':''}.`)}}}
 $('#imp').onclick=openImp;
 
@@ -637,7 +637,7 @@ async function icsDownload(items,name,file,say){if(inClaude()){say('Dentro do Cl
 async function backupSave(){const data=JSON.stringify({app:'agenda-pastoral',v:1,salvo:new Date().toISOString(),agendas:AGD,eventos:EV},null,1);try{await saveFile(`agenda-pastoral-backup-${iso(TODAY)}.json`,data,'application/json');toast('Backup salvo.')}catch(e){toast(e?.code==='declined'?'Backup cancelado.':'Não foi possível salvar o backup.')}}
 async function backupLoad(f){try{const j=JSON.parse(await f.text());if(j.app!=='agenda-pastoral')throw 0;let n=0;
  for(const a of j.agendas||[])if(a.id)await put('agendas',a.id,(({id,...r})=>r)(a));
- for(const e of j.eventos||[])if(e.id&&e.date){const{id,...r}=e;const cur=EV.find(x=>x.id===id);if(!cur||JSON.stringify(cur)!==JSON.stringify(e)){await put('events',id,r);n++}}
+ for(const e of j.eventos||[])if(e.id&&e.date){const{id,dup,on,...r}=e;const cur=EV.find(x=>x.id===id);if(!cur||JSON.stringify(cur)!==JSON.stringify(e)){await put('events',id,r);n++}}
  render();toast(`Backup restaurado: ${n} evento${n===1?'':'s'} novo${n===1?'':'s'} ou atualizado${n===1?'':'s'}.`);close()}catch{toast('Arquivo de backup inválido.')}}
 
 }</script><!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em https://ciframem.goatcounter.com -->
