@@ -122,6 +122,13 @@ service cloud.firestore {
                     || (membro() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes','ncom']));
       allow delete: if admin() || (logado() && resource.data.autor == email());
     }
+    // curtidas e nº de comentários de notícias, álbuns, avisos e eventos
+    match /reacoes/{id} {
+      allow read: if dono() || membro();
+      allow create, update: if membro() && request.resource.data.keys().hasOnly(['likes','ncom'])
+                            && (!('likes' in request.resource.data) || request.resource.data.likes is list);
+      allow delete: if admin();
+    }
     match /comentarios/{id} {
       allow read: if dono() || membro();
       allow create: if membro() && request.resource.data.uid == email() && request.resource.data.texto is string && request.resource.data.texto.size() <= 500;
