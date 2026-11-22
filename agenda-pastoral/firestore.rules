@@ -94,6 +94,11 @@ service cloud.firestore {
                     && request.resource.data.data is string && request.resource.data.data.size() < 950000;
       allow delete: if podeAgenda(resource.data.ag) || (logado() && resource.data.autor == email());
     }
+    // endereço da igreja matriz de cada paróquia (preenche o endereço dos eventos)
+    match /matrizes/{id} {
+      allow read: if dono() || membro();
+      allow write: if admin() || editor();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
