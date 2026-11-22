@@ -99,6 +99,19 @@ service cloud.firestore {
       allow read: if dono() || membro();
       allow write: if admin() || editor();
     }
+    // avaliação (estrelas) de quem participou: cada um grava a sua; coordenadores leem
+    match /avaliacoes/{id} {
+      allow read: if dono() || (logado() && resource.data.uid == email()) || podeAgenda(resource.data.ag);
+      allow create, update: if membro() && request.resource.data.uid == email() && ve(request.resource.data.ag)
+                            && request.resource.data.nota is int && request.resource.data.nota >= 1 && request.resource.data.nota <= 5;
+      allow delete: if admin();
+    }
+    // resumos publicados dos relatórios (só números gerais)
+    match /resumos/{id} {
+      allow read: if dono() || admin() || editor();
+      allow create: if (admin() || editor()) && request.resource.data.autor == email();
+      allow delete: if admin() || (logado() && resource.data.autor == email());
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
