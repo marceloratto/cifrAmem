@@ -156,6 +156,11 @@ service cloud.firestore {
       allow update: if admin() || (editor() && resource.data.autor == email() && request.resource.data.autor == email());
       allow delete: if admin();
     }
+    // organograma: membros veem; coordenadores (editor/admin) alteram; estrutura nacional só admin
+    match /organogramas/{id} {
+      allow read: if admin() || membro();
+      allow write: if admin() || (editor() && id != 'nacional');
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
