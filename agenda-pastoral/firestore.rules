@@ -143,6 +143,12 @@ service cloud.firestore {
                     && request.resource.data.img is string && request.resource.data.img.size() < 700000);
       allow delete: if admin() || editor() || (logado() && resource.data.autor == email());
     }
+    // eventos particulares: só o dono lê e escreve (nem administradores)
+    match /meus/{id} {
+      allow read, delete: if logado() && resource.data.dono == email();
+      allow update: if logado() && resource.data.dono == email() && request.resource.data.dono == email();
+      allow create: if logado() && request.resource.data.dono == email();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
