@@ -8,6 +8,33 @@
 ],
 "itens": [
 {
+"fonte": "Pastoral Familiar – Vida e Família",
+"nivel": "nacional",
+"titulo": "Aproveite uma semana de descontos nos produtos da Pastoral Familiar",
+"link": "https://vidaefamilia.org.br/aproveite-uma-semana-de-descontos-nos-produtos-da-pastoral-familiar/",
+"data": "2026-11-22T18:22:50+00:00",
+"resumo": "A loja virtual da Comissão Nacional da Pastoral Familiar (CNPF) está com preços promocionais entre os dias 23 e 29 de novembro. A Black Friday da plataforma vai reunir títulos com…",
+"img": ""
+},
+{
+"fonte": "Pastoral Familiar – Vida e Família",
+"nivel": "nacional",
+"titulo": "45 anos depois, a Familiaris Consortio continua falando",
+"link": "https://vidaefamilia.org.br/45-anos-depois-a-familiaris-consortio-continua-falando/",
+"data": "2026-11-22T18:18:23+00:00",
+"resumo": "Há 45 anos, em 22 de novembro de 1981, São João Paulo II entregava à Igreja a Exortação Apostólica Familiaris Consortio. Não era um documento para a prateleira, mas uma carta de…",
+"img": ""
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "O Papa no almoço com os pobres: “hoje somos todos uma família”",
+"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-almoco-pobres-somos-todos-familia-vaticano.html",
+"data": "2026-11-22T13:47:00+00:00",
+"resumo": "Leão XIV chega à Sala Paulo VI após a oração do Angelus na Praça de São Pedro. À sua espera para o almoço, como é tradição no Dia Mundial dos Pobres, celebrado no último domingo,…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/22/2026-11-22-pranzo-con-i-poveri-/1795350767905.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
 "fonte": "Vatican News",
 "nivel": "igreja",
 "titulo": "O Papa: que os responsáveis pelas guerras encontrem logo soluções de paz e concórdia",
@@ -116,15 +143,6 @@
 "img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/21/2026-11-21-giovani-delle-diocesi-del-lazio/1795259874536.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
 },
 {
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Nomeação do Núncio Apostólico na Libéria e na Serra Leoa",
-"link": "https://www.vaticannews.va/pt/africa/news/2026-11/nomeacao-do-nuncio-apostolico-na-liberia-e-na-serra-leoa.html",
-"data": "2026-11-21T12:19:00+00:00",
-"resumo": "O Papa Leão XIV nomeou como Núncio Apostólico na Libéria e Serra Leoa, o P. Javier Domingo Fernández González, elevando-o ao mesmo tempo à dignidade de Arcebispo e à sede titular…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/03/27/2026-03-27-vescovi-di-liberia--sierra-leone-e-gambia--in-visita-/1774609872094.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "Dom Joel preside missa de encerramento do retiro de Marcelo Moura antes da ordenação diaconal",
@@ -132,15 +150,6 @@
 "data": "2026-11-20T20:32:22+00:00",
 "resumo": "Celebração foi realizada no Convento Madre Regina, em Teresópolis; ordenação de Marcelo Moura acontece neste sábado (21), na Paróquia Sagrado Coração de Jesus. O bispo diocesano,…",
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/IMG_6709.webp"
-},
-{
-"fonte": "Pastoral Familiar – Vida e Família",
-"nivel": "nacional",
-"titulo": "Aproveite uma semana de descontos nos produtos da Pastoral Familiar",
-"link": "https://vidaefamilia.org.br/aproveite-uma-semana-de-descontos-nos-produtos-da-pastoral-familiar/",
-"data": "2026-11-20T10:01:50+00:00",
-"resumo": "A loja virtual da Comissão Nacional da Pastoral Familiar (CNPF) está com preços promocionais entre os dias 23 e 29 de novembro. A Black Friday da plataforma vai reunir títulos com…",
-"img": ""
 },
 {
 "fonte": "Pastoral Familiar – Vida e Família",
@@ -395,15 +404,6 @@
 "img": ""
 },
 {
-"fonte": "Pastoral Familiar – Vida e Família",
-"nivel": "nacional",
-"titulo": "Regional Oeste 1 realiza Assembleia da Pastoral Familiar com foco nas novas diretrizes da evangelização",
-"link": "https://vidaefamilia.org.br/regional-oeste-1-realiza-assembleia-da-pastoral-familiar-com-foco-nas-novas-diretrizes-da-evangelizacao/",
-"data": "2026-11-09T18:28:24+00:00",
-"resumo": "No dia 31 de outubro, a Pastoral Familiar do Regional Oeste 1 realizou sua Assembleia Regional, marcada pela formação, pela partilha de experiências e pelo compromisso de…",
-"img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-01-at-13.02.41-3-150x150.jpeg"
-},
-{
 "fonte": "Regional Leste 1 – CNBB",
 "nivel": "regional",
 "titulo": "Regional Leste 1 realiza primeiro Encontro Regional de Gestão Eclesial em Niterói",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-22T11:52+00:00"
+"atualizado": "2026-11-22T19:52+00:00"
 }
