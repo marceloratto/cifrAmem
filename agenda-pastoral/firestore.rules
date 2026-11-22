@@ -189,10 +189,13 @@ service cloud.firestore {
     }
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
-      allow create: if eventoValido() && podeAgenda(request.resource.data.ag);
-      allow update: if eventoValido() && podeAgenda(resource.data.ag)
-        && podeAgenda(request.resource.data.ag);
-      allow delete: if podeAgenda(resource.data.ag);
+      // só quem criou o evento (ou um administrador) pode alterar ou excluir
+      allow create: if eventoValido() && podeAgenda(request.resource.data.ag)
+        && request.resource.data.get('autor','') == email();
+      allow update: if eventoValido() && podeAgenda(request.resource.data.ag)
+        && request.resource.data.get('autor','') == resource.data.get('autor','')
+        && (admin() || (podeAgenda(resource.data.ag) && resource.data.get('autor','') == email()));
+      allow delete: if admin() || (podeAgenda(resource.data.ag) && resource.data.get('autor','') == email());
     }
   }
 }
