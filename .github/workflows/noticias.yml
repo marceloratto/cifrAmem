@@ -1,0 +1,25 @@
+name: Notícias da Agenda Pastoral
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: noticias
+  cancel-in-progress: false
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buscar notícias
+        run: python3 scripts/noticias.py
+      - name: Salvar se mudou
+        run: |
+          git config user.name "Agenda Pastoral (automático)"
+          git config user.email "actions@users.noreply.github.com"
+          git add agenda-pastoral/noticias.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Notícias atualizadas"
+          git pull --rebase -q origin main && git push -q
