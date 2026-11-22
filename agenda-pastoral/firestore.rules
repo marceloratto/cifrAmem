@@ -23,6 +23,8 @@ service cloud.firestore {
     match /membros/{e} {
       allow read: if logado() && (e == email() || admin() || editor());
       allow write: if admin();
+      // cada pessoa pode registrar o próprio aceite dos termos de uso
+      allow update: if logado() && e == email() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['termos']);
     }
     // pedidos de acesso: a pessoa grava só o próprio pedido; o coordenador vê e apaga
     match /pedidos/{e} {
@@ -111,6 +113,19 @@ service cloud.firestore {
       allow read: if dono() || admin() || editor();
       allow create: if (admin() || editor()) && request.resource.data.autor == email();
       allow delete: if admin() || (logado() && resource.data.autor == email());
+    }
+    // aba Notícias: publicações (fotos/Instagram), curtidas e comentários — só para cadastrados
+    match /posts/{id} {
+      allow read: if dono() || membro();
+      allow create: if (admin() || editor()) && request.resource.data.autor == email();
+      allow update: if admin() || (logado() && resource.data.autor == email())
+                    || (membro() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes','ncom']));
+      allow delete: if admin() || (logado() && resource.data.autor == email());
+    }
+    match /comentarios/{id} {
+      allow read: if dono() || membro();
+      allow create: if membro() && request.resource.data.uid == email() && request.resource.data.texto is string && request.resource.data.texto.size() <= 500;
+      allow delete: if admin() || editor() || (logado() && resource.data.uid == email());
     }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
