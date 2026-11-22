@@ -87,6 +87,13 @@ service cloud.firestore {
                     && request.resource.data.img is string && request.resource.data.img.size() < 900000;
       allow delete: if podeAgenda(resource.data.ag) || (logado() && resource.data.autor == email());
     }
+    // documentos das atas (PDF, Word, imagem), guardados em partes de até ~700 KB
+    match /anexos/{id} {
+      allow read: if dono() || (membro() && ve(resource.data.ag));
+      allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email()
+                    && request.resource.data.data is string && request.resource.data.data.size() < 950000;
+      allow delete: if podeAgenda(resource.data.ag) || (logado() && resource.data.autor == email());
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
