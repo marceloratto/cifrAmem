@@ -127,6 +127,15 @@ service cloud.firestore {
       allow create: if membro() && request.resource.data.uid == email() && request.resource.data.texto is string && request.resource.data.texto.size() <= 500;
       allow delete: if admin() || editor() || (logado() && resource.data.uid == email());
     }
+    // Perto de Nós: vitrine dos agentes (cada um cuida dos próprios anúncios)
+    match /vitrine/{id} {
+      allow read: if dono() || membro();
+      allow create: if membro() && request.resource.data.autor == email()
+                    && request.resource.data.img is string && request.resource.data.img.size() < 700000;
+      allow update: if admin() || (logado() && resource.data.autor == email() && request.resource.data.autor == email()
+                    && request.resource.data.img is string && request.resource.data.img.size() < 700000);
+      allow delete: if admin() || editor() || (logado() && resource.data.autor == email());
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
