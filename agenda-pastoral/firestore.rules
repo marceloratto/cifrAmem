@@ -149,6 +149,13 @@ service cloud.firestore {
       allow update: if logado() && resource.data.dono == email() && request.resource.data.dono == email();
       allow create: if logado() && request.resource.data.dono == email();
     }
+    // planejamento anual: coordenadores (editor/admin) fazem e leem; só quem fez ou admin altera
+    match /planos/{id} {
+      allow read: if admin() || editor();
+      allow create: if (admin() || editor()) && request.resource.data.autor == email();
+      allow update: if admin() || (editor() && resource.data.autor == email() && request.resource.data.autor == email());
+      allow delete: if admin();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
