@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coniugatore: treine os verbos italianos</title>
-<meta name="description" content="Conheça o Coniugatore, app gratuito para treinar a conjugação dos verbos italianos (2.294 verbos, 22 tempos, CILS B1), e veja como instalar no iPhone e no Android.">
-<meta name="theme-color" content="#15171a">
+<meta name="description" content="Conheça o Coniugatore, app gratuito para treinar a conjugação dos verbos italianos (2.294 verbos, 22 tempos, CILS B1), e veja como instalar no Android e no iPhone.">
+<meta name="theme-color" content="#0b4d30">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Coniugatore: treine os verbos italianos">
-<meta property="og:description" content="Grátis · 2.294 verbos · 22 tempos · CILS B1. Veja como instalar no iPhone e no Android.">
+<meta property="og:description" content="Grátis · 2.294 verbos · 22 tempos · CILS B1. Veja como instalar no Android e no iPhone.">
 <meta property="og:image" content="https://www.ciframem.com.br/coniugatore/previa.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,321 +20,451 @@
 <link rel="apple-touch-icon" href="img/icone.png">
 <!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em https://ciframem.goatcounter.com -->
 <script data-goatcounter="https://ciframem.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Layout: um único post 4:5 centrado, deslizável como carrossel de Instagram;
-   cada slide = faixa tricolor, texto em cima, tela real do app sangrando embaixo.
-   Visual único escuro, igual ao app. */
+@font-face { font-family: 'Source Serif'; src: url('../fonts/source-serif-4-latin-wght-normal.woff2') format('woff2'); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
 :root {
-  --ground: #0f1113;      /* fundo da página */
-  --slide: #15171a;       /* fundo do post (o mesmo do app) */
-  --card: #1d2024;
-  --line: #2f3439;
-  --text: #ecebe6;
-  --muted: #9ba299;
-  --accent: #3fbf7f;      /* verde do app */
-  --verde: #1f8a4c; --bianco: #ecebe6; --rosso: #c8323a;
-  --display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color-scheme: dark;
+  /* cores do Coniugatore: papel claro do app, verde italiano, escuro do modo noturno */
+  --bg: #faf8f4; --surface: #ffffff; --subtle: #f2efe8; --line: #e4dfd4; --fg: #1c1b18; --muted: #6b6557;
+  --accent: #0d7146; --accent-2: #3fbf7f; --accent-soft: #dcefe3; --rosso: #c8323a;
+  --serif: 'Source Serif', Georgia, 'Times New Roman', serif; --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
-html { background: var(--ground); -webkit-text-size-adjust: 100%; }
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; }
-img { max-width: 100%; }
-[hidden] { display: none !important; }
-body {
-  background: var(--ground); color: var(--text); font-family: var(--sans);
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: calc(28px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px));
-}
-.wrap { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #12110f; overflow: hidden; }
+body { display: grid; place-items: center; font-family: var(--sans); color: var(--fg); -webkit-tap-highlight-color: transparent; }
 
-.reel {
-  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-  border-radius: 18px; scrollbar-width: none; outline: none;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+/* Palco 9:16 — escala com a tela; ótimo para tela cheia e para gravar Reels */
+.stage {
+  position: relative; container-type: size; overflow: hidden;
+  height: min(100vh, 177.78vw); height: min(100dvh, 177.78vw); aspect-ratio: 9 / 16;
+  background: var(--bg); border-radius: 0; box-shadow: 0 30px 80px rgb(0 0 0 / .5);
+  user-select: none; -webkit-user-select: none;
 }
-.reel::-webkit-scrollbar { display: none; }
-.reel:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+@media (min-aspect-ratio: 10/16) { .stage { border-radius: 2.2cqw; } }
 
-.slide {
-  flex: 0 0 100%; aspect-ratio: 4 / 5; max-width: 100%; scroll-snap-align: center;
-  position: relative; overflow: hidden; background: var(--slide);
-  container-type: inline-size;
-}
-.slide::before {
-  content: ""; position: absolute; inset: 0 0 auto; height: 1.4cqw;
-  background: linear-gradient(90deg, var(--verde) 0 33.33%, var(--bianco) 33.33% 66.66%, var(--rosso) 66.66%);
-}
-.txt { position: absolute; left: 7cqw; right: 7cqw; top: 8cqw; display: flex; flex-direction: column; gap: 2.4cqw; }
-.eyebrow {
-  font-size: 2.7cqw; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
-  display: flex; justify-content: space-between; font-variant-numeric: tabular-nums;
-}
-.eyebrow span:last-child { color: var(--muted); letter-spacing: .06em; }
-h2 {
-  font-family: var(--display); font-weight: 800; font-size: 8.4cqw; line-height: .98;
-  letter-spacing: -.025em; text-wrap: balance; margin: 0;
-}
-h2 em { font-style: normal; color: var(--accent); }
-.txt p { font-size: 3.55cqw; line-height: 1.38; color: var(--muted); margin: 0; text-wrap: pretty; }
-.txt p b { color: var(--text); font-weight: 600; }
+/* Barras de progresso (estilo Stories) */
+.bars { position: absolute; z-index: 20; top: 2.2cqh; left: 4cqw; right: 4cqw; display: flex; gap: 1.2cqw; }
+.bars span { flex: 1; height: .45cqh; border-radius: 1cqh; background: rgb(31 29 26 / .16); overflow: hidden; }
+.bars span i { display: block; height: 100%; width: 0; background: var(--accent); }
+.bars span.done i { width: 100%; }
+.dark .bars span { background: rgb(255 255 255 / .22); }
+.dark .bars span i { background: #fff; }
+.brandtop { position: absolute; z-index: 20; top: 4cqh; left: 5cqw; display: flex; align-items: center; gap: 2cqw; font: 600 3.6cqw var(--serif); }
+.brandtop img { width: 7.5cqw; height: 7.5cqw; border-radius: 1.8cqw; }
+.brandtop span { color: var(--muted); font-weight: 500; }
+.dark .brandtop { color: #ece9e3; } .dark .brandtop span { color: #a5a095; }
+.pausebtn { position: absolute; z-index: 21; top: 3.9cqh; right: 4cqw; width: 9cqw; height: 9cqw; border-radius: 50%; border: 0; background: rgb(31 29 26 / .08); color: var(--fg); display: grid; place-items: center; cursor: pointer; }
+.dark .pausebtn { background: rgb(255 255 255 / .14); color: #fff; }
+.pausebtn svg { width: 4.4cqw; height: 4.4cqw; }
 
-.shot {
-  position: absolute; left: 11cqw; right: 11cqw; top: 58cqw; bottom: 0;
-  border-radius: 3.2cqw 3.2cqw 0 0; overflow: hidden;
-  border: 1px solid var(--line); border-bottom: 0; background: var(--card);
-  box-shadow: 0 -2cqw 6cqw rgba(0, 0, 0, .35);
-}
-.shot img { display: block; width: 100%; height: auto; max-width: 100%; }
-.shot.low { top: 66cqw; }
-.shot.mid { top: 62cqw; }
+/* Slides */
+.slide { position: absolute; inset: 0; padding: 11.5cqh 7cqw 4cqh; display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; visibility: hidden; transition: opacity .55s ease, visibility .55s; }
+.slide.on { opacity: 1; visibility: visible; }
+.slide.dark { background: #15171a; color: #e9e7e1; }
+.slide.green { background: linear-gradient(160deg, #13804f, #0b4d30); color: #fff; }
+/* faixa tricolor no alto de cada slide */
+.slide::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: .7cqh; background: linear-gradient(90deg, #1f8a4c 0 33.33%, #f1efe9 33.33% 66.66%, var(--rosso) 66.66%); }
+.kicker { font: 700 2.9cqw var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.dark .kicker { color: var(--accent-2); } .green .kicker { color: #cfe3d5; }
+h1, h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.015em; margin: 1.2cqh 0 0; line-height: 1.08; }
+h1 { font-size: 12.5cqw; }
+h2 { font-size: 7.6cqw; }
+.lead { font-size: 4.1cqw; line-height: 1.4; color: var(--muted); margin: 1.6cqh 0 0; max-width: 80cqw; }
+.dark .lead { color: #b8b3a8; } .green .lead { color: #e3efe6; }
+.lead b { color: var(--fg); } .dark .lead b, .green .lead b { color: #fff; }
 
-/* capa */
-.capa .txt { top: 10cqw; gap: 3cqw; }
-.marca { display: flex; align-items: center; gap: 3cqw; }
-.marca img { width: 13cqw; height: 13cqw; border-radius: 3.2cqw; }
-.marca b { font-family: var(--display); font-weight: 800; font-size: 10.5cqw; letter-spacing: -.03em; line-height: 1; }
-.stats { display: flex; gap: 2cqw; flex-wrap: wrap; }
-.stats span {
-  font-size: 3cqw; font-weight: 600; padding: 1.2cqw 2.4cqw; border-radius: 99px;
-  border: 1px solid var(--line); color: var(--text); font-variant-numeric: tabular-nums;
-}
-.stats span:first-child { border-color: var(--accent); color: var(--accent); }
-.capa .shot { top: 64cqw; transform: rotate(-3deg); left: 14cqw; right: 8cqw; bottom: -6cqw; }
+/* Animação de entrada */
+.slide.on .in { animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.slide.on .in.d1 { animation-delay: .12s; } .slide.on .in.d2 { animation-delay: .24s; } .slide.on .in.d3 { animation-delay: .38s; } .slide.on .in.d4 { animation-delay: .52s; }
+@keyframes rise { from { opacity: 0; transform: translateY(3cqh); } to { opacity: 1; transform: none; } }
 
-/* vídeo */
-.video .vbox {
-  position: absolute; left: 50%; transform: translateX(-50%); top: 41cqw; bottom: 6cqw;
-  aspect-ratio: 4 / 5; max-width: 86cqw; border-radius: 3cqw; overflow: hidden;
-  border: 1px solid var(--line); background: #000;
-}
-.video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Telefone com captura de tela real */
+.fill { flex: 1 1 0; min-height: 0; width: 100%; margin-top: 2.4cqh; display: flex; justify-content: center; align-items: flex-start; container-type: size; }
+.phone { position: relative; height: min(100cqh, 62cqw * 2.164); width: auto; aspect-ratio: 390 / 844; border-radius: 7.5cqw; padding: 1.6cqw; background: #1b1a18; box-shadow: 0 2.5cqh 6cqh rgb(30 25 15 / .35), inset 0 0 0 .5cqw #3a3733; flex: none; }
+.phone img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 6cqw; }
+.phone::before { content: ''; position: absolute; z-index: 2; top: 2.6cqw; left: 50%; transform: translateX(-50%); width: 15cqw; height: 4.2cqw; border-radius: 3cqw; background: #000; }
 
-/* final */
-.fim .txt { gap: 2cqw; }
-.qrbox {
-  position: absolute; left: 50%; transform: translateX(-50%); top: 36cqw;
-  width: 42cqw; padding: 2.4cqw; background: #fff; border-radius: 3.6cqw;
-}
-.qrbox img { display: block; width: 100%; height: auto; }
-.fim .link {
-  position: absolute; left: 7cqw; right: 7cqw; top: 86cqw; text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 2.6cqw;
-}
-.url { font-family: var(--display); font-weight: 800; font-size: 5.6cqw; letter-spacing: -.02em; color: var(--accent); user-select: all; word-break: break-all; }
-.acts { display: flex; gap: 2.4cqw; flex-wrap: wrap; justify-content: center; }
-.btn {
-  font: 600 3.4cqw/1 var(--sans); padding: 2.6cqw 4.4cqw; border-radius: 99px; cursor: pointer;
-  border: 1px solid var(--line); background: var(--card); color: var(--text); text-decoration: none;
-}
-.btn.pri { background: var(--accent); border-color: var(--accent); color: #0a1410; }
-.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.assina { position: absolute; left: 7cqw; right: 7cqw; bottom: 4.5cqw; text-align: center; font-size: 2.9cqw; color: var(--muted); line-height: 1.45; }
+.slide.on .phone.in { animation: phoneIn .9s cubic-bezier(.2,.8,.2,1) .2s both; }
+@keyframes phoneIn { from { opacity: 0; transform: translateY(5cqh) scale(.94) rotate(-2deg); } to { opacity: 1; transform: none; } }
+.pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6cqw; margin-top: 2.4cqh; max-width: 86cqw; }
+.pills span { font-size: 3.4cqw; font-weight: 600; padding: 1.3cqw 3cqw; border-radius: 99px; background: var(--surface); border: .3cqw solid var(--line); }
+.dark .pills span { background: #22201e; border-color: #3a3733; }
+.green .pills span { background: rgb(255 255 255 / .12); border-color: rgb(255 255 255 / .28); color: #fff; }
+.tagrow { display: flex; gap: 2cqw; justify-content: center; flex-wrap: wrap; margin-top: 2cqh; }
+.tag { font: 600 3.2cqw var(--sans); padding: 1.1cqw 2.8cqw; border-radius: 99px; background: var(--accent-soft); color: var(--accent); }
+.dark .tag { background: #1e2a22; color: var(--accent-2); }
 
-/* controles abaixo do post */
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.arrow {
-  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--card);
-  color: var(--text); font-size: 20px; cursor: pointer; display: grid; place-items: center; flex: none;
+/* Capa */
+.cover { justify-content: center; padding-top: 6cqh; }
+.cover .logo { width: 34cqw; height: 34cqw; border-radius: 8cqw; box-shadow: 0 2cqh 5cqh rgb(0 0 0 / .3); }
+.slide.on .cover-logo { animation: pop .9s cubic-bezier(.2,.9,.3,1.25) both; }
+@keyframes pop { from { opacity: 0; transform: scale(.6) rotate(-12deg); } to { opacity: 1; transform: none; } }
+/* capa: o verbo volere se conjugando, pessoa por pessoa */
+.conj { margin-top: 3.2cqh; display: grid; grid-template-columns: auto auto; gap: .9cqh 4cqw; font-size: 4.6cqw; text-align: left; }
+.conj span { opacity: 0; }
+.conj .p { color: #bfe0cc; font-size: 3.4cqw; letter-spacing: .1em; text-transform: uppercase; align-self: center; }
+.conj b { font-weight: 600; }
+.slide.on .conj span { animation: rise .5s cubic-bezier(.2,.8,.2,1) both; }
+.slide.on .conj span:nth-child(1), .slide.on .conj span:nth-child(2) { animation-delay: .7s; }
+.slide.on .conj span:nth-child(3), .slide.on .conj span:nth-child(4) { animation-delay: 1.05s; }
+.slide.on .conj span:nth-child(5), .slide.on .conj span:nth-child(6) { animation-delay: 1.4s; }
+.slide.on .conj span:nth-child(7), .slide.on .conj span:nth-child(8) { animation-delay: 1.75s; }
+.slide.on .conj span:nth-child(9), .slide.on .conj span:nth-child(10) { animation-delay: 2.1s; }
+.slide.on .conj span:nth-child(11), .slide.on .conj span:nth-child(12) { animation-delay: 2.45s; }
+.free { margin-top: 3cqh; font-size: 3.7cqw; color: #e3efe6; }
+
+/* Lista de recursos */
+.feats { list-style: none; padding: 0; margin: 2.4cqh 0 0; display: grid; gap: 1.4cqh; text-align: left; max-width: 84cqw; }
+.feats li { display: grid; grid-template-columns: 7cqw 1fr; gap: 2.4cqw; align-items: start; font-size: 3.8cqw; line-height: 1.35; }
+.feats li i { width: 7cqw; height: 7cqw; border-radius: 2cqw; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-style: normal; font-weight: 700; font-size: 3.6cqw; }
+.dark .feats li i { background: #1e2a22; color: var(--accent-2); }
+
+/* ---------- Instalação: telefones desenhados ---------- */
+.steps { list-style: none; padding: 0; margin: 1.6cqh 0 0; width: 86cqw; display: grid; gap: .5cqh; text-align: left; }
+.steps li { display: grid; grid-template-columns: 6.4cqw 1fr; gap: 2.4cqw; align-items: center; font-size: 3.5cqw; line-height: 1.25; padding: .8cqh 2.4cqw; border-radius: 3cqw; transition: background .3s, color .3s, transform .3s; color: var(--muted); }
+.steps li b { color: var(--fg); }
+.steps li em { font-style: normal; font-weight: 700; color: var(--accent); }
+.steps li .n { width: 6.4cqw; height: 6.4cqw; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 3.6cqw; background: var(--subtle); color: var(--muted); transition: background .3s, color .3s; }
+.steps li.cur { background: var(--surface); color: var(--fg); box-shadow: 0 .6cqh 2.4cqh rgb(30 25 15 / .12); transform: scale(1.02); }
+.steps li.cur .n, .steps li.past .n { background: var(--accent); color: #fff; }
+.note { margin-top: 1.2cqh; font-size: 3cqw; color: var(--muted); max-width: 84cqw; }
+.note b { color: var(--fg); }
+
+.mock { position: relative; height: min(100cqh, 60cqw * 2.056); width: auto; aspect-ratio: 9 / 18.5; border-radius: 7cqw; padding: 1.5cqw; background: #1b1a18; box-shadow: 0 2cqh 5cqh rgb(30 25 15 / .3); flex: none; }
+.scr { position: relative; width: 100%; height: 100%; border-radius: 5.6cqw; overflow: hidden; background: #fdfcfa; font-size: 2.6cqw; text-align: left; container-type: inline-size; }
+.scr .page { position: absolute; inset: 0; background-size: cover; background-position: top center; }
+.scr .dim { position: absolute; inset: 0; background: rgb(0 0 0 / .38); opacity: 0; transition: opacity .3s; }
+.tap { position: absolute; z-index: 9; width: 19.17cqw; height: 19.17cqw; margin: -9.58cqw 0 0 -9.58cqw; border-radius: 50%; border: 1.49cqw solid #f2c94c; box-shadow: 0 0 0 0 rgb(242 201 76 / .7); animation: ring 1.1s ease-out infinite; opacity: 0; transition: left .45s ease, top .45s ease, opacity .25s; pointer-events: none; }
+.tap::after { content: ''; position: absolute; inset: 4.69cqw; border-radius: 50%; background: rgb(242 201 76 / .85); }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgb(242 201 76 / .7); } 100% { box-shadow: 0 0 0 9.58cqw rgb(242 201 76 / 0); } }
+.ui { position: absolute; opacity: 0; transform: translateY(1.5cqh); transition: opacity .35s, transform .35s; pointer-events: none; }
+.hi { background: #fff4cc !important; outline: 1.06cqw solid #f2c94c; outline-offset: -1.06cqw; }
+
+/* Android / Chrome */
+.chrome { position: absolute; z-index: 3; left: 0; right: 0; top: 0; height: 13%; background: #f1f3f4; display: flex; align-items: flex-end; padding: 0 5.11cqw 3.41cqw; gap: 3.41cqw; border-bottom: 0.43cqw solid #dadce0; }
+.chrome .url { flex: 1; height: 13.63cqw; border-radius: 8.52cqw; background: #fff; display: flex; align-items: center; padding: 0 5.11cqw; color: #3c4043; font-size: 5.32cqw; white-space: nowrap; overflow: hidden; }
+.chrome .url::before { content: '🔒'; font-size: 4.47cqw; margin-right: 2.56cqw; }
+.chrome .kebab { width: 8.52cqw; text-align: center; font-size: 9.37cqw; font-weight: 700; color: #3c4043; line-height: 1; }
+.amenu { z-index: 5; top: 9%; right: 2%; width: 66%; background: #fff; border-radius: 5.11cqw; box-shadow: 0 1cqh 3cqh rgb(0 0 0 / .3); padding: 2.98cqw 0; }
+.amenu div { padding: 4.47cqw 7.24cqw; font-size: 5.75cqw; color: #202124; }
+.adlg { z-index: 6; left: 7%; right: 7%; top: 34%; background: #fff; border-radius: 8.52cqw; padding: 8.52cqw 8.52cqw 6.39cqw; box-shadow: 0 1cqh 4cqh rgb(0 0 0 / .35); text-align: left; }
+.adlg h4 { margin: 0 0 5.11cqw; font: 600 7.24cqw var(--sans); }
+.adlg .row { display: flex; align-items: center; gap: 5.11cqw; font-size: 6.18cqw; }
+.adlg .row img { width: 17.04cqw; height: 17.04cqw; border-radius: 4cqw; }
+.adlg .btns { display: flex; justify-content: flex-end; gap: 6.39cqw; margin-top: 8.52cqw; font-weight: 600; font-size: 6.18cqw; color: #1a73e8; }
+.adlg .btns span { padding: 2.56cqw 4.26cqw; border-radius: 4.26cqw; }
+.home { z-index: 7; inset: 0; transform: none; background: linear-gradient(170deg, #5a7f6a, #2c4a3a 60%, #1e3329); padding: 18% 6% 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8.52cqw 5.54cqw; align-content: start; }
+.home .ap { display: grid; justify-items: center; gap: 2.13cqw; font-size: 4.47cqw; color: #fff; }
+.home .ap i { width: 18.32cqw; height: 18.32cqw; border-radius: 5.11cqw; background: rgb(255 255 255 / .28); display: block; }
+.home .ap img { width: 18.32cqw; height: 18.32cqw; border-radius: 5.11cqw; display: block; box-shadow: 0 0 0 1.28cqw #f2c94c; }
+.home .ap.new { animation: wob 1.4s ease-in-out infinite; }
+@keyframes wob { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+/* iPhone / Safari (iOS 26) */
+.sbar { position: absolute; z-index: 3; left: 3%; right: 3%; bottom: 3%; height: 15.76cqw; border-radius: 10.65cqw; background: rgb(250 250 250 / .92); box-shadow: 0 .4cqh 1.6cqh rgb(0 0 0 / .2); display: flex; align-items: center; padding: 0 4.26cqw; gap: 3.41cqw; }
+.sbar .ico { width: 11.50cqw; height: 11.50cqw; border-radius: 50%; display: grid; place-items: center; color: #1c1c1e; font-weight: 700; font-size: 6.39cqw; }
+.sbar .url { flex: 1; text-align: center; font-size: 5.54cqw; color: #1c1c1e; white-space: nowrap; overflow: hidden; }
+.imenu { z-index: 5; right: 4%; bottom: 12%; width: 60%; background: rgb(248 248 248 / .98); border-radius: 7.24cqw; box-shadow: 0 1cqh 3.4cqh rgb(0 0 0 / .3); overflow: hidden; }
+.imenu div { padding: 4.69cqw 7.24cqw; font-size: 5.75cqw; color: #1c1c1e; display: flex; justify-content: space-between; border-bottom: 0.32cqw solid #e5e5ea; }
+.imenu div:last-child { border-bottom: 0; }
+.isheet { z-index: 6; left: 0; right: 0; bottom: 0; height: 64%; background: #f2f2f7; border-radius: 8.52cqw 8.52cqw 0 0; padding: 6.39cqw 6.39cqw 0; box-shadow: 0 -1cqh 3cqh rgb(0 0 0 / .25); }
+.isheet .hd { display: flex; align-items: center; gap: 4.26cqw; font-size: 5.54cqw; margin-bottom: 5.54cqw; }
+.isheet .hd img { width: 14.91cqw; height: 14.91cqw; border-radius: 3.83cqw; }
+.isheet .apps { display: flex; gap: 5.11cqw; margin-bottom: 5.54cqw; }
+.isheet .apps i { width: 17.04cqw; height: 17.04cqw; border-radius: 4.69cqw; background: #d1d1d6; display: block; }
+.isheet .lst { background: #fff; border-radius: 5.11cqw; overflow: hidden; }
+.isheet .lst div { padding: 4.47cqw 6.39cqw; font-size: 5.54cqw; border-bottom: 0.32cqw solid #e5e5ea; display: flex; justify-content: space-between; }
+.idlg { z-index: 7; inset: 0; transform: none; background: #f2f2f7; padding: 12% 4% 0; }
+.idlg .top { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; font-size: 5.96cqw; color: #007aff; margin-bottom: 8.52cqw; }
+.idlg .top b { color: #1c1c1e; font-weight: 600;  flex: 1; text-align: center; font-size: 4.6cqw; line-height: 1.15; }
+.idlg .top .add { font-weight: 700; padding: 1.28cqw 3.41cqw; border-radius: 3.41cqw; }
+.idlg .card { background: #fff; border-radius: 5.54cqw; padding: 6.39cqw; display: flex; gap: 6.39cqw; align-items: center; font-size: 5.96cqw; }
+.idlg .card img { width: 23.43cqw; height: 23.43cqw; border-radius: 5.54cqw; }
+.idlg .card small { display: block; color: #8e8e93; font-size: 4.69cqw; margin-top: 1.28cqw; }
+.idlg .tg { margin-top: 6.39cqw; background: #fff; border-radius: 5.54cqw; padding: 5.54cqw 6.39cqw; display: flex; justify-content: space-between; align-items: center; font-size: 5.75cqw; }
+.idlg .tg span { width: 19.17cqw; height: 11.50cqw; border-radius: 6.39cqw; background: #34c759; position: relative; }
+.idlg .tg span::after { content: ''; position: absolute; top: 1.06cqw; right: 1.06cqw; width: 9.37cqw; height: 9.37cqw; border-radius: 50%; background: #fff; }
+
+/* Estados animados (data-step) */
+.mock[data-step="2"] .s2, .mock[data-step="3"] .s3, .mock[data-step="4"] .s4, .mock[data-step="5"] .s5 { opacity: 1; transform: none; }
+.mock[data-step="2"] .dim, .mock[data-step="3"] .dim, .mock[data-step="4"] .dim { opacity: 1; }
+.mock.ios[data-step="3"] .s2, .mock.ios[data-step="4"] .s3 { opacity: 0; }
+
+/* Final */
+.qr { margin-top: 3.4cqh; width: 46cqw; padding: 3cqw; background: #fff; border-radius: 4cqw; box-shadow: 0 2cqh 5cqh rgb(0 0 0 / .3); }
+.qr svg, .qr img { display: block; width: 100%; height: auto; }
+.url-big { margin-top: 2.6cqh; font: 700 5.4cqw var(--sans); letter-spacing: -.01em; color: #fff; }
+.cta { margin-top: 2.4cqh; display: inline-block; padding: 2.4cqw 6cqw; border-radius: 99px; background: #fff; color: var(--accent); font: 700 4cqw var(--sans); }
+
+/* Navegação */
+.nav { position: absolute; z-index: 15; top: 12%; bottom: 0; width: 34%; border: 0; background: none; cursor: pointer; }
+.nav.prev { left: 0; } .nav.next { right: 0; }
+.arrows { display: none; }
+@media (hover: hover) and (pointer: fine) and (min-aspect-ratio: 12/16) {
+  .arrows { display: block; }
+  .arr { position: fixed; top: 50%; transform: translateY(-50%); z-index: 30; width: 52px; height: 52px; border-radius: 50%; border: 0; background: rgb(255 255 255 / .12); color: #fff; font: 600 28px/1 Georgia, serif; cursor: pointer; }
+  .arr:hover { background: rgb(255 255 255 / .24); }
+  .arr.l { left: calc(50% - min(50vh, 88.9vw) * 9 / 16 - 76px); left: max(12px, calc(50% - min(100dvh, 177.78vw) * 9 / 32 - 76px)); }
+  .arr.r { right: max(12px, calc(50% - min(100dvh, 177.78vw) * 9 / 32 - 76px)); }
 }
-.arrow:disabled { opacity: .35; cursor: default; }
-.arrow:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; min-width: 0; }
-.dots button {
-  width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: var(--line); cursor: pointer;
-  transition: width .2s, background .2s;
-}
-.dots button[aria-current="true"] { width: 22px; background: var(--accent); }
-.dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.dica { text-align: center; font-size: 13px; color: var(--muted); margin: 0; }
-@media (prefers-reduced-motion: reduce) { .reel { scroll-behavior: auto; } .dots button { transition: none; } }
+.hint { position: fixed; bottom: 14px; left: 0; right: 0; text-align: center; font: 13px var(--sans); color: rgb(255 255 255 / .45); pointer-events: none; }
+@media (max-aspect-ratio: 10/16) { .hint { display: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
-
 </head>
 <body>
-<div class="wrap">
-  <div class="reel" id="reel" tabindex="0" aria-label="Carrossel: funcionalidades do Coniugatore" aria-roledescription="carrossel">
+<div class="stage" id="stage">
+  <div class="bars" id="bars"></div>
+  <div class="brandtop" id="brandtop"><img src="img/icone.png" alt="">Coniugatore <span>· verbos italianos</span></div>
+  <button class="pausebtn" id="pause" aria-label="Pausar">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+  </button>
 
-    <section class="slide capa" aria-label="1 de 11">
-      <div class="txt">
-        <div class="marca"><img src="img/icone.png" alt=""><b>Coniugatore</b></div>
-        <h2>Os verbos italianos, <em>treinados</em> até sair sem pensar.</h2>
-        <div class="stats"><span>Grátis</span><span>2.294 verbos</span><span>22 tempos</span><span>CILS B1</span></div>
-      </div>
-      <div class="shot"><img src="img/capa.jpg" alt="Exercício com o verbo volere no presente: cinco formas certas em verde e uma errada em vermelho, com a forma correta embaixo"></div>
-    </section>
+  <!-- 1. Capa -->
+  <section class="slide green cover" data-dur="5600">
+    <img class="logo cover-logo" src="img/icone.png" alt="Ícone do Coniugatore">
+    <h1 class="in d1">Coniugatore</h1>
+    <p class="lead in d2">Treine a conjugação dos <b>verbos italianos</b>, de graça</p>
+    <div class="conj" aria-label="volere no presente: voglio, vuoi, vuole, vogliamo, volete, vogliono">
+      <span class="p">io</span><span><b>voglio</b></span>
+      <span class="p">tu</span><span><b>vuoi</b></span>
+      <span class="p">lui/lei</span><span><b>vuole</b></span>
+      <span class="p">noi</span><span><b>vogliamo</b></span>
+      <span class="p">voi</span><span><b>volete</b></span>
+      <span class="p">loro</span><span><b>vogliono</b></span>
+    </div>
+    <p class="free in d4">Grátis · 2.294 verbos · 22 tempos · CILS B1</p>
+  </section>
 
-    <section class="slide" aria-label="2 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Níveis</span><span>2 / 11</span></div>
-        <h2>Escolha o seu <em>nível</em></h2>
-        <p>Do <b>Iniciante</b>, com os 25 verbos para começar, ao <b>Avançado</b>. E duas listas para a prova <b>CILS B1 cittadinanza</b>: os 44 verbos essenciais e o complemento.</p>
-      </div>
-      <div class="shot low"><img src="img/niveis.jpg" alt="Lista de níveis: Iniciante, Básico, Elementar, Intermediário 1 e 2, Avançado e as duas listas CILS B1"></div>
-    </section>
+  <!-- 2. Níveis -->
+  <section class="slide" data-dur="5600">
+    <div class="kicker in">Do Iniciante ao Avançado</div>
+    <h2 class="in d1">Escolha o seu nível</h2>
+    <p class="lead in d2">E duas listas para a prova <b>CILS B1 cittadinanza</b>: os 44 verbos essenciais e o complemento.</p>
+    <div class="fill"><div class="phone in"><img src="img/niveis.jpg" alt="Lista de níveis do Iniciante ao Avançado e as listas CILS B1"></div></div>
+  </section>
 
-    <section class="slide" aria-label="3 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Seu treino</span><span>3 / 11</span></div>
-        <h2>Monte o treino do <em>seu jeito</em></h2>
-        <p>Filtre por <b>-are, -ere, -ire</b>, regulares, irregulares ou reflexivos, procure um verbo pelo nome e marque só os tempos que quer praticar.</p>
-      </div>
-      <div class="shot low"><img src="img/verbos.jpg" alt="Filtros de verbos por terminação, regulares, irregulares e verbos errados nas últimas rodadas"></div>
-    </section>
+  <!-- 3. Seu treino -->
+  <section class="slide dark" data-dur="5600">
+    <div class="kicker in">Do seu jeito</div>
+    <h2 class="in d1">Escolha os verbos<br>e os tempos</h2>
+    <p class="lead in d2"><b>-are, -ere, -ire</b>, regulares, irregulares, reflexivos, e só os tempos que quiser praticar.</p>
+    <div class="fill"><div class="phone in"><img src="img/verbos.jpg" alt="Filtros de verbos por terminação, regulares e irregulares"></div></div>
+  </section>
 
-    <section class="slide" aria-label="4 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Exercício</span><span>4 / 11</span></div>
-        <h2>Conjugue e confira <em>na hora</em></h2>
-        <p>Escreva as seis pessoas e toque em <b>Verificar</b>: o que estiver errado aparece em vermelho, com a forma certa embaixo. O <b>Enter</b> copia a linha de cima, e você só troca a terminação.</p>
-      </div>
-      <div class="shot low"><img src="img/exercicio.jpg" alt="Exercício verificado: a forma vogliano marcada em vermelho e a correção vogliono"></div>
-    </section>
+  <!-- 4. Exercício -->
+  <section class="slide" data-dur="5600">
+    <div class="kicker in">Exercício</div>
+    <h2 class="in d1">Conjugue e confira<br>na hora</h2>
+    <p class="lead in d2">O que errou fica <b style="color:var(--rosso)">vermelho</b>, com a forma certa embaixo. O <b>Enter</b> copia a linha de cima.</p>
+    <div class="fill"><div class="phone in"><img src="img/exercicio.jpg" alt="Exercício do verbo volere verificado, com vogliano corrigido para vogliono"></div></div>
+  </section>
 
-    <section class="slide" aria-label="5 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Pronúncia</span><span>5 / 11</span></div>
-        <h2>Ouça como <em>se fala</em></h2>
-        <p>Depois de verificar, toque no alto-falante e ouça a forma certa em italiano. Na tabela completa, um toque no título lê o tempo inteiro.</p>
-      </div>
-      <div class="shot low"><img src="img/pronuncia.jpg" alt="Tabela de conjugação de volere com um alto-falante ao lado de cada forma"></div>
-    </section>
+  <!-- 5. Pronúncia -->
+  <section class="slide dark" data-dur="5200">
+    <div class="kicker in">Pronúncia</div>
+    <h2 class="in d1">Ouça como se fala</h2>
+    <p class="lead in d2">Um toque no <b>alto-falante</b> e você ouve a forma certa em italiano.</p>
+    <div class="fill"><div class="phone in"><img src="img/pronuncia.jpg" alt="Tabela de volere com um alto-falante ao lado de cada forma"></div></div>
+  </section>
 
-    <section class="slide" aria-label="6 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Reverso</span><span>6 / 11</span></div>
-        <h2>Leia a frase, ache o <em>infinitivo</em></h2>
-        <p>No <b>Reverso</b>, aparece uma frase com o verbo conjugado em destaque e você escreve o infinitivo. Em <b>Ambos</b>, depois do infinitivo vem a conjugação do mesmo verbo.</p>
-      </div>
-      <div class="shot low"><img src="img/reverso.jpg" alt="Exercício reverso: a frase Controlla se hai chiuso il gas, com Controlla em destaque, pedindo o infinitivo"></div>
-    </section>
+  <!-- 6. Reverso -->
+  <section class="slide" data-dur="5600">
+    <div class="kicker in">Reverso</div>
+    <h2 class="in d1">Leia a frase,<br>ache o infinitivo</h2>
+    <p class="lead in d2">O verbo vem conjugado numa frase de verdade, e você descobre de qual verbo ele é.</p>
+    <div class="fill"><div class="phone in"><img src="img/reverso.jpg" alt="Frase Controlla se hai chiuso il gas, pedindo o infinitivo do verbo em destaque"></div></div>
+  </section>
 
-    <section class="slide" aria-label="7 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Modo carro</span><span>7 / 11</span></div>
-        <h2>Estude <em>dirigindo</em></h2>
-        <p>O app fala o verbo e o tempo, você responde em voz alta e ele diz a forma certa. Dá para avançar pelo botão do volante, sem olhar a tela.</p>
-      </div>
-      <div class="shot low"><img src="img/carro.jpg" alt="Modo carro mostrando giocare no imperativo, resposta gioca, com botões Repetir, Pausar e Próxima"></div>
-    </section>
+  <!-- 7. Carro -->
+  <section class="slide dark" data-dur="5800">
+    <div class="kicker in">Modo carro</div>
+    <h2 class="in d1">Estude dirigindo</h2>
+    <p class="lead in d2">Ele fala o verbo, você responde <b>em voz alta</b> e ele diz a forma certa. Avance pelo botão do volante.</p>
+    <div class="fill"><div class="phone in"><img src="img/carro.jpg" alt="Modo carro mostrando a resposta gioca, com os botões Repetir, Pausar e Próxima"></div></div>
+  </section>
 
-    <section class="slide" aria-label="8 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Relatório</span><span>8 / 11</span></div>
-        <h2>Veja onde errou e <em>treine de novo</em></h2>
-        <p>No fim sai o relatório verbo por verbo. O filtro <b>“errei nas 3 últimas”</b> monta o próximo treino só com o que escapou.</p>
-      </div>
-      <div class="shot low"><img src="img/resultado.jpg" alt="Resultado: 5 acertos, 1 erro, 83% de aproveitamento, com o relatório do verbo volere"></div>
-    </section>
+  <!-- 8. Relatório -->
+  <section class="slide" data-dur="5400">
+    <div class="kicker in">No final</div>
+    <h2 class="in d1">Veja onde errou<br>e treine de novo</h2>
+    <div class="tagrow in d2"><span class="tag">Relatório</span><span class="tag">Errei na última</span><span class="tag">Errei nas 3 últimas</span></div>
+    <div class="fill"><div class="phone in"><img src="img/resultado.jpg" alt="Resultado com 5 acertos, 1 erro e 83% de aproveitamento"></div></div>
+  </section>
 
-    <section class="slide" aria-label="9 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Tabelas</span><span>9 / 11</span></div>
-        <h2>Consulte <em>qualquer verbo</em></h2>
-        <p>A aba <b>Tabelas</b> mostra a conjugação completa dos 2.294 verbos, com o auxiliar, o nível e a tradução. Tudo em português ou em italiano.</p>
-      </div>
-      <div class="shot low"><img src="img/tabelas.jpg" alt="Tabela do verbo andare: presente vado, vai, va, andiamo, andate, vanno e passato prossimo com essere"></div>
-    </section>
+  <!-- 9. Tabelas -->
+  <section class="slide dark" data-dur="5200">
+    <div class="kicker in">Consulta</div>
+    <h2 class="in d1">Os 2.294 verbos<br>na palma da mão</h2>
+    <div class="tagrow in d2"><span class="tag">Português</span><span class="tag">Italiano</span><span class="tag">Celular e PC</span></div>
+    <div class="fill"><div class="phone in"><img src="img/tabelas.jpg" alt="Tabela de conjugação do verbo andare"></div></div>
+  </section>
 
-    <section class="slide video" aria-label="10 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Instalação</span><span>10 / 11</span></div>
-        <h2>Instale no <em>celular</em></h2>
-        <p>Vira um ícone na tela e abre como app. Passo a passo no iPhone e no Android:</p>
-      </div>
-      <div class="vbox">
-        <video id="vid" src="img/instalar.mp4" poster="img/instalar-capa.jpg" muted loop playsinline controls preload="metadata" aria-label="Vídeo: como adicionar o Coniugatore à tela inicial no iPhone e no Android"></video>
-      </div>
-    </section>
-
-    <section class="slide fim" aria-label="11 de 11">
-      <div class="txt">
-        <div class="eyebrow"><span>Comece agora</span><span>11 / 11</span></div>
-        <h2>Aponte a câmera <em>e comece</em></h2>
-      </div>
-      <div class="qrbox"><img src="img/qr.svg" alt="QR code para coniugatoreitaliano.vercel.app"></div>
-      <div class="link">
-        <div class="url" id="url">coniugatoreitaliano.vercel.app</div>
-        <div class="acts">
-          <a class="btn pri" href="https://coniugatoreitaliano.vercel.app/" target="_blank" rel="noopener">Abrir o Coniugatore</a>
-          <button class="btn" type="button" id="copiar">Copiar link</button>
+  <!-- 10. Android -->
+  <section class="slide" data-dur="11000" data-steps="4">
+    <div class="kicker in">Instalar no celular</div>
+    <h2 class="in d1">Android <span style="color:var(--muted);font-weight:500">(Chrome)</span></h2>
+    <ol class="steps in d2">
+      <li data-s="1"><span class="n">1</span><span>No Chrome, toque em <em>⋮</em></span></li>
+      <li data-s="2"><span class="n">2</span><span>Toque em <em>Adicionar à tela inicial</em></span></li>
+      <li data-s="3"><span class="n">3</span><span>Confirme em <em>Instalar</em></span></li>
+      <li data-s="4"><span class="n">4</span><span>Pronto, está na <b>tela inicial</b></span></li>
+    </ol>
+    <div class="fill"><div class="mock android in" data-step="1">
+      <div class="scr">
+        <div class="page" style="background-image:url('img/niveis.jpg')"></div>
+        <div class="chrome"><div class="url">coniugatoreitaliano.vercel.app</div><div class="kebab">⋮</div></div>
+        <div class="dim"></div>
+        <div class="ui amenu s2"><div>Nova guia</div><div>Histórico</div><div>Favoritos</div><div class="hi">Adicionar à tela inicial</div><div>Configurações</div></div>
+        <div class="ui adlg s3"><h4>Instalar app</h4><div class="row"><img src="img/icone.png" alt="">Coniugatore<br>coniugatoreitaliano.vercel.app</div><div class="btns"><span>Cancelar</span><span class="hi">Instalar</span></div></div>
+        <div class="ui home s4">
+          <div class="ap"><i></i>Fotos</div><div class="ap"><i></i>Agenda</div><div class="ap"><i></i>Chrome</div><div class="ap"><i></i>Mapas</div>
+          <div class="ap"><i></i>Música</div><div class="ap new"><img src="img/icone.png" alt="">Coniugatore</div><div class="ap"><i></i>Notas</div><div class="ap"><i></i>Clima</div>
         </div>
+        <div class="tap" id="tapA"></div>
       </div>
-      <p class="assina">Feito por Marcelo Ratto e liberado para os amigos.<br>Uso didático, sem fins comerciais.</p>
-    </section>
+    </div></div>
+    <p class="note in d3">Abra antes <b>coniugatoreitaliano.vercel.app</b>. No Samsung Internet: <b>≡</b> → <b>Adicionar página a</b> → <b>Tela inicial</b>.</p>
+  </section>
 
-  </div>
+  <!-- 11. iPhone -->
+  <section class="slide" data-dur="13000" data-steps="5">
+    <div class="kicker in">Instalar no celular</div>
+    <h2 class="in d1">iPhone <span style="color:var(--muted);font-weight:500">(Safari)</span></h2>
+    <ol class="steps in d2">
+      <li data-s="1"><span class="n">1</span><span>No Safari, toque em <em>…</em></span></li>
+      <li data-s="2"><span class="n">2</span><span>Toque em <em>Compartilhar</em></span></li>
+      <li data-s="3"><span class="n">3</span><span>Toque em <em>Adicionar à Tela de Início</em></span></li>
+      <li data-s="4"><span class="n">4</span><span>Com <b>Abrir como App Web</b> ligado, <em>Adicionar</em></span></li>
+      <li data-s="5"><span class="n">5</span><span>Pronto, está na <b>tela de início</b></span></li>
+    </ol>
+    <div class="fill"><div class="mock ios in" data-step="1">
+      <div class="scr">
+        <div class="page" style="background-image:url('img/niveis.jpg')"></div>
+        <div class="sbar"><span class="ico">‹</span><span class="url">coniugatoreitaliano.vercel.app</span><span class="ico" style="font-size:3.6cqw">…</span></div>
+        <div class="dim"></div>
+        <div class="ui imenu s2"><div>Nova Aba</div><div>Adicionar aos Favoritos</div><div class="hi">Compartilhar <span>⬆︎</span></div></div>
+        <div class="ui isheet s3">
+          <div class="hd"><img src="img/icone.png" alt=""><span>Coniugatore<br><small style="color:#8e8e93">coniugatoreitaliano.vercel.app</small></span></div>
+          <div class="apps"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="lst"><div>Copiar</div><div>Adicionar à Lista de Leitura</div><div>Adicionar aos Favoritos</div><div class="hi">Adicionar à Tela de Início <span>⊞</span></div></div>
+        </div>
+        <div class="ui idlg s4"><div class="top"><span>Cancelar</span><b>Adicionar à Tela de Início</b><span class="add hi">Adicionar</span></div>
+          <div class="card"><img src="img/icone.png" alt=""><div>Coniugatore<small>coniugatoreitaliano.vercel.app</small></div></div>
+          <div class="tg">Abrir como App Web <span></span></div></div>
+        <div class="ui home s5">
+          <div class="ap"><i></i>Fotos</div><div class="ap"><i></i>Câmera</div><div class="ap"><i></i>Safari</div><div class="ap"><i></i>Mapas</div>
+          <div class="ap"><i></i>Música</div><div class="ap new"><img src="img/icone.png" alt="">Coniugatore</div><div class="ap"><i></i>Notas</div><div class="ap"><i></i>Tempo</div>
+        </div>
+        <div class="tap" id="tapI"></div>
+      </div>
+    </div></div>
+    <p class="note in d3">Em iPhones com iOS mais antigo, o botão <b>Compartilhar ⬆︎</b> já fica direto na barra de baixo.</p>
+  </section>
 
-  <div class="nav">
-    <button class="arrow" id="prev" type="button" aria-label="Slide anterior">←</button>
-    <div class="dots" id="dots" role="tablist" aria-label="Escolher slide"></div>
-    <button class="arrow" id="next" type="button" aria-label="Próximo slide">→</button>
-  </div>
-  <p class="dica">Deslize para o lado ou use as setas</p>
+  <!-- 12. Final -->
+  <section class="slide green" data-dur="7000" style="justify-content:center;padding-top:8cqh">
+    <div class="kicker in" style="color:#cfe3d5">Comece agora</div>
+    <h2 class="in d1" style="font-size:9cqw">Aponte a câmera<br>do celular</h2>
+    <div class="qr in d2"><img src="img/qr.svg" alt="QR code para coniugatoreitaliano.vercel.app"></div>
+    <a class="url-big in d3" href="https://coniugatoreitaliano.vercel.app/" style="text-decoration:none;position:relative;z-index:16">coniugatoreitaliano.vercel.app</a>
+    <a class="cta in d4" href="https://coniugatoreitaliano.vercel.app/" style="text-decoration:none;position:relative;z-index:16">Abrir o Coniugatore</a>
+  </section>
+  <button class="nav prev" id="prev" aria-label="Anterior"></button>
+  <button class="nav next" id="next" aria-label="Próximo"></button>
 </div>
-
+<div class="arrows"><button class="arr l" id="arrL" aria-label="Anterior">‹</button><button class="arr r" id="arrR" aria-label="Próximo">›</button></div>
+<div class="hint">← → para navegar · espaço pausa · F tela cheia</div>
 <script>
-(() => {
-  const reel = document.getElementById('reel');
-  const slides = [...reel.children];
-  const dots = document.getElementById('dots');
-  const prev = document.getElementById('prev'), next = document.getElementById('next');
-  const vid = document.getElementById('vid');
-  let atual = 0;
+(function () {
+  'use strict';
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var bars = document.getElementById('bars'), stage = document.getElementById('stage');
+  var cur = 0, t0 = 0, elapsed = 0, paused = false, raf = 0, stepTimer = 0;
+  slides.forEach(function () { var s = document.createElement('span'); s.appendChild(document.createElement('i')); bars.appendChild(s); });
 
-  slides.forEach((s, i) => {
-    const b = document.createElement('button');
-    b.type = 'button'; b.setAttribute('role', 'tab');
-    b.setAttribute('aria-label', 'Slide ' + (i + 1));
-    b.addEventListener('click', () => ir(i));
-    dots.appendChild(b);
-  });
-
-  function ir(i) {
-    i = Math.max(0, Math.min(slides.length - 1, i));
-    reel.scrollTo({ left: slides[i].offsetLeft - reel.offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  // posições do "toque" em cada passo (em % da tela do telefone)
+  var TARGETS = {
+    android: { 1: '.kebab', 2: '.s2 .hi', 3: '.s3 .hi', 4: '.s4 .new' },
+    ios: { 1: '.sbar .ico:last-child', 2: '.s2 .hi', 3: '.s3 .hi', 4: '.s4 .hi', 5: '.s5 .new' }
+  };
+  function relPos(el, root) {   // posição sem transformações, relativa à tela do telefone
+    var x = el.offsetWidth / 2, y = el.offsetHeight / 2;
+    while (el && el !== root) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; }
+    return [x, y];
   }
-  function marcar() {
-    const i = Math.round(reel.scrollLeft / reel.clientWidth);
-    if (i === atual && dots.children[i].getAttribute('aria-current') === 'true') return;
-    atual = i;
-    [...dots.children].forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
-    prev.disabled = i === 0; next.disabled = i === slides.length - 1;
-    const naTela = slides[i].contains(vid);
-    if (naTela) { const p = vid.play(); if (p && p.catch) p.catch(() => {}); }
-    else if (!vid.paused) vid.pause();
-  }
-  let raf = 0;
-  reel.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(marcar); }, { passive: true });
-  window.addEventListener('resize', () => ir(atual));
-  prev.addEventListener('click', () => ir(atual - 1));
-  next.addEventListener('click', () => ir(atual + 1));
-  reel.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); ir(atual + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); ir(atual - 1); }
-  });
-  if (location.hash === '#instalar') requestAnimationFrame(() => ir(9));
-  if (location.hash === '#link') requestAnimationFrame(() => ir(10));
-  marcar();
 
-  const copiar = document.getElementById('copiar');
-  copiar.addEventListener('click', () => {
-    const texto = 'https://coniugatoreitaliano.vercel.app/';
-    const ok = () => { copiar.textContent = 'Link copiado'; setTimeout(() => copiar.textContent = 'Copiar link', 2000); };
-    const selecionar = () => {
-      const r = document.createRange(); r.selectNodeContents(document.getElementById('url'));
-      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-      copiar.textContent = 'Selecionado: copie';
+  function dur(i) { return +slides[i].dataset.dur || 5500; }
+  function show(i) {
+    cur = (i + slides.length) % slides.length; elapsed = 0; t0 = performance.now();
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); });
+    [].forEach.call(bars.children, function (b, k) { b.classList.toggle('done', k < cur); b.firstChild.style.width = k < cur ? '100%' : '0'; });
+    var dark = slides[cur].classList.contains('dark') || slides[cur].classList.contains('green');
+    stage.classList.toggle('dark', dark);
+    document.getElementById('brandtop').style.visibility = slides[cur].classList.contains('cover') ? 'hidden' : 'visible';
+    startSteps();
+  }
+  function startSteps() {
+    clearInterval(stepTimer);
+    var s = slides[cur], n = +s.dataset.steps || 0; if (!n) return;
+    var mock = s.querySelector('.mock'), kind = mock.classList.contains('ios') ? 'ios' : 'android';
+    var tap = mock.querySelector('.tap'), lis = s.querySelectorAll('.steps li'), step = 1;
+    var per = (dur(cur) - 600) / n;
+    var paint = function () {
+      mock.dataset.step = step;
+      [].forEach.call(lis, function (li) { var k = +li.dataset.s; li.classList.toggle('cur', k === step); li.classList.toggle('past', k < step); });
+      var scr = mock.querySelector('.scr'), el = scr.querySelector(TARGETS[kind][step]);
+      if (el && step < n) { var p = relPos(el, scr); tap.style.left = p[0] + 'px'; tap.style.top = p[1] + 'px'; tap.style.opacity = 1; }
+      else tap.style.opacity = 0;
     };
-    try { navigator.clipboard.writeText(texto).then(ok, selecionar); } catch (e) { selecionar(); }
+    paint();
+    stepTimer = setInterval(function () { if (paused) return; if (step < n) { step++; paint(); } }, per);
+  }
+  function tick(now) {
+    if (!paused) {
+      elapsed += now - t0;
+      var p = Math.min(1, elapsed / dur(cur));
+      bars.children[cur].firstChild.style.width = (p * 100) + '%';
+      if (p >= 1) show(cur + 1);
+    }
+    t0 = now;
+    raf = requestAnimationFrame(tick);
+  }
+  function setPause(v) {
+    paused = v;
+    document.getElementById('pause').innerHTML = v
+      ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    document.getElementById('pause').setAttribute('aria-label', v ? 'Continuar' : 'Pausar');
+  }
+  var swallow = false;
+  document.getElementById('prev').addEventListener('click', function () { if (swallow) { swallow = false; return; } show(cur - 1); });
+  document.getElementById('next').addEventListener('click', function () { if (swallow) { swallow = false; return; } show(cur + 1); });
+  document.getElementById('arrL').addEventListener('click', function () { show(cur - 1); });
+  document.getElementById('arrR').addEventListener('click', function () { show(cur + 1); });
+  document.getElementById('pause').addEventListener('click', function (e) { e.stopPropagation(); setPause(!paused); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') show(cur + 1);
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === ' ') { e.preventDefault(); setPause(!paused); }
+    else if (e.key === 'f' || e.key === 'F') { try { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } catch (x) {} }
   });
+  // arrastar para os lados (celular)
+  var sx = null;
+  stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) { show(cur + (dx < 0 ? 1 : -1)); e.preventDefault(); }
+  });
+  // segurar pausa (como nos Stories)
+  var holdT = 0;
+  stage.addEventListener('pointerdown', function () { holdT = setTimeout(function () { setPause(true); holdT = -1; }, 350); });
+  stage.addEventListener('pointerup', function () { if (holdT === -1) { setPause(false); swallow = true; setTimeout(function () { swallow = false; }, 400); } else clearTimeout(holdT); holdT = 0; });
+  // começar num slide específico: ...html#7
+  var h = parseInt(location.hash.slice(1), 10);
+  show(h > 0 ? h - 1 : 0);
+  raf = requestAnimationFrame(tick);
 })();
 </script>
-
 </body>
 </html>
