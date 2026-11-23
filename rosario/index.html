@@ -2,183 +2,271 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instalar Il Santo Rosario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6efe2">
+<title>Il Santo Rosario</title>
 <link rel="icon" href="img/icon.png">
-<meta name="description" content="Como colocar o Il Santo Rosario na tela inicial do iPhone e do Android.">
-<meta property="og:title" content="Instalar Il Santo Rosario">
-<meta property="og:description" content="Reze o terço em italiano ou em português. Veja como colocar o ícone na tela do celular.">
-<meta property="og:image" content="https://www.ciframem.com.br/rosario/img/ios_poster.jpg">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Reze o terço em italiano ou em português, use no carro e coloque o ícone na tela do celular.">
+<meta property="og:title" content="Il Santo Rosario">
+<meta property="og:description" content="Reze o terço em italiano ou em português, passo a passo. Grátis, sem internet e com modo carro.">
+<meta property="og:image" content="https://www.ciframem.com.br/rosario/img/cover.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* VOICE everyday, warm and devotional, few words per slide
-   IDEA a pocket guide card from the parish: one step per card, swiped like prayer cards
-   PICTURE each platform's slide is a looping screen video of the real install flow
-   COLOUR wine of the app's cover with cream paper; same pair at night, deeper
-   TYPE Cormorant Garamond (as the app's title) + Inter
-   LAYOUT one card per screen: title, video filling the middle, steps under it on phone; video left, steps right when wide */
-:root{color-scheme:light dark;
-  --bg:light-dark(#f6efe2,#1c1012);--paper:light-dark(#fffaf0,#2a181b);--ink:light-dark(#2a1a14,#f3e8da);
-  --muted:light-dark(#76604f,#c2ab98);--wine:light-dark(#7d1f2a,#e6a1aa);--wineBg:light-dark(#7d1f2a,#8e2a36);
-  --line:light-dark(#e4d6bf,#4a2f33);--onWine:#fff}
-:root[data-theme=light]{color-scheme:light}
-:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0;margin:0;padding:0}
-html,body{height:100%}
-[hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow:hidden}
-.track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
-.track::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px max(16px,4vw) 80px;overflow:hidden}
-h1,h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;color:var(--wine);text-align:center;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
-h1{font-size:clamp(34px,9vw,52px)}
-h2{font-size:clamp(30px,7.5vw,44px)}
-.lead{text-align:center;color:var(--muted);max-width:32em;font-size:17px}
-.lead b{color:var(--ink)}
-.icon{width:88px;height:88px;border-radius:22px;box-shadow:0 10px 24px -10px rgba(60,20,20,.5)}
-.body{flex:1;min-height:0;width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.vid{flex:1;min-height:0;display:flex;justify-content:center;width:100%}
-video{height:100%;max-height:640px;aspect-ratio:9/16;max-width:100%;border-radius:20px;background:var(--wineBg);box-shadow:0 16px 36px -16px rgba(40,10,10,.55);object-fit:cover}
-.steps{list-style:none;counter-reset:s;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 8px;max-width:520px}
-.steps li{display:flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 5px;font-size:14px;line-height:1.25}
-.steps li::before{counter-increment:s;content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--wineBg);color:var(--onWine);display:grid;place-items:center;font-size:12px;font-weight:600}
-.small{font-size:13px;color:var(--muted);text-align:center;max-width:34em}
-.pair{display:flex;gap:14px;flex:1;min-height:0;width:100%;justify-content:center}
-.pair figure{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:0;flex:0 1 auto}
-.pair img{height:100%;max-height:520px;aspect-ratio:9/16;border-radius:16px;object-fit:cover;box-shadow:0 12px 30px -14px rgba(40,10,10,.55);max-width:44vw}
-.pair figcaption{font-weight:600;color:var(--wine)}
-.pair a{display:contents}
-.tips{display:grid;gap:10px;width:100%;max-width:520px}
-.tip{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
-.tip b{display:block;color:var(--wine);margin-bottom:2px}
-.cta{display:inline-block;background:var(--wineBg);color:var(--onWine);text-decoration:none;font-weight:600;font-size:18px;padding:14px 28px;border-radius:999px}
-.nav{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;pointer-events:none}
-.nav button{pointer-events:auto;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--wine);background:var(--paper);color:var(--wine);font-size:22px;cursor:pointer}
-.nav button:disabled{opacity:.25}
-.nav button:focus-visible{outline:3px solid var(--wine);outline-offset:2px}
-.dots{display:flex;gap:7px;pointer-events:auto}
-.dots button{width:9px;height:9px;padding:0;border:0;border-radius:5px;background:var(--line);cursor:pointer;transition:width .25s}
-.dots button.on{background:var(--wineBg);width:24px}
-@media (min-width:820px){
-  .body.split{flex-direction:row;align-items:stretch;justify-content:center;gap:40px}
-  .body.split .vid{flex:0 0 auto;width:auto}
-  .body.split .side{display:flex;flex-direction:column;justify-content:center;gap:16px;max-width:380px}
-  .body.split .steps{flex-direction:column;align-items:stretch}
-  .body.split .steps li{border-radius:14px;padding:10px 14px 10px 10px;font-size:16px}
-  .body.split .steps li::before{width:28px;height:28px;font-size:14px}
+:root{
+  --bg:#f6efe2; --paper:#fffaf0; --ink:#2a1a14; --muted:#7a6656; --wine:#7d1f2a; --wine2:#a8323f;
+  --gold:#b88a2e; --line:#e4d6bf; --green:#1f7a4c; --shadow:0 18px 40px -18px rgba(60,25,15,.45);
+  --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans:"Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-@media (max-height:620px){.icon{width:64px;height:64px}.lead{font-size:15px}}
-@media (prefers-reduced-motion:reduce){.dots button{transition:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-tap-highlight-color:transparent}
+.track{display:flex;height:100dvh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;flex-direction:column;align-items:center;
+  padding:max(26px,env(safe-area-inset-top)) 22px calc(86px + env(safe-area-inset-bottom));gap:14px;overflow:hidden;position:relative}
+.slide.hero{background:radial-gradient(120% 70% at 50% 0%,#fffaf0 0%,var(--bg) 60%)}
+.slide.car{background:linear-gradient(180deg,#2b1418 0%,#1a0d10 100%);color:#f6efe2}
+.slide.car .kick{color:#e6c48a}.slide.car h2{color:#fff}.slide.car p.lead{color:#e9dccb}
+.kick{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wine);font-weight:600;text-align:center}
+h1,h2{font-family:var(--serif);font-weight:700;text-align:center;line-height:1.05;color:var(--wine)}
+h1{font-size:clamp(2.4rem,11vw,3.4rem);letter-spacing:.06em}
+h2{font-size:clamp(1.85rem,8.4vw,2.6rem)}
+p.lead{font-size:clamp(1.02rem,4.3vw,1.2rem);line-height:1.42;text-align:center;color:var(--muted);max-width:30em}
+p.lead b{color:var(--ink)}
+.slide.car p.lead b{color:#fff}
+.vis{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;gap:12px}
+.phone{height:min(100%,560px,150vw);aspect-ratio:1/2;border-radius:30px;padding:7px;background:#2a1a14;box-shadow:var(--shadow);flex:none}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:24px;display:block}
+.phone.sm{height:min(100%,520px,88vw)}
+.phone img.mid{object-position:center}
+.icon{width:96px;height:96px;border-radius:22px;box-shadow:var(--shadow)}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tag{border:1.5px solid var(--wine);color:var(--wine);border-radius:999px;padding:.3rem .8rem;font-size:.92rem;font-weight:600;background:var(--paper)}
+.swipe{font-size:.95rem;color:var(--muted);display:flex;gap:.4rem;align-items:center;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(6px)}}
+/* bandeiras */
+.flags{display:flex;flex-direction:column;gap:10px;width:100%;max-width:420px}
+.flag{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.flag svg{width:42px;height:28px;border-radius:5px;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
+.flag b{display:block;font-size:1.02rem}.flag span{font-size:.88rem;color:var(--muted)}
+/* painel do carro */
+.cp{width:100%;max-width:440px;background:#0d0d12;border-radius:26px;padding:14px;box-shadow:0 0 0 8px #050507,0 30px 60px -20px #000;color:#fff}
+.cp-top{display:flex;justify-content:space-between;font:600 .8rem var(--sans);color:#9aa;padding:0 4px 10px}
+.np{background:linear-gradient(135deg,#2a2d44,#1b1d2b);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.np-row{display:flex;gap:14px;align-items:center}
+.np-row img{width:92px;height:92px;border-radius:10px;flex:none}
+.np-t{font:600 1.22rem/1.2 var(--sans)}
+.np-s{font:400 1rem/1.25 var(--sans);color:#b9bdd6;margin-top:4px}
+.np-bar{height:5px;border-radius:3px;background:#3b3e58;overflow:hidden}.np-bar i{display:block;height:100%;width:30%;background:#e86b7a}
+.np-ctl{display:flex;justify-content:space-around;align-items:center;font-size:1.6rem;color:#fff}
+.np-ctl .hl{position:relative}
+.np-ctl .hl::after{content:"";position:absolute;inset:-8px -12px;border:2px solid #e6c48a;border-radius:14px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.wheel{display:flex;align-items:center;gap:10px;font-size:.95rem;color:#e9dccb;justify-content:center;text-align:left;max-width:440px}
+.wheel .k{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #e6c48a;display:grid;place-items:center;font-size:1.1rem;color:#e6c48a}
+/* passos */
+.steps{list-style:none;display:flex;flex-direction:column;gap:10px;width:100%;max-width:440px;counter-reset:s}
+.steps li{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:1rem;line-height:1.35}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-weight:600}
+.slide.car .steps li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#f6efe2}
+.slide.car .steps li::before{background:#e6c48a;color:#2b1418}
+.ico{display:inline-flex;vertical-align:-4px;width:22px;height:22px;color:var(--wine)}
+video{height:min(100%,600px,150vw);aspect-ratio:9/16;border-radius:22px;background:#7d1f2a;box-shadow:var(--shadow);object-fit:cover}
+.chips{list-style:none;counter-reset:c;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:460px}
+.chips li{display:flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px 11px 4px 4px;font-size:.9rem;font-weight:600}
+.chips li::before{counter-increment:c;content:counter(c);width:20px;height:20px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-size:.72rem}
+[hidden]{display:none!important}
+.note{font-size:.85rem;color:var(--muted);text-align:center;max-width:30em}
+.slide.car .note{color:#b9a998}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:440px}
+.feat div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px;font-size:.92rem;line-height:1.25;text-align:center}
+.feat div big{display:block;font-size:1.4rem;margin-bottom:2px}
+.cta{display:inline-block;background:var(--wine);color:#fff;text-decoration:none;font:600 1.15rem var(--sans);padding:.85rem 1.6rem;border-radius:999px;box-shadow:var(--shadow)}
+.url{font:600 1rem var(--sans);color:var(--wine);text-align:center;overflow-wrap:anywhere}
+.credit{font-size:.88rem;color:var(--muted);text-align:center}
+/* navegação */
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px max(14px,env(safe-area-inset-bottom));pointer-events:none}
+.nav button{pointer-events:auto;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--wine);background:var(--paper);color:var(--wine);font-size:1.3rem;cursor:pointer}
+.nav button:disabled{opacity:.25}
+.dots{display:flex;gap:7px;pointer-events:auto}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:.25s}
+.dots i.on{background:var(--wine);width:22px;border-radius:5px}
+body.dark .nav button{background:#2b1418;border-color:#e6c48a;color:#e6c48a}
+body.dark .dots i{background:#5a3c3c}body.dark .dots i.on{background:#e6c48a}
+@media (min-height:760px){ .slide{gap:18px} }
+@media (max-height:700px){ .cp.mini{display:none} .slide.car .np-row img{width:64px;height:64px} .slide.car .np{padding:10px} .np-t{font-size:1.05rem} .np-s{font-size:.92rem} .slide.car h2{font-size:1.7rem} .wheel{font-size:.88rem} }
+@media (max-height:640px){ .icon{width:72px;height:72px} p.lead{font-size:.98rem} .steps li{padding:9px 12px;font-size:.95rem} }
 </style>
 </head>
 <body>
 <main class="track" id="track">
 
-  <section class="slide" aria-label="Início">
+  <!-- 1 capa -->
+  <section class="slide hero">
     <img class="icon" src="img/icon.png" alt="">
-    <h1>O terço na sua tela inicial</h1>
-    <p class="lead">Instale o <b>Il Santo Rosario</b> como um app: um toque no ícone e você já está rezando, <b>até sem internet</b>.</p>
-    <div class="pair">
-      <figure><img src="img/ios_poster.jpg" alt="Ícone na tela do iPhone" data-go="1"><figcaption>iPhone ›</figcaption></figure>
-      <figure><img src="img/and_poster.jpg" alt="Ícone na tela do Android" data-go="2"><figcaption>Android ›</figcaption></figure>
-    </div>
+    <h1>IL SANTO<br>ROSARIO</h1>
+    <p class="lead">Aprenda a rezar o terço <b>em italiano</b> — ou reze em português — passo a passo, no celular.</p>
+    <div class="tags"><span class="tag">Grátis</span><span class="tag">Sem internet</span><span class="tag">Modo carro</span></div>
+    <div class="vis"><div class="phone"><img src="img/cover.jpg" alt="Capa do app"></div></div>
+    <p class="swipe">Deslize para conhecer <span>→</span></p>
   </section>
 
-  <section class="slide" aria-label="iPhone">
-    <h2>No iPhone</h2>
-    <div class="body split">
-      <div class="vid"><video src="img/ios.mp4" poster="img/ios_poster.jpg" muted loop playsinline preload="metadata"></video></div>
-      <div class="side">
-        <ol class="steps">
-          <li>Abra o link no <b>&nbsp;Safari</b></li>
-          <li>Toque em <b>&nbsp;•••</b></li>
-          <li><b>Compartilhar</b></li>
-          <li><b>Adicionar à Tela de Início</b></li>
-          <li>Toque em <b>&nbsp;Adicionar</b></li>
-        </ol>
-        <p class="small">Em iPhones mais antigos o botão Compartilhar já aparece na barra de baixo, sem o •••.</p>
+  <!-- 2 idiomas -->
+  <section class="slide">
+    <p class="kick">Três formas de rezar</p>
+    <h2>Escolha a bandeira</h2>
+    <div class="flags">
+      <div class="flag"><svg viewBox="0 0 30 20"><rect width="10" height="20" fill="#009246"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ce2b37"/></svg>
+        <div><b>Tudo em italiano</b><span>Para quem quer mergulhar no idioma</span></div></div>
+      <div class="flag"><svg viewBox="0 0 30 20"><rect width="5" height="20" fill="#009246"/><rect x="5" width="5" height="20" fill="#fff"/><rect x="10" width="5" height="20" fill="#ce2b37"/><rect x="15" width="15" height="20" fill="#009b3a"/><polygon points="22.5,3 29,10 22.5,17 16,10" fill="#fedf00"/><circle cx="22.5" cy="10" r="3.2" fill="#002776"/></svg>
+        <div><b>Italiano + explicação</b><span>Orações em italiano, ajuda em português</span></div></div>
+      <div class="flag"><svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#009b3a"/><polygon points="15,2 27.5,10 15,18 2.5,10" fill="#fedf00"/><circle cx="15" cy="10" r="4.6" fill="#002776"/></svg>
+        <div><b>Tudo em português</b><span>O terço completo, do jeito do Brasil</span></div></div>
+    </div>
+    <div class="vis"><div class="phone"><img class="mid" src="img/mistero.jpg" alt="Mistério em italiano com tradução"></div></div>
+  </section>
+
+  <!-- 3 contagem -->
+  <section class="slide">
+    <p class="kick">Nunca mais perca a conta</p>
+    <h2>Cada Ave-Maria contada</h2>
+    <p class="lead">O app mostra <b>a oração certa na hora certa</b>, conta as dez Ave-Marias e já começa pelo <b>mistério do dia</b>.</p>
+    <div class="vis"><div class="phone"><img src="img/ave.jpg" alt="Contador 3 de 10"></div></div>
+  </section>
+
+  <!-- 4 modo carro -->
+  <section class="slide car">
+    <p class="kick">🚗 Modo carro</p>
+    <h2>Reze no trânsito sem perder a conta</h2>
+    <p class="lead">Para quem <b>já sabe rezar</b>: o painel do carro mostra só o que importa — <b>a contagem e o mistério</b>.</p>
+    <div class="vis" style="flex-direction:column">
+      <div class="cp">
+        <div class="cp-top"><span>Reproduzindo</span><span>CarPlay</span></div>
+        <div class="np">
+          <div class="np-row"><img src="img/art_ave.png" alt="">
+            <div><div class="np-t">Ave Maria 3/10</div><div class="np-s">2° La flagellazione di Gesù</div></div></div>
+          <div class="np-bar"><i></i></div>
+          <div class="np-ctl"><span>⏮</span><span>⏸</span><span class="hl">⏭</span></div>
+        </div>
       </div>
     </div>
+    <div class="wheel"><span class="k">⏭</span><span>O botão <b>“próxima faixa” do volante</b> passa para a próxima Ave-Maria. ⏮ volta.</span></div>
   </section>
 
-  <section class="slide" aria-label="Android">
-    <h2>No Android</h2>
-    <div class="body split">
-      <div class="vid"><video src="img/and.mp4" poster="img/and_poster.jpg" muted loop playsinline preload="metadata"></video></div>
-      <div class="side">
-        <ol class="steps">
-          <li>Abra o link no <b>&nbsp;Chrome</b></li>
-          <li>Toque no menu <b>&nbsp;⋮</b></li>
-          <li><b>Adicionar à tela inicial</b></li>
-          <li>Confirme em <b>&nbsp;Adicionar</b></li>
-        </ol>
-        <p class="small">Em alguns celulares a opção se chama <b>“Instalar app”</b>. Funciona igual.</p>
-      </div>
+  <!-- 5 modo carro: como usar -->
+  <section class="slide car">
+    <p class="kick">🚗 Modo carro · como usar</p>
+    <h2>O mistério na tela, as mãos no volante</h2>
+    <div class="cp mini" style="max-width:420px">
+      <div class="np"><div class="np-row"><img src="img/art_mis.png" alt="">
+        <div><div class="np-t">2° mistero del Dolore</div><div class="np-s">La flagellazione di Gesù</div></div></div></div>
     </div>
+    <ol class="steps">
+      <li><span>Abra o terço no celular e toque no <b>&nbsp;🚗&nbsp;</b>.</span></li>
+      <li><span>No carro, use <b>⏮ ⏭ do volante</b> para avançar ou voltar as orações.</span></li>
+      <li><span>Quer companhia? Aperte <b>▶</b> e o app reza em voz alta com você.</span></li>
+      <li><span>No fim aparece <b>“Dio ti benedica”</b> e quanto tempo durou o terço.</span></li>
+    </ol>
+    <p class="note">Testado no Apple CarPlay. Combine o terço com atenção total ao trânsito.</p>
   </section>
 
-  <section class="slide" aria-label="Dicas">
-    <h2>Antes de rezar</h2>
-    <div class="tips">
-      <div class="tip"><b>Abra uma vez com internet</b>O app guarda tudo no celular. Depois funciona sem conexão, até no avião.</div>
-      <div class="tip"><b>Use o navegador certo</b>No iPhone, o Safari. No Android, o Chrome. Se o link abriu dentro do WhatsApp ou do Instagram, toque em “Abrir no navegador” primeiro.</div>
-      <div class="tip"><b>Atualizações chegam sozinhas</b>Quando houver versão nova, basta abrir o app com internet.</div>
-      <div class="tip"><b>Só os vídeos do YouTube</b>precisam de conexão. O terço, as orações e o modo carro não.</div>
+  <!-- 6 ouvir -->
+  <section class="slide">
+    <p class="kick">Aprenda a pronúncia</p>
+    <h2>Ouça, no seu ritmo</h2>
+    <p class="lead">Toque em <b>▶ Ouvir</b>: o celular lê a oração. Velocidade de <b>0,6× a 1,5×</b>, repetição, letra maior ou menor e <b>modo escuro</b> para rezar à noite.</p>
+    <div class="vis"><div class="phone"><img src="img/dark_pt.jpg" alt="Modo escuro em português"></div></div>
+  </section>
+
+  <!-- 7 extras -->
+  <section class="slide">
+    <p class="kick">Tudo à mão</p>
+    <h2>Mais que um terço</h2>
+    <div class="feat">
+      <div><big>📖</big>Orações em italiano e português</div>
+      <div><big>✨</big>Mistérios simplificados</div>
+      <div><big>▶️</big>Terço em vídeo</div>
+      <div><big>⛪</big>Igrejas perto de você</div>
     </div>
+    <div class="vis"><div class="phone sm"><img src="img/oracoes.jpg" alt="Lista de orações"></div><div class="phone sm"><img src="img/missas.jpg" alt="Vídeos e missas"></div></div>
   </section>
 
-  <section class="slide" aria-label="Abrir o app">
+  <!-- 8 instalar: iPhone -->
+  <section class="slide">
+    <p class="kick">Instale no iPhone</p>
+    <h2>O ícone na tela inicial</h2>
+    <div class="vis"><video src="img/ios.mp4" poster="img/ios_poster.jpg" muted loop playsinline preload="metadata"></video></div>
+    <ol class="chips"><li>Safari</li><li>•••</li><li>Compartilhar</li><li>Adicionar à Tela de Início</li><li>Adicionar</li></ol>
+    <p class="note">Em iPhones mais antigos o Compartilhar já fica na barra de baixo, sem o •••.</p>
+  </section>
+
+  <!-- 9 instalar: Android -->
+  <section class="slide">
+    <p class="kick">Instale no Android</p>
+    <h2>O ícone na tela inicial</h2>
+    <div class="vis"><video src="img/and.mp4" poster="img/and_poster.jpg" muted loop playsinline preload="metadata"></video></div>
+    <ol class="chips"><li>Chrome</li><li>⋮</li><li>Adicionar à tela inicial</li><li>Adicionar</li></ol>
+    <p class="note">Em alguns celulares a opção se chama “Instalar app”.</p>
+  </section>
+
+  <!-- 10 dicas -->
+  <section class="slide">
+    <p class="kick">Antes de rezar</p>
+    <h2>Três dicas rápidas</h2>
+    <ol class="steps">
+      <li><span>Abra o app <b>uma vez com internet</b>. Depois o terço, as orações e o modo carro funcionam sem conexão.</span></li>
+      <li><span>Se o link abriu dentro do <b>WhatsApp ou do Instagram</b>, toque em “Abrir no navegador” antes de instalar.</span></li>
+      <li><span>Versões novas chegam sozinhas: basta abrir o app com internet.</span></li>
+    </ol>
+    <img class="icon" src="img/icon.png" alt="">
+  </section>
+
+  <!-- 10 final -->
+  <section class="slide hero">
     <img class="icon" src="img/icon.png" alt="">
     <h2>Preghiamo!</h2>
     <p class="lead">Pregate tutti i giorni il Santo Rosario.<br>Abbiate fiducia, non temete.</p>
     <a class="cta" id="cta" target="_blank" rel="noopener">Abrir o app</a>
-    <p class="small" id="noUrl">Peça o link do app a quem te enviou esta página.</p>
-    <p class="small">Feito por <b>Marcelo Ratto</b> para aprender a rezar o terço em italiano. Distribuição gratuita.</p>
+    <p class="url" id="url"></p>
+    <div class="vis"><div class="phone sm"><img src="img/menu.jpg" alt="Mistérios do dia"></div></div>
+    <p class="credit">Feito por <b>Marcelo Ratto</b> para aprender a rezar o terço em italiano.<br>Distribuição gratuita.</p>
   </section>
 
 </main>
-<nav class="nav" aria-label="Navegação">
+<nav class="nav">
   <button id="prev" aria-label="Anterior">‹</button>
   <div class="dots" id="dots"></div>
   <button id="next" aria-label="Próximo">›</button>
 </nav>
 <script>
-{
-  const APP_URL = "https://rosarioitaliano-five.vercel.app/";
-  const track = document.getElementById("track"), slides = [...track.children], dots = document.getElementById("dots");
-  slides.forEach((s, i) => {
-    const d = document.createElement("button");
-    d.setAttribute("aria-label", s.getAttribute("aria-label"));
-    d.addEventListener("click", () => goTo(i));
-    dots.appendChild(d);
-  });
-  let cur = 0;
-  const goTo = i => { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" }); };
-  const update = () => {
-    const n = Math.round(track.scrollLeft / track.clientWidth);
-    if(n !== cur || !dots.querySelector(".on")){
-      cur = n;
-      [...dots.children].forEach((d, i) => d.classList.toggle("on", i === cur));
-      document.getElementById("prev").disabled = cur === 0;
-      document.getElementById("next").disabled = cur === slides.length - 1;
-      slides.forEach((s, i) => s.querySelectorAll("video").forEach(v => {
-        if(i === cur){ v.currentTime = 0; const p = v.play(); if(p) p.catch(() => { v.controls = true; }); }
-        else v.pause();
-      }));
-    }
-  };
-  track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
-  window.addEventListener("resize", () => goTo(cur));
-  document.getElementById("prev").addEventListener("click", () => goTo(cur - 1));
-  document.getElementById("next").addEventListener("click", () => goTo(cur + 1));
-  document.addEventListener("keydown", e => { if(e.key === "ArrowRight") goTo(cur + 1); if(e.key === "ArrowLeft") goTo(cur - 1); });
-  document.querySelectorAll("[data-go]").forEach(el => { el.style.cursor = "pointer"; el.addEventListener("click", () => goTo(+el.dataset.go)); });
-  document.querySelectorAll("video").forEach(v => v.addEventListener("click", () => { v.paused ? v.play() : v.pause(); }));
-  const cta = document.getElementById("cta");
-  if(/^https?:\/\//.test(APP_URL)){ cta.href = APP_URL; document.getElementById("noUrl").hidden = true; }
-  else cta.hidden = true;
-  cur = -1; update();
+const APP_URL = "https://rosarioitaliano-five.vercel.app/";
+const track = document.getElementById("track"), slides = [...track.children], dots = document.getElementById("dots");
+slides.forEach((_, i) => { const d = document.createElement("i"); d.addEventListener("click", () => goTo(i)); dots.appendChild(d); });
+let cur = 0;
+function goTo(i){ i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" }); }
+function update(){
+  cur = Math.round(track.scrollLeft / track.clientWidth);
+  [...dots.children].forEach((d, i) => d.classList.toggle("on", i === cur));
+  document.getElementById("prev").disabled = cur === 0;
+  document.getElementById("next").disabled = cur === slides.length - 1;
+  document.body.classList.toggle("dark", slides[cur].classList.contains("car"));
+  slides.forEach((sl, i) => sl.querySelectorAll("video").forEach(v => {
+    if(i === cur){ if(v.paused){ v.currentTime = 0; const p = v.play(); if(p) p.catch(() => { v.controls = true; }); } }
+    else v.pause();
+  }));
 }
+track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+window.addEventListener("resize", () => goTo(cur));
+document.getElementById("prev").onclick = () => goTo(cur - 1);
+document.getElementById("next").onclick = () => goTo(cur + 1);
+document.addEventListener("keydown", e => { if(e.key === "ArrowRight") goTo(cur + 1); if(e.key === "ArrowLeft") goTo(cur - 1); });
+const cta = document.getElementById("cta"), url = document.getElementById("url");
+if(/^https?:\/\//.test(APP_URL)){ cta.href = APP_URL; url.textContent = APP_URL.replace(/^https?:\/\//, "").replace(/\/$/, ""); }
+else { cta.hidden = true; url.textContent = ""; }
+update();
 </script>
 <!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em https://ciframem.goatcounter.com -->
 <script data-goatcounter="https://ciframem.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
