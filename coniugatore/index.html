@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coniugatore: treine os verbos italianos</title>
+<meta name="description" content="Conheça o Coniugatore, app gratuito para treinar a conjugação dos verbos italianos (2.294 verbos, 22 tempos, CILS B1), e veja como instalar no iPhone e no Android.">
+<meta name="theme-color" content="#15171a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coniugatore: treine os verbos italianos">
+<meta property="og:description" content="Grátis · 2.294 verbos · 22 tempos · CILS B1. Veja como instalar no iPhone e no Android.">
+<meta property="og:image" content="https://www.ciframem.com.br/coniugatore/previa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.ciframem.com.br/coniugatore/">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.ciframem.com.br/coniugatore/">
+<link rel="icon" href="img/icone.png">
+<link rel="apple-touch-icon" href="img/icone.png">
+<!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em https://ciframem.goatcounter.com -->
+<script data-goatcounter="https://ciframem.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: um único post 4:5 centrado, deslizável como carrossel de Instagram;
+   cada slide = faixa tricolor, texto em cima, tela real do app sangrando embaixo.
+   Visual único escuro, igual ao app. */
+:root {
+  --ground: #0f1113;      /* fundo da página */
+  --slide: #15171a;       /* fundo do post (o mesmo do app) */
+  --card: #1d2024;
+  --line: #2f3439;
+  --text: #ecebe6;
+  --muted: #9ba299;
+  --accent: #3fbf7f;      /* verde do app */
+  --verde: #1f8a4c; --bianco: #ecebe6; --rosso: #c8323a;
+  --display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+html { background: var(--ground); -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body {
+  background: var(--ground); color: var(--text); font-family: var(--sans);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: calc(28px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px));
+}
+.wrap { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+.reel {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  border-radius: 18px; scrollbar-width: none; outline: none;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+}
+.reel::-webkit-scrollbar { display: none; }
+.reel:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+
+.slide {
+  flex: 0 0 100%; aspect-ratio: 4 / 5; max-width: 100%; scroll-snap-align: center;
+  position: relative; overflow: hidden; background: var(--slide);
+  container-type: inline-size;
+}
+.slide::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 1.4cqw;
+  background: linear-gradient(90deg, var(--verde) 0 33.33%, var(--bianco) 33.33% 66.66%, var(--rosso) 66.66%);
+}
+.txt { position: absolute; left: 7cqw; right: 7cqw; top: 8cqw; display: flex; flex-direction: column; gap: 2.4cqw; }
+.eyebrow {
+  font-size: 2.7cqw; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+  display: flex; justify-content: space-between; font-variant-numeric: tabular-nums;
+}
+.eyebrow span:last-child { color: var(--muted); letter-spacing: .06em; }
+h2 {
+  font-family: var(--display); font-weight: 800; font-size: 8.4cqw; line-height: .98;
+  letter-spacing: -.025em; text-wrap: balance; margin: 0;
+}
+h2 em { font-style: normal; color: var(--accent); }
+.txt p { font-size: 3.55cqw; line-height: 1.38; color: var(--muted); margin: 0; text-wrap: pretty; }
+.txt p b { color: var(--text); font-weight: 600; }
+
+.shot {
+  position: absolute; left: 11cqw; right: 11cqw; top: 58cqw; bottom: 0;
+  border-radius: 3.2cqw 3.2cqw 0 0; overflow: hidden;
+  border: 1px solid var(--line); border-bottom: 0; background: var(--card);
+  box-shadow: 0 -2cqw 6cqw rgba(0, 0, 0, .35);
+}
+.shot img { display: block; width: 100%; height: auto; max-width: 100%; }
+.shot.low { top: 66cqw; }
+.shot.mid { top: 62cqw; }
+
+/* capa */
+.capa .txt { top: 10cqw; gap: 3cqw; }
+.marca { display: flex; align-items: center; gap: 3cqw; }
+.marca img { width: 13cqw; height: 13cqw; border-radius: 3.2cqw; }
+.marca b { font-family: var(--display); font-weight: 800; font-size: 10.5cqw; letter-spacing: -.03em; line-height: 1; }
+.stats { display: flex; gap: 2cqw; flex-wrap: wrap; }
+.stats span {
+  font-size: 3cqw; font-weight: 600; padding: 1.2cqw 2.4cqw; border-radius: 99px;
+  border: 1px solid var(--line); color: var(--text); font-variant-numeric: tabular-nums;
+}
+.stats span:first-child { border-color: var(--accent); color: var(--accent); }
+.capa .shot { top: 64cqw; transform: rotate(-3deg); left: 14cqw; right: 8cqw; bottom: -6cqw; }
+
+/* vídeo */
+.video .vbox {
+  position: absolute; left: 50%; transform: translateX(-50%); top: 41cqw; bottom: 6cqw;
+  aspect-ratio: 4 / 5; max-width: 86cqw; border-radius: 3cqw; overflow: hidden;
+  border: 1px solid var(--line); background: #000;
+}
+.video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* final */
+.fim .txt { gap: 2cqw; }
+.qrbox {
+  position: absolute; left: 50%; transform: translateX(-50%); top: 36cqw;
+  width: 42cqw; padding: 2.4cqw; background: #fff; border-radius: 3.6cqw;
+}
+.qrbox img { display: block; width: 100%; height: auto; }
+.fim .link {
+  position: absolute; left: 7cqw; right: 7cqw; top: 86cqw; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 2.6cqw;
+}
+.url { font-family: var(--display); font-weight: 800; font-size: 5.6cqw; letter-spacing: -.02em; color: var(--accent); user-select: all; word-break: break-all; }
+.acts { display: flex; gap: 2.4cqw; flex-wrap: wrap; justify-content: center; }
+.btn {
+  font: 600 3.4cqw/1 var(--sans); padding: 2.6cqw 4.4cqw; border-radius: 99px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--card); color: var(--text); text-decoration: none;
+}
+.btn.pri { background: var(--accent); border-color: var(--accent); color: #0a1410; }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.assina { position: absolute; left: 7cqw; right: 7cqw; bottom: 4.5cqw; text-align: center; font-size: 2.9cqw; color: var(--muted); line-height: 1.45; }
+
+/* controles abaixo do post */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.arrow {
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--card);
+  color: var(--text); font-size: 20px; cursor: pointer; display: grid; place-items: center; flex: none;
+}
+.arrow:disabled { opacity: .35; cursor: default; }
+.arrow:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; min-width: 0; }
+.dots button {
+  width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: var(--line); cursor: pointer;
+  transition: width .2s, background .2s;
+}
+.dots button[aria-current="true"] { width: 22px; background: var(--accent); }
+.dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.dica { text-align: center; font-size: 13px; color: var(--muted); margin: 0; }
+@media (prefers-reduced-motion: reduce) { .reel { scroll-behavior: auto; } .dots button { transition: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="reel" id="reel" tabindex="0" aria-label="Carrossel: funcionalidades do Coniugatore" aria-roledescription="carrossel">
+
+    <section class="slide capa" aria-label="1 de 11">
+      <div class="txt">
+        <div class="marca"><img src="img/icone.png" alt=""><b>Coniugatore</b></div>
+        <h2>Os verbos italianos, <em>treinados</em> até sair sem pensar.</h2>
+        <div class="stats"><span>Grátis</span><span>2.294 verbos</span><span>22 tempos</span><span>CILS B1</span></div>
+      </div>
+      <div class="shot"><img src="img/capa.jpg" alt="Exercício com o verbo volere no presente: cinco formas certas em verde e uma errada em vermelho, com a forma correta embaixo"></div>
+    </section>
+
+    <section class="slide" aria-label="2 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Níveis</span><span>2 / 11</span></div>
+        <h2>Escolha o seu <em>nível</em></h2>
+        <p>Do <b>Iniciante</b>, com os 25 verbos para começar, ao <b>Avançado</b>. E duas listas para a prova <b>CILS B1 cittadinanza</b>: os 44 verbos essenciais e o complemento.</p>
+      </div>
+      <div class="shot low"><img src="img/niveis.jpg" alt="Lista de níveis: Iniciante, Básico, Elementar, Intermediário 1 e 2, Avançado e as duas listas CILS B1"></div>
+    </section>
+
+    <section class="slide" aria-label="3 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Seu treino</span><span>3 / 11</span></div>
+        <h2>Monte o treino do <em>seu jeito</em></h2>
+        <p>Filtre por <b>-are, -ere, -ire</b>, regulares, irregulares ou reflexivos, procure um verbo pelo nome e marque só os tempos que quer praticar.</p>
+      </div>
+      <div class="shot low"><img src="img/verbos.jpg" alt="Filtros de verbos por terminação, regulares, irregulares e verbos errados nas últimas rodadas"></div>
+    </section>
+
+    <section class="slide" aria-label="4 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Exercício</span><span>4 / 11</span></div>
+        <h2>Conjugue e confira <em>na hora</em></h2>
+        <p>Escreva as seis pessoas e toque em <b>Verificar</b>: o que estiver errado aparece em vermelho, com a forma certa embaixo. O <b>Enter</b> copia a linha de cima, e você só troca a terminação.</p>
+      </div>
+      <div class="shot low"><img src="img/exercicio.jpg" alt="Exercício verificado: a forma vogliano marcada em vermelho e a correção vogliono"></div>
+    </section>
+
+    <section class="slide" aria-label="5 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Pronúncia</span><span>5 / 11</span></div>
+        <h2>Ouça como <em>se fala</em></h2>
+        <p>Depois de verificar, toque no alto-falante e ouça a forma certa em italiano. Na tabela completa, um toque no título lê o tempo inteiro.</p>
+      </div>
+      <div class="shot low"><img src="img/pronuncia.jpg" alt="Tabela de conjugação de volere com um alto-falante ao lado de cada forma"></div>
+    </section>
+
+    <section class="slide" aria-label="6 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Reverso</span><span>6 / 11</span></div>
+        <h2>Leia a frase, ache o <em>infinitivo</em></h2>
+        <p>No <b>Reverso</b>, aparece uma frase com o verbo conjugado em destaque e você escreve o infinitivo. Em <b>Ambos</b>, depois do infinitivo vem a conjugação do mesmo verbo.</p>
+      </div>
+      <div class="shot low"><img src="img/reverso.jpg" alt="Exercício reverso: a frase Controlla se hai chiuso il gas, com Controlla em destaque, pedindo o infinitivo"></div>
+    </section>
+
+    <section class="slide" aria-label="7 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Modo carro</span><span>7 / 11</span></div>
+        <h2>Estude <em>dirigindo</em></h2>
+        <p>O app fala o verbo e o tempo, você responde em voz alta e ele diz a forma certa. Dá para avançar pelo botão do volante, sem olhar a tela.</p>
+      </div>
+      <div class="shot low"><img src="img/carro.jpg" alt="Modo carro mostrando giocare no imperativo, resposta gioca, com botões Repetir, Pausar e Próxima"></div>
+    </section>
+
+    <section class="slide" aria-label="8 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Relatório</span><span>8 / 11</span></div>
+        <h2>Veja onde errou e <em>treine de novo</em></h2>
+        <p>No fim sai o relatório verbo por verbo. O filtro <b>“errei nas 3 últimas”</b> monta o próximo treino só com o que escapou.</p>
+      </div>
+      <div class="shot low"><img src="img/resultado.jpg" alt="Resultado: 5 acertos, 1 erro, 83% de aproveitamento, com o relatório do verbo volere"></div>
+    </section>
+
+    <section class="slide" aria-label="9 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Tabelas</span><span>9 / 11</span></div>
+        <h2>Consulte <em>qualquer verbo</em></h2>
+        <p>A aba <b>Tabelas</b> mostra a conjugação completa dos 2.294 verbos, com o auxiliar, o nível e a tradução. Tudo em português ou em italiano.</p>
+      </div>
+      <div class="shot low"><img src="img/tabelas.jpg" alt="Tabela do verbo andare: presente vado, vai, va, andiamo, andate, vanno e passato prossimo com essere"></div>
+    </section>
+
+    <section class="slide video" aria-label="10 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Instalação</span><span>10 / 11</span></div>
+        <h2>Instale no <em>celular</em></h2>
+        <p>Vira um ícone na tela e abre como app. Passo a passo no iPhone e no Android:</p>
+      </div>
+      <div class="vbox">
+        <video id="vid" src="img/instalar.mp4" poster="img/instalar-capa.jpg" muted loop playsinline controls preload="metadata" aria-label="Vídeo: como adicionar o Coniugatore à tela inicial no iPhone e no Android"></video>
+      </div>
+    </section>
+
+    <section class="slide fim" aria-label="11 de 11">
+      <div class="txt">
+        <div class="eyebrow"><span>Comece agora</span><span>11 / 11</span></div>
+        <h2>Aponte a câmera <em>e comece</em></h2>
+      </div>
+      <div class="qrbox"><img src="img/qr.svg" alt="QR code para coniugatoreitaliano.vercel.app"></div>
+      <div class="link">
+        <div class="url" id="url">coniugatoreitaliano.vercel.app</div>
+        <div class="acts">
+          <a class="btn pri" href="https://coniugatoreitaliano.vercel.app/" target="_blank" rel="noopener">Abrir o Coniugatore</a>
+          <button class="btn" type="button" id="copiar">Copiar link</button>
+        </div>
+      </div>
+      <p class="assina">Feito por Marcelo Ratto e liberado para os amigos.<br>Uso didático, sem fins comerciais.</p>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button class="arrow" id="prev" type="button" aria-label="Slide anterior">←</button>
+    <div class="dots" id="dots" role="tablist" aria-label="Escolher slide"></div>
+    <button class="arrow" id="next" type="button" aria-label="Próximo slide">→</button>
+  </div>
+  <p class="dica">Deslize para o lado ou use as setas</p>
+</div>
+
+<script>
+(() => {
+  const reel = document.getElementById('reel');
+  const slides = [...reel.children];
+  const dots = document.getElementById('dots');
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const vid = document.getElementById('vid');
+  let atual = 0;
+
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Slide ' + (i + 1));
+    b.addEventListener('click', () => ir(i));
+    dots.appendChild(b);
+  });
+
+  function ir(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    reel.scrollTo({ left: slides[i].offsetLeft - reel.offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+  function marcar() {
+    const i = Math.round(reel.scrollLeft / reel.clientWidth);
+    if (i === atual && dots.children[i].getAttribute('aria-current') === 'true') return;
+    atual = i;
+    [...dots.children].forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+    prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+    const naTela = slides[i].contains(vid);
+    if (naTela) { const p = vid.play(); if (p && p.catch) p.catch(() => {}); }
+    else if (!vid.paused) vid.pause();
+  }
+  let raf = 0;
+  reel.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(marcar); }, { passive: true });
+  window.addEventListener('resize', () => ir(atual));
+  prev.addEventListener('click', () => ir(atual - 1));
+  next.addEventListener('click', () => ir(atual + 1));
+  reel.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); ir(atual + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); ir(atual - 1); }
+  });
+  if (location.hash === '#instalar') requestAnimationFrame(() => ir(9));
+  if (location.hash === '#link') requestAnimationFrame(() => ir(10));
+  marcar();
+
+  const copiar = document.getElementById('copiar');
+  copiar.addEventListener('click', () => {
+    const texto = 'https://coniugatoreitaliano.vercel.app/';
+    const ok = () => { copiar.textContent = 'Link copiado'; setTimeout(() => copiar.textContent = 'Copiar link', 2000); };
+    const selecionar = () => {
+      const r = document.createRange(); r.selectNodeContents(document.getElementById('url'));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      copiar.textContent = 'Selecionado: copie';
+    };
+    try { navigator.clipboard.writeText(texto).then(ok, selecionar); } catch (e) { selecionar(); }
+  });
+})();
+</script>
+
+</body>
+</html>
