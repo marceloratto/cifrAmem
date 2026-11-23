@@ -8,13 +8,229 @@
 ],
 "itens": [
 {
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Igreja Santa Teresa, em Teresópolis, é elevada à condição de Basílica Menor",
+"link": "https://diocesepetropolis.com.br/igreja-santa-teresa-em-teresopolis-e-elevada-a-condicao-de-basilica-menor/",
+"data": "2026-11-23T19:45:43+00:00",
+"resumo": "Título reconhece a importância histórica, religiosa e pastoral do templo, que mantém ligação especial com o Vaticano. A comunidade católica de Teresópolis recebeu com alegria a…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/IMG_6890.webp"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Campanha para a Evangelização apoia iniciativas de formação de catequistas e iniciação à vida cristã em todo o Brasil",
+"link": "https://www.cnbb.org.br/campanha-para-a-evangelizacao-apoia-iniciativas-de-formacao-de-catequistas-e-iniciacao-a-vida-crista-em-todo-o-brasil/",
+"data": "2026-11-23T18:09:32+00:00",
+"resumo": "Entre as iniciativas apoiadas com recursos da Campanha para a Evangelização estão ações desenvolvidas pela Comissão Episcopal para a Animação Bíblico-Catequética da CNBB, voltadas…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/DSC_6562-1024x683-1.jpg"
+},
+{
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Diocese de Petrópolis participa da 33ª Convenção e da 38ª Romaria Nacional do Movimento Serra",
+"link": "https://diocesepetropolis.com.br/diocese-de-petropolis-participa-da-33a-convencao-e-da-38a-romaria-nacional-do-movimento-serra/",
+"data": "2026-11-23T17:58:54+00:00",
+"resumo": "Evento reuniu representantes do movimento em Aparecida (SP) para momentos de formação, oração e organização das ações vocacionais. A Diocese de Petrópolis participou da 33ª…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/romaria-serra-clube-4.webp"
+},
+{
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Ação social reúne serviços e acolhimento no Dia Mundial dos Pobres, em Petrópolis",
+"link": "https://diocesepetropolis.com.br/acao-social-reune-servicos-e-acolhimento-no-dia-mundial-dos-pobres-em-petropolis/",
+"data": "2026-11-23T15:05:12+00:00",
+"resumo": "Iniciativa promovida pelo Decanato São Pedro de Alcântara contou com a participação de pastorais, equipes de saúde e projetos voltados à população em situação de rua. Em…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/dia-do-pobre-em-petropolis-24.webp"
+},
+{
 "fonte": "Vatican News",
 "nivel": "igreja",
-"titulo": "Evangelho de 23 de novembro",
-"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/evangelho-23-novembro-2026-dom-mario-spaki.html",
-"data": "2026-11-23T07:30:00+00:00",
-"resumo": "Dom Mário Spaki, bispo de Paranavaí, comenta o Evangelho de Lucas 21,1-4 Leia tudo",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2023/12/30/Senza-titolo-1.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+"titulo": "Cardeal Czerny: na era da IA, educar jovens para a verdade e o aprofundamento",
+"link": "https://www.vaticannews.va/pt/vaticano/news/2026-11/cardeal-michael-czerny-prefeito-emerito-educar-jovens-ia-2026.html",
+"data": "2026-11-23T15:03:00+00:00",
+"resumo": "O prefeito emérito do Dicastério para o Serviço do Desenvolvimento Humano Integral, cardeal Michael Czerny, participou nesta segunda-feira (23/11) da jornada de estudos promovida…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/maggio/25/sergio.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Encontro de formação do regional Sul 1, no Mosteiro de Itaici, aprofunda os fundamentos e objetivos da CF 2027",
+"link": "https://www.cnbb.org.br/encontro-de-formacao-do-regional-sul-1-no-mosteiro-de-itaici-aprofunda-os-fundamentos-e-objetivos-da-cf-2027/",
+"data": "2026-11-23T14:46:29+00:00",
+"resumo": "Padre Jean Poul apresentou a motivação central da iniciativa: promover um caminho de conversão cristã para a corresponsabilidade no cuidado das crianças, reconhecendo, à luz do…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/5-2-e1795445361824.png"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Regional Norte 3 estuda aplicação das Diretrizes da Ação Evangelizadora durante Assembleia",
+"link": "https://www.cnbb.org.br/regional-norte-3-estuda-aplicacao-das-diretrizes-da-acao-evangelizadora-durante-assembleia/",
+"data": "2026-11-23T14:42:20+00:00",
+"resumo": "O Regional Norte 3 da Conferência Nacional dos Bispos do Brasil (CNBB Norte 3) realizou a sua XII Assembleia do Povo de Deus, entre os dias 13 e 15 de novembro, em Miracema (TO).…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/xii-assembleia-povo-de-deus-norte-3.jpg"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Assembleia ampliada no Leste 2 tem propostas para a evangelização das juventudes e para a caminhada sinodal",
+"link": "https://www.cnbb.org.br/assembleia-ampliada-leste-2-propostas-evangelizacao-juventudes-e-caminhada-sinodal/",
+"data": "2026-11-23T14:08:20+00:00",
+"resumo": "O Regional Leste 2 da Conferência Nacional dos Bispos do Brasil (CNBB Leste 2) realizou a Assembleia Ampliada do Conselho Episcopal Regional (Conser) entre os dias 9 e 12 de…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/Assembleia-Leste-2-e1795442750311.jpg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "O fracasso da COP31 e o papel estratégico dos agentes da paz",
+"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/fracasso-cop31-clima-onu-antalia-turquia-papel-agentes-paz.html",
+"data": "2026-11-23T13:41:00+00:00",
+"resumo": "A cúpula da ONU em Antalya, na Turquia, terminou sem um acordo entre os governos dos países participantes. Em contrapartida, o setor associativo e filantrópico mobilizou mais de…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/afp/2026/11/22/17/1795364572002.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Prevalência do “humano”",
+"link": "https://www.cnbb.org.br/prevalencia-do-humano/",
+"data": "2026-11-23T13:36:00+00:00",
+"resumo": "Dom Genival Saraiva Bispo Emérito de Palmares (PE) “Humano foi eleita a palavra do ano de 2026 pelo Dicionário Cambridge”. A prevalência do termo humano “descreve com precisão o…",
+"img": ""
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Dicastério para o Diálogo Inter-religioso, plenária de 24 a 26 de novembro",
+"link": "https://www.vaticannews.va/pt/vaticano/news/2026-11/assembleia-plenaria-dicasterio-dialogo-inter-religioso-novembro.html",
+"data": "2026-11-23T12:23:00+00:00",
+"resumo": "A décima quinta assembleia será realizada sob a presidência do cardeal prefeito George Jacob Koovakad sobre o tema \"A contribuição do diálogo inter-religioso para a educação para…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2025/giugno/20/Dicastero-Dialogo-Interreligioso-dipinto.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Cabo Verde - Avenida, no Fogo, é dedicada a P. Ottavio Fasano",
+"link": "https://www.vaticannews.va/pt/africa/news/2026-11/cabo-verde-avenida-no-fogo-e-dedicada-a-p-ottavio-fasano.html",
+"data": "2026-11-23T12:12:00+00:00",
+"resumo": "A cidade de São Filipe, na ilha do Fogo, tem agora uma avenida com o nome do missionário capuchinho italiano, P. Ottavio Fasano. A cerimónia de atribuição do nome teve lugar a 22…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2021/10/25/P.-OTTAVIO-FASANO.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "A morada de Deus e a verdadeira família da fé",
+"link": "https://www.cnbb.org.br/a-morada-de-deus-e-a-verdadeira-familia-da-fe/",
+"data": "2026-11-23T12:07:26+00:00",
+"resumo": "Cardeal Orani João Tempesta Arcebispo do Rio de Janeiro (RJ) Memória da Apresentação da Bem-aventurada Virgem Maria, Sábado da 33ª Semana do Tempo Comum Ao chegarmos ao sábado da…",
+"img": ""
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Jesus Cristo é Rei do Universo e da nossa vida!",
+"link": "https://www.cnbb.org.br/jesus-cristo-e-rei-do-universo-e-da-nossa-vida/",
+"data": "2026-11-23T12:05:02+00:00",
+"resumo": "Dom Anuar Battisti Arcebispo Emérito de Maringá (PR) A “Festa de Cristo Rei” foi instituída pelo Papa Pio XI, a 11 de dezembro de 1925, através da Carta Encíclica “Quas Primas”.…",
+"img": ""
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Solenidade de Nosso Senhor Jesus Cristo, Rei do Universo",
+"link": "https://www.cnbb.org.br/solenidade-de-nosso-senhor-jesus-cristo-rei-do-universo-3/",
+"data": "2026-11-23T12:04:00+00:00",
+"resumo": "Dom Carmo João Rhoden Bispo Emérito de Taubaté (SP) Solenidade de Nosso Senhor Jesus Cristo, Rei do Universo. 22/11/26 (Mt 25,31-46) Texto Referencial: “Portanto, estes irão para…",
+"img": ""
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "A face de Deus: mistério, presença e desejo",
+"link": "https://www.cnbb.org.br/a-face-de-deus-misterio-presenca-e-desejo/",
+"data": "2026-11-23T11:59:30+00:00",
+"resumo": "Dom João Santos Cardoso Arcebispo de Natal (RN) “Ó Senhor, não me afasteis de vossa face, nem retireis de mim o vosso Santo Espírito” (Sl 50,13). Recitamos esse salmo todas as…",
+"img": ""
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "23 de novembro: 65 anos da morte do Venerável Padre Pelágio Sauter",
+"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/sessenta-cinco-anos-morte-veneravel-padre-pelagio-sauter.html",
+"data": "2026-11-23T11:57:00+00:00",
+"resumo": "Hoje, 23 de novembro, a Igreja e a Congregação do Santíssimo Redentor recordam com gratidão o Venerável Padre Pelágio Sauter (1878–1961), missionário alemão conhecido em todo o…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/23/senza-titolo-2.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Celebramos as conquistas e a consciência negra",
+"link": "https://www.cnbb.org.br/celebramos-as-conquistas-e-a-consciencia-negra/",
+"data": "2026-11-23T11:55:35+00:00",
+"resumo": "Dom Itacir Brassiani Bispo de Santa Cruz do Sul (RS) No dia 20 de novembro fazemos memória de Zumbi dos Palmares, líder dos negros que fugiam da escravidão, e celebramos o Dia da…",
+"img": ""
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Missionários Espiritianos - Tanta Missão junta",
+"link": "https://www.vaticannews.va/pt/africa/news/2026-11/missionarios-espiritianos-tanta-missao-junta.html",
+"data": "2026-11-23T11:52:00+00:00",
+"resumo": "Outubro é, por excelência, o mês missionário. A Missão tem rostos muito concretos e, por isso, decidi escrever a partir de um encontro de missionários. A Casa Geral dos…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/23/espiritantos-2-tanta-missao-junta-foto-tony-neves-cssp.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Papa: ciclismo reforça a espiritualidade e o respeito pelo meio ambiente",
+"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-leao-xiv-audiencia-uniao-ciclistica-internacional.html",
+"data": "2026-11-23T11:29:01+00:00",
+"resumo": "Na Sala Clementina, no Vaticano, o Papa recebeu os membros da \"Union Cycliste Internationale\", com a presença do presidente, David Lappartient. O grupo estava acompanhado do…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/23/2026-11-23-partecipanti-all-incontro-promosso-dalla--union-cycli/1795433854192.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Leão XIV: novo quartel da Guarda Suíça nasce de uma história de solidariedade",
+"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-leao-xiv-audiencia-fundacao-quartel-guarda-suica-26.html",
+"data": "2026-11-23T10:20:00+00:00",
+"resumo": "Papa recebe os membros da Fundação para a Renovação do Quartel da Guarda Suíça e reconhece o esforço empreendido nos últimos 10 anos para o novo edifício que deve ter a obra…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/23/2026-11-23-membri-della-fondazione-per-il-rinnovamento-della-cas/1795431768660.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "“Hóstias vivas no mundo”: arte anuncia o Congresso Eucarístico Nacional",
+"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/arquidiocese-goiania-teaser-19-congresso-eucaristico.html",
+"data": "2026-11-23T10:12:00+00:00",
+"resumo": "O 19º Congresso Eucarístico Nacional será realizado de 3 a 7 de setembro de 2027, em Goiânia (GO), sob a organização da Arquidiocese de Goiânia, em colaboração com a CNBB e as…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/23/senza-titolo-1.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Sudão do Sul: ataques contra civis deixam dezenas de mortos em Warrap",
+"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/sudao-sudao-sul-guerra-africa-mortos-civis-ataques-warrap.html",
+"data": "2026-11-23T09:47:00+00:00",
+"resumo": "Entre as vítimas estão numerosas crianças. As autoridades locais acusam grupos armados ligados à oposição do ex-vice-presidente Riek Machar. No país, marcado por uma profunda…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/reuters/2026/10/21/12/1792578904509.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Cáritas Ucrânia relata a Leão XIV a missão humanitária em Oleshky",
+"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/ucrania-guerra-russia-caritas-kiev-oleshky-papa-leao-vaticano.html",
+"data": "2026-11-23T09:32:00+00:00",
+"resumo": "Tetiana Stawnychy, presidente da Cáritas Ucrânia, conta aos meios de comunicação do Vaticano sobre o encontro com o Papa Leão XIV e a evacuação de centenas de pessoas da cidade…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/21/tetiana-stawnychy-presidente-della-caritas-ucraina-in-udienza-con-papa-leone-xiv.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Ataques russos deixam vítimas em várias regiões da Ucrânia",
+"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/ucrania-ataques-russos-22-23-novembro-mortos-feridos.html",
+"data": "2026-11-23T08:49:00+00:00",
+"resumo": "Ataques russos entre 22 e 23 de novembro deixou pelo menos 20 civis mortos e dezenas de feridos em diferentes regiões da Ucrânia. A dimensão dos ataques evidencia a pressão…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/pam/images/agenzie/reuters/2026/11/23/07/1795413754460.JPG"
 },
 {
 "fonte": "Pastoral Familiar – Vida e Família",
@@ -35,78 +251,6 @@
 "img": ""
 },
 {
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "O Papa no almoço com os pobres: “hoje somos todos uma família”",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-almoco-pobres-somos-todos-familia-vaticano.html",
-"data": "2026-11-22T13:47:00+00:00",
-"resumo": "Leão XIV chega à Sala Paulo VI após a oração do Angelus na Praça de São Pedro. À sua espera para o almoço, como é tradição no Dia Mundial dos Pobres, celebrado no último domingo,…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/22/2026-11-22-pranzo-con-i-poveri-/1795350767905.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "O Papa: que os responsáveis encontrem logo soluções de paz e concórdia",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-responsaveis-guerras-encontrem-logo-solucoes.html",
-"data": "2026-11-22T11:45:00+00:00",
-"resumo": "Após a recitação do Angelus, Leão XIV renova o convite à oração pelas vítimas dos conflitos e se mostra próximo aos países do Pacífico atingidos pela seca. Mencionando a…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/afp/2026/11/21/13/1795263196618.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Papa no Angelus: Cristo nos levanta do pó do tempo que passa",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-angelus-cristo-levanta-po-tempo-passa.html",
-"data": "2026-11-22T11:26:00+00:00",
-"resumo": "Papa Leão XIV rezou a Oração mariana do Angelus com os fiéis reunidos na Praça São Pedro neste domingo, Solenidade de Jesus Cristo, Rei do universo. “É o verdadeiro Rei, que em…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/22/2026-11-22-angelus/1795346264015.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Ucrânia, onde a guerra se tornou a realidade cotidiana das crianças",
-"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/ucrania-guerra-tornou-realidade-cotidiana-criancas.html",
-"data": "2026-11-22T10:14:00+00:00",
-"resumo": "Quase cinco anos após a invasão em grande escala da Ucrânia pelo exército russo, a Fundação “L’Albero della Vita” acompanha diariamente as crianças do país com ações de…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/20/efreb.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "A Santa Sé: é inaceitável confiar à IA decisões irreversíveis",
-"link": "https://www.vaticannews.va/pt/vaticano/news/2026-11/santa-se-inaceitavel-confiar-ia-decisoes-irreversiveis.html",
-"data": "2026-11-22T09:56:00+00:00",
-"resumo": "A posição sobre os sistemas de armas autônomos letais apresentada durante a sétima Conferência de Revisão das Altas Partes Contratantes da Convenção sobre a Proibição ou Limitação…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/ansa/2024/04/13/22/1713038594159.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Em Dubai, histórias de migrantes se entrelaçam com textos da Bíblia",
-"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/emirados-arabes-unidos-dubai-historias-migrantes.html",
-"data": "2026-11-22T09:45:00+00:00",
-"resumo": "Alguns fiéis do Vicariato Apostólico da Arábia Meridional acompanharam, em Dubai, a apresentação da edição católica da “Migration Bible” (“Bíblia da Migração”). Leia tudo",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/ansa/2026/11/21/16/1795276148661.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "ACNUR lança uma iniciativa global de “Proteção no Mar 2.0” em defesa dos migrantes",
-"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/acnur-iniciativa-global-protecao-mar-2-0.html",
-"data": "2026-11-22T09:40:00+00:00",
-"resumo": "O Alto Comissariado das Nações Unidas para Refugiados lançou uma iniciativa de “ação global para salvar vidas humanas e reforçar a proteção de refugiados e migrantes em rotas…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/ansa/2023/02/26/10/1677403853938.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Kuwait: Vicariato da Arábia do Norte apresenta a “Bíblia Católica da Migração”",
-"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/kuwait-vicariato-arabia-norte-apresenta-biblia-catolica.html",
-"data": "2026-11-22T09:35:00+00:00",
-"resumo": "Uma Bíblia para acompanhar os migrantes em seu caminho de fé e confrontar suas experiências. Eis a “Bíblia da Migração,” em edição católica, apresentada no último dia 16 de…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/settembre/14/whatsapp-image-2026-09-14-at-21-42-14-1.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "O Destino Último Que Nos Espera! – Dom José Maria Pereira",
@@ -114,33 +258,6 @@
 "data": "2026-11-21T18:00:40+00:00",
 "resumo": "Com a Solenidade de Cristo, Rei do Universo, encerramos o Ano Litúrgico. No próximo domingo será o primeiro domingo do Advento, um novo Ano Litúrgico; início da preparação para o…",
 "img": ""
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "África do Sul - Luto pela morte de Phumzile Mlambo-Ngcuka",
-"link": "https://www.vaticannews.va/pt/africa/news/2026-11/africa-do-sul-luto-pela-morte-de-phumzile-mlambo-ngcuka.html",
-"data": "2026-11-21T14:17:00+00:00",
-"resumo": "Faleceu a 20 de novembro de 2026, na África do Sul, aos 71 anos, a Srª Phumzile Mlambo-Ngcuka. Ela foi Vice-Presidente da República da África do Sul, Secretária-Geral Adjunta das…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/21/dulce-1.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "O Papa: a cultura do poder, do desafio e da guerra envenena os encontros",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-cultura-poder-desafio-guerra-envenena-encontro.html",
-"data": "2026-11-21T12:58:00+00:00",
-"resumo": "Leão XIV se reúne com os jovens das dioceses do Lácio na Sala Paulo VI. Ele lhes lembra que “a santidade não é uma performance que nos estressa, nem mais uma expectativa a ser…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/21/2026-11-21-giovani-delle-diocesi-del-lazio/1795263173803.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Gallagher: “o Líbano deve voltar ao centro da agenda internacional”",
-"link": "https://www.vaticannews.va/pt/vaticano/news/2026-11/gallagher-libano-deve-voltar-centro-agenda-internacional.html",
-"data": "2026-11-21T12:42:00+00:00",
-"resumo": "O secretário para as Relações com os Estados e as Organizações Internacionais discursou em Nápoles no evento MED Diálogos Mediterrâneos. O arcebispo destacou a importância do país…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/21/2026-11-21-intervento-al-dialogo-mediterraneo.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
 },
 {
 "fonte": "Diocese de Petrópolis",
@@ -197,24 +314,6 @@
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/unidade-paroquial-na-paroquia-sao-cristovao-teresopolis-2.webp"
 },
 {
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "O Sinal de Deus nas periferias da história: a apresentação da virgem e a libertação dos pobres",
-"link": "https://www.cnbb.org.br/o-sinal-de-deus-nas-periferias-da-historia-a-apresentacao-da-virgem-e-a-libertacao-dos-pobres/",
-"data": "2026-11-19T14:00:55+00:00",
-"resumo": "Dom Vilson Dias de Oliveira Bispo Emérito de Limeira (SP) Caros irmãos e irmãs, ao celebrarmos a memória da Apresentação da Bem-Aventurada Virgem Maria, a liturgia nos desinstala…",
-"img": ""
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "A meninazinha Maria",
-"link": "https://www.cnbb.org.br/a-meninazinha-maria/",
-"data": "2026-11-19T12:48:53+00:00",
-"resumo": "Dom Antônio Carlos Altieri Arcebispo Emérito de Passo Fundo (RS) A meninazinha Maria, protótipo luminoso daquilo que toda a comunidade dos fiéis é chamada a ser. Amados irmãos e…",
-"img": ""
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "Os Papas diante das Ideologias Modernas (I): A Batalha de São Pio X contra o Laicismo Francês – Pe. Anderson Alves",
@@ -233,48 +332,12 @@
 "img": ""
 },
 {
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Secretário-geral da CNBB assessora Semana de Formação promovida pela prelazia de São Félix do Araguaia (MT)",
-"link": "https://www.cnbb.org.br/semana-de-formacao-promovida-pela-prelazia-de-sao-felix-do-araguaia-mt/",
-"data": "2026-11-18T19:47:00+00:00",
-"resumo": "O secretário-geral da CNBB está conduzindo a formação em torno das Diretrizes Gerais da Ação Evangelizadora da Igreja do Brasil (DGAE) 2026-2032, aprovadas na 62ª Assembleia da…",
-"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/Prelazia-de-Sao-Felix-todos-.jpg"
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Secretários executivos se reúnem no Leste 3 para convivência, avaliação e contato com a realidade da Igreja local",
-"link": "https://www.cnbb.org.br/encontro-secretarios-executivos-regionais-espirito-santo-leste-3/",
-"data": "2026-11-18T19:26:32+00:00",
-"resumo": "O encontro de novembro é sempre uma oportunidade de convivência e avaliação de alguns trabalhos e de planejamento para o próximo ano, mas sobretudo de convivência dos secretários…",
-"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/Secretarios-executivos-no-Leste-3.jpeg"
-},
-{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Pastoral Familiar do Regional Sul 4 promove formação e reunião do conselho",
 "link": "https://vidaefamilia.org.br/pastoral-familiar-do-regional-sul-4-promove-formacao-e-reuniao-do-conselho/",
 "data": "2026-11-18T19:18:17+00:00",
 "resumo": "Entre os dias 13 a 15 de novembro, em Nova Veneza (SC), aconteceu a formação, reunião e assembleia da Pastoral Familiar do Regional Sul 4, reunindo representantes das três…",
-"img": ""
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Seminário sobre a CF 2027 reúne representantes das 18 dioceses do Paraná",
-"link": "https://www.cnbb.org.br/seminario-cf-2027-representantes-18-dioceses-do-parana/",
-"data": "2026-11-18T18:38:27+00:00",
-"resumo": "Formação promovida pelo Regional Sul 2 da CNBB contou com 56 participantes e destacou o cuidado integral com as crianças e a missão de levar a reflexão às comunidades. Em 2027, a…",
-"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/Seminario-CF-2027-Sul-2.jpg"
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "A tenda do encontro no coração do mundo",
-"link": "https://www.cnbb.org.br/a-tenda-do-encontro-no-coracao-do-mundo/",
-"data": "2026-11-18T17:14:06+00:00",
-"resumo": "Dom Anuar Battisti Arcebispo Emérito de Maringá (PR) Como a Apresentação de Maria nos convida a ser a morada de Deus no cotidiano No dia 21 de novembro próximo, a Igreja nos…",
 "img": ""
 },
 {
@@ -287,42 +350,6 @@
 "img": ""
 },
 {
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Jesus de Nazaré não veio fundar um império, mas inaugurar o Reino",
-"link": "https://www.cnbb.org.br/jesus-de-nazare-nao-veio-fundar-um-imperio-mas-inaugurar-o-reino/",
-"data": "2026-11-18T13:58:51+00:00",
-"resumo": "Dom Vilson Dias de Oliveira Bispo Emérito de Limeira (SP) Caros irmãos e irmãs, celebramos a Solenidade de Nosso Senhor Jesus Cristo, Rei do Universo, encerrando mais um ano da…",
-"img": ""
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Formação sobre proteção de menores e vulneráveis aponta caminhos para fortalecimento de atuação conjunta das dioceses do regional Nordeste 3",
-"link": "https://www.cnbb.org.br/formacao-sobre-protecao-de-menores-e-vulneraveis-aponta-caminhos-para-fortalecimento-de-atuacao-conjunta-das-dioceses-do-regional-nordeste-3/",
-"data": "2026-11-18T13:52:07+00:00",
-"resumo": "A proteção de menores e de pessoas em situação de vulnerabilidade esteve entre os temas da programação do Conselho Regional (CONSER), que reúne o episcopado da Bahia e de Sergipe,…",
-"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/CONSER-novembro-2027-2o-dia-Fotos-Sara-Gomes-30.jpg"
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Comissão de Bens Culturais do regional Nordeste 3 apresenta proposta de estruturação do trabalho de preservação do patrimônio da Igreja",
-"link": "https://www.cnbb.org.br/comissao-de-bens-culturais-do-regional-nordeste-3-apresenta-proposta-de-estruturacao-do-trabalho-de-preservacao-do-patrimonio-da-igreja/",
-"data": "2026-11-18T13:48:27+00:00",
-"resumo": "A Comissão de Bens Culturais do regional Nordeste 3, acompanhada pelo bispo referencial, dom Francisco Vidal, apresentou aos bispos reunidos no Conselho Regional (CONSER), na…",
-"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/CONSER-novembro-2026-3o-dia-Fotos-Sara-Gomes-45.jpg"
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "O reino tem o rosto do rei do universo",
-"link": "https://www.cnbb.org.br/o-reino-tem-o-rosto-do-rei-do-universo/",
-"data": "2026-11-18T13:20:23+00:00",
-"resumo": "Dom Leomar Brustolin Arcebispo de Santa Maria (RS) Que espécie de rei é aquele que não conquista territórios, mas transforma corações? Que não exige a vida de seus súditos, mas…",
-"img": ""
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "Irmã Loreni assume como nova provincial das Irmãs Angélicas de São Paulo no Brasil",
@@ -332,24 +359,6 @@
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Missa-de-posse-da-provincial-das-irmas-angelicas-20.webp"
 },
 {
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Setor de Educação promove encontro com diretores das escolas paroquiais",
-"link": "https://diocesepetropolis.com.br/setor-de-educacao-promove-encontro-com-diretores-das-escolas-paroquiais/",
-"data": "2026-11-17T14:21:51+00:00",
-"resumo": "Na véspera do Dia do Diretor de Escola, celebrado no Brasil em 12 de novembro, o Setor de Educação da Mitra Diocesana promoveu um encontro com as diretoras e o diretor das escolas…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Reuniao-com-diretoras-das-escolas-paroquiais-6.webp"
-},
-{
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Cursilhão 2026 reúne cursilhistas do Decanato São José de Anchieta em Raiz da Serra",
-"link": "https://diocesepetropolis.com.br/cursilhao-2026-reune-cursilhistas-do-decanato-sao-jose-de-anchieta-em-raiz-da-serra/",
-"data": "2026-11-17T14:07:36+00:00",
-"resumo": "Encontro contou com momentos de formação, celebração e reflexão sobre a importância de fortalecer e testemunhar a fé. O bispo diocesano, Dom Joel Portella Amado, presidiu, no dia…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Cursilhao-do-Decanato-Sao-Jose-de-Anchieta-51.webp"
-},
-{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Diocese de Naviraí planeja 2027 em Assembleia Diocesana",
@@ -357,15 +366,6 @@
 "data": "2026-11-16T22:55:01+00:00",
 "resumo": "Nos dias 14 e 15 de novembro, a Pastoral Familiar da Diocese de Naviraí realizou a 13ª Assembleia Diocesana de Pastoral no Centro Diocesano São Paulo VI, em Naviraí (MS).",
 "img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-16-at-12.16.03-2-150x150.jpeg"
-},
-{
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "INSTRUMENTO DE TRABALHO",
-"link": "https://diocesepetropolis.com.br/instrumento-de-trabalho/",
-"data": "2026-11-16T19:10:46+00:00",
-"resumo": "Para baixar o documento clique na imagem",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Instrumentos-de-trabalho-1.webp"
 },
 {
 "fonte": "Pastoral Familiar – Vida e Família",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-23T09:14+00:00"
+"atualizado": "2026-11-23T21:33+00:00"
 }
