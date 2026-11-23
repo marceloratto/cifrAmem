@@ -8,6 +8,15 @@
 ],
 "itens": [
 {
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Evangelho de 23 de novembro",
+"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/evangelho-23-novembro-2026-dom-mario-spaki.html",
+"data": "2026-11-23T07:30:00+00:00",
+"resumo": "Dom Mário Spaki, bispo de Paranavaí, comenta o Evangelho de Lucas 21,1-4 Leia tudo",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2023/12/30/Senza-titolo-1.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Aproveite uma semana de descontos nos produtos da Pastoral Familiar",
@@ -37,7 +46,7 @@
 {
 "fonte": "Vatican News",
 "nivel": "igreja",
-"titulo": "O Papa: que os responsáveis pelas guerras encontrem logo soluções de paz e concórdia",
+"titulo": "O Papa: que os responsáveis encontrem logo soluções de paz e concórdia",
 "link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-responsaveis-guerras-encontrem-logo-solucoes.html",
 "data": "2026-11-22T11:45:00+00:00",
 "resumo": "Após a recitação do Angelus, Leão XIV renova o convite à oração pelas vítimas dos conflitos e se mostra próximo aos países do Pacífico atingidos pela seca. Mencionando a…",
@@ -132,15 +141,6 @@
 "data": "2026-11-21T12:42:00+00:00",
 "resumo": "O secretário para as Relações com os Estados e as Organizações Internacionais discursou em Nápoles no evento MED Diálogos Mediterrâneos. O arcebispo destacou a importância do país…",
 "img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/21/2026-11-21-intervento-al-dialogo-mediterraneo.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "No encontro com o Papa, as histórias daqueles que transformaram a vida em dom",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/encontro-papa-historias-transformaram-vidas-vaticano-jovens.html",
-"data": "2026-11-21T12:25:00+00:00",
-"resumo": "As palavras de boas-vindas do bispo Mauro Parmeggiani e os depoimentos de sete jovens marcaram o encontro deste sábado, 21 de novembro, na Sala Paulo VI, na Via Leão XIV, entre o…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/21/2026-11-21-giovani-delle-diocesi-del-lazio/1795259874536.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
 },
 {
 "fonte": "Diocese de Petrópolis",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-22T19:52+00:00"
+"atualizado": "2026-11-23T09:14+00:00"
 }
