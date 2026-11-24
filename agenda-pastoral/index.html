@@ -432,9 +432,10 @@ function oLink(e,t){const end=e.end&&e.end>e.start?e.end:e.start;const q=new URL
  startdt:iso(t)+(e.all||!e.start?'':'T'+e.start+':00-03:00'),enddt:(e.all||!e.start)?iso(t+DAY):iso(t)+'T'+end+':00-03:00'});return'https://outlook.live.com/calendar/0/deeplink/compose?'+q}
 function phoneBtns(e,t){return`<div class="ph"><a class="btn" href="${esc(gLink(e,t))}" target="_blank" rel="noopener">Google Agenda</a><a class="btn" href="${esc(oLink(e,t))}" target="_blank" rel="noopener">Outlook</a></div>`}
 // folhas
-function sheet(h){$('#sh').innerHTML=`<div class="sp" role="dialog" aria-modal="true">${h}</div>`;$('#sh').hidden=false;setTimeout(()=>$('#sh input,#sh select,#sh button')?.focus(),30)}
+var RHCTX=false;
+function sheet(h){if(RHCTX&&typeof rhVolta==='function'){if(/data-admback/.test(h))h=h.replace(/<button[^>]*data-admback[^>]*>[^<]*<\/button>/,rhVolta());else if(!/data-rhback/.test(h)){const k=h.lastIndexOf('<div class="act">');h=k>=0?h.slice(0,k+17)+rhVolta()+h.slice(k+17):h+`<div class="act">${rhVolta()}</div>`}}$('#sh').innerHTML=`<div class="sp" role="dialog" aria-modal="true">${h}</div>`;$('#sh').hidden=false;setTimeout(()=>$('#sh input,#sh select,#sh button')?.focus(),30)}
 window.addEventListener('message',ev=>{if(!/^https:\/\/(www\.)?instagram\.com$/.test(ev.origin))return;let d=ev.data;try{if(typeof d==='string')d=JSON.parse(d)}catch{return}const h=d&&d.type==='MEASURE'&&+d.details?.height;if(!h)return;for(const f of document.querySelectorAll('.figw iframe'))if(f.contentWindow===ev.source){f.classList.add('igm');f.style.height=Math.ceil(h)+'px'}});
-function close(){$('#sh').hidden=true;$('#sh').innerHTML='';CURRS=null}
+function close(){RHCTX=false;$('#sh').hidden=true;$('#sh').innerHTML='';CURRS=null}
 document.addEventListener('keydown',ev=>{if(ev.key!=='Escape'||ev.defaultPrevented)return;const fv=document.querySelector('.fview');if(fv){ev.preventDefault();fv.remove();return}const vo=document.getElementById('vo');if(vo&&!vo.hidden){ev.preventDefault();vo.hidden=true;return}
  const sh=$('#sh');if(sh&&!sh.hidden){ev.preventDefault();const b=sh.querySelector('#og-back,[data-back],[data-admback],[data-evb]');if(b)b.click();else close();return}});
 function dfield(id,v){return`<span class="df"><input id="${id}" inputmode="numeric" autocomplete="off" placeholder="dd/mm/aaaa" maxlength="10" value="${esc(isoBr(v||''))}"><span class="dpk" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><input type="date" tabindex="-1" data-nat="${id}" value="${esc(v||'')}"></span></span>`}
@@ -1022,7 +1023,7 @@ var RTIPOS=[
  ['agentes','Agentes por paróquia e setor','Quantos agentes há em cada paróquia, por setor da Pastoral Familiar.',1],
  ['aniv','Aniversariantes (nascimento e casamento)','Aniversários de nascimento e/ou de casamento (bodas) dos agentes, mês a mês — escolha um, outro ou ambos.',1],
  ['aval','Avaliação dos eventos','Notas (estrelas) dadas aos eventos do período, da maior para a menor.',1]];
-async function openRelHub(){if(mode==='fb'&&!ME)return toast('Entre com sua conta para ver os relatórios.');if(mode==='fb'&&!(isCoordAny()||ME.papel==='admin'))return toast('Os relatórios são para os coordenadores.');
+async function openRelHub(){RHCTX=false;if(mode==='fb'&&!ME)return toast('Entre com sua conta para ver os relatórios.');if(mode==='fb'&&!(isCoordAny()||ME.papel==='admin'))return toast('Os relatórios são para os coordenadores.');
  const y=new Date().getFullYear();if(!RH){const E0=meuEscopo().k==='tudo'?{k:'tudo',v:''}:plEscDef();RH={E:E0,a:y+'-01',b:y+'-12'}}if(!RH.anv)RH.anv={n:true,c:true};
  const E=RH.E,tudo=meuEscopo().k==='tudo',dio=LOC.find(d=>d.nome===(memLoc(ME||{}).diocese))||LOC.find(d=>d.decanatos.length),O=arOpts(),
   nomes=E.k==='paroquia'?O.ps.map(x=>x.p):E.k==='decanato'?O.decs.map(c=>c.n):E.k==='diocese'?O.dios.map(d=>d.nome):[];if(E.v&&E.k!=='tudo'&&!nomes.includes(E.v))nomes.unshift(E.v);
@@ -1044,7 +1045,7 @@ function rhVolta(){return`<button class="btn" type="button" data-rhback>‹ Rela
 document.addEventListener('click',ev=>{if(ev.target.closest('[data-rhback]'))openRelHub()});
 function rhAplicaARF(){const E=RH.E;ARF=E.k==='tudo'?{k:'todas',v:'',ps:[]}:E.k==='paroquia'?{k:'paroquias',v:'',ps:[E.v]}:{k:E.k,v:E.v,ps:[]}}
 async function rhCarrega(){if(mode==='fb'&&typeof relAval==='function'&&!AVT.length)await relAval()}
-async function rhAbrir(k,pdf){const E=RH.E;
+async function rhAbrir(k,pdf){if(!pdf)RHCTX=true;const E=RH.E;
  if(k==='acomp'){RELLOGO=await logoDe(E);return openRel()}
  if(k==='plano')return openPlanos(+RH.a.slice(0,4));
  if(k==='orgg'){if(E.k==='tudo')return openOrg();return openOrg({k:E.k,v:E.v})}
@@ -1527,7 +1528,7 @@ document.addEventListener('submit',async ev=>{const f=ev.target.closest('[data-r
  try{await db.collection('respostas').doc(nid()).set({aviso:f.dataset.rf,uid:myId(),texto:txt,quando:new Date().toISOString(),...(mode==='fb'?{nome:ME?.nome||FBU?.displayName||''}:{})});inp.value=''}catch{toast('Não foi possível enviar.')}});
 
 // cabeçalho simplificado: tema (1 botão), menu, ajuda, escolha de mês
-var APPV='82 · 24/11/2026 00:36';
+var APPV='83 · 24/11/2026 00:39';
 function vLine(){return`<div class="ver"><span>Versão ${esc(APPV)}</span><button class="btn sm" id="vupd">Buscar atualização</button></div>`}
 document.addEventListener('click',async ev=>{if(!ev.target.closest('#vupd'))return;toast('Buscando a versão mais nova…');try{const r=await navigator.serviceWorker?.getRegistration?.();if(r){await r.update();const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('agenda-pastoral-')).map(k=>caches.delete(k)))}}catch{}setTimeout(()=>location.reload(),600)});
 var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
