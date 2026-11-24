@@ -144,6 +144,27 @@ dialog.help::backdrop { background: rgb(20 18 15 / .45); }
 .rangelbls { display: flex; justify-content: space-between; font-size: .74rem; color: var(--muted); margin-top: -6px; }
 .qctl[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); }
 
+/* Precisão, avisos, avançado e laboratório */
+.prec { display: inline-flex; align-self: center; align-items: center; gap: 6px; font: 700 .68rem var(--sans, Inter, system-ui, sans-serif); letter-spacing: .04em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 4px 9px 4px 8px; }
+.prec i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: precPulse 1.4s ease-in-out infinite; }
+@keyframes precPulse { 50% { opacity: .35; } }
+.prec[hidden] { display: none; }
+.warnbox { margin: 0; padding: 8px 10px; border-radius: 10px; background: var(--flat-soft); color: var(--flat); font-size: .82rem; line-height: 1.35; }
+.warnbox[hidden] { display: none; }
+.qctl.warn small::after { content: ' ⚠'; color: var(--flat); }
+.adv { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 12px; }
+.adv summary { cursor: pointer; list-style: revert; }
+.adv[open] summary { margin-bottom: 4px; }
+.lab { position: fixed; z-index: 60; left: 8px; right: 8px; bottom: 8px; max-width: 640px; margin: 0 auto; background: #111; color: #d7f5df; border-radius: 14px; padding: 10px 12px; box-shadow: 0 10px 40px rgb(0 0 0 / .5); font: 12px/1.35 ui-monospace, Menlo, Consolas, monospace; }
+.lab[hidden] { display: none; }
+.labh { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: space-between; color: #fff; }
+.lab .seg button { background: #222; color: #ddd; border-color: #444; font-size: .72rem; padding: 6px 8px; min-height: 30px; }
+.lab .seg button[aria-pressed="true"] { background: #3d6b4f; color: #fff; }
+.lab .iconbtn { width: 30px; height: 30px; background: #222; color: #fff; border-color: #444; }
+.lab pre { margin: 8px 0; white-space: pre-wrap; max-height: 38vh; overflow: auto; }
+.labbtns { display: flex; gap: 10px; align-items: center; }
+.labbtns .btn { min-height: 34px; padding: 6px 12px; font-size: .8rem; }
+
 /* Tela de abertura */
 .splash { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; transition: opacity .45s ease, visibility .45s; }
 .splash.out { opacity: 0; visibility: hidden; }
@@ -361,6 +382,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
     <div class="qpop" id="micPop" hidden role="dialog" aria-labelledby="micPopT">
       <div class="qpop-h"><b id="micPopT" data-t="qMic">Microfone</b><button class="iconbtn" id="micPopClose" data-t-aria="close" aria-label="Fechar">✕</button></div>
       <div class="hmeter" aria-hidden="true"><i id="pLevel"></i><b id="pGate"></b></div>
+      <p class="warnbox" id="micWarn" hidden></p>
       <button class="btn calbtn" id="calBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 12h3l3-8 4 16 3-10 2 2h5"/></svg><span data-t="calBtn">Medir o ruído do lugar</span></button>
       <p class="calmsg" id="calMsg" data-t="calHint">Fique em silêncio e toque no botão: o afinador mede o barulho do ambiente e ajusta a sensibilidade sozinho.</p>
       <label class="lbl" for="sens2" data-t="sensManual">Ajuste manual</label>
@@ -371,6 +393,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
     <div class="meterbox"><canvas class="meter" id="meter" width="600" height="320" aria-hidden="true"></canvas></div>
     <div class="readout">
       <span class="cents" id="cents">0,0 ¢</span>
+      <span class="prec" id="prec" hidden><i></i><span data-t="precision">Precisão</span></span>
       <span class="hz" id="hz">&nbsp;</span>
     </div>
     <canvas class="strobe" id="strobe" width="600" height="34" aria-hidden="true"></canvas>
@@ -478,6 +501,17 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
     </div>
     <label class="switch" id="stretchRow"><span data-t="stretch">Afinação esticada do piano (curva de Railsback aproximada)</span><input type="checkbox" id="stretch"></label>
     <label class="switch"><span data-t="wake">Manter a tela ligada</span><input type="checkbox" id="wake"></label>
+    <details class="set adv">
+      <summary class="lbl" data-t="advanced">Avançado</summary>
+      <div class="set">
+        <label for="inputSel" class="lbl" data-t="inputLbl">Entrada de áudio</label>
+        <select id="inputSel"><option value="">Padrão do aparelho</option></select>
+        <span class="hint" data-t="inputHint">Se tiver violão com captador e uma interface de áudio, escolha aqui. Evite fones Bluetooth.</span>
+      </div>
+      <p class="warnbox" id="procWarn" hidden></p>
+      <label class="switch"><span data-t="classicLbl">Modo clássico (sem o estágio de precisão)</span><input type="checkbox" id="classic"></label>
+      <span class="hint" data-t="classicHint">Use só se notar algum problema no seu aparelho.</span>
+    </details>
     <div class="set">
       <span class="lbl" data-t="language">Idioma</span>
       <div class="langs">
@@ -505,6 +539,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li>A <b>letra grande</b> é a nota que a corda deve ter. A escala tem <b>zoom no centro</b>: de −10 a +10 cents ocupa metade do arco, para o ajuste fino ficar bem visível. Embaixo aparecem a corda, o nome em Dó Ré Mi e a frequência certa.</li>
         <li>Ponteiro à esquerda, em <span class="c-flat">laranja</span>: a corda está <b>baixa</b>, aperte a tarraxa. À direita, em <span class="c-sharp">vermelho</span>: está <b>alta</b>, afrouxe.</li>
         <li>No centro, em <span class="c-in">verde</span>: <b>afinado</b>. Depois de um instante o botão da corda ganha um ✓.</li>
+        <li>Quando a corda chega perto da nota, aparece <b>Precisão</b> no canto: o afinador passa a medir como um estroboscópio, pela fase do som, com precisão de décimos de cent.</li>
         <li>O número em <b>cents (¢)</b> mostra o quanto falta: 1 cent é a centésima parte de um semitom (de uma nota para a vizinha há 100 cents). Abaixo de 2 ou 3 cents o ouvido já não percebe diferença.</li>
         <li>A <b>faixa listrada</b> (estroboscópio) anda para a esquerda quando está baixo e para a direita quando está alto, e <b>para</b> quando está afinado. É o jeito mais preciso de fazer o ajuste fino.</li>
       </ul>
@@ -546,6 +581,7 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
         <li>La <b>lettera grande</b> è la nota che deve avere la corda. La scala ha lo <b>zoom al centro</b>: da −10 a +10 cent occupa metà dell’arco, così la regolazione fine è ben visibile. Sotto compaiono la corda, il nome in Do Re Mi e la frequenza giusta.</li>
         <li>Lancetta a sinistra, in <span class="c-flat">arancione</span>: la corda è <b>calante</b>, tendila con la meccanica. A destra, in <span class="c-sharp">rosso</span>: è <b>crescente</b>, allentala.</li>
         <li>Al centro, in <span class="c-in">verde</span>: <b>accordata</b>. Dopo un istante il pulsante della corda mostra un ✓.</li>
+        <li>Quando la corda si avvicina alla nota, compare <b>Precisione</b> nell’angolo: l’accordatore misura come uno stroboscopio, dalla fase del suono, con precisione di decimi di cent.</li>
         <li>Il numero in <b>cent (¢)</b> indica quanto manca: 1 cent è la centesima parte di un semitono (da una nota alla vicina ci sono 100 cent). Sotto i 2 o 3 cent l’orecchio non sente più la differenza.</li>
         <li>La <b>fascia a righe</b> (stroboscopio) scorre a sinistra quando la nota è calante e a destra quando è crescente, e si <b>ferma</b> quando è accordata. È il modo più preciso per la regolazione fine.</li>
       </ul>
@@ -581,7 +617,14 @@ window.addEventListener('error', function (e) { var m = document.getElementById(
 </dialog>
 
 
-<script src="pitch.js?v=6"></script>
+<div class="lab" id="lab" hidden>
+  <div class="labh"><b>Laboratório</b>
+    <div class="seg" id="labMode"><button data-v="auto">Automático</button><button data-v="classic">Só aproximação</button><button data-v="fine">Precisão sempre</button></div>
+    <button class="iconbtn" id="labClose" aria-label="Fechar">✕</button></div>
+  <pre id="labOut"></pre>
+  <div class="labbtns"><button class="btn" id="labRec">Gravar 10 s (CSV)</button><span id="labRecMsg"></span></div>
+</div>
+<script src="pitch.js?v=7"></script>
 <script>
 (function () {
 'use strict';
@@ -675,6 +718,11 @@ var T = {
     listen: 'Ouvir a nota', auto: 'Automático', fixed: 'Fixo (toque p/ automático)',
     splashSub: 'O afinador do cifrAmem', splashMade: 'Gratuito · sem cadastro · funciona sem internet',
     doneLbl: 'Mensagem “Instrumento afinado”', doneOff: 'Não mostrar', doneHint: 'Tempo de espera depois que a última corda fica afinada.',
+    precision: 'Precisão', advanced: 'Avançado', inputLbl: 'Entrada de áudio', inputDefault: 'Padrão do aparelho', inputN: 'Entrada',
+    inputHint: 'Se tiver violão com captador e uma interface de áudio, escolha aqui. Evite fones Bluetooth.',
+    classicLbl: 'Modo clássico (sem o estágio de precisão)', classicHint: 'Use só se notar algum problema no seu aparelho.',
+    warnProc: 'Este aparelho está aplicando redução de ruído ou controle de volume no microfone, o que pode deixar a leitura instável. No iPhone, desligue o “Isolamento de Voz” na Central de Controle.',
+    warnBt: 'Você está usando um fone/headset Bluetooth como microfone. Para afinar, use o microfone do próprio aparelho.',
     language: 'Idioma', la: 'Lá', qMic: 'Microfone', sensLv: ['Baixa', 'Média', 'Alta', 'Máxima'],
     qSensAria: 'Microfone: sensibilidade {v}. Toque para ajustar.',
     calBtn: 'Medir o ruído do lugar', calHint: 'Fique em silêncio e toque no botão: o afinador mede o barulho do ambiente e ajusta a sensibilidade sozinho.',
@@ -707,6 +755,11 @@ var T = {
     listen: 'Ascolta la nota', auto: 'Automatico', fixed: 'Fisso (tocca per automatico)',
     splashSub: 'L’accordatore di cifrAmem', splashMade: 'Gratuito · senza registrazione · funziona senza internet',
     doneLbl: 'Messaggio “Strumento accordato”', doneOff: 'Non mostrare', doneHint: 'Tempo di attesa dopo che l’ultima corda è accordata.',
+    precision: 'Precisione', advanced: 'Avanzate', inputLbl: 'Ingresso audio', inputDefault: 'Predefinito del dispositivo', inputN: 'Ingresso',
+    inputHint: 'Se hai una chitarra con pickup e un’interfaccia audio, sceglila qui. Evita le cuffie Bluetooth.',
+    classicLbl: 'Modalità classica (senza la fase di precisione)', classicHint: 'Usala solo se noti problemi sul tuo dispositivo.',
+    warnProc: 'Questo dispositivo applica riduzione del rumore o controllo del volume al microfono: la lettura può diventare instabile. Su iPhone, disattiva “Isolamento voce” nel Centro di Controllo.',
+    warnBt: 'Stai usando cuffie/auricolari Bluetooth come microfono. Per accordare, usa il microfono del dispositivo.',
     language: 'Lingua', la: 'La', qMic: 'Microfono', sensLv: ['Bassa', 'Media', 'Alta', 'Massima'],
     qSensAria: 'Microfono: sensibilità {v}. Tocca per regolare.',
     calBtn: 'Misura il rumore del luogo', calHint: 'Resta in silenzio e tocca il pulsante: l’accordatore misura il rumore dell’ambiente e regola la sensibilità da solo.',
@@ -730,7 +783,7 @@ function L() { return T[prefs.lang] || T.pt; }
 
 /* ---------- Estado e preferências ---------- */
 var STORE = 'cifrAmem.afinador.v1';
-var prefs = { doneDelay: 4, smooth: 2, lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
+var prefs = { classic: false, inputId: '', doneDelay: 4, smooth: 2, lang: (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'pt', inst: 'violao', tunings: {}, a4: 440, names: 'letters', tol: 2, sens: 55, stretch: false, wake: true };
 try { var saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved) for (var key in saved) prefs[key] = saved[key]; } catch (e) {}
 if (!prefs.smoothChosen) prefs.smooth = 2;   // padrão: Suave (até a pessoa escolher outro)
 function save() { try { localStorage.setItem(STORE, JSON.stringify(prefs)); } catch (e) {} }
@@ -741,7 +794,8 @@ var fmt1 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigi
 var fmt2 = function (v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
 
 // Suavização: [janela da mediana, peso de cada leitura nova, rigidez da mola do ponteiro, resposta do estroboscópio]
-var SMOOTH = [[3, 0.6, 420, 16], [5, 0.35, 160, 10], [7, 0.18, 70, 6], [9, 0.09, 32, 3.5]];
+// [mediana, (antigo), mola do ponteiro, estroboscópio, q do Kalman, janela da média por energia (s)]
+var SMOOTH = [[3, 0.6, 420, 16, 800, 0.25], [5, 0.35, 160, 10, 200, 0.5], [7, 0.18, 70, 6, 60, 1.0], [9, 0.09, 32, 3.5, 20, 1.6]];
 function sm() { return SMOOTH[prefs.smooth] || SMOOTH[1]; }
 function midiFreq(m) { return prefs.a4 * Math.pow(2, (m - 69) / 12); }
 function stretchCents(m) {
@@ -1011,6 +1065,69 @@ $('calBtn').addEventListener('click', function () {
     msg.innerHTML = (noise + 9 > -30 ? L().calNoisy : L().calDone).replace('{v}', lv);
   }, 2000);
 });
+$('inputSel').addEventListener('change', function () { prefs.inputId = this.value; save(); if (stream || running) restartMic(); });
+$('classic').checked = !!prefs.classic;
+$('classic').addEventListener('change', function () { prefs.classic = this.checked; save(); fineExit(); });
+
+/* ---------- Modo laboratório (toque longo no "?" ou endereço com #lab) ---------- */
+(function () {
+  var hb = $('helpBtn'), t = 0, long = false;
+  hb.addEventListener('pointerdown', function () { long = false; t = setTimeout(function () { long = true; labOpen(true); }, 700); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { hb.addEventListener(ev, function () { clearTimeout(t); }); });
+  hb.addEventListener('click', function (e) { if (long) { e.stopImmediatePropagation(); e.preventDefault(); long = false; } }, true);
+  $('labClose').addEventListener('click', function () { labOpen(false); });
+  [].forEach.call($('labMode').children, function (b) {
+    b.addEventListener('click', function () { lab.mode = b.dataset.v; fineExit(); paintLab(); });
+  });
+  $('labRec').addEventListener('click', function () {
+    lab.rec = { t0: performance.now(), rows: [] };
+    $('labRecMsg').textContent = 'gravando… toque a corda';
+  });
+  if (/#lab\b/.test(location.hash)) setTimeout(function () { labOpen(true); }, 0);   // depois que o resto do script carregou
+})();
+// leitura do estado para diagnóstico (testes e laboratório)
+window.__accordatore = function () { return { have: haveReading, c: dispCents, fine: fineOn, precise: precise, worklet: useWorklet, gaps: gapCount, mode: lab.mode, last: lab.last }; };
+window.__accordatoreLab = function (m) { lab.mode = m; fineExit(); };
+function paintLab() { [].forEach.call($('labMode').children, function (b) { b.setAttribute('aria-pressed', b.dataset.v === lab.mode); }); }
+function labOpen(v) { $('lab').hidden = !v; paintLab(); }
+var labLastT = 0, labLastA = 0;
+function labTick(now) {
+  if ($('lab').hidden && !lab.rec) return;
+  var L0 = lab.last, co = L0.coarse, fi = fineOn ? L0.fine : null;
+  if (lab.rec && lastAnalysis !== labLastA) {
+    labLastA = lastAnalysis;
+    var a = fi && fi.amps ? fi.amps : [];
+    lab.rec.rows.push([((now - lab.rec.t0) / 1000).toFixed(3), fineOn ? 'precisao' : 'aproximacao',
+      co ? co.f.toFixed(4) : '', co ? co.c.toFixed(3) : '', fi ? fi.f1.toFixed(5) : '', fi ? fi.c.toFixed(3) : '',
+      fi ? (fi.B * 1e4).toFixed(3) : '', fi ? fi.captured.toFixed(3) : '', fi ? fi.vavg.toFixed(3) : '',
+      a[0] || '', a[1] || '', a[2] || '', a[3] || '', a[4] || '', haveReading ? dispCents.toFixed(3) : '',
+      (L0.rms || 0).toExponential(3), L0.gate ? 1 : 0].join(';'));
+    if (now - lab.rec.t0 > 10000) {
+      var csv = 't_s;estagio;aprox_hz;aprox_cents;precisao_hz;precisao_cents;B_e-4;captura;variancia;a1;a2;a3;a4;a5;mostrado_cents;rms;gate\n' + lab.rec.rows.join('\n');
+      var meta = '# Accordatore ' + new Date().toISOString() + ' | ' + inst.id + ' | sr ' + (ctx ? ctx.sampleRate : '') + ' | worklet ' + useWorklet + ' | falhas ' + gapCount + ' | microfone ' + micIssue.label + ' ' + JSON.stringify(micIssue.settings) + '\n';
+      try {
+        var blob = new Blob([meta + csv.replace(/\./g, ',')], { type: 'text/csv' }), a2 = document.createElement('a');
+        a2.href = URL.createObjectURL(blob); a2.download = 'accordatore-diagnostico-' + new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-') + '.csv';
+        document.body.appendChild(a2); a2.click(); setTimeout(function () { URL.revokeObjectURL(a2.href); a2.remove(); }, 1000);
+        $('labRecMsg').textContent = 'arquivo salvo (' + lab.rec.rows.length + ' linhas)';
+      } catch (e) { $('labRecMsg').textContent = 'não consegui salvar: ' + e.message; }
+      lab.rec = null;
+    }
+  }
+  if ($('lab').hidden || now - labLastT < 150) return;
+  labLastT = now;
+  var db = function (x) { return x > 0 ? (20 * Math.log10(x)).toFixed(0) : '–'; };
+  var lines = [
+    'estágio   ' + (fineOn ? 'PRECISÃO' : 'aproximação') + (prefs.classic ? ' (modo clássico)' : '') + '   modo lab: ' + lab.mode,
+    'captura   ' + (useWorklet ? 'AudioWorklet' : 'reserva (AnalyserNode)') + '  sr ' + (ctx ? ctx.sampleRate : '-') + '  falhas ' + gapCount + '  gate ' + (L0.gate ? 'aberto' : 'fechado') + '  ' + db(L0.rms) + ' dBFS',
+    'aprox.    ' + (co ? co.f.toFixed(3) + ' Hz  ' + co.c.toFixed(2) + ' ¢' : '–'),
+    'precisão  ' + (fi ? fi.f1.toFixed(4) + ' Hz  ' + fi.c.toFixed(2) + ' ¢  B ' + (fi.B * 1e4).toFixed(2) + 'e-4  captura ' + (fi.captured * 100).toFixed(0) + '%  var ' + fi.vavg.toFixed(2) : '–'),
+    'harmôn.   ' + (fi ? fi.amps.map(function (x, k) { return (k + 1) + ':' + db(x); }).join('  ') + ' dB' : '–'),
+    'mostrado  ' + (haveReading ? dispCents.toFixed(2) + ' ¢' : '–') + '   janela ' + (fine && fineOn ? fine.W + ' am. (' + fine.periods + ' per.)' : '–'),
+    'microfone ' + (micIssue.label || '?') + '  EC ' + micIssue.settings.echoCancellation + ' NS ' + micIssue.settings.noiseSuppression + ' AGC ' + micIssue.settings.autoGainControl
+  ];
+  $('labOut').textContent = lines.join('\n');
+}
 $('qSmooth').addEventListener('click', function () {
   prefs.smooth = (prefs.smooth + 1) % 4; prefs.smoothChosen = true; save(); updateQuick();
 });
@@ -1052,9 +1169,12 @@ function start() {
   var AC = window.AudioContext || window.webkitAudioContext;
   try { ctx = ctx || new AC({ latencyHint: 'interactive' }); } catch (e) { try { ctx = new AC(); } catch (e2) { msg.innerHTML = L().errAudio; return; } }
   if (ctx.resume) ctx.resume();
-  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
+  var cons = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+  if (prefs.inputId) cons.deviceId = { exact: prefs.inputId };
+  navigator.mediaDevices.getUserMedia({ audio: cons })
     .then(function (s) {
       stream = s;
+      checkProcessing(s); listInputs();
       try { connectMic(s); }
       catch (e) {
         // Firefox: o microfone e o áudio precisam da mesma taxa de amostragem
@@ -1072,6 +1192,7 @@ function start() {
       resumeAudio();
     }, function (err) {
       starting = false;
+      if (prefs.inputId && err && (err.name === 'OverconstrainedError' || err.name === 'NotFoundError')) { prefs.inputId = ''; save(); start(); return; }
       var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError' || err.name === 'PermissionDeniedError');
       msg.innerHTML = denied ? L().errDenied : L().errNoMic + ' <small>(' + (err && err.name || '') + ')</small>';
     });
@@ -1106,14 +1227,82 @@ function autoStart() {
     }, go);
   } catch (e) { go(); }
 }
+var micNodes = null;
 function connectMic(s) {
-  var src = ctx.createMediaStreamSource(s);
+  var src = ctx.createMediaStreamSource(s);           // pode falhar no Firefox (taxa diferente): quem chama trata
   var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 22; hp.Q.value = 0.5;
+  src.connect(hp);
   analyser = ctx.createAnalyser(); analyser.smoothingTimeConstant = 0;
-  src.connect(hp); hp.connect(analyser);
-  detector = null;
+  hp.connect(analyser);                                // reserva, se o AudioWorklet não estiver disponível
+  micNodes = { src: src, hp: hp, node: null, mute: null };
+  detector = null; fine = null;
   analysisConfigChanged();
   analyser.fftSize = cfg.N;
+  useWorklet = false; ringEnd = -1;
+  if (ctx.audioWorklet && ctx.audioWorklet.addModule && window.AudioWorkletNode) {
+    if (!ctx.__cifraMod) ctx.__cifraMod = ctx.audioWorklet.addModule('capture-worklet.js?v=7');
+    var mine = micNodes;
+    ctx.__cifraMod.then(function () {
+      if (micNodes !== mine) return;                   // o microfone foi trocado nesse meio-tempo
+      var node = new AudioWorkletNode(ctx, 'cifra-capture', { numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [1] });
+      node.port.onmessage = function (e) { ringWrite(e.data.i0, e.data.d); };
+      var mute = ctx.createGain(); mute.gain.value = 0;
+      hp.connect(node); node.connect(mute); mute.connect(ctx.destination);
+      mine.node = node; mine.mute = mute; useWorklet = true;
+    }).catch(function (e) { console.warn('AudioWorklet indisponível; usando o modo de reserva', e); });
+  }
+}
+function disconnectMic() {
+  try { if (micNodes) { micNodes.src.disconnect(); micNodes.hp.disconnect(); if (micNodes.node) { micNodes.node.port.onmessage = null; micNodes.node.disconnect(); } if (micNodes.mute) micNodes.mute.disconnect(); } } catch (e) {}
+  try { if (stream) stream.getTracks().forEach(function (t) { t.stop(); }); } catch (e) {}
+  micNodes = null; stream = null; useWorklet = false; ringEnd = -1; analyser = null; running = false;
+  fineExit();
+}
+function restartMic() { disconnectMic(); start(); }
+
+/* Buffer circular indexado pelo contador ABSOLUTO de amostras do AudioWorklet */
+var RING_SIZE = 1 << 16, RMASK = RING_SIZE - 1, ring = new Float32Array(RING_SIZE), ringEnd = -1, lastGapAt = -1, gapCount = 0, useWorklet = false;
+function ringWrite(i0, d) {
+  var k;
+  if (ringEnd >= 0 && i0 !== ringEnd) {               // falha no áudio (ou recomeço): marca para o estágio de precisão descartar
+    if (i0 > ringEnd && i0 - ringEnd < RING_SIZE) for (k = ringEnd; k < i0; k++) ring[k & RMASK] = 0;
+    lastGapAt = i0; gapCount++;
+  }
+  for (k = 0; k < d.length; k++) ring[(i0 + k) & RMASK] = d[k];
+  ringEnd = i0 + d.length;
+}
+
+/* Diagnóstico do microfone: processamento ativo e fones Bluetooth */
+var micIssue = { proc: false, bt: false, label: '', settings: {} };
+function checkProcessing(s) {
+  try {
+    var tr = s.getAudioTracks()[0], st = tr.getSettings ? tr.getSettings() : {};
+    micIssue.settings = st; micIssue.label = tr.label || '';
+    micIssue.proc = st.echoCancellation === true || st.noiseSuppression === true || st.autoGainControl === true;
+    micIssue.bt = /bluetooth|airpods|hands-?free|headset|buds|bt\b/i.test(micIssue.label);
+  } catch (e) {}
+  updateMicWarn();
+}
+function updateMicWarn() {
+  var msg = micIssue.bt ? L().warnBt : micIssue.proc ? L().warnProc : '';
+  ['micWarn', 'procWarn'].forEach(function (id) { var el = $(id); if (el) { el.textContent = msg; el.hidden = !msg; } });
+  var q = $('qSens'); if (q) q.classList.toggle('warn', !!msg);
+}
+/* Lista as entradas de áudio (os nomes só aparecem depois da permissão) */
+function listInputs() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+  navigator.mediaDevices.enumerateDevices().then(function (devs) {
+    var sel = $('inputSel'); if (!sel) return;
+    var ins = devs.filter(function (d) { return d.kind === 'audioinput'; });
+    sel.innerHTML = '';
+    var o = document.createElement('option'); o.value = ''; o.textContent = L().inputDefault; sel.appendChild(o);
+    ins.forEach(function (d, i) {
+      if (d.deviceId === 'default' || d.deviceId === 'communications') return;
+      var op = document.createElement('option'); op.value = d.deviceId; op.textContent = d.label || (L().inputN + ' ' + (i + 1)); sel.appendChild(op);
+    });
+    sel.value = prefs.inputId || '';
+    if (sel.value !== (prefs.inputId || '')) sel.value = '';
+  }).catch(function () {});
 }
 // Mostra qualquer erro na tela, para poder ser informado
 function showErr(e) {
@@ -1173,10 +1362,11 @@ function stopTone() { if (tone) { try { tone.osc.stop(); } catch (e) {} tone = n
 
 /* ---------- Leitura, suavização e exibição ---------- */
 var envSlow = 0, onsetAt = 0, heldF = 0;
+var EA = new CifraPitch.EnergyAvg(), KAL = new CifraPitch.Kalman(); var kalT = 0;
 var hist = [], pend = [], dispCents = 0, dispFreq = 0, shownMidi = null, lastGood = 0, inTuneSince = 0, haveReading = false;
 var strobePhase = 0, strobeVel = 0, levelVal = 0;
 
-function resetReading() { heldF = 0; hist = []; pend = []; haveReading = false; inTuneSince = 0; }
+function resetReading() { fineExit(); KAL.reset(0); heldF = 0; hist = []; pend = []; haveReading = false; inTuneSince = 0; }
 
 function chooseTarget(f) {
   if (inst.chromatic) {
@@ -1201,62 +1391,130 @@ function chooseTarget(f) {
 function median(a) { var s = a.slice().sort(function (x, y) { return x - y; }); var k = s.length >> 1; return s.length % 2 ? s[k] : (s[k - 1] + s[k]) / 2; }
 
 var lastAnalysis = 0;
-function analyse(now) {
-  if (!running || !analyser) return;
-  if (now - lastAnalysis < 30) return;
-  lastAnalysis = now;
-  if (analyser.fftSize !== cfg.N) analyser.fftSize = cfg.N;
-  analyser.getFloatTimeDomainData(buf);
-  // sensibilidade 0..100 → limiar −30..−75 dBFS
-  var gateDb = -30 - 45 * prefs.sens / 100, minRms = Math.pow(10, gateDb / 20);
-  var r = detector.detect(buf, { sampleRate: ctx.sampleRate, minFreq: cfg.minF, maxFreq: cfg.maxF, minClarity: cfg.clarity, threshold: 0.9, minRms: minRms });
-  levelVal = Math.max(0, Math.min(1, (20 * Math.log10(r.rms + 1e-9) + 70) / 60));
-  if (calibrating) calSamples.push(20 * Math.log10(r.rms + 1e-9));
-  if (now < toneUntil) return;                 // ignorando o próprio som de referência
-  // Ataque: a corda acabou de ser tocada?
-  var onset = r.rms > minRms * 1.5 && r.rms > envSlow * 1.8;
-  envSlow = onset ? r.rms : envSlow * 0.8 + r.rms * 0.2;
-  if (onset) { onsetAt = now; }
-  var lockM = currentTargetMidi();
-  if (lockM !== null && (r.freq || r.score)) {
-    // corda fixa: segue a nota mais próxima dela, mesmo com outras cordas soando
-    var tl = detector.track ? detector.track(targetFreq(lockM), 160) : null;
-    if (tl && (!r.freq || tl.s >= 0.2 * r.score)) r.freq = tl.freq;
-  } else if (heldF && now - onsetAt > 140 && now - lastGood < 400) {
-    // segura a corda que foi tocada por último enquanto ela ainda soa
-    var th = detector.track ? detector.track(heldF, 45) : null;
-    if (th && th.s >= 0.25 * (r.score || 0)) r.freq = th.freq;
-  }
-  if (!r.freq) { if (now - lastGood > 300) { hist = []; pend = []; heldF = 0; } return; }
-  // Filtro contra saltos: uma leitura muito diferente só vale se se repetir 3 vezes seguidas
-  var f;
+/* ===== Estado dos dois estágios =====
+   Aproximação: método atual (soma harmônica) + Kalman.
+   Precisão: lock-in por harmônico com janela sincronizada, rotação de fase,
+   ajuste f1+B e média ponderada pela energia (CifraPitch.Fine / EnergyAvg). */
+var fine = null, fineOn = false, fineTarget = null, fineIdx = -1, fineBadQ = 0, fineMismatch = 0, lowSince = 0;
+var precise = false;
+var gateOpen = false, tgStable = 0, lastTgM = null;
+var lab = { mode: 'auto', rec: null, last: {} };
+function fineExit() { fineOn = false; fineTarget = null; precise = false; if (fine) fine.reset(); if (EA) EA.reset(); }
+function fineEnter(tg, sr) {
+  if (!fine || fine.sr !== sr) fine = new CifraPitch.Fine(sr);
+  fine.setRef(targetFreq(tg.m), 16384);
+  fineOn = true; fineTarget = tg.m; fineIdx = tg.idx; fineBadQ = 0; fineMismatch = 0; lowSince = 0;
+  EA.reset();
+}
+function fineMeasure(now) {
+  if (ringEnd < fine.W + 16) return false;
+  if (lastGapAt > ringEnd - fine.W - 4096) { fine.reset(); return false; }     // falha no áudio dentro da janela: descarta
+  var m = fine.measure(ring, RMASK, ringEnd);
+  if (!m) return false;
+  var cF = 1200 * Math.log2(m.f1 / targetFreq(fineTarget));
+  lab.last.fine = { f1: m.f1, c: cF, B: m.B, captured: m.captured, vavg: m.vavg, amps: m.amps, resid: m.resid };
+  if (!(m.captured >= 0.12) || !isFinite(cF)) { if (++fineBadQ >= 6) fineExit(); return false; }
+  fineBadQ = 0;
+  if (Math.abs(cF) > 35) { fineExit(); return false; }
+  var e = 0; for (var i = 0; i < m.amps.length; i++) e += m.amps[i] * m.amps[i];
+  var v = EA.push(now / 1000, cF, e / (0.05 + m.vavg), sm()[5]);
+  dispCents = v; dispFreq = m.f1 * Math.pow(2, (v - cF) / 1200);
+  haveReading = true; precise = true; lastGood = now; heldF = m.f1;
+  showTarget(fineTarget, fineIdx);
+  markTuned(now, fineIdx);
+  return true;
+}
+function markTuned(now, idx) {
+  // não marca durante o ataque (a corda sai mais aguda logo depois de tocada)
+  if (Math.abs(dispCents) <= prefs.tol && now - onsetAt > 450) {
+    if (!inTuneSince) inTuneSince = now;
+    else if (now - inTuneSince > 700 && idx >= 0 && !tunedSet[idx]) {
+      tunedSet[idx] = true; updateLockUI();
+      checkAllTuned();
+      if (navigator.vibrate) try { navigator.vibrate(25); } catch (e) {}
+    }
+  } else inTuneSince = 0;
+}
+// leitura de aproximação com filtro contra saltos; devolve a frequência (0 = nada novo)
+function coarseUpdate(r, now) {
+  if (!r.freq) { if (now - lastGood > 300 && !fineOn) { hist = []; pend = []; heldF = 0; } return 0; }
   if (hist.length >= 3) {
     var med = median(hist);
     if (Math.abs(1200 * Math.log2(r.freq / med)) > 60) {
       pend.push(r.freq);
       var pm = median(pend), agree = pend.every(function (v) { return Math.abs(1200 * Math.log2(v / pm)) < 60; });
       if (!agree) pend = [r.freq];
-      if (pend.length < 3) { lastGood = now; return; }
+      if (pend.length < 3) { if (!fineOn) lastGood = now; return 0; }
       hist = pend.slice(); pend = [];
     } else { pend = []; hist.push(r.freq); if (hist.length > sm()[0]) hist.shift(); }
-  } else { hist.push(r.freq); }
-  f = median(hist);
-  lastGood = now; heldF = f;
-  var tg = chooseTarget(f);
+  } else hist.push(r.freq);
+  return median(hist);
+}
+function analyse(now) {
+  if (!running || (!useWorklet && !analyser)) return;
+  if (now - lastAnalysis < 30) return;
+  lastAnalysis = now;
+  var sr = ctx.sampleRate, i;
+  if (useWorklet && ringEnd >= cfg.N) { var st0 = ringEnd - cfg.N; for (i = 0; i < cfg.N; i++) buf[i] = ring[(st0 + i) & RMASK]; }
+  else if (analyser) { if (analyser.fftSize !== cfg.N) analyser.fftSize = cfg.N; analyser.getFloatTimeDomainData(buf); }
+  else return;
+  // sensibilidade 0..100 → limiar −30..−75 dBFS; gate com histerese (fecha 6 dB abaixo de onde abre)
+  var gateDb = -30 - 45 * prefs.sens / 100, minRms = Math.pow(10, gateDb / 20);
+  var gateNow = gateOpen ? minRms * 0.5 : minRms;
+  var r = detector.detect(buf, { sampleRate: sr, minFreq: cfg.minF, maxFreq: cfg.maxF, minClarity: cfg.clarity, threshold: 0.9, minRms: gateNow });
+  gateOpen = r.rms > gateNow;
+  levelVal = Math.max(0, Math.min(1, (20 * Math.log10(r.rms + 1e-9) + 70) / 60));
+  if (calibrating) calSamples.push(20 * Math.log10(r.rms + 1e-9));
+  lab.last.rms = r.rms; lab.last.gate = gateOpen;
+  if (now < toneUntil) return;                 // ignorando o próprio som de referência
+  // Ataque: a corda acabou de ser tocada?
+  var onset = r.rms > minRms * 1.5 && r.rms > envSlow * 1.8;
+  envSlow = onset ? r.rms : envSlow * 0.8 + r.rms * 0.2;
+  if (onset) { onsetAt = now; if (fineOn) fineExit(); }
+  var lockM = currentTargetMidi();
+  if (lockM !== null && (r.freq || r.score)) {
+    var tl = detector.track ? detector.track(targetFreq(lockM), 160) : null;
+    if (tl && (!r.freq || tl.s >= 0.2 * r.score)) r.freq = tl.freq;
+  } else if (heldF && now - onsetAt > 140 && now - lastGood < 400) {
+    var th = detector.track ? detector.track(heldF, 45) : null;
+    if (th && th.s >= 0.25 * (r.score || 0)) r.freq = th.freq;
+  }
+  // 1) aproximação
+  var f = coarseUpdate(r, now), tg = f ? chooseTarget(f) : null;
+  lab.last.coarse = f ? { f: f, c: 1200 * Math.log2(f / targetFreq(tg.m)), m: tg.m } : null;
+  var classic = prefs.classic || lab.mode === 'classic';
+  // 2) precisão
+  if (fineOn) {
+    if (tg) { if (tg.m !== fineTarget) fineMismatch++; else fineMismatch = 0; }
+    if (fineMismatch >= 3 || classic) fineExit();
+  }
+  if (fineOn) {
+    if (!gateOpen) { if (!lowSince) lowSince = now; if (now - lowSince > 350) { fineExit(); return; } } else lowSince = 0;
+    if (fineMeasure(now)) return;
+    if (fineOn) return;                         // ainda juntando a 1ª medida: mantém a tela
+  }
+  if (!f) return;
+  // 3) mostra a aproximação (Kalman: rápido quando a tarraxa gira, calmo quando parado)
   var c = 1200 * Math.log2(f / targetFreq(tg.m));
-  if (!haveReading || tg.m !== shownMidi || Math.abs(c - dispCents) > 35) { dispCents = c; inTuneSince = 0; }
-  else dispCents += (c - dispCents) * sm()[1];
+  var rC = now - onsetAt < 300 ? 25 : 2;           // logo após o ataque a leitura é pouco confiável: pesa menos
+  if (!haveReading || tg.m !== shownMidi || Math.abs(c - dispCents) > 35) { KAL.reset(c); dispCents = KAL.step(c, rC, 0.03, sm()[4]); inTuneSince = 0; }
+  else {
+    if (now - kalT > 120) { KAL.reset(dispCents); KAL.step(dispCents, 0.5, 0.03, sm()[4]); }   // filtro parado (ex.: a precisão estava na tela): recomeça do valor mostrado
+    dispCents = KAL.step(c, rC, 0.03, sm()[4]);
+  }
+  kalT = now;
+  precise = false;
+  lastGood = now; heldF = f;
   dispFreq = f; haveReading = true;
   showTarget(tg.m, tg.idx);
-  // marcar como afinado
-  if (Math.abs(dispCents) <= prefs.tol) {
-    if (!inTuneSince) inTuneSince = now;
-    else if (now - inTuneSince > 700 && tg.idx >= 0 && !tunedSet[tg.idx]) {
-      tunedSet[tg.idx] = true; updateLockUI();
-      checkAllTuned();
-      if (navigator.vibrate) try { navigator.vibrate(25); } catch (e) {}
-    }
-  } else inTuneSince = 0;
+  markTuned(now, tg.idx);
+  // 4) entra na precisão quando a corda está perto e estável (e o ataque já passou)
+  if (!classic && useWorklet) {
+    if (tg.m === lastTgM) tgStable++; else tgStable = 0;
+    lastTgM = tg.m;
+    var near = lab.mode === 'fine' ? 60 : 20;
+    if (Math.abs(c) < near && now - onsetAt > 200 && gateOpen && (tgStable >= 3 || lab.mode === 'fine')) fineEnter(tg, sr);
+  }
 }
 
 var curIdx = -2;
@@ -1313,6 +1571,8 @@ function frame(now) {
     }
   }
   card.dataset.state = state;
+  $('prec').hidden = !(fresh && precise);
+  labTick(now);
   updateQuickLevel();
   drawMeter(fresh ? dispCents : null, state);
   drawStrobe(now, fresh ? dispCents : null, state);
@@ -1480,6 +1740,7 @@ function applyLang(lang) {
   [].forEach.call(document.querySelectorAll('.flag'), function (b) { b.setAttribute('aria-pressed', b.dataset.lang === prefs.lang); });
   [].forEach.call(document.querySelectorAll('[data-lang-block]'), function (b) { b.hidden = b.dataset.langBlock !== prefs.lang; });
   fillInstSel();
+  if (typeof updateMicWarn === 'function' && $('micWarn')) updateMicWarn();
   if (typeof updateQuick === 'function' && $('qSensLbl')) updateQuick();
   var keepLock = lockIdx;
   if (inst) { selectInstrument(inst.id); if (inst.keyboard && keepLock !== -1) { lockIdx = keepLock; updateLockUI(); } }

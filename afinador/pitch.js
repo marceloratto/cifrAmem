@@ -210,7 +210,187 @@
     return sr / (chosen + shift);
   };
 
-  var api = { Detector: Detector, FFT: FFT };
+  /* ===================================================================
+     ESTÁGIO DE PRECISÃO — "estroboscópio digital"
+     - Lock-in (demodulação síncrona) em h·fRef, h = 1..H, com fase
+       referida ao contador ABSOLUTO de amostras.
+     - Janela de Hann com número INTEIRO de períodos de fRef (como a
+       IEC 61000-4-7): os harmônicos vizinhos caem nos zeros da janela.
+     - Frequência de cada harmônico pela rotação de fase entre medidas:
+       f_h = h·fRef + Δφ·sr / (2π·Δn)   (Δn = amostras exatas entre medidas)
+     - Ajuste da série harmônica com inarmonicidade, ponderado pela
+       energia de cada harmônico:  f_h/h = f0·√(1+B·h²) ≈ a + b·h²
+       → devolve f1 = a + b  (frequência da fundamental real).
+     =================================================================== */
+  function Fine(sr) {
+    this.sr = sr; this.fRef = 0; this.W = 0; this.H = 0;
+    this.win = null; this.prev = null; this.prevEnd = -1;
+  }
+  // Prepara a janela sincronizada para uma frequência de referência
+  Fine.prototype.setRef = function (fRef, maxW) {
+    var sr = this.sr, per = sr / fRef;
+    var k = Math.max(8, Math.ceil(0.2 * fRef));               // ≥ 8 períodos e ≈ 200 ms
+    while (k > 8 && k * per > (maxW || 16384)) k--;
+    var W = Math.round(k * per);
+    if (W > (maxW || 16384)) W = maxW || 16384;
+    this.fRef = fRef; this.W = W; this.periods = k;
+    this.H = Math.max(1, Math.min(5, Math.floor(Math.min(sr * 0.42, 5000) / fRef)));
+    var w = new Float64Array(W), s = 0;
+    for (var i = 0; i < W; i++) { w[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * (i + 0.5) / W); s += w[i]; }
+    this.win = w; this.wsum = s;
+    this.reset();
+  };
+  Fine.prototype.reset = function () {
+    this.prev = null; this.prevEnd = -1;
+    // média e variância recentes de cada harmônico (em cents) → peso pela confiabilidade
+    this.mu = new Float64Array(6); this.va = new Float64Array(6).fill(4); this.cnt = new Int32Array(6);
+  };
+  /* ring: Float32Array circular; mask = tamanho-1; endIdx = índice absoluto
+     (exclusivo) da última amostra disponível. Devolve null ou a medida. */
+  Fine.prototype.measure = function (ring, mask, endIdx) {
+    var W = this.W, sr = this.sr, H = this.H, start = endIdx - W, win = this.win;
+    var TWO_PI = 2 * Math.PI, Z = [], energy = 0, i, h;
+    for (i = 0; i < W; i++) { var v = ring[(start + i) & mask]; energy += v * v; }
+    for (h = 1; h <= H; h++) {
+      var om = TWO_PI * h * this.fRef / sr;
+      var ph = (om * start) % TWO_PI;                        // fase da referência na 1ª amostra (absoluta)
+      var cr = Math.cos(ph), ci = -Math.sin(ph);             // e^{-jφ}
+      var dr = Math.cos(om), di = -Math.sin(om);
+      var re = 0, im = 0;
+      for (i = 0; i < W; i++) {
+        var x = ring[(start + i) & mask] * win[i];
+        re += x * cr; im += x * ci;
+        var nr = cr * dr - ci * di; ci = cr * di + ci * dr; cr = nr;
+        if ((i & 1023) === 1023) { var m = 1 / Math.sqrt(cr * cr + ci * ci); cr *= m; ci *= m; }
+      }
+      Z.push({ re: re, im: im, a: 2 * Math.sqrt(re * re + im * im) / this.wsum });
+    }
+    var out = null;
+    if (this.prev && this.prevEnd >= 0) {
+      var dn = endIdx - this.prevEnd;
+      if (dn > 0 && dn < sr * 0.25) {
+        var fh = [], maxA = 0, capt = 0;
+        for (h = 0; h < H; h++) if (Z[h].a > maxA) maxA = Z[h].a;
+        for (h = 0; h < H; h++) {
+          var p = this.prev[h], z = Z[h];
+          // Δφ = arg(z · conj(p))
+          var xr = z.re * p.re + z.im * p.im, xi = z.im * p.re - z.re * p.im;
+          var dphi = Math.atan2(xi, xr);
+          var f = (h + 1) * this.fRef + dphi * sr / (TWO_PI * dn);
+          var a = Math.min(z.a, p.a);                         // energia confiável nas duas medidas
+          capt += z.a * z.a / 2;
+          // confiabilidade: harmônico cuja medida oscila (batimento, outra corda na mesma frequência) perde peso
+          var cc = 1200 * Math.log2(f / ((h + 1) * this.fRef));
+          if (this.cnt[h] === 0) { this.mu[h] = cc; this.va[h] = 4; }
+          else { var d = cc - this.mu[h]; this.mu[h] += 0.25 * d; this.va[h] += 0.25 * (d * d - this.va[h]); }
+          this.cnt[h]++;
+          var rel = 1 / (this.va[h] + 0.05);
+          if (a > 0.03 * maxA) fh.push({ h: h + 1, f: f, w: a * a * rel });
+        }
+        if (fh.length) out = fitSeries(fh);
+        if (out) {   // variância recente média dos harmônicos usados (ponderada pela energia)
+          var vs = 0, ws = 0;
+          for (h = 0; h < fh.length; h++) { var hh = fh[h].h - 1, e2 = Z[hh].a * Z[hh].a; vs += e2 * this.va[hh]; ws += e2; }
+          out.vavg = ws > 0 ? vs / ws : 4;
+          // incerteza sugerida para o Kalman (cents²)
+          out.r = Math.max(0.02, (0.1 + out.resid) * (0.1 + out.resid) + 0.5 * out.vavg);
+        }
+        if (out) {
+          out.amps = Z.map(function (q) { return q.a; });
+          out.captured = energy > 0 ? Math.min(1, capt / (energy / W)) : 0;   // fração da potência que está nos harmônicos
+          out.rms = Math.sqrt(energy / W);
+          out.dn = dn;
+        }
+      }
+    }
+    this.prev = Z; this.prevEnd = endIdx;
+    return out;
+  };
+  // Ajuste ponderado y_h = f_h/h = a + b·h²  (b = a·B/2), b ≥ 0
+  function fitSeries(fh) {
+    var Sw = 0, Sx = 0, Sy = 0, Sxx = 0, Sxy = 0, i;
+    for (i = 0; i < fh.length; i++) {
+      var w = fh[i].w, x = fh[i].h * fh[i].h, y = fh[i].f / fh[i].h;
+      Sw += w; Sx += w * x; Sy += w * y; Sxx += w * x * x; Sxy += w * x * y;
+    }
+    var a, b = 0, den = Sw * Sxx - Sx * Sx;
+    if (fh.length >= 2 && den > 1e-12 * Sw * Sxx) {
+      b = (Sw * Sxy - Sx * Sy) / den; a = (Sy - b * Sx) / Sw;
+      if (b < 0 || b > a * 1e-3) { b = Math.max(0, Math.min(b, a * 1e-3)); a = (Sy - b * Sx) / Sw; }
+    } else a = Sy / Sw;
+    // resíduo ponderado (consistência entre harmônicos), em cents
+    var r = 0;
+    for (i = 0; i < fh.length; i++) {
+      var pred = a + b * fh[i].h * fh[i].h, e = 1200 * Math.log2((fh[i].f / fh[i].h) / pred);
+      r += fh[i].w * e * e;
+    }
+    return { f1: a + b, B: a > 0 ? 2 * b / a : 0, resid: Math.sqrt(r / Sw), n: fh.length, wsum: Sw };
+  }
+
+  /* Filtro de Kalman para o valor mostrado (cents): estado = [desvio, velocidade].
+     q: quanto o desvio pode mudar (suavização); r: incerteza de cada medida. */
+  function Kalman() { this.reset(0); }
+  Kalman.prototype.reset = function (c) { this.c = c; this.v = 0; this.P = [[25, 0], [0, 100]]; this.init = false; this.bad = 0; };
+  Kalman.prototype.step = function (z, r, dt, q) {
+    if (!this.init) { this.reset(z); this.init = true; this.P = [[r, 0], [0, 50]]; return this.c; }
+    var P = this.P;
+    // previsão (velocidade constante)
+    this.c += this.v * dt;
+    var p00 = P[0][0] + dt * (P[1][0] + P[0][1]) + dt * dt * P[1][1] + q * dt * dt * dt / 3;
+    var p01 = P[0][1] + dt * P[1][1] + q * dt * dt / 2;
+    var p11 = P[1][1] + q * dt;
+    // atualização
+    var S = p00 + r, inn = z - this.c;
+    if (inn * inn > 25 * S) { if (++this.bad >= 3) { this.reset(z); this.init = true; this.P = [[r, 0], [0, 50]]; return this.c; } }
+    else this.bad = 0;
+    var k0 = p00 / S, k1 = p01 / S;
+    this.c += k0 * inn; this.v += k1 * inn;
+    this.P = [[(1 - k0) * p00, (1 - k0) * p01], [p01 - k1 * p00, p11 - k1 * p01]];
+    return this.c;
+  };
+
+  /* Média no tempo ponderada pela ENERGIA (teorema da frequência média):
+     cada medida pesa pelo quadrado da amplitude dos harmônicos e pela
+     confiabilidade. Remove o efeito de batimentos lentos.
+     Detector de mudança: se as medidas novas ficam seguidamente do mesmo
+     lado (tarraxa girando), descarta as antigas para não atrasar. */
+  function EnergyAvg() { this.reset(); }
+  EnergyAvg.prototype.reset = function () { this.buf = []; this.env = 0; };
+  EnergyAvg.prototype.push = function (t, c, e, T) {
+    // energia RELATIVA ao volume do momento: pesa os vales do batimento, mas não favorece o início (mais forte) da nota
+    this.env = this.env ? this.env * 0.85 + e * 0.15 : e;
+    var w = this.env > 0 ? e / this.env : 1;
+    this.buf.push({ t: t, c: c, e: w });
+    while (this.buf.length > 1 && this.buf[0].t < t - T) this.buf.shift();
+    // detector de mudança: últimas 4 medidas × trecho anterior a elas
+    var n = this.buf.length;
+    if (n >= 6) {
+      var old = this.stats(0, n - 4), rm = 0;
+      for (var i = n - 4; i < n; i++) rm += this.buf[i].c / 4;
+      if (Math.abs(rm - old.m) > Math.max(1.3, 3.5 * old.sd)) this.buf = this.buf.slice(-4);
+    }
+    return this.value();
+  };
+  EnergyAvg.prototype.stats = function (a, b) {
+    var se = 0, sc = 0, sv = 0, i;
+    for (i = a; i < b; i++) { se += this.buf[i].e; sc += this.buf[i].e * this.buf[i].c; }
+    var m = se > 0 ? sc / se : 0;
+    for (i = a; i < b; i++) { var d = this.buf[i].c - m; sv += this.buf[i].e * d * d; }
+    return { m: m, sd: se > 0 ? Math.sqrt(sv / se) : 0 };
+  };
+  EnergyAvg.prototype.value = function () {
+    var se = 0, sc = 0;
+    for (var i = 0; i < this.buf.length; i++) { se += this.buf[i].e; sc += this.buf[i].e * this.buf[i].c; }
+    return se > 0 ? sc / se : null;
+  };
+  EnergyAvg.prototype.spread = function () {
+    var m = this.value(); if (m === null) return 0;
+    var se = 0, sv = 0;
+    for (var i = 0; i < this.buf.length; i++) { var d = this.buf[i].c - m; se += this.buf[i].e; sv += this.buf[i].e * d * d; }
+    return se > 0 ? Math.sqrt(sv / se) : 0;
+  };
+
+  var api = { Detector: Detector, FFT: FFT, Fine: Fine, Kalman: Kalman, EnergyAvg: EnergyAvg, fitSeries: fitSeries };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.CifraPitch = api;
 })(this);
