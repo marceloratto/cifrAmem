@@ -161,6 +161,12 @@ service cloud.firestore {
       allow read: if admin() || membro();
       allow write: if admin() || (editor() && id != 'nacional');
     }
+    // importações: cada pessoa registra a sua do mês (uma por mês); só o dono apaga
+    match /importacoes/{id} {
+      allow read: if logado() && (admin() || resource.data.email == email());
+      allow create: if logado() && request.resource.data.email == email() && id == email() + '_' + request.resource.data.mes;
+      allow update, delete: if dono();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
