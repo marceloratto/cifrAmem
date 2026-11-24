@@ -178,6 +178,11 @@ service cloud.firestore {
     match /prefs/{e} {
       allow read, write: if logado() && e == email();
     }
+    // caderno das paróquias: foto do pároco, foto da igreja e correções dos dados
+    match /paroquias/{id} {
+      allow read: if logado();
+      allow write: if admin() || editor();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
