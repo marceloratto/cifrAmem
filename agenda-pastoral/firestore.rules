@@ -177,6 +177,8 @@ service cloud.firestore {
     // preferências pessoais (ex.: questionário da arte): cada um lê e grava só a sua
     match /prefs/{e} {
       allow read, write: if logado() && e == email();
+      // o administrador lê (para o backup de tudo)
+      allow read: if admin();
     }
     // caderno das paróquias: foto do pároco, foto da igreja e correções dos dados
     match /paroquias/{id} {
