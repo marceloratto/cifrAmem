@@ -169,6 +169,11 @@ service cloud.firestore {
         && id == email() + '_' + request.resource.data.mes + '_' + string(request.resource.data.k);
       allow update, delete: if dono();
     }
+    // símbolos (logos) das paróquias, decanatos e dioceses para os relatórios
+    match /logos/{id} {
+      allow read: if logado();
+      allow write: if admin() || editor();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
