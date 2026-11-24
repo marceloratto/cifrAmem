@@ -270,7 +270,7 @@ a.mi{text-decoration:none;color:var(--ink)}
 .cdtxt{white-space:pre-line;margin:.2rem 0}.cdcap{margin:.5rem 0}.cdcap summary{cursor:pointer;font-weight:600}.cdcap ul{margin:.3rem 0 0;padding-left:1.2rem}
 #mvsplit{display:none}
 @media(min-width:900px){#mview.split{grid-template-columns:minmax(0,calc(var(--cp,63)*1%)) 14px minmax(240px,1fr);gap:.4rem}#mview.split #mvsplit{display:block;align-self:stretch;cursor:col-resize;position:relative;touch-action:none;min-height:300px}#mvsplit:before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;border-radius:2px;background:var(--line)}#mvsplit:hover:before,#mvsplit.on:before{background:#15803d;width:4px;left:5px}#mvsplit i{position:sticky;top:45vh;display:block;margin-left:1px;width:12px;height:42px;border-radius:6px;background:var(--card);border:1px solid var(--line);box-shadow:0 1px 3px #0002}
-body.wide main{max-width:none}}
+body.wide main,body.wide .bar,body.wide #pbar>div{max-width:none}body.wide main{padding-left:24px;padding-right:24px}body.wide .bar{padding-left:24px;padding-right:24px}body.wide #rib,body.wide #note,body.wide #hint{padding-left:24px !important;padding-right:24px !important}}
 </style></head><body>
 <header class="top"><div class="bar">
  <div class="brand"><span style="display:inline-flex;align-items:center;gap:.75rem"><img src="icon-192.png" alt="Pastoral Familiar" width="84" height="84" style="width:clamp(60px,8vw,84px);height:auto;border-radius:50%"><span style="font-size:1.15rem;line-height:1.25"><b>Agenda</b><br>Pastoral Familiar</span></span></div>
@@ -1528,7 +1528,7 @@ document.addEventListener('submit',async ev=>{const f=ev.target.closest('[data-r
  try{await db.collection('respostas').doc(nid()).set({aviso:f.dataset.rf,uid:myId(),texto:txt,quando:new Date().toISOString(),...(mode==='fb'?{nome:ME?.nome||FBU?.displayName||''}:{})});inp.value=''}catch{toast('Não foi possível enviar.')}});
 
 // cabeçalho simplificado: tema (1 botão), menu, ajuda, escolha de mês
-var APPV='83 · 24/11/2026 00:39';
+var APPV='84 · 24/11/2026 00:41';
 function vLine(){return`<div class="ver"><span>Versão ${esc(APPV)}</span><button class="btn sm" id="vupd">Buscar atualização</button></div>`}
 document.addEventListener('click',async ev=>{if(!ev.target.closest('#vupd'))return;toast('Buscando a versão mais nova…');try{const r=await navigator.serviceWorker?.getRegistration?.();if(r){await r.update();const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('agenda-pastoral-')).map(k=>caches.delete(k)))}}catch{}setTimeout(()=>location.reload(),600)});
 var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
@@ -1550,7 +1550,7 @@ function openMenu(){const nv=shared()?avNovos():0,it=(id,t,d,x='')=>`<button cla
  ${mode==='fb'&&ME?it('album','Álbum do ano','Fotos e resultados dos eventos do ano num PDF, para lembrar e animar.'):''}
  <a class="mi wi" href="${TERCO}" target="_blank" rel="noopener">${micon('terco')}<b>Já rezou o terço hoje?</b><small>Abre o Santo Rosário em português, com os mistérios do dia.</small></a>
  ${it('caderno','Caderno das paróquias','Pároco, endereço, telefones, WhatsApp, missas e capelas de cada paróquia da diocese, com foto e PDF.')}
- ${innerWidth>=900?it('largura',LS.get('agp-wide',0)?'Voltar à largura normal':'Usar a tela toda','No computador: o calendário e os avisos ocupam a largura toda da tela. Para mudar o tamanho de cada lado, arraste a barrinha entre eles.'):''}
+ ${innerWidth>=900?it('largura',LS.get('agp-wide',1)?'Voltar à largura normal':'Usar a tela toda','No computador: o calendário e os avisos ocupam a largura toda da tela. Para mudar o tamanho de cada lado, arraste a barrinha entre eles.'):''}
  ${it('igrejas','Igrejas próximas','Achar igreja e horário de missa quando estiver viajando.')}
  ${mode==='fb'&&ME?it('alertas','Alertas no celular',notifOk()?'Ligados. Toque para ver ou desligar.':'Ser avisado de avisos, enquetes e pedidos de oração novos, e dos eventos de amanhã.'):''}
  ${isCoordAny()?'':it('importar','Importar datas','Trazer datas de um documento Word, PDF, foto ou arquivo .ics.')}
@@ -1591,7 +1591,7 @@ document.addEventListener('click',ev=>{const t=ev.target,b=t.closest('#menubtn,#
  if(b.id==='menubtn')openMenu();else if(b.id==='helpbtn'||b.id==='hintok'){LS.set('agp-hint',1);$('#hint').hidden=true;openHelp()}else if(b.id==='hintx'){LS.set('agp-hint',1);$('#hint').hidden=true}
  else if(b.id==='thbtn'){theme={auto:'light',light:'dark',dark:'auto'}[theme];LS.set('agp-theme',theme);applyUi();toast('Tema: '+THN[theme])}
  else if(b.id==='mt')openMonth();else if(b.dataset.fs)setFs(+b.dataset.fs);
- else if(b.dataset.mi){const k=b.dataset.mi;close();({avisos:()=>$('#avbtn').click(),novo:()=>openEv(null,sel),agendas:()=>$('#ags').click(),exportar:()=>$('#exp').click(),selecionar:()=>{if(!picking)$('#pick').click();view='lista';render();toast('Marque os eventos na lista e toque em “Enviar para o celular”.')},importar:()=>$('#imp').click(),ajuda:openHelp,materiais:openMat,contatos:openCont,relatorio:openRelHub,admin:openAdmin,wpp:openWppCfg,artepref:()=>openArtePref(),modelos:openModelos,simbolos:openSimbolos,plano:()=>openPlano(),org:()=>openOrg(),pessoas:openPessoas,atividades:()=>openAtvEd(),perto:openPerto,termos:()=>openTermos(mode==='fb'&&!!ME&&!termosOk()),album:openAlbum,admrel:()=>openAdmRel(),igrejas:openIgr,caderno:openCaderno,largura:()=>agpWide(!LS.get('agp-wide',0)),alertas:openNotif})[k]?.()}});
+ else if(b.dataset.mi){const k=b.dataset.mi;close();({avisos:()=>$('#avbtn').click(),novo:()=>openEv(null,sel),agendas:()=>$('#ags').click(),exportar:()=>$('#exp').click(),selecionar:()=>{if(!picking)$('#pick').click();view='lista';render();toast('Marque os eventos na lista e toque em “Enviar para o celular”.')},importar:()=>$('#imp').click(),ajuda:openHelp,materiais:openMat,contatos:openCont,relatorio:openRelHub,admin:openAdmin,wpp:openWppCfg,artepref:()=>openArtePref(),modelos:openModelos,simbolos:openSimbolos,plano:()=>openPlano(),org:()=>openOrg(),pessoas:openPessoas,atividades:()=>openAtvEd(),perto:openPerto,termos:()=>openTermos(mode==='fb'&&!!ME&&!termosOk()),album:openAlbum,admrel:()=>openAdmRel(),igrejas:openIgr,caderno:openCaderno,largura:()=>agpWide(!LS.get('agp-wide',1)),alertas:openNotif})[k]?.()}});
 
 // ===== Extras: aniversários, escala, ata/presença, inscrições, materiais, relatório, enquetes, oração, contatos, alertas, igrejas =====
 var ANIV=[],ATAS=[],ESC=[],FORMS=[],MAT=[],ENQ=[],VOT=[],exOn=false;
@@ -2331,7 +2331,7 @@ async function parPdf(L,dio){if(!L.length)return toast('Nenhuma paróquia na lis
 
 // --- divisória ajustável calendário × avisos (computador)
 (function(){const mv=$('#mview'),sp=$('#mvsplit');if(!mv||!sp)return;mv.classList.add('split');
- const ap=()=>{const c=LS.get('agp-cp',63);mv.style.setProperty('--cp',c);document.body.classList.toggle('wide',!!LS.get('agp-wide',0))};ap();
+ const ap=()=>{const c=LS.get('agp-cp',63);mv.style.setProperty('--cp',c);document.body.classList.toggle('wide',!!LS.get('agp-wide',1))};ap();
  let drag=null;sp.addEventListener('pointerdown',e=>{if(innerWidth<900)return;drag={x:e.clientX,w:mv.getBoundingClientRect().width,c:+LS.get('agp-cp',63)};sp.classList.add('on');sp.setPointerCapture(e.pointerId);e.preventDefault()});
  sp.addEventListener('pointermove',e=>{if(!drag)return;let c=drag.c+(e.clientX-drag.x)/drag.w*100;c=Math.max(35,Math.min(82,c));mv.style.setProperty('--cp',c.toFixed(1))});
  const fim=e=>{if(!drag)return;sp.classList.remove('on');const c=parseFloat(mv.style.getPropertyValue('--cp'))||63;LS.set('agp-cp',Math.round(c*10)/10);drag=null};sp.addEventListener('pointerup',fim);sp.addEventListener('pointercancel',fim);
