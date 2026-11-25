@@ -1,5 +1,5 @@
 /* Agenda Pastoral (cifrAmem): funciona sem internet depois da primeira visita */
-var CACHE = 'agenda-pastoral-v125';
+var CACHE = 'agenda-pastoral-v126';
 var FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'firebase-config.js'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));
