@@ -195,6 +195,11 @@ service cloud.firestore {
       allow read, write: if logado() && e == email();
       allow read: if admin();
     }
+    // feriados incluídos pela coordenação (os nacionais, estaduais e municipais já vêm no app)
+    match /feriados/{id} {
+      allow read: if logado();
+      allow write: if admin();
+    }
     match /escalas/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create, update: if (dono() || membro()) && ve(request.resource.data.ag);
