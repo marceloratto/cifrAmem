@@ -1,5 +1,5 @@
 /* Accordatore (afinador do cifrAmem): funciona sem internet depois da primeira visita */
-var CACHE = 'afinador-v14';
+var CACHE = 'afinador-v15';
 var FILES = ['./', 'index.html', 'pitch.js?v=7', 'capture-worklet.js?v=7', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
   'icone-accordatore.png', '../fonts/inter-latin-wght-normal.woff2', '../fonts/source-serif-4-latin-wght-normal.woff2'];
 
