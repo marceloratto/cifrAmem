@@ -8,6 +8,51 @@
 ],
 "itens": [
 {
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Marcelo Moura é ordenado diácono permanente em missa foi presidida por Dom Joel",
+"link": "https://diocesepetropolis.com.br/marcelo-moura-e-ordenado-diacono-permanente-em-missa-foi-presidida-por-dom-joel/",
+"data": "2026-11-24T19:48:18+00:00",
+"resumo": "Na celebração da festa da Apresentação da Bem-aventurada Virgem Maria, em 21 de novembro, Marcelo Moura foi ordenado diácono permanente em missa presidida pelo bispo diocesano,…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Ordenacao-diaconal-permanente-marcelo-moura-236.webp"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Recepção do Sínodo e das Diretrizes Gerais da Ação Evangelizadora da Igreja no Brasil são discutidos no Consep",
+"link": "https://www.cnbb.org.br/recepcao-do-sinodo-e-das-diretrizes-gerais-da-acao-evangelizadora-da-igreja-no-brasil-sao-discutidos-no-consep/",
+"data": "2026-11-24T19:47:34+00:00",
+"resumo": "A tarde da terça-feira, (24), da última reunião do ano do Conselho Episcopal Pastoral da Conferência Nacional dos Bispos do Brasil (CNBB) foi dedicada à discussão de dois…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/Consep.jpg"
+},
+{
+"fonte": "Pastoral Familiar – Vida e Família",
+"nivel": "nacional",
+"titulo": "Participe da Campanha para a Evangelização 2026",
+"link": "https://vidaefamilia.org.br/participe-da-campanha-para-a-evangelizacao-2026/",
+"data": "2026-11-24T18:49:07+00:00",
+"resumo": "A Conferência Nacional dos Bispos do Brasil (CNBB) deu início à Campanha para a Evangelização 2026, com o lema “Eu vos anuncio uma grande alegria!” (Lc 2,10).",
+"img": "https://www.cnbb.org.br/wp-content/uploads/2026/11/IMG_8269-212x300.png"
+},
+{
+"fonte": "Pastoral Familiar – Vida e Família",
+"nivel": "nacional",
+"titulo": "Cachoeiro de Itapemirim (ES) sedia a 3ª Assembleia Regional da Pastoral Familiar",
+"link": "https://vidaefamilia.org.br/cachoeiro-de-itapemirim-es-sedia-a-3a-assembleia-regional-da-pastoral-familiar/",
+"data": "2026-11-24T18:44:39+00:00",
+"resumo": "Cachoeiro de Itapemirim (ES) sediou, nos dias 21 e 22 de novembro, a 3ª Assembleia Regional da Pastoral Familiar do Regional Leste 3 (Espírito Santo) da Conferência Nacional dos…",
+"img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-24-at-10.44.47-2-150x150.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Gaza, Oxfam: 99% da Faixa corre risco de contaminação ambiental",
+"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/faixa-gaza-guerra-oriente-medio-oxfam-ataques-israel-cisjordania.html",
+"data": "2026-11-24T18:01:00+00:00",
+"resumo": "Um novo relatório denuncia as consequências dos bombardeios israelenses sobre a saúde da população e o meio ambiente da Faixa de Gaza. Enquanto isso, os ataques a Gaza continuam.…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/ansa/2026/11/21/13/1795264970810.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
 "fonte": "CNBB",
 "nivel": "nacional",
 "titulo": "Consep realiza última reunião do ano com análises de conjuntura, reflexões pastorais e informes das comissões episcopais",
@@ -116,15 +161,6 @@
 "img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/23/2026-11-23-partecipanti-all-incontro-promosso-dalla--union-cycli/1795433855856.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
 },
 {
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Moçambique - D. Inácio Saúre exorta os jovens a caminharem com Cristo",
-"link": "https://www.vaticannews.va/pt/africa/news/2026-11/mocambique-dom-inacio-saure-exorta-os-jovens-a-caminharem-com-cr.html",
-"data": "2026-11-24T10:39:00+00:00",
-"resumo": "O Arcebispo de Nampula, Dom Inácio Saúre, exortou os jovens a enfrentarem as incertezas do futuro com esperança em Cristo, defendendo uma Igreja próxima, capaz de escutar,…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/24/dom-inacio-saure-orienta-a-palestra-durante-o-retiro-juvenil.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "Igreja Santa Teresa, em Teresópolis, é elevada à condição de Basílica Menor",
@@ -221,15 +257,6 @@
 "link": "https://www.cnbb.org.br/solenidade-de-nosso-senhor-jesus-cristo-rei-do-universo-3/",
 "data": "2026-11-23T12:04:00+00:00",
 "resumo": "Dom Carmo João Rhoden Bispo Emérito de Taubaté (SP) Solenidade de Nosso Senhor Jesus Cristo, Rei do Universo. 22/11/26 (Mt 25,31-46) Texto Referencial: “Portanto, estes irão para…",
-"img": ""
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "A face de Deus: mistério, presença e desejo",
-"link": "https://www.cnbb.org.br/a-face-de-deus-misterio-presenca-e-desejo/",
-"data": "2026-11-23T11:59:30+00:00",
-"resumo": "Dom João Santos Cardoso Arcebispo de Natal (RN) “Ó Senhor, não me afasteis de vossa face, nem retireis de mim o vosso Santo Espírito” (Sl 50,13). Recitamos esse salmo todas as…",
 "img": ""
 },
 {
@@ -350,15 +377,6 @@
 "img": ""
 },
 {
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Irmã Loreni assume como nova provincial das Irmãs Angélicas de São Paulo no Brasil",
-"link": "https://diocesepetropolis.com.br/irma-loreni-assume-como-nova-provincial-das-irmas-angelicas-de-sao-paulo-no-brasil/",
-"data": "2026-11-17T17:01:46+00:00",
-"resumo": "Celebração em Teresópolis foi presidida por Dom Joel e reuniu religiosas de várias regiões do país. Com alegria e ação de graças, as Irmãs Angélicas de São Paulo celebraram, no…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Missa-de-posse-da-provincial-das-irmas-angelicas-20.webp"
-},
-{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Diocese de Naviraí planeja 2027 em Assembleia Diocesana",
@@ -384,24 +402,6 @@
 "data": "2026-11-10T20:57:02+00:00",
 "resumo": "No último sábado (7), durante o 11º Encontro do Conselho Arquidiocesano da Pastoral Familiar de Fortaleza (CE) foi realizada uma formação para os agentes, movimentos e serviços…",
 "img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-10-at-17.38.15-150x150.jpeg"
-},
-{
-"fonte": "Pastoral Familiar – Vida e Família",
-"nivel": "nacional",
-"titulo": "“As pessoas com deficiência não são um fardo, mas bênção”, diz Papa",
-"link": "https://vidaefamilia.org.br/as-pessoas-com-deficiencia-nao-sao-um-fardo-mas-bencao-diz-papa/",
-"data": "2026-11-10T20:02:43+00:00",
-"resumo": "Na Argentina, o Papa Leão XIV deixou Buenos Aires para encontrar uma comunidade na periferia, em Claypole, na região metropolitana da capital, formada por mais de 400 pessoas com…",
-"img": ""
-},
-{
-"fonte": "Pastoral Familiar – Vida e Família",
-"nivel": "nacional",
-"titulo": "X Jornada Mundial do Pobre: prepare a sua família para este momento especial de solidariedade",
-"link": "https://vidaefamilia.org.br/x-jornada-mundial-do-pobre-prepare-a-sua-familia-para-este-momento-especial-de-solidariedade/",
-"data": "2026-11-10T12:23:10+00:00",
-"resumo": "Até o dia 15 de novembro, a Igreja Católica celebra a X Jornada Mundial dos Pobres (JMP), instituída pelo Papa Francisco em 2016 e que, em 2026, comemora sua décima edição. O lema…",
-"img": ""
 },
 {
 "fonte": "Regional Leste 1 – CNBB",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-24T17:58+00:00"
+"atualizado": "2026-11-25T02:38+00:00"
 }
