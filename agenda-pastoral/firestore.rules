@@ -241,6 +241,9 @@ service cloud.firestore {
       allow update: if eventoValido() && podeAgenda(request.resource.data.ag)
         && request.resource.data.get('autor','') == resource.data.get('autor','')
         && (admin() || (podeAgenda(resource.data.ag) && resource.data.get('autor','') == email()));
+      // quem coordena outra paróquia/decanato pode incluir a sua referência num evento que já existe
+      allow update: if membro() && podeAgenda(resource.data.ag)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['refs']);
       allow delete: if admin() || (podeAgenda(resource.data.ag) && resource.data.get('autor','') == email());
     }
   }
