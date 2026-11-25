@@ -1646,7 +1646,7 @@ document.addEventListener('submit',async ev=>{const f=ev.target.closest('[data-r
  try{await db.collection('respostas').doc(nid()).set({aviso:f.dataset.rf,uid:myId(),texto:txt,quando:new Date().toISOString(),...(mode==='fb'?{nome:ME?.nome||FBU?.displayName||''}:{})});inp.value=''}catch{toast('Não foi possível enviar.')}});
 
 // cabeçalho simplificado: tema (1 botão), menu, ajuda, escolha de mês
-var APPV='108 · 24/11/2026 22:54';
+var APPV='109 · 24/11/2026 23:04';
 function vLine(){return`<div class="ver"><span>Versão ${esc(APPV)}</span><button class="btn sm" id="vupd">Buscar atualização</button></div>`}
 document.addEventListener('click',async ev=>{if(!ev.target.closest('#vupd'))return;toast('Buscando a versão mais nova…');try{const r=await navigator.serviceWorker?.getRegistration?.();if(r){await r.update();const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('agenda-pastoral-')).map(k=>caches.delete(k)))}}catch{}setTimeout(()=>location.reload(),600)});
 var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
@@ -2443,9 +2443,9 @@ var PARDB={"Paróquia Nossa Senhora Aparecida – Parada Modelo":{"u":"paroquia-
 var PAREX={},PARF={q:'',dec:''};
 const parKey=p=>slugP(p);
 async function parExtra(){if(PAREX.__ok)return;if(mode==='fb'&&ME){try{const s=await db.collection('paroquias').get();s.forEach(d=>PAREX[d.id]=d.data())}catch{}}else Object.assign(PAREX,LS.get('agp-paroquias',{}));PAREX.__ok=1}
-function parDados(p){const b=PARDB[p]||{cl:[],cap:[]},x=PAREX[parKey(p)]||{};return{...b,...(x.d||{}),fotoPar:x.fotoPar||'',fotoIg:x.foto||b.ft||'',editado:x.quando?{por:x.por,quando:x.quando}:null}}
+function parDados(p){const b=PARDB[p]||{cl:[],cap:[]},x=PAREX[parKey(p)]||{};const dd={...(x.d||{})};if(dd.cl)dd.cl=dd.cl.map(c=>Array.isArray(c)?c:[c.r||'',c.n||'']);return{...b,...dd,fotoPar:x.fotoPar||'',fotoIg:x.foto||b.ft||'',editado:x.quando?{por:x.por,quando:x.quando}:null}}
 function parPode(p){return mode!=='fb'||ME?.papel==='admin'||(ME?.papel==='editor'&&noEscopo(evLoc({paroquia:p}),meuEscopo()))}
-async function parSalva(p,patch){const k=parKey(p),o={...(PAREX[k]||{}),...patch,par:p,por:meNome(),quando:new Date().toISOString()};
+async function parSalva(p,patch){const k=parKey(p);if(patch.d&&patch.d.cl)patch={...patch,d:{...patch.d,cl:patch.d.cl.map(c=>Array.isArray(c)?{r:c[0],n:c[1]}:c)}};const o={...(PAREX[k]||{}),...patch,par:p,por:meNome(),quando:new Date().toISOString()};
  if(mode==='fb'){try{await db.collection('paroquias').doc(k).set(o,{merge:true})}catch(e){toast(e&&e.code==='permission-denied'?'Sem permissão para alterar esta paróquia.':'Não foi possível salvar.');return false}}
  PAREX[k]=o;if(mode!=='fb'){const L=LS.get('agp-paroquias',{});L[k]=o;LS.set('agp-paroquias',L)}return true}
 function parLista(){const dio=LOC.find(d=>d.nome==='Diocese de Petrópolis');return{dio,ps:dio.decanatos.flatMap(d=>d.paroquias.map(p=>({p,dec:d.nome})))}}
