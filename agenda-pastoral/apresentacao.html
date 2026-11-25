@@ -4,8 +4,8 @@
 <meta name="theme-color" content="#F7F2E8">
 <title>Apresentação · Agenda da Pastoral Familiar</title>
 <meta property="og:title" content="Apresentação · Agenda da Pastoral Familiar"><meta name="twitter:title" content="Apresentação · Agenda da Pastoral Familiar">
-<meta property="og:description" content="Apresentação em 10 telas: o que a agenda faz e como entrar. Calendário, avisos, notícias e relatórios da pastoral.">
-<meta property="og:type" content="website"><meta property="og:url" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao.html"><meta property="og:image" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao-og2.jpg?v=2"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao-og2.jpg?v=2">
+<meta property="og:description" content="Apresentação em 11 telas: o que a agenda faz e como entrar. Calendário, avisos, notícias e relatórios da pastoral.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao.html"><meta property="og:image" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao-og3.jpg?v=3"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.ciframem.com.br/agenda-pastoral/apresentacao-og3.jpg?v=3">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 <style>
@@ -21,7 +21,7 @@
 .bar span{min-width:60px;text-align:center;font-weight:600;color:#5B5149}
 </style></head><body>
 <div class="wrap"><div class="track" id="tr"><section class="sl"><div class="fr"><div class="art"><div style="width: 1080px; height: 1350px; box-sizing: border-box; padding: 72px 84px 64px; background: #F7F2E8; font-family: Inter, system-ui, sans-serif; color: #1F1A17; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; align-items: center; gap: 18px"><img src="icon-512.png" alt="Pastoral Familiar" style="width: 64px; height: 64px; border-radius: 16px"><div style="display: flex; flex-direction: column; flex-grow: 1"><span style="font-size: 22px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #14532D">Agenda da Pastoral Familiar</span><span style="font-size: 20px; color: #5B5149">Diocese de Petrópolis</span></div><span style="font-size: 22px; font-weight: 600; color: #5B5149">01 / 10</span></div>
+<div style="display: flex; align-items: center; gap: 18px"><img src="icon-512.png" alt="Pastoral Familiar" style="width: 64px; height: 64px; border-radius: 16px"><div style="display: flex; flex-direction: column; flex-grow: 1"><span style="font-size: 22px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #14532D">Agenda da Pastoral Familiar</span><span style="font-size: 20px; color: #5B5149">Diocese de Petrópolis</span></div><span style="font-size: 22px; font-weight: 600; color: #5B5149">01 / 11</span></div>
 <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 36px; padding-top: 70px">
 <img src="icon-512.png" alt="Símbolo da Pastoral Familiar" style="width: 300px; height: 300px; border-radius: 64px; box-shadow: 0 24px 60px rgba(20,83,45,0.18)">
 <span style="font-size: 26px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7A1F3D">Novo para os agentes</span>
@@ -76,13 +76,13 @@
 <div style="flex-grow: 1"></div>
 
 </div></div></div></section></div>
-<div class="bar"><button id="pv" aria-label="Anterior">‹</button><span id="ct">1 / 10</span><button id="nx" aria-label="Próximo">›</button></div></div>
+<div class="bar"><button id="pv" aria-label="Anterior">‹</button><span id="ct">1 / 11</span><button id="nx" aria-label="Próximo">›</button></div></div>
 <script>
 var tr=document.getElementById('tr'),ct=document.getElementById('ct');
 function fit(){var w=tr.clientWidth-16,h=tr.clientHeight-16;document.documentElement.style.setProperty('--s',Math.max(.1,Math.min(w/1080,h/1350)))}
 function idx(){return Math.round(tr.scrollLeft/tr.clientWidth)}
-function go(i){tr.scrollTo({left:Math.max(0,Math.min(9,i))*tr.clientWidth,behavior:'smooth'})}
-tr.addEventListener('scroll',function(){ct.textContent=(idx()+1)+' / 10'});
+function go(i){tr.scrollTo({left:Math.max(0,Math.min(10,i))*tr.clientWidth,behavior:'smooth'})}
+tr.addEventListener('scroll',function(){ct.textContent=(idx()+1)+' / 11'});
 document.getElementById('pv').onclick=function(){go(idx()-1)};document.getElementById('nx').onclick=function(){go(idx()+1)};
 document.addEventListener('keydown',function(e){if(e.key=='ArrowRight')go(idx()+1);if(e.key=='ArrowLeft')go(idx()-1)});
 addEventListener('resize',fit);fit();
