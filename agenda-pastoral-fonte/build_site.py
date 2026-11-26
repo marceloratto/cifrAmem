@@ -1,4 +1,7 @@
-p=open('/home/claude/agenda/pub.html').read()
+import os,tempfile
+D=os.path.dirname(os.path.abspath(__file__))
+SITE=os.path.join(D,'..','agenda-pastoral','index.html')
+p=open(os.path.join(tempfile.gettempdir(),'agenda-pub.html')).read()
 og=('<meta property="og:type" content="website">\n<meta property="og:site_name" content="cifrAmem">\n<meta property="og:title" content="Agenda da Pastoral Familiar">\n'
  '<meta property="og:description" content="Tempos litúrgicos, eventos e presença das pastorais em um só calendário. Regional Leste 1.">\n'
  '<meta property="og:url" content="https://www.ciframem.com.br/agenda-pastoral/">\n<meta property="og:image" content="https://www.ciframem.com.br/agenda-pastoral/og.jpg?v=2">\n'
@@ -13,4 +16,8 @@ tail='''<!-- Contagem de acessos anônima (GoatCounter, sem cookies): painel em 
 </body></html>'''
 assert p.rstrip().endswith('</body></html>') and 'Pastoral Familiar</span>' in p
 p=p.rstrip()[:-len('</body></html>')]+tail+'\n'
-open('/home/claude/ciframem/agenda-pastoral/index.html','w').write(p)
+# ajustes finais do site publicado
+assert p.count('<script>{')>=1
+p=p.replace('<script>{','<script src="firebase-config.js"></script>\n<script>{',1)
+p=p.replace('content="Agenda Pastoral do cifrAmem: calendário litúrgico com os eventos de cada pastoral, por cor e nível."','content="Tempos litúrgicos, eventos e presença das pastorais em um só calendário. Pastoral Familiar · Regional Leste 1."')
+open(SITE,'w').write(p)

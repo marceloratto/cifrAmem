@@ -1,19 +1,18 @@
 #!/bin/bash
-# gera pub.html carimbado, monta o site, sobe versão do sw e publica no GitHub
+# Publica a Agenda Pastoral: carimba a versão, monta o site, sobe a versão do sw e envia ao GitHub.
+# Uso: ./release.sh "o que mudou"   (funciona de qualquer pasta; os caminhos são relativos a este arquivo)
 set -e
-cd /home/claude/agenda
-V=$(python3 stamp.py | awk '{print $NF}')
-python3 build_site.py
-cd /home/claude/ciframem
-python3 - <<'P'
-p=open('/home/claude/ciframem/agenda-pastoral/index.html').read()
-p=p.replace('<script>{','<script src="firebase-config.js"></script>\n<script>{',1)
-p=p.replace('content="Agenda Pastoral do cifrAmem: calendário litúrgico com os eventos de cada pastoral, por cor e nível."','content="Tempos litúrgicos, eventos e presença das pastorais em um só calendário. Pastoral Familiar · Regional Leste 1."')
-open('/home/claude/ciframem/agenda-pastoral/index.html','w').write(p)
-P
-sed -i "s/agenda-pastoral-v[0-9]*/agenda-pastoral-v$V/" agenda-pastoral/sw.js
-git add -A && git commit -q -m "Agenda Pastoral: $1 (versão $V)
-
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01KDeydP2Jk1SbPKTZ2ULVGF" && git -c push.negotiate=true push origin HEAD 2>&1 | tail -1
-grep -o "var APPV='[^']*'" /home/claude/ciframem/agenda-pastoral/index.html
+D="$(cd "$(dirname "$0")" && pwd)"; R="$(cd "$D/.." && pwd)"
+node -e "const s=require('fs').readFileSync('$D/index.html','utf8');const i=s.indexOf('<script>{'),j=s.lastIndexOf('</script>');new Function(s.slice(i+8,j))" 2>/dev/null || { echo "ERRO de sintaxe no index.html: nada foi publicado."; exit 1; }
+V=$(python3 "$D/stamp.py" | awk '{print $NF}')
+python3 "$D/build_site.py"
+sed -i "s/agenda-pastoral-v[0-9]*/agenda-pastoral-v$V/" "$R/agenda-pastoral/sw.js"
+cd "$R"
+git add -A agenda-pastoral agenda-pastoral-fonte
+git commit -q -F - <<MSG
+Agenda Pastoral: $1 (versão $V)
+${AGP_TRAILER:+
+$AGP_TRAILER}
+MSG
+git -c push.negotiate=true push origin HEAD 2>&1 | tail -1
+grep -o "var APPV='[^']*'" "$R/agenda-pastoral/index.html"
