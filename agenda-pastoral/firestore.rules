@@ -125,8 +125,17 @@ service cloud.firestore {
     // curtidas e nº de comentários de notícias, álbuns, avisos e eventos
     match /reacoes/{id} {
       allow read: if dono() || membro();
-      allow create, update: if membro() && request.resource.data.keys().hasOnly(['likes','ncom'])
-                            && (!('likes' in request.resource.data) || request.resource.data.likes is list);
+      // cada pessoa só põe ou tira a PRÓPRIA curtida (não mexe nas dos outros)
+      function soMinha(antes, depois) {
+        return depois.toSet().difference(antes.toSet()).hasOnly([email()])
+            && antes.toSet().difference(depois.toSet()).hasOnly([email()]);
+      }
+      allow create: if membro() && request.resource.data.keys().hasOnly(['likes','ncom'])
+                    && request.resource.data.get('likes', []) is list
+                    && soMinha([], request.resource.data.get('likes', []));
+      allow update: if membro() && request.resource.data.keys().hasOnly(['likes','ncom'])
+                    && request.resource.data.get('likes', []) is list
+                    && soMinha(resource.data.get('likes', []), request.resource.data.get('likes', []));
       allow delete: if admin();
     }
     match /comentarios/{id} {
@@ -188,7 +197,7 @@ service cloud.firestore {
     // contagem de uso das funções (sem identificar ninguém)
     match /uso/{m} {
       allow read: if admin();
-      allow create, update: if logado();
+      allow create, update: if dono() || membro();
     }
     // alertas no celular: preferências e aparelhos de cada pessoa
     match /alertas/{e} {
