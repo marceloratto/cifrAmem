@@ -1824,20 +1824,32 @@ function ferAno(y){if(FYC[y])return FYC[y];const E=easter(y),m=new Map(),add=(t,
  add(E-48*DAY,'Segunda-feira de Carnaval','fac');add(E-47*DAY,'Carnaval','est');add(E-46*DAY,'Quarta-feira de Cinzas (até o meio-dia)','fac');add(E-2*DAY,'Sexta-feira Santa','nac');add(E+60*DAY,'Corpus Christi (estadual e municipal)','est');
  FERX.forEach(f=>{if(f.md){const[mo,d]=f.md.split('-').map(Number);add(U(y,mo,d),f.n,f.tp,f.mun,f.id)}else if(f.data&&+f.data.slice(0,4)===y)add(parse(f.data),f.n,f.tp,f.mun,f.id)});
  return FYC[y]=m}
-function feriDia(t){return ferOn()?(ferAno(new Date(t).getUTCFullYear()).get(iso(t))||[]):[]}
+// Filtro dos feriados municipais por estado, município, região, diocese ou decanato (os nacionais, estaduais e facultativos sempre aparecem)
+const FERDIO='Diocese de Petrópolis',DAD='Decanato Nossa Senhora do Amor Divino',DST='Decanato Santa Teresa',DSJ='Decanato São José de Anchieta',DSP='Decanato São Pedro de Alcântara',
+ FERMD={'Areal':[DAD],'Paraíba do Sul':[DAD],'São José do Vale do Rio Preto':[DAD],'Três Rios':[DAD],'Petrópolis':[DAD,DSP],'Teresópolis':[DST],'Guapimirim':[DSJ],'Magé':[DSJ]},
+ FERFK=[['tudo','Todos os feriados'],['estado','Estado'],['municipio','Município'],['regiao','Região'],['diocese','Diocese'],['decanato','Decanato']];
+function ferF(){const v=LS.get('agp-ferf',null);return v&&v.k?v:{k:'tudo',v:''}}
+function ferPass(x){if(x.tp!=='mun')return true;const F=ferF();if(F.k==='tudo'||!F.v)return true;
+ if(F.k==='estado')return F.v==='Rio de Janeiro';if(F.k==='regiao')return F.v===REGIONAL;if(!x.mun)return false;
+ if(F.k==='municipio')return x.mun===F.v;if(F.k==='diocese')return F.v===FERDIO&&!!FERMD[x.mun];if(F.k==='decanato')return(FERMD[x.mun]||[]).includes(F.v);return true}
+function ferVals(k){return k==='estado'?['Rio de Janeiro']:k==='regiao'?[REGIONAL]:k==='municipio'?[...new Set([...FERMUNS,...FERX.map(f=>f.mun).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,'pt')):k==='diocese'?LOC.map(d=>d.nome):k==='decanato'?LOC.flatMap(d=>d.decanatos.map(c=>c.nome)):[]}
+function feriDia(t){return ferOn()?(ferAno(new Date(t).getUTCFullYear()).get(iso(t))||[]).filter(ferPass):[]}
 function ferCls(t){const f=feriDia(t);return f.some(x=>x.tp!=='fac')?' fer':f.length?' fac':''}
 function ferTxt(f){return FERL[f.tp]+(f.mun?' · '+f.mun:'')}
 function ferBlock(t){const f=feriDia(t);return f.length?`<div class="ferl">${f.map(x=>`<p class="fp ${x.tp==='fac'?'fac':''}"><b>${esc(x.n)}</b><small>${esc(ferTxt(x))}</small></p>`).join('')}</div>`:''}
 async function ferLoad(){if(FERLD)return;FERLD=1;try{if(mode==='fb'&&db&&ME){const s=await db.collection('feriados').get();FERX=s.docs.map(d=>({id:d.id,...d.data()}))}else FERX=LS.get('agp-feriados',[])}catch{FERLD=0}FYC={};render()}
-function openFeriados(){const adm=ME?.papel==='admin'||mode!=='fb',y0=new Date().getFullYear(),y=+LS.get('agp-fery',y0),A=ferAno(y),ds=[...A.keys()].sort();
- const mf=k=>{const d=new Date(parse(k));return`${p2(d.getUTCDate())}/${p2(d.getUTCMonth()+1)} · ${SEM[d.getUTCDay()].slice(0,3)}`};
+function openFeriados(){const adm=ME?.papel==='admin'||mode!=='fb',y0=new Date().getFullYear(),y=+LS.get('agp-fery',y0),A=ferAno(y),ds=[...A.keys()].filter(k=>A.get(k).some(ferPass)).sort();
+ const mf=k=>{const d=new Date(parse(k));return`${p2(d.getUTCDate())}/${p2(d.getUTCMonth()+1)} · ${SEM[d.getUTCDay()].slice(0,3)}`},FF=ferF();
  sheet(`<div class="shh"><h3>Feriados</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
  <label class="tg"><input type="checkbox" id="fer-on" ${ferOn()?'checked':''}> Mostrar feriados no calendário</label>
+ <div class="two"><label>Filtrar por<select id="fer-fk">${FERFK.map(([k,l])=>`<option value="${k}" ${k===FF.k?'selected':''}>${l}</option>`).join('')}</select></label><label id="fer-fvw" ${FF.k==='tudo'?'hidden':''}>&nbsp;<select id="fer-fv" aria-label="Qual">${ferVals(FF.k).map(v=>`<option ${v===FF.v?'selected':''}>${esc(v)}</option>`).join('')}</select></label></div>
  <label>Ano<select id="fer-y">${[y0-1,y0,y0+1,y0+2].map(a=>`<option ${a===y?'selected':''}>${a}</option>`).join('')}</select></label>
- <p class="fine">Em vermelho, os feriados nacionais, estaduais (RJ) e municipais da Diocese. Em laranja, os pontos facultativos. Todos veem todos.</p>
- <div class="ferl">${ds.map(k=>A.get(k).map(x=>`<p class="fp ${x.tp==='fac'?'fac':''}"><b>${mf(k)}</b> ${esc(x.n)}<small>${esc(ferTxt(x))}</small>${adm&&x.id?`<button class="x" data-ferdel="${esc(x.id)}" aria-label="Apagar">✕</button>`:''}</p>`).join('')).join('')}</div>
+ <p class="fine">Em vermelho, os feriados nacionais, estaduais (RJ) e municipais. Em laranja, os pontos facultativos. O filtro limita só os feriados municipais; os nacionais e estaduais sempre aparecem. Os municipais cadastrados são os de 8 cidades da Diocese de Petrópolis; o administrador pode incluir outros.</p>
+ <div class="ferl">${ds.map(k=>A.get(k).filter(ferPass).map(x=>`<p class="fp ${x.tp==='fac'?'fac':''}"><b>${mf(k)}</b> ${esc(x.n)}<small>${esc(ferTxt(x))}</small>${adm&&x.id?`<button class="x" data-ferdel="${esc(x.id)}" aria-label="Apagar">✕</button>`:''}</p>`).join('')).join('')}</div>
  ${adm?`<details class="ferf"><summary>+ Incluir feriado ou ponto facultativo</summary><label>Data<input type="date" id="fer-d"></label><label>Nome<input id="fer-n" maxlength="100" placeholder="Ex.: Dia do padroeiro"></label><div class="two"><label>Tipo<select id="fer-t"><option value="mun">Feriado municipal</option><option value="est">Feriado estadual</option><option value="nac">Feriado nacional</option><option value="fac">Ponto facultativo</option></select></label><label>Município<input id="fer-m" list="fer-ml" maxlength="60"><datalist id="fer-ml">${FERMUNS.map(m=>`<option>${m}</option>`).join('')}</datalist></label></div><label class="tg"><input type="checkbox" id="fer-a" checked> Repete todo ano nesta data</label><div class="act"><span></span><button class="btn pri" id="fer-s">Salvar</button></div></details>`:''}`);
  $('#fer-on').onchange=e=>{LS.set('agp-fer',e.target.checked?1:0);render()};
+ $('#fer-fk').onchange=e=>{const k=e.target.value,L=ferVals(k);LS.set('agp-ferf',{k,v:k==='tudo'?'':(L.includes(ferF().v)?ferF().v:L[0]||'')});FYC={};render();openFeriados()};
+ if($('#fer-fv'))$('#fer-fv').onchange=e=>{LS.set('agp-ferf',{k:ferF().k,v:e.target.value});render();openFeriados()};
  $('#fer-y').onchange=e=>{LS.set('agp-fery',+e.target.value);openFeriados()};
  document.querySelectorAll('[data-ferdel]').forEach(b=>b.onclick=async()=>{if(!confirm('Apagar este feriado?'))return;const id=b.dataset.ferdel;try{if(mode==='fb'&&db)await db.collection('feriados').doc(id).delete();FERX=FERX.filter(f=>f.id!==id);if(mode!=='fb')LS.set('agp-feriados',FERX);FYC={};render();openFeriados()}catch{toast('Não foi possível apagar.')}});
  const sv=$('#fer-s');if(sv)sv.onclick=async()=>{const d=$('#fer-d').value,n=$('#fer-n').value.trim(),tp=$('#fer-t').value,mun=$('#fer-m').value.trim();if(!d||!n)return toast('Informe a data e o nome.');const rp=$('#fer-a').checked,f={n,tp,quando:new Date().toISOString()};if(mun)f.mun=mun;if(rp)f.md=d.slice(5);else f.data=d;const id='f'+Date.now().toString(36);try{if(mode==='fb'&&db)await db.collection('feriados').doc(id).set(f);FERX.push({id,...f});if(mode!=='fb')LS.set('agp-feriados',FERX);FYC={};render();toast('Feriado incluído.');openFeriados()}catch{toast('Não foi possível salvar.')}}}
