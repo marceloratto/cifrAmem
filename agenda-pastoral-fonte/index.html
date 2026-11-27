@@ -2101,8 +2101,8 @@ function avFeedCard(a){const g=ag(a.ag),k='v_'+a.id,pedido=a.tipo==='oracao'||a.
  ${a.texto?`<p class="fpx">${linkify(a.texto)}</p>`:''}${a.link?`<p style="margin:0 .75rem .5rem"><a class="btn sm" href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.linkTxt||'Abrir link')}</a></p>`:''}
  ${reactBar(k,`<button class="fbt" data-avmural="${esc(a.id)}">Ver no mural</button>`)}</article>`}
 // post do Instagram: mostra a foto e o "Ver mais no Instagram"; a barra de curtir do Instagram (que levava para fora) fica escondida
-var IGH={},IGCUT=0; // volta ao embed com legenda (o sem legenda foi recusado pelo Instagram)
-function igEmb(ig){const u=`https://www.instagram.com/${ig.t}/${ig.c}/embed/captioned/`,h=IGH[u];return`<div class="figw ig"${h?` style="height:${Math.max(160,h-IGCUT)}px"`:''}><iframe src="${u}" loading="lazy" title="Post do Instagram" allowtransparency="true" scrolling="no"${h?` class="igm" style="height:${h}px"`:''}></iframe></div>`}
+var IGH={},IGCUT=110; // altura da barra de curtir/comentar do Instagram, que fica escondida
+function igEmb(ig){const u=`https://www.instagram.com/${ig.t}/${ig.c}/embed/`,h=IGH[u];return`<div class="figw ig"${h?` style="height:${Math.max(160,h-IGCUT)}px"`:''}><iframe src="${u}" loading="lazy" title="Post do Instagram" allowtransparency="true" scrolling="no"${h?` class="igm" style="height:${h}px"`:''}></iframe></div>`}
 function evFeedCard(e,t){const g=ag(e.ag),k='e_'+hkey(e.id+t);
  return`<article class="fp fev2" style="--c:${g?.color||'var(--acc)'}"><button class="fevb" data-fev="${e.id}" data-ft="${t}"><span class="bsd"><b>${new Date(t).getUTCDate()}</b><small>${SEM[new Date(t).getUTCDay()].slice(0,3)}</small></span><span><small>Na agenda${t===TODAY?' · hoje':t===TODAY+DAY?' · amanhã':''}</small><b>${esc(e.title)}</b><small>${[e.start&&!e.all?e.start:'',e.tipo,g?.name,e.local].filter(Boolean).map(esc).join(' · ')}</small></span></button>${reactBar(k)}</article>`}
 function albuns(F){const me=memLoc(ME),pub=new Set(POSTS.map(p=>p.ata).filter(Boolean));
