@@ -332,6 +332,7 @@ body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 .dic{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;position:relative;top:-.08em;width:1.6em;margin-right:.35em;border:1px solid var(--line);border-radius:.3em;overflow:hidden;background:var(--bg);text-align:center;line-height:1;font-style:normal}
 .dic i{background:var(--acc);color:var(--onacc);font:700 .46em/1.5 Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.03em}
 .dic b{font:700 .78em/1.35 Inter,system-ui,sans-serif;color:var(--ink)}
+.bvq{margin:.8rem 0;padding:.9rem 1rem;border-left:4px solid var(--acc);background:var(--card);border-radius:0 12px 12px 0}.bvq blockquote{margin:0;font:500 1.15rem/1.45 Spectral,Georgia,serif;color:var(--ink)}.bvq figcaption{margin-top:.45rem;font-size:.8rem;color:var(--mut)}.bvp{margin:.6rem 0;padding:.6rem .8rem;border-radius:12px;background:color-mix(in srgb,var(--acc) 9%,var(--card))}.bvf{display:flex;align-items:center;gap:.6rem}.bvo{display:flex !important;flex-direction:row !important;align-items:center;gap:.4rem;font-size:.8rem;color:var(--mut);font-weight:400}.bvo input{width:1.05rem !important;height:1.05rem;min-height:0 !important;margin:0;flex:none}
 .evr .evq{color:var(--acc);font-weight:600;white-space:nowrap}
 .evr .evn{white-space:pre-line;color:var(--mut);margin-top:.4rem}
 details.edf,details.evmais{border:1px solid var(--line);border-radius:12px;margin:.6rem 0;background:var(--card)}
@@ -979,7 +980,7 @@ async function fbInit(){mode='fb';ro=true;render();
 function fbStart(u){fbUn.push(db.collection('config').doc('funcoes').onSnapshot(d=>{FUNCX=d.exists&&Array.isArray(d.data().lista)&&d.data().lista.length?d.data().lista:null},()=>{}));const em=(u.email||'').toLowerCase(),dono=em&&em===String(window.AGP_DONO||'').toLowerCase();
  fbUn.push(db.collection('membros').doc(em).onSnapshot(d=>{ME=d.exists?d.data():dono?{nome:u.displayName||'',papel:'admin',agendas:['todas']}:null;
   if(dono&&!d.exists)db.collection('membros').doc(em).set({nome:u.displayName||'',papel:'admin',agendas:['todas']}).catch(()=>{});
-  ro=!ME||ME.papel==='leitor';if(ME&&!termosOk()&&!window.__tmAsk){window.__tmAsk=1;setTimeout(()=>{if(!termosOk()&&$('#sh').hidden)openTermos(true)},1800)}if(ME&&typeof EVS!=='undefined')EV=[...EVS.filter(evVisOk),...EVP];if(ME&&!fbSubOn)fbSub();if(!ME&&!myReqSub){myReqSub=true;fbUn.push(db.collection('pedidos').doc(em).onSnapshot(d=>{MYREQ=d.exists?d.data():null;render()},()=>{}))}render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
+  ro=!ME||ME.papel==='leitor';if(ME&&!termosOk()&&!window.__tmAsk){window.__tmAsk=1;setTimeout(()=>{if(!termosOk()&&$('#sh').hidden)openTermos(true)},1800)}if(ME&&typeof EVS!=='undefined')EV=[...EVS.filter(evVisOk),...EVP];if(ME&&!fbSubOn)fbSub();if(ME)setTimeout(boasVindas,2500);if(!ME&&!myReqSub){myReqSub=true;fbUn.push(db.collection('pedidos').doc(em).onSnapshot(d=>{MYREQ=d.exists?d.data():null;render()},()=>{}))}render()},e=>{toast('Erro de acesso ('+e.code+').')}))}
 function fbSub(){fbSubOn=true;const tm=setTimeout(()=>toast('Ainda carregando os eventos…'),10000);
  const ver=(ME.ver||['todas']),qe=ME.papel==='admin'||ver.includes('todas')?db.collection('events'):db.collection('events').where('ag','in',ver.length?ver.slice(0,30):['-']);
  fbUn.push(db.collection('meus').where('dono','==',myId()).onSnapshot(s=>{EVP=s.docs.map(x=>({id:x.id,...x.data(),ag:'particular'}));EV=[...EVS.filter(evVisOk),...EVP];render()},()=>{}));
@@ -1266,7 +1267,7 @@ var APQ=[
  {k:'extra',t:'Algo mais que a IA deve saber? (opcional)',ph:'Ex.: nossa paróquia é dedicada a Nossa Senhora do Amor Divino',tipo:'texto'}];
 var APREF=null;
 async function aprefLoad(){if(APREF)return APREF;APREF=LS.get('agp-artepref',null);if(mode==='fb'&&ME){try{const d=await db.collection('prefs').doc(myId()).get();if(d.exists&&d.data().arte)APREF=d.data().arte}catch{}}return APREF||(APREF={})}
-async function aprefSave(P){APREF=P;LS.set('agp-artepref',P);if(mode==='fb'&&ME){try{await db.collection('prefs').doc(myId()).set({arte:P,quando:new Date().toISOString()})}catch{}}}
+async function aprefSave(P){APREF=P;LS.set('agp-artepref',P);if(mode==='fb'&&ME){try{await db.collection('prefs').doc(myId()).set({arte:P,quando:new Date().toISOString()},{merge:true})}catch{}}}
 function aprefTxt(P){if(!P)return'';const l=[],v=k=>Array.isArray(P[k])?P[k].join(', '):P[k];
  if(v('estilo'))l.push('Estilo: '+v('estilo')+'.');if(v('pessoas'))l.push('Pessoas: '+v('pessoas')+'.');if(v('elementos'))l.push('Elementos que podem aparecer: '+v('elementos')+'.');if(v('publico'))l.push('Público: '+v('publico')+'.');
  if(v('tom'))l.push('Tom: '+v('tom')+'.');if(v('letras'))l.push('Letras: '+v('letras')+'.');if(v('cores'))l.push('Cores preferidas: '+v('cores')+'.');if(v('assinatura'))l.push('Incluir no rodapé: '+v('assinatura')+'.');if(v('evitar'))l.push('Evitar: '+v('evitar')+'.');if(v('extra'))l.push('Observação: '+v('extra')+'.');return l.join('\n- ')}
@@ -1699,7 +1700,7 @@ document.addEventListener('focusin',function(e){var t=e.target;if(t&&t.tagName==
 document.addEventListener('input',function(e){var t=e.target;if(t&&t.tagName==='INPUT'&&t.dataset.dl)show(t)});
 document.addEventListener('focusout',function(e){if(e.target&&e.target.dataset&&e.target.dataset.dl)setTimeout(hide,120)});
 document.addEventListener('scroll',function(){if(CUR)show(CUR)},true)})();
-var APPV='139 · 26/11/2026 23:08';(function(){const d=document.createElement('div');d.className='vtag';d.textContent='v'+String(APPV).split(' ')[0];d.setAttribute('aria-hidden','true');document.body.appendChild(d)})();
+var APPV='140 · 26/11/2026 23:47';(function(){const d=document.createElement('div');d.className='vtag';d.textContent='v'+String(APPV).split(' ')[0];d.setAttribute('aria-hidden','true');document.body.appendChild(d)})();
 function vLine(){return`<div class="ver"><span>Versão ${esc(APPV)}</span><button class="btn sm" id="vupd">Buscar atualização</button></div>`}
 document.addEventListener('click',async ev=>{if(!ev.target.closest('#vupd'))return;toast('Buscando a versão mais nova…');try{const r=await navigator.serviceWorker?.getRegistration?.();if(r){await r.update();const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('agenda-pastoral-')).map(k=>caches.delete(k)))}}catch{}setTimeout(()=>location.reload(),600)});
 var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
@@ -1711,7 +1712,7 @@ function openMenu(){const it=(id,t,d,x='')=>`<button class="mi wi" data-mi="${id
  sheet(`<div class="shh"><h3>Mais</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
  <input type="search" id="mbusca" class="mbus" placeholder="O que você procura?" aria-label="Procurar uma função" autocomplete="off">
  ${sec('Para você',`
- ${it('leituras','Leituras do dia','Leituras e evangelho da missa de hoje.')}  ${it('feriados','Feriados','Nacionais, estaduais e municipais da Diocese. Mostrar ou esconder no calendário.')}
+ ${it('leituras','Leituras do dia','Leituras e evangelho da missa de hoje.')}${mode==='fb'&&ME?it('boasvindas','Boas-vindas do dia','O salmo de hoje e as suas presenças na semana e no mês.'):''}  ${it('feriados','Feriados','Nacionais, estaduais e municipais da Diocese. Mostrar ou esconder no calendário.')}
  ${it('instalar','Criar o ícone neste aparelho','Celular ou computador: abrir a agenda como um aplicativo. Troque de aparelho? Faça de novo aqui.')}
  ${it('caderno','Caderno das paróquias','Pároco, endereço, telefones, missas e capelas de cada paróquia da diocese.')}
  ${it('igrejas','Igrejas próximas','Achar igreja e horário de missa quando estiver viajando.')}
@@ -1790,7 +1791,7 @@ document.addEventListener('click',ev=>{const t=ev.target,b=t.closest('#menubtn,#
  if(b.id==='menubtn')openMenu();else if(b.id==='helpbtn'||b.id==='hintok'){LS.set('agp-hint',1);$('#hint').hidden=true;openHelp()}else if(b.id==='hintx'){LS.set('agp-hint',1);$('#hint').hidden=true}
  else if(b.id==='thbtn'){theme={auto:'light',light:'dark',dark:'auto'}[theme];LS.set('agp-theme',theme);applyUi();toast('Tema: '+THN[theme])}
  else if(b.id==='mt')openMonth();else if(b.dataset.fs)setFs(+b.dataset.fs);
- else if(b.dataset.mi){const k=b.dataset.mi,doMais=!!$('#sh #mbusca')&&!!b.closest('#sh');close();MENUBACK=doMais;uso(k);({semref:openSemRef,usoag:openUso,instalar:instGo,leituras:()=>openLeit(iso(TODAY)),feriados:openFeriados,avisos:()=>$('#avbtn').click(),novo:()=>openEv(null,sel),agendas:()=>$('#ags').click(),exportar:()=>$('#exp').click(),selecionar:()=>{if(!picking)$('#pick').click();view='lista';render();toast('Marque os eventos na lista e toque em “Enviar para o celular”.')},importar:()=>$('#imp').click(),ajuda:openHelp,materiais:openMat,contatos:openCont,relatorio:openRelHub,admin:openAdmin,wpp:openWppCfg,artepref:()=>openArtePref(),modelos:openModelos,simbolos:openSimbolos,plano:()=>openPlano(),org:()=>openOrg(),pessoas:openPessoas,atividades:()=>openAtvEd(),perto:openPerto,termos:()=>openTermos(mode==='fb'&&!!ME&&!termosOk()),album:openAlbum,admrel:()=>openAdmRel(),igrejas:openIgr,caderno:openCaderno,backup:openBackup,largura:()=>agpWide(!LS.get('agp-wide',1)),alertas:openNotif})[k]?.()}});
+ else if(b.dataset.mi){const k=b.dataset.mi,doMais=!!$('#sh #mbusca')&&!!b.closest('#sh');close();MENUBACK=doMais;uso(k);({semref:openSemRef,usoag:openUso,instalar:instGo,leituras:()=>openLeit(iso(TODAY)),boasvindas:()=>boasVindas(true),feriados:openFeriados,avisos:()=>$('#avbtn').click(),novo:()=>openEv(null,sel),agendas:()=>$('#ags').click(),exportar:()=>$('#exp').click(),selecionar:()=>{if(!picking)$('#pick').click();view='lista';render();toast('Marque os eventos na lista e toque em “Enviar para o celular”.')},importar:()=>$('#imp').click(),ajuda:openHelp,materiais:openMat,contatos:openCont,relatorio:openRelHub,admin:openAdmin,wpp:openWppCfg,artepref:()=>openArtePref(),modelos:openModelos,simbolos:openSimbolos,plano:()=>openPlano(),org:()=>openOrg(),pessoas:openPessoas,atividades:()=>openAtvEd(),perto:openPerto,termos:()=>openTermos(mode==='fb'&&!!ME&&!termosOk()),album:openAlbum,admrel:()=>openAdmRel(),igrejas:openIgr,caderno:openCaderno,backup:openBackup,largura:()=>agpWide(!LS.get('agp-wide',1)),alertas:openNotif})[k]?.()}});
 
 
 // ===== Feriados
@@ -1827,7 +1828,7 @@ const okey=(ev,d)=>ev+'-'+String(d).replace(/-/g,'');
 const isAdm=()=>mode==='fb'&&ME?.papel==='admin',isCoordAny=()=>mode==='fb'&&!!ME&&(ME.papel==='admin'||ME.papel==='editor');
 const meNome=()=>ME?.nome||FBU?.displayName||myId();
 function exSub(){if(exOn||mode!=='fb'||!ME)return;exOn=true;const ver=ME.ver||['todas'],all=ME.papel==='admin'||ver.includes('todas'),Q=c=>all?db.collection(c):db.collection(c).where('ag','in',ver.length?ver.slice(0,30):['-']),S=(c,f,q)=>fbUn.push((q||db.collection(c)).onSnapshot(s=>{f(s.docs.map(x=>({id:x.id,...x.data()})));render()},()=>{}));
- S('aniversarios',x=>ANIV=x);S('atas',x=>ATAS=x,Q('atas'));S('escalas',x=>ESC=x,Q('escalas'));S('formularios',x=>FORMS=x,Q('formularios'));S('materiais',x=>MAT=x,Q('materiais'));S('enquetes',x=>ENQ=x,Q('enquetes'));S('votos',x=>VOT=x);S('matrizes',x=>{MATR={};x.forEach(m=>MATR[m.id]=m)});S('avaliacoes',x=>AVM=x,db.collection('avaliacoes').where('uid','==',myId()));S('resumos',x=>RESU=x);S('vitrine',x=>VIT=x);S('reacoes',x=>{REAC={};x.forEach(r=>{REAC[r.id]=r;if(/^b_/.test(r.id)&&COMS[r.id]&&(r.ncom||0)!==COMS[r.id].length){delete COMS[r.id];delete BDL[r.id]}})});S('posts',x=>{POSTS=x.sort((a,b)=>(b.quando||'').localeCompare(a.quando||''))},db.collection('posts').orderBy('quando','desc').limit(40));
+ S('aniversarios',x=>ANIV=x);S('atas',x=>{ATAS=x;ATASOK=true},Q('atas'));S('escalas',x=>ESC=x,Q('escalas'));S('formularios',x=>FORMS=x,Q('formularios'));S('materiais',x=>MAT=x,Q('materiais'));S('enquetes',x=>ENQ=x,Q('enquetes'));S('votos',x=>VOT=x);S('matrizes',x=>{MATR={};x.forEach(m=>MATR[m.id]=m)});S('avaliacoes',x=>AVM=x,db.collection('avaliacoes').where('uid','==',myId()));S('resumos',x=>RESU=x);S('vitrine',x=>VIT=x);S('reacoes',x=>{REAC={};x.forEach(r=>{REAC[r.id]=r;if(/^b_/.test(r.id)&&COMS[r.id]&&(r.ncom||0)!==COMS[r.id].length){delete COMS[r.id];delete BDL[r.id]}})});S('posts',x=>{POSTS=x.sort((a,b)=>(b.quando||'').localeCompare(a.quando||''))},db.collection('posts').orderBy('quando','desc').limit(40));
  fbUn.push(db.collection('config').doc('atividades').onSnapshot(d=>{ATVX=d.exists&&Array.isArray(d.data().lista)?d.data().lista:null},()=>{}))}
 function dm(s){const m=String(s||'').trim().match(/^(\d{1,2})\/(\d{1,2})$/);if(!m)return null;const d=+m[1],mo=+m[2];return d>=1&&d<=31&&mo>=1&&mo<=12?p2(d)+'/'+p2(mo):null}
 var VOC=[['casado','Casado(a)','Casamento'],['padre','Padre','Ordenação sacerdotal'],['diacono','Diácono','Ordenação diaconal'],['religioso','Religioso(a) / consagrado(a)','Profissão religiosa'],['outro','Solteiro(a), viúvo(a) ou outro','']];
@@ -2703,6 +2704,33 @@ function pendGo(x){if(!x)return;uso('pend-'+x.a);if(x.a==='tm')return openTermos
  if(x.a==='ev')return openEv(x.id,x.tt);if(x.a==='ata')return openAta(x.k);
  if(x.a==='mi'){const b=document.createElement('button');b.dataset.mi=x.mi;b.hidden=true;document.body.appendChild(b);b.click();b.remove()}}
 
+// ===== Boas-vindas do dia =====
+// Na primeira entrada do dia de cada pessoa (gravado na conta, vale para todos os aparelhos): saudação, refrão do salmo
+// da liturgia do dia e, se houver, as presenças registradas dela nos eventos da semana e do mês correntes.
+var ATASOK=false,BVBUSY='';
+// reserva (sem internet ou sem salmo): trechos de orações tradicionais, de domínio público
+var BVRES=[['Vinde, Espírito Santo, enchei os corações dos vossos fiéis e acendei neles o fogo do vosso amor.','Vinde, Espírito Santo'],['Senhor, fazei de mim um instrumento de vossa paz. Onde houver ódio, que eu leve o amor.','Oração pela paz'],['A minha alma engrandece o Senhor, e o meu espírito exulta em Deus, meu Salvador.','Magnificat'],['Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte.','Ave-Maria'],['Seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje.','Pai-Nosso'],['Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve!','Salve-Rainha'],['Eis aqui a serva do Senhor: faça-se em mim segundo a vossa palavra.','Angelus'],['Santo Anjo do Senhor, meu zeloso guardador, sempre me rege, me guarda, me governa e me ilumina.','Santo Anjo'],['Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre.','Glória ao Pai'],['Jesus, Maria e José, minha família vossa é.','Jaculatória da Sagrada Família'],['Sagrado Coração de Jesus, eu confio em vós.','Jaculatória'],['À vossa proteção recorremos, Santa Mãe de Deus; não desprezeis as nossas súplicas em nossas necessidades.','À vossa proteção']];
+function bvSalmo(L){const sl=L&&(L.secs||[]).find(x=>/^Salmo/.test(x.nome));if(!sl)return null;let t=String(sl.refrao||'').replace(/^\s*(R\.|R\/|℟\.?|—|-)\s*/,'').trim();
+ if(!t){t=String(sl.texto||'').split(/\n+/).map(x=>x.replace(/^[—\-–\s\d.]+/,'').trim()).filter(Boolean).slice(0,2).join(' ')}if(!t)return null;if(t.length>220)t=t.slice(0,217).replace(/\s+\S*$/,'')+'…';return[t,'Salmo de hoje'+(sl.ref?' · '+sl.ref:'')]}
+function bvCont(me){const h=hojeIso(),n=new Date(),dom=new Date(n.getFullYear(),n.getMonth(),n.getDate()-n.getDay()),isoL=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()),w0=isoL(dom),m0=h.slice(0,8)+'01';let sem=0,mes=0;
+ for(const a of ATAS){if(!(a.presentes||[]).some(p=>p.id===me))continue;const m=String(a.id||'').match(/-(\d{4})(\d{2})(\d{2})$/);if(!m)continue;const d=m[1]+'-'+m[2]+'-'+m[3];if(d>h)continue;if(d>=m0)mes++;if(d>=w0)sem++}return{sem,mes}}
+async function boasVindas(manual){if(mode!=='fb'||!ME||!FBU)return;const me=myId(),hoje=hojeIso(),kd='agp-bv-'+me,ko='agp-bvoff-'+me;manual=manual===true;
+ if(!manual){if(BVBUSY===me||LS.get(kd,'')===hoje||LS.get(ko,0))return;BVBUSY=me;
+  try{const d=await db.collection('prefs').doc(me).get(),x=d.exists?d.data():{};if(x.bvOff){LS.set(ko,1);return}if(x.bv===hoje){LS.set(kd,hoje);return}}catch{BVBUSY='';return}
+  // espera as presenças chegarem e a tela ficar livre (não passa por cima dos termos de uso nem de outra janela)
+  for(let i=0;i<30&&(!ATASOK||!$('#sh').hidden);i++)await new Promise(r=>setTimeout(r,1000));
+  if(!$('#sh').hidden||!ME||myId()!==me){BVBUSY='';return}}
+ let sal=null;try{sal=bvSalmo(await Promise.race([litBusca(hoje),new Promise(r=>setTimeout(()=>r(null),manual?12000:5000))]))}catch{}
+ if(!manual&&(!$('#sh').hidden||!ME||myId()!==me)){BVBUSY='';return}
+ if(!sal){const n=new Date(),doy=Math.floor((Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())-Date.UTC(n.getFullYear(),0,1))/DAY);sal=BVRES[doy%BVRES.length]}
+ const c=bvCont(me),hr=new Date().getHours(),sau=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite',nome=String(meNome()||'').trim().split(/\s+/)[0]||'',pl=(k,a,b)=>k+' '+(k===1?a:b);
+ const par=c.mes?`<p class="bvp">🎉 <b>Parabéns!</b> Você participou de ${c.sem?`<b>${pl(c.sem,'evento','eventos')}</b> nesta semana e `:''}<b>${pl(c.mes,'evento','eventos')}</b> neste mês.</p>`:'';
+ sheet(`<div class="shh"><h3>${sau}${nome?', '+esc(nome):''}!</h3><button class="x" data-close aria-label="Fechar">✕</button></div>
+ <p class="sub">Que bom ter você aqui na Agenda da Pastoral Familiar.</p>
+ <figure class="bvq"><blockquote>${esc(sal[0])}</blockquote><figcaption>${esc(sal[1])}</figcaption></figure>${par}
+ <div class="bvf"><label class="bvo"><input type="checkbox" id="bv-off"${LS.get(ko,0)?' checked':''}> Não mostrar mais ao entrar</label><span style="flex:1"></span><button class="btn pri" data-close>Amém</button></div>`);
+ $('#bv-off').onchange=ev=>{const off=ev.target.checked;LS.set(ko,off?1:0);db.collection('prefs').doc(me).set({bvOff:off},{merge:true}).catch(()=>{})};
+ if(!manual){LS.set(kd,hoje);BVBUSY='';db.collection('prefs').doc(me).set({bv:hoje},{merge:true}).catch(()=>{})}}
 // ===== Resumo do evento (topo da ficha) =====
 // ícone de calendário com o dia e o mês reais (o emoji de calendário comum mostra sempre "17 de julho" e confunde)
 function faltam(t){const dd=Math.round((t-TODAY)/DAY);return dd<0||dd>365?'':` · <b class="evq">${dd===0?'hoje':dd===1?'amanhã':'faltam '+dd+' dias'}</b>`}
