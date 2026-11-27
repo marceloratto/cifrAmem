@@ -1011,17 +1011,16 @@ function openAdmin(){const B=admBadges(),co=isCoordAny(),it=(id,t,d,x='')=>`<but
  ${it('plano','Planejamento anual','Situação da pastoral, agentes por setor e atividades do ano, com datas que vão para o calendário.')}
  ${it('relatorio','Relatórios de acompanhamento','Acompanhamento do período, planejamentos, resultados, agenda, organogramas, presença dos agentes, aniversariantes e avaliações — com PDF.')}
  ${it('contatos','Contatos dos agentes','Telefone e WhatsApp de cada agente, por paróquia.')}
- ${it('importar','Importar datas','Trazer datas de um documento Word, PDF, foto ou arquivo .ics.')}</div>`:''}
+ ${it('importar','Importar datas','Trazer datas de um documento Word, PDF, foto ou arquivo .ics.')}
+ ${it('agendas','Agendas e cores','Criar e editar agendas e as cores de cada uma.')}
+ ${it('atividades','Lista de atividades','Setores e atividades da Pastoral Familiar usados no relatório e nos eventos.')}</div>`:''}
  ${B.adm?`<p class="sub">Só para administradores</p><div class="mis">
  ${it('pessoas','Cadastro de agentes e pedidos de acesso','Aprovar pedidos, cadastrar e editar agentes, papéis, funções e o que cada um vê.',B.ped?nv(B.ped+' pedido'+(B.ped>1?'s':'')):'')}
  ${it('admrel','Conferência de cadastros','Quem está com cadastro incompleto ou sem aceitar os termos, e quem está participando dos eventos.',B.inc?nv(B.inc+' incompleto'+(B.inc>1?'s':'')):'')}
  ${it('backup','Backup de tudo','Baixar (ou restaurar) uma cópia de segurança completa: eventos, cadastros, avisos, atas, fotos, planejamentos e configurações.'+(LS.get('agp-bk-ult','')?' Último: '+new Date(LS.get('agp-bk-ult','')).toLocaleDateString('pt-BR')+'.':' Ainda não feito neste aparelho.'))}
- ${it('agendas','Agendas e cores','Criar e editar agendas e as cores de cada uma.')}
  ${it('apagados','Eventos apagados','Ver quem apagou e quando, e desfazer.')}
- ${it('modelos','Modelos de arte para divulgação','As artes do botão Divulgar dos eventos: nome, desenho, cor e frase.')}
  ${it('simbolos','Símbolos das paróquias','O símbolo de cada paróquia da diocese, usado nas artes e nos relatórios.')}
  ${it('wpp','Avisos no WhatsApp','Escolher quem recebe mensagem no WhatsApp e sobre o quê: pedidos de acesso, inscrições, eventos, avisos, orações.')}
- ${it('atividades','Lista de atividades','Setores e atividades da Pastoral Familiar usados no relatório e nos eventos.')}
  ${it('usoag','Uso da agenda','Quais funções as pessoas usam, por mês e por perfil — para decidir o que simplificar.')}</div>`:''}
  ${!B.adm&&!co?'<p class="fine">Esta área é para coordenadores e administradores.</p>':''}`);
  document.querySelectorAll('[data-pdc]').forEach(b=>b.onclick=()=>pendGo(PC[+b.dataset.pdc]))}
@@ -1712,9 +1711,9 @@ function openMenu(){const it=(id,t,d,x='')=>`<button class="mi wi" data-mi="${id
  ${lg?it('album','Álbum do ano','Fotos e resultados dos eventos do ano num PDF.'):''}
  ${lg?it('perto','Perto de Nós','O que os nossos agentes fazem e vendem.'):''}
  ${lg||mode!=='fb'?it('org','Organograma','Como a Pastoral Familiar se organiza e quem está em cada função.'):''}
+ ${lg||mode!=='fb'?it('modelos','Modelos de arte para divulgação','As artes do botão Divulgar dos eventos.'):''}
  <a class="mi wi" href="${TERCO}" target="_blank" rel="noopener" data-uso="terco">${micon('terco')}<b>Rezar o terço</b><small>Santo Rosário em português, com os mistérios do dia.</small></a>`)}
  ${sec('Agenda',`
- ${it('agendas','Agendas e cores','Escolher quais grupos aparecem no calendário.')}
  ${it('exportar','Imprimir ou baixar (PDF)','Calendário do mês ou do ano em PDF, HTML ou para a agenda do celular.')}
  ${it('selecionar','Mandar eventos para o celular','Marcar eventos e colocar na agenda do seu celular.')}
  ${lg?it('alertas','Alertas no celular',notifOk()?'Ligados. Toque para ver ou desligar.':'Ser avisado de avisos, enquetes e eventos de amanhã.'):''}
@@ -1724,17 +1723,17 @@ function openMenu(){const it=(id,t,d,x='')=>`<button class="mi wi" data-mi="${id
  ${it('plano','Planejamento anual','Atividades do ano, agentes e datas.')}
  ${it('relatorio','Relatórios de acompanhamento','Resultados, presença, agenda, aniversariantes e avaliações, com PDF.')}
  ${it('contatos','Contatos dos agentes','Telefone e WhatsApp de cada agente.')}
- ${it('importar','Importar datas','Trazer datas de um Word, PDF, foto ou .ics.')}`,' mbsc'):''}
+ ${it('importar','Importar datas','Trazer datas de um Word, PDF, foto ou .ics.')}
+ ${it('agendas','Agendas e cores','Criar e editar agendas e as cores de cada uma.')}
+ ${it('atividades','Lista de atividades','Setores e atividades da Pastoral Familiar.')}`,' mbsc'):''}
  ${adm?sec('Só para administradores',`
  ${it('pessoas','Cadastro de agentes e pedidos de acesso','Aprovar pedidos, cadastrar e editar agentes.')}
  ${it('admrel','Conferência de cadastros','Quem está com cadastro incompleto.')}
  ${it('backup','Backup de tudo','Cópia de segurança completa da agenda.')}
  ${it('apagados','Eventos apagados','Ver quem apagou e quando, e desfazer.')}
  ${it('usoag','Uso da agenda','Quais funções são usadas, por mês.')}
- ${it('modelos','Modelos de arte','As artes do botão Divulgar.')}
  ${it('simbolos','Símbolos das paróquias','Usados nas artes e nos relatórios.')}
- ${it('wpp','Avisos no WhatsApp','Quem recebe mensagem no WhatsApp e sobre o quê.')}
- ${it('atividades','Lista de atividades','Setores e atividades da Pastoral Familiar.')}`,' mbsc'):''}
+ ${it('wpp','Avisos no WhatsApp','Quem recebe mensagem no WhatsApp e sobre o quê.')}`,' mbsc'):''}
  ${sec('Ajuda e conta',`
  ${it('ajuda','Como usar a agenda','Explicação passo a passo.')}
  ${it('termos','Termos de uso','Regras da agenda, uso dos dados e autorização de imagem.'+(lg&&!termosOk()?' Falta o seu aceite.':''))}`)}
