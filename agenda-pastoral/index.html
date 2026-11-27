@@ -1402,10 +1402,16 @@ async function plSave(id,p){p.atualizado=new Date().toISOString();if(mode==='fb'
 // Coordenação e assessor eclesiástico segundo o organograma do local (com telefone do cadastro dos agentes)
 async function ogLider(E){const out={coord:'',assessor:'',contato:''};try{const O=await ogLoad(ogIdOf(E)),L=(O&&O.cargos&&O.cargos.comissao)||[];if(!L.length)return out;
  const fx=p=>String(p.f||''),eCoord=p=>/coordena/i.test(fx(p))&&!/vice|setor/i.test(fx(p)),eAss=p=>/assessor|assistente|p[áa]roco|padre/i.test(fx(p)),eCasal=p=>/casal/i.test(fx(p));
- const co=L.find(eCoord)||L.find(p=>eCasal(p)&&!/vice|setor|secret|financ/i.test(fx(p))),as=L.find(p=>/assessor|assistente/i.test(fx(p)))||L.find(eAss);
- if(co)out.coord=co.nome||'';if(as)out.assessor=as.nome||'';
- const tel=id=>{const m=id&&MEMB.find(x=>x.id===id);return m&&m.telefone?{n:String(m.nome||'').trim().split(/\s+/)[0],t:String(m.telefone).trim()}:null};
- if(co){const T=[tel(co.id),tel(co.id2)].filter(Boolean);out.contato=T.length>1&&T[0].t!==T[1].t?T.map(x=>x.n+': '+x.t).join(' · '):T.length?T[0].t:''}}catch{}return out}
+ let CO=L.filter(eCoord);if(!CO.length)CO=L.filter(p=>eCasal(p)&&!/vice|setor|secret|financ/i.test(fx(p))).slice(0,1);
+ const as=L.find(p=>/assessor|assistente/i.test(fx(p)))||L.find(eAss);if(as)out.assessor=as.nome||'';
+ const mem=id=>id?MEMB.find(x=>x.id===id):null,P=[],vis=new Set();
+ // junta o casal: cada pessoa do quadro + o cônjuge ligado no cadastro, sem repetir
+ CO.forEach(p=>{const ids=[p.id,p.id2].filter(Boolean);if(ids.some(i=>vis.has(i)))return;ids.forEach(i=>vis.add(i));const m=mem(p.id);let nomes=String(p.nome||'').trim(),tels=ids.map(mem);
+  if(!/\s(e|&)\s/i.test(nomes)&&!p.id2&&m){const c=mem(m.conjuge);if(c){nomes+=' e '+(c.nome||c.id);vis.add(c.id);tels.push(c)}else if(m.conjugeNome)nomes+=' e '+m.conjugeNome}
+  P.push({nomes,tels:tels.filter(Boolean)})});
+ out.coord=P.map(x=>x.nomes).filter(Boolean).join(' e ');
+ const T=[];P.forEach(x=>x.tels.forEach(m=>{if(m&&m.telefone)T.push({n:String(m.nome||'').trim().split(/\s+/)[0],t:String(m.telefone).trim()})}));
+ const U=T.filter((x,i)=>T.findIndex(y=>y.t===x.t)===i);out.contato=U.length>1?U.map(x=>x.n+': '+x.t).join(' · '):U.length?U[0].t:''}catch{}return out}
 document.addEventListener('click',async ev=>{const b=ev.target.closest('#pl-og');if(!b||!PLAN)return;const st=$('#pl-stt');b.disabled=true;if(st)st.textContent='Buscando no organograma…';const o=await ogLider(PLAN.esc);b.disabled=false;
  if(!o.coord&&!o.assessor){if(st)st.textContent='O organograma deste local ainda não tem o casal coordenador nem o assessor na Comissão. Preencha o organograma (Mais › Organograma) ou digite aqui.';return}
  if(o.coord)$('#pl-coord').value=o.coord;if(o.assessor)$('#pl-ass').value=o.assessor;if(o.contato&&$('#pl-cont'))$('#pl-cont').value=o.contato;if(st)st.textContent='Preenchido com o que está no organograma'+(o.contato?'':' (sem telefone: confira o cadastro do agente)')+'. Confira e salve.'});
@@ -1732,7 +1738,7 @@ document.addEventListener('focusin',function(e){var t=e.target;if(t&&t.tagName==
 document.addEventListener('input',function(e){var t=e.target;if(t&&t.tagName==='INPUT'&&t.dataset.dl)show(t)});
 document.addEventListener('focusout',function(e){if(e.target&&e.target.dataset&&e.target.dataset.dl)setTimeout(hide,120)});
 document.addEventListener('scroll',function(){if(CUR)show(CUR)},true)})();
-var APPV='152 · 27/11/2026 17:35';(function(){const d=document.createElement('div');d.className='vtag';d.textContent='v'+String(APPV).split(' ')[0];d.setAttribute('aria-hidden','true');document.body.appendChild(d)})();
+var APPV='153 · 27/11/2026 18:11';(function(){const d=document.createElement('div');d.className='vtag';d.textContent='v'+String(APPV).split(' ')[0];d.setAttribute('aria-hidden','true');document.body.appendChild(d)})();
 function vLine(){return`<div class="ver"><span>Versão ${esc(APPV)}</span><button class="btn sm" id="vupd">Buscar atualização</button></div>`}
 document.addEventListener('click',async ev=>{if(!ev.target.closest('#vupd'))return;toast('Buscando a versão mais nova…');try{const r=await navigator.serviceWorker?.getRegistration?.();if(r){await r.update();const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('agenda-pastoral-')).map(k=>caches.delete(k)))}}catch{}setTimeout(()=>location.reload(),600)});
 var THN={auto:'Automático',light:'Claro',dark:'Escuro'},THI={auto:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>',light:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',dark:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'};
