@@ -8,6 +8,51 @@
 ],
 "itens": [
 {
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Paróquia São Sebastião de Piabetá celebra 40 anos com missa presidida por Dom Joel",
+"link": "https://diocesepetropolis.com.br/paroquia-sao-sebastiao-de-piabeta-celebra-40-anos-com-missa-presidida-por-dom-joel/",
+"data": "2026-11-26T19:20:31+00:00",
+"resumo": "A Paróquia São Sebastião de Piabetá celebrou, no dia 21 de novembro, 40 anos de criação. A comemoração foi marcada por uma missa presidida pelo bispo diocesano, Dom Joel Portella…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/40-anos-da-paroquia-sao-sebastiao-piabeta-57.webp"
+},
+{
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Dom Joel ministra Crisma a 178 jovens e adultos em Teresópolis",
+"link": "https://diocesepetropolis.com.br/dom-joel-ministra-crisma-a-178-jovens-e-adultos-em-teresopolis/",
+"data": "2026-11-26T18:59:51+00:00",
+"resumo": "Na noite de 20 de novembro, o bispo diocesano, Dom Joel Portella Amado, ministrou o sacramento da Crisma a 178 jovens e adultos na Paróquia Santa Teresa, em Teresópolis. Ao…",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Crisma-Paroquia-Santa-Teresa-Teresopolis-73.webp"
+},
+{
+"fonte": "CNBB",
+"nivel": "nacional",
+"titulo": "Grupo de Assessores da CNBB avalia caminhada das Comissões Episcopais e perspectivas para o próximo quadriênio",
+"link": "https://www.cnbb.org.br/grupo-de-assessores-da-cnbb-avalia-caminhada-das-comissoes-episcopais-e-perspectivas-para-o-proximo-quadrienio/",
+"data": "2026-11-26T18:04:16+00:00",
+"resumo": "A apresentação dos relatórios quadrienais proporcionou um espaço de escuta, diálogo e partilha de experiências entre os assessores das Comissões Episcopais. A iniciativa buscou…",
+"img": "http://www.cnbb.org.br/wp-content/uploads/2026/11/IMG_9249-scaled.jpg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Alerta de meningite em Gaza, Pezzati: catástrofe sanitária e humana",
+"link": "https://www.vaticannews.va/pt/mundo/news/2026-11/gaza-palestinos-meningite-epidemia-ataques-israel-denuncia-oxfam.html",
+"data": "2026-11-26T17:10:00+00:00",
+"resumo": "Mais um dia de ataques na Faixa de Gaza com vítimas civis, enquanto aumentam as epidemias devido à contaminação da água, a um sistema de esgoto à beira do colapso e a 61 milhões…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/afp/2026/11/25/12/1795605841623.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
+"fonte": "Vatican News",
+"nivel": "igreja",
+"titulo": "Em Aguarico, uma Igreja que defende a vida na Amazônia",
+"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/vicariato-aguarico-amazonia-equatoriana-ecologia-integral.html",
+"data": "2026-11-26T15:29:00+00:00",
+"resumo": "O Vicariato Apostólico de Aguarico, na Amazônia equatoriana, acompanha as nacionalidades indígenas kichwa, shuar e huaorani em um território ameaçado pela exploração petrolífera,…",
+"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2026/novembre/24/5-a.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
+},
+{
 "fonte": "Vatican News",
 "nivel": "igreja",
 "titulo": "Pontifícia Academia de Teologia, apelo por proteção dos jovens e justiça ambiental",
@@ -143,24 +188,6 @@
 "img": ""
 },
 {
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Cultura da Vida: 45 anos de Familiaris Consortio, o serviço à vida na vocação familiar",
-"link": "https://www.vaticannews.va/pt/igreja/news/2026-11/cultura-vida-45-anos-familiaris-consortio.html",
-"data": "2026-11-26T12:02:00+00:00",
-"resumo": "Cultura da Vida é um espaço de aprofundamento de temas relacionados à dignidade da vida humana e à missão da família como guardiã da vida com Marlon Derosa e sua esposa Ana…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/multimedia/2019/03/14/baby-2868116_1920.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
-"fonte": "Vatican News",
-"nivel": "igreja",
-"titulo": "Papa aos religiosos: é preciso ouvir muito, ter paciência e renovar a fé",
-"link": "https://www.vaticannews.va/pt/papa/news/2026-11/papa-leao-xiv-dialogo-superiores-superioras-uisg-usg.html",
-"data": "2026-11-26T10:55:27+00:00",
-"resumo": "O último compromisso do Santo Padre esta quinta-feira foi realizado na Sala Nova do Sínodo com os Superiores e as Superioras Gerais. O encontro foi em forma de diálogo, com Leão…",
-"img": "https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/2026/11/26/2026-11-26-partecipanti-all-assemblea-congiunta-dell-unione-supe/1795687398079.JPG/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg"
-},
-{
 "fonte": "Diocese de Petrópolis",
 "nivel": "local",
 "titulo": "Os Papas diante das Ideologias Modernas (II): Pio X, Le Sillon e os Limites da Democracia – Pe. Anderson Alves",
@@ -231,15 +258,6 @@
 "data": "2026-11-25T13:00:15+00:00",
 "resumo": "",
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/ATOS-DA-CHANCELARIA-31-2026-scaled.webp"
-},
-{
-"fonte": "CNBB",
-"nivel": "nacional",
-"titulo": "Tempo do Advento: para a anestesia da alma, o despertar do Evangelho",
-"link": "https://www.cnbb.org.br/tempo-do-advento-para-a-anestesia-da-alma-o-despertar-do-evangelho/",
-"data": "2026-11-25T12:50:16+00:00",
-"resumo": "Dom Antônio Carlos Altieri Arcebispo Emérito de Passo Fundo (RS) Queridos irmãos e irmãs, estamos no I Domingo do Advento, momento em que, como Igreja, abrimos solenemente o Ano…",
-"img": ""
 },
 {
 "fonte": "Diocese de Petrópolis",
@@ -348,24 +366,6 @@
 "data": "2026-11-20T02:16:20+00:00",
 "resumo": "O Conselho Nacional do Laicato do Brasil (CNLB) disponibilizou uma cartilha de preparação para o Dia Nacional dos Cristãos Leigos e Leigas 2026, que será celebrado no próximo…",
 "img": ""
-},
-{
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Caminhada em Defesa da Vida reúne fiéis em testemunho de fé e esperança em Petrópolis",
-"link": "https://diocesepetropolis.com.br/caminhada-em-defesa-da-vida-reune-fieis-em-testemunho-de-fe-e-esperanca-em-petropolis/",
-"data": "2026-11-19T17:47:53+00:00",
-"resumo": "Com o tema “Que sejamos luzeiros em meio às trevas do mundo que deseja matar a vida humana”, no dia 14 de novembro, aconteceu a Caminhada em Defesa da Vida em Petrópolis, saindo…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Caminhada-em-defesa-da-vida-2026-36.webp"
-},
-{
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Paróquia Santo Antônio e Santo Agostinho recebe exposição sobre São Francisco de Assis",
-"link": "https://diocesepetropolis.com.br/paroquia-santo-antonio-e-santo-agostinho-recebe-exposicao-sobre-sao-francisco-de-assis/",
-"data": "2026-11-19T16:35:19+00:00",
-"resumo": "A Paróquia Santo Antônio e Santo Agostinho, em Nogueira, Petrópolis, recebe a exposição “São Francisco de Assis”, em celebração ao Jubileu Franciscano, que marca os 800 anos da…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/exposicao-sao-francisco-paroquia-de-nogueira-3.webp"
 },
 {
 "fonte": "Pastoral Familiar – Vida e Família",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-26T15:29+00:00"
+"atualizado": "2026-11-27T00:41+00:00"
 }
