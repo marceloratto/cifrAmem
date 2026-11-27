@@ -247,11 +247,17 @@ service cloud.firestore {
         && id == request.resource.data.enq + '~' + email() && request.resource.data.opcao is int;
       allow delete: if (dono() || membro()) && resource.data.uid == email();
     }
+    // lixeira de eventos: qualquer membro deposita o que apagou (registrando quem), só administrador vê, desfaz e esvazia
+    match /apagados/{id} {
+      allow read, update, delete: if admin();
+      allow create: if membro() && request.resource.data.apagadoPor == email();
+    }
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       // só quem criou o evento (ou um administrador) pode alterar ou excluir
+      // (o administrador também recria um evento apagado, mantendo o criador original)
       allow create: if eventoValido() && podeAgenda(request.resource.data.ag)
-        && request.resource.data.get('autor','') == email();
+        && (request.resource.data.get('autor','') == email() || admin());
       allow update: if eventoValido() && podeAgenda(request.resource.data.ag)
         && request.resource.data.get('autor','') == resource.data.get('autor','')
         && (admin() || (podeAgenda(resource.data.ag) && resource.data.get('autor','') == email()));
