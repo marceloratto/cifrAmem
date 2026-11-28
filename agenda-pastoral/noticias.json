@@ -8,6 +8,24 @@
 ],
 "itens": [
 {
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Comissão Diocesana em Defesa da Vida divulga nota sobre bebê encontrado em Teresópolis",
+"link": "https://diocesepetropolis.com.br/comissao-diocesana-em-defesa-da-vida-publica-nota-sobre-bebe-encontrado-em-teresopolis/",
+"data": "2026-11-27T22:25:32+00:00",
+"resumo": "",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/storage_emulated_0_Android_data_com.adobe_.reader_files_Pictures_Adobe-Acrobat-Exports_Nota-bebe-encontrado-em-Tere_0.jpg"
+},
+{
+"fonte": "Pastoral Familiar – Vida e Família",
+"nivel": "nacional",
+"titulo": "São Mateus realiza Encontro de Aprofundamento do Setor Casos Especiais",
+"link": "https://vidaefamilia.org.br/casos-especiais-sao-mateus/",
+"data": "2026-11-27T19:31:50+00:00",
+"resumo": "Nos dias 14 e 15 de novembro, o Centro Diocesano de São Mateus (CEDI) acolheu o Encontro de Aprofundamento do Setor Casos Especiais da Pastoral Familiar, reunindo agentes…",
+"img": ""
+},
+{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Papa Leão XIV: preparação dos noivos é prioridade pastoral",
@@ -224,6 +242,15 @@
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Crisma-Catedral-de-Petropolis-8.webp"
 },
 {
+"fonte": "Diocese de Petrópolis",
+"nivel": "local",
+"titulo": "Atos da Chancelaria: Nomeação de Vigário Paroquial",
+"link": "https://diocesepetropolis.com.br/atos-da-chancelaria-nomeacao-de-vigario-paroquial-2/",
+"data": "2026-11-27T11:00:56+00:00",
+"resumo": "",
+"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/ATOS-DA-CHANCELARIA-32-2026.webp"
+},
+{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Participe da Campanha “Minha Família Acolhe o Menino Jesus”",
@@ -314,15 +341,6 @@
 "img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/ATOS-DA-CHANCELARIA-31-2026-scaled.webp"
 },
 {
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Marcelo Moura é ordenado diácono permanente em missa foi presidida por Dom Joel",
-"link": "https://diocesepetropolis.com.br/marcelo-moura-e-ordenado-diacono-permanente-em-missa-foi-presidida-por-dom-joel/",
-"data": "2026-11-24T19:48:18+00:00",
-"resumo": "Na celebração da festa da Apresentação da Bem-aventurada Virgem Maria, em 21 de novembro, Marcelo Moura foi ordenado diácono permanente em missa presidida pelo bispo diocesano,…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/Ordenacao-diaconal-permanente-marcelo-moura-236.webp"
-},
-{
 "fonte": "Pastoral Familiar – Vida e Família",
 "nivel": "nacional",
 "titulo": "Participe da Campanha para a Evangelização 2026",
@@ -339,15 +357,6 @@
 "data": "2026-11-24T18:44:39+00:00",
 "resumo": "Cachoeiro de Itapemirim (ES) sediou, nos dias 21 e 22 de novembro, a 3ª Assembleia Regional da Pastoral Familiar do Regional Leste 3 (Espírito Santo) da Conferência Nacional dos…",
 "img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-24-at-10.44.47-2-150x150.jpeg"
-},
-{
-"fonte": "Diocese de Petrópolis",
-"nivel": "local",
-"titulo": "Igreja Santa Teresa, em Teresópolis, é elevada à condição de Basílica Menor",
-"link": "https://diocesepetropolis.com.br/igreja-santa-teresa-em-teresopolis-e-elevada-a-condicao-de-basilica-menor/",
-"data": "2026-11-23T19:45:43+00:00",
-"resumo": "Título reconhece a importância histórica, religiosa e pastoral do templo, que mantém ligação especial com o Vaticano. A comunidade católica de Teresópolis recebeu com alegria a…",
-"img": "https://diocesepetropolis.com.br/wp-content/uploads/2026/11/IMG_6890.webp"
 },
 {
 "fonte": "Pastoral Familiar – Vida e Família",
@@ -393,15 +402,6 @@
 "data": "2026-11-18T19:18:17+00:00",
 "resumo": "Entre os dias 13 a 15 de novembro, em Nova Veneza (SC), aconteceu a formação, reunião e assembleia da Pastoral Familiar do Regional Sul 4, reunindo representantes das três…",
 "img": ""
-},
-{
-"fonte": "Pastoral Familiar – Vida e Família",
-"nivel": "nacional",
-"titulo": "Diocese de Naviraí planeja 2027 em Assembleia Diocesana",
-"link": "https://vidaefamilia.org.br/diocese-de-navirai-planeja-2027-em-assembleia-diocesana/",
-"data": "2026-11-16T22:55:01+00:00",
-"resumo": "Nos dias 14 e 15 de novembro, a Pastoral Familiar da Diocese de Naviraí realizou a 13ª Assembleia Diocesana de Pastoral no Centro Diocesano São Paulo VI, em Naviraí (MS).",
-"img": "https://vidaefamilia.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-16-at-12.16.03-2-150x150.jpeg"
 },
 {
 "fonte": "Regional Leste 1 – CNBB",
@@ -494,5 +494,5 @@
 "img": ""
 }
 ],
-"atualizado": "2026-11-27T19:31+00:00"
+"atualizado": "2026-11-28T02:49+00:00"
 }
