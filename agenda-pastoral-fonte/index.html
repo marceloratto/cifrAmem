@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Agenda Pastoral Familiar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Spectral:wght@500;600&display=swap" rel="stylesheet">
@@ -10,6 +10,7 @@
    PICTURE: o próprio mês: fita da cor litúrgica sob cada dia, pontos coloridos das pastorais
    COLOUR and TYPE: branco ou noite, tinta escura, vinho como acento, cores litúrgicas como fitas; Spectral + Inter
    LAYOUT: barra do mês, faixa do tempo litúrgico, grade; painel do dia ao lado (largo) ou abaixo (celular) */
+:root{--sab:max(env(safe-area-inset-bottom),var(--navx,0px))}:root.navx{--navx:52px}body{padding-top:env(safe-area-inset-top)}
 :root{color-scheme:light;--bg:#fff;--ink:#1b1a17;--mut:#6c6860;--line:#e9e5dd;--card:#f8f6f1;--acc:#8a1c3b;--onacc:#fff;--lw:#e6d6a3;--lv:#6a3fa3;--lg:#2e7a3c;--lr:#c0392b;--lp:#e38aae;--warn:#8a5a00}
 :root[data-mode=dark]{color-scheme:dark;--bg:#111113;--ink:#ecebe7;--mut:#a29e96;--line:#2a2a2e;--card:#1a1a1d;--acc:#e8869f;--onacc:#1a0b10;--lw:#cdb97a;--lv:#9b78d0;--lg:#5fae6b;--lr:#e0675a;--lp:#e9a0bf;--warn:#e6c36a}
 
@@ -92,13 +93,13 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 .ld{border-top:1px solid var(--line);padding:.8rem 0;display:grid;gap:.5rem}
 .ld h3{margin:0}.ld h3 button{border:0;background:none;padding:0;font:600 1.1rem Spectral,Georgia,serif;min-height:32px}.ld h3 button::first-letter{text-transform:uppercase}
 .ld .lit{margin:0}
-#pbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--ink);color:var(--bg);padding:.6rem max(4vw,12px) calc(.6rem + env(safe-area-inset-bottom))}
+#pbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--ink);color:var(--bg);padding:.6rem max(4vw,12px) calc(.6rem + var(--sab))}
 #pbar>div{max-width:1240px;margin:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 #pbar #pn{flex:1;font-weight:600}
 #pbar .btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}#pbar .btn.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
 #sh{position:fixed;inset:0;z-index:20;background:rgba(10,8,6,.45);display:flex;align-items:flex-end;justify-content:center}
 #sh[hidden]{display:none}
-.sp{background:var(--bg);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:1rem 1.1rem calc(1.2rem + env(safe-area-inset-bottom));display:grid;gap:.75rem;animation:up .22s ease-out}
+.sp{background:var(--bg);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:1rem 1.1rem calc(1.2rem + var(--sab));display:grid;gap:.75rem;animation:up .22s ease-out}
 @media(min-width:700px){#sh{align-items:center}.sp{border-radius:20px}}
 @keyframes up{from{transform:translateY(24px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.sp{animation:none}}
@@ -155,7 +156,7 @@ main{max-width:1240px;margin:auto;padding:1rem max(4vw,12px) 6rem}
 .mrow .vw{order:5}
 @media(max-width:759px){.top{position:static}.mrow .vw{display:grid !important}.mrow .btn.ic{width:44px}.mth{flex:0 1 auto}#mt{font-size:clamp(1.25rem,5.6vw,1.6rem);padding:.15rem .2rem}#today{margin-left:auto}#day .dh [data-new]{display:none}.brand img{width:46px !important}.brand>span>span{font-size:.95rem !important}.mrow .vw{flex:1 1 100%;display:grid;grid-template-columns:1fr 1fr 1fr}.mrow .vw button{min-height:44px;font-size:.95rem}
  #rib{padding:.45rem max(4vw,12px)}#rib b{font-size:1rem}#rib span{font-size:.8rem}#note.ok{display:none}main{padding-bottom:7rem}
- .fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:15;min-height:56px;padding:0 1.3rem;border-radius:28px;border:0;background:var(--acc);color:var(--onacc);font:700 1.05rem Inter;box-shadow:0 6px 18px rgba(0,0,0,.25)}}
+ .fab{position:fixed;right:16px;bottom:calc(18px + var(--sab));z-index:15;min-height:56px;padding:0 1.3rem;border-radius:28px;border:0;background:var(--acc);color:var(--onacc);font:700 1.05rem Inter;box-shadow:0 6px 18px rgba(0,0,0,.25)}}
 @media(min-width:760px){.hact{align-items:center}#uchip:not(:empty){display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--mut);margin-right:.4rem;white-space:nowrap}.bar{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"brand mrow hact" "tb tb tb"}.mth{flex:0 1 auto;padding-left:.8rem;border-left:1px solid var(--line)}.mrow{flex-wrap:nowrap}.hb .lbl{display:none}.seg button{white-space:nowrap}.tb{grid-area:tb;display:flex;gap:.4rem;flex-wrap:wrap}#uchip{display:none}@media(min-width:760px){.mth{margin-right:.5rem}}@media(max-width:1150px){#uchip span{display:none}}.tb [data-new]{margin-left:auto}.mrow .vw{display:none}.mth{flex-shrink:0}#note.ok{display:none}.fab{display:none}}
 .mis{display:grid;gap:.45rem}.mi{display:grid;gap:.15rem;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:.75rem .9rem;min-height:56px}.mi b{font-size:1.02rem}.mi small{color:var(--mut);font-size:.88rem}
 .bschips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.3rem}.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:.35rem .7rem;font:inherit;font-size:.88rem;cursor:pointer;min-height:36px}.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -282,16 +283,16 @@ body.wide main,body.wide .bar,body.wide #pbar>div{max-width:none}body.wide main{
 .mnew{display:none !important}
 body.v-inicio .mrow,body.v-feed .mrow{display:none !important}
 body.v-feed .fab,body.v-inicio .fab{display:none !important}
-#nav{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;gap:2px;background:var(--card);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,.07)}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;gap:2px;background:var(--card);border-top:1px solid var(--line);padding:4px 4px calc(4px + var(--sab));box-shadow:0 -2px 12px rgba(0,0,0,.07)}
 #nav button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:none;color:var(--mut);font:600 .72rem Inter,system-ui,sans-serif;padding:6px 2px;border-radius:12px;min-height:56px;cursor:pointer;position:relative;white-space:nowrap}
 #nav button svg{width:24px;height:24px;flex:none}
 #nav button[aria-current=page]{color:var(--acc);background:color-mix(in srgb,var(--acc) 11%,transparent)}
 #nav button:focus-visible{outline:2px solid var(--acc)}
 #nav .nb{position:absolute;top:4px;left:calc(50% + 5px);min-width:18px;height:18px;border-radius:9px;background:var(--acc);color:var(--onacc);font-size:.68rem;line-height:18px;text-align:center;padding:0 4px}
-body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
-.fab{bottom:calc(80px + env(safe-area-inset-bottom)) !important}
-#toast{bottom:calc(86px + env(safe-area-inset-bottom)) !important}
-#pbar{bottom:calc(66px + env(safe-area-inset-bottom)) !important;z-index:16}
+body{padding-bottom:calc(70px + var(--sab))}
+.fab{bottom:calc(80px + var(--sab)) !important}
+#toast{bottom:calc(86px + var(--sab)) !important}
+#pbar{bottom:calc(66px + var(--sab)) !important;z-index:16}
 @media(min-width:760px){body{padding-bottom:0;padding-left:88px}
  #nav{top:0;bottom:0;right:auto;width:88px;flex-direction:column;justify-content:flex-start;gap:6px;border-top:0;border-right:1px solid var(--line);padding:14px 6px;box-shadow:none}
  #nav button{flex:0 0 auto;min-height:66px;font-size:.76rem;white-space:normal;text-align:center;line-height:1.15}
@@ -1769,6 +1770,7 @@ function openMenu(){const it=(id,t,d,x='')=>`<button class="mi wi" data-mi="${id
  ${it('ajuda','Como usar a agenda','Explicação passo a passo.')}
  ${it('termos','Termos de uso','Regras da agenda, uso dos dados e autorização de imagem.'+(lg&&!termosOk()?' Falta o seu aceite.':''))}`)}
  <div class="msec mapar"><p class="sub">Tamanho da letra</p><div class="fsr"><button class="btn" data-fs="-1" aria-label="Diminuir letra">A−</button><span id="mfsv">${Math.round(fs/16*100)}%</span><button class="btn" data-fs="1" aria-label="Aumentar letra">A+</button></div>
+ <p class="sub">Botões de baixo</p><div class="seg"><button data-navx="0" aria-pressed="${!document.documentElement.classList.contains('navx')}">Normal</button><button data-navx="1" aria-pressed="${document.documentElement.classList.contains('navx')}">Subir (a barra do celular cobre)</button></div>
  <p class="sub">Tema</p><div class="seg">${Object.entries(THN).map(([k,v])=>`<button data-th="${k}" aria-pressed="${k===theme}">${v}</button>`).join('')}</div>
  ${innerWidth>=900?`<p class="sub">Largura no computador</p><div class="mis">${it('largura',LS.get('agp-wide',1)?'Voltar à largura normal':'Usar a tela toda','Para mudar o tamanho do calendário e do dia, arraste a barrinha entre eles.')}</div>`:''}
  ${vLine()}
@@ -2793,6 +2795,13 @@ function bvFesta(nome){const m=ME||{},h=hojeIso(),d=new Date(parse(h)),k=p2(d.ge
  if(anivK(m.casamento)===k){const a=anivAno(m.casamento),n=a?Y-a:0,b=n>0?BODAS[n]:'';L.push(box('🎁','Feliz aniversário de casamento!',(n>0?`Hoje vocês completam <b>${n} ${n===1?'ano':'anos'} de casados</b>${b?` — Bodas de ${b}`:''}. `:'Hoje é um dia muito especial para vocês. ')+'Obrigado pelo testemunho de amor e de fidelidade que vocês dão à nossa Pastoral e à Igreja. Que Deus, que uniu vocês, continue renovando cada dia o amor, a alegria e a união da família de vocês. Recebam o nosso abraço carinhoso!'))}
  if(anivK(m.ordenacao)===k){const rel=m.vocacao==='religioso',a=anivAno(m.ordenacao),n=a?Y-a:0;L.push(box('🎁',rel?'Feliz aniversário de profissão religiosa!':'Feliz aniversário de ordenação!',(n>0?`Hoje você completa <b>${n} ${n===1?'ano':'anos'} de ${rel?'profissão religiosa':'ordenação'}</b>${JUBILEU[n]?` — ${JUBILEU[n]}`:''}. `:'Hoje é um dia de ação de graças. ')+'Obrigado pelo seu “sim” generoso e pelo cuidado com as famílias e com o povo de Deus. Que o Senhor continue conduzindo e fortalecendo o seu ministério com muita paz e alegria. Receba um abraço carinhoso de toda a Pastoral Familiar!'))}
  return L.join('')}
+// ===== barra do celular cobrindo os botões de baixo (Android de ponta a ponta) =====
+function navxAuto(){const v=LS.get('agp-navx',null);if(v!==null)return!!v;
+ try{const p=document.createElement('div');p.style.cssText='position:fixed;bottom:0;height:env(safe-area-inset-bottom);width:1px;visibility:hidden';document.body.append(p);const h=p.offsetHeight;p.remove();if(h>0)return false}catch{}
+ const sa=matchMedia('(display-mode: standalone)').matches,and=/Android/i.test(navigator.userAgent);return sa&&and&&screen.height-innerHeight<8}
+function navxAplica(){document.documentElement.classList.toggle('navx',navxAuto())}
+navxAplica();addEventListener('resize',()=>{if(LS.get('agp-navx',null)===null)navxAplica()});
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-navx]');if(!b)return;LS.set('agp-navx',+b.dataset.navx);navxAplica();document.querySelectorAll('[data-navx]').forEach(x=>x.setAttribute('aria-pressed',x===b));toast(b.dataset.navx==='1'?'Botões de baixo subiram.':'Botões de baixo na posição normal.')});
 // ===== Recados (aviãozinho): coordenadores mandam recados para o seu grupo =====
 var RC=[],RCE=[],rcUn=[],RCTAB='rec';
 const RCREAC=['👍','🙏','❤️'];
