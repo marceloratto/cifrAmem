@@ -252,6 +252,18 @@ service cloud.firestore {
       allow read, update, delete: if admin();
       allow create: if membro() && request.resource.data.apagadoPor == email();
     }
+    // recados (aviãozinho): coordenadores mandam para pessoas escolhidas; só os destinatários leem e reagem
+    match /recados/{id} {
+      allow read: if logado() && (email() in resource.data.dests || resource.data.de == email() || admin());
+      allow create: if (admin() || editor()) && request.resource.data.de == email()
+        && request.resource.data.dests is list && request.resource.data.dests.size() >= 1 && request.resource.data.dests.size() <= 500
+        && request.resource.data.texto is string && request.resource.data.texto.size() <= 1000;
+      // cada destinatário só põe ou tira a PRÓPRIA reação
+      allow update: if logado() && email() in resource.data.dests
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reac'])
+        && request.resource.data.reac.diff(resource.data.get('reac', {})).affectedKeys().hasOnly([email()]);
+      allow delete: if admin() || (logado() && resource.data.de == email());
+    }
     match /events/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       // só quem criou o evento (ou um administrador) pode alterar ou excluir
