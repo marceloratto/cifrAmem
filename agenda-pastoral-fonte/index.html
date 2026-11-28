@@ -2805,7 +2805,7 @@ function rcItem(r,env){const me=myId(),re=r.reac||{},cnt={};Object.values(re).fo
  ${r.texto?`<p class="rct">${linkify(r.texto)}</p>`:''}${rcLinkBtn(r.link)}${rcAnexo(r.anexo)}
  <footer>${RCREAC.map(e=>`<button type="button" class="btn sm${mine===e?' on':''}" data-rcr="${r.id}" data-e="${e}" ${env?'disabled':''} aria-pressed="${mine===e}">${e}${cnt[e]?' '+cnt[e]:''}</button>`).join('')}</footer>${quem}</article>`}
 function rcLista(){const env=RCTAB==='env',L=env?RCE:RC;
- if(!L.length)return`<p class="fine" style="padding:1rem 0;text-align:center">${env?'Você ainda não enviou recados.':'Nenhum recado por aqui ainda.<br>Quando a sua coordenação mandar um recado, ele aparece aqui.'}</p>`;
+ if(!L.length)return`<p class="fine" style="padding:1rem 0;text-align:center">${env?'Você ainda não enviou recados.':'Nenhum recado por aqui ainda.<br>Quando a sua coordenação mandar um recado, ele aparecerá aqui.'}</p>`;
  return L.slice(0,80).map(r=>rcItem(r,env)).join('')}
 function openRecados(tab){if(mode!=='fb'||!ME){sheet(`<div class="shh"><h3>Recados</h3><button class="x" data-close aria-label="Fechar">✕</button></div><p>Os recados da coordenação aparecem aqui depois que você entra com a sua conta.</p><div class="act"><span></span><button class="btn pri" data-close>Fechar</button></div>`);return}
  uso('recados');RCTAB=tab||(RCTAB==='env'&&isCoordAny()?'env':'rec');const co=isCoordAny();
