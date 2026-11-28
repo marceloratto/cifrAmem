@@ -235,6 +235,14 @@ service cloud.firestore {
       allow read: if dono() || (membro() && ve(resource.data.ag));
       allow create: if podeAgenda(request.resource.data.ag) && request.resource.data.autor == email();
       allow delete: if admin() || resource.data.autor == email();
+      // PDF guardado em partes
+      match /partes/{n} {
+        allow read: if dono() || (membro() && ve(get(/databases/$(database)/documents/materiais/$(id)).data.ag));
+        allow create: if get(/databases/$(database)/documents/materiais/$(id)).data.autor == email()
+          && request.resource.data.d is bytes && request.resource.data.d.size() <= 950000;
+        allow delete: if admin() || !exists(/databases/$(database)/documents/materiais/$(id))
+          || get(/databases/$(database)/documents/materiais/$(id)).data.autor == email();
+      }
     }
     match /enquetes/{id} {
       allow read: if dono() || (membro() && ve(resource.data.ag));
